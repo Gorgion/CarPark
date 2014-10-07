@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -31,12 +32,15 @@ public class Rental implements Serializable
     private Long id;
     
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date fromDate;
     
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date toDate;
     
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private State rentalState;
     
     @OneToOne(cascade = CascadeType.ALL)
