@@ -10,7 +10,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur scelerisque c
 ![Usecase.jpg](https://bitbucket.org/repo/8op8qp/images/602775678-Usecase.jpg)
 
 ### Class diagram ###
-![classDiagram.jpg](https://bytebucket.org/JayDee8/pa165-car-park/raw/eda31a0b27406dbf0bf36b7b3f3d50412416476a/res/classDiagram.jpg)
+![classDiagram.jpg](https://bytebucket.org/JayDee8/pa165-car-park/raw/bed37110f98790fb58e810be8f364f90df896ff3/res/classDiagram.jpg)
 
 
 ### Team ###
