@@ -7,10 +7,16 @@
 package cz.muni.fi.pa165.carpark;
 
 import cz.muni.fi.pa165.carpark.entity.Car;
+import cz.muni.fi.pa165.carpark.entity.Car.mBrand;
+import cz.muni.fi.pa165.carpark.entity.Car.mColor;
+import cz.muni.fi.pa165.carpark.entity.Car.mEngine;
+import cz.muni.fi.pa165.carpark.entity.Car.mModel;
+import cz.muni.fi.pa165.carpark.entity.Car.mType;
 import cz.muni.fi.pa165.carpark.entity.Rental;
 import cz.muni.fi.pa165.carpark.entity.Rental.State;
 import cz.muni.fi.pa165.carpark.entity.User;
 import cz.muni.fi.pa165.carpark.entity.User.Position;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -40,6 +46,36 @@ public class TestUtils {
         user.setBirthNumber(birthNumber);
 
         return user;
+    }
+    
+    public static Car createCar(mBrand brand, mType type, mColor color, mEngine engine, mModel model, String licencePlate, String VIN, boolean rented, Office office, Rental rent)
+    {
+        Car car = new Car();
+        
+        car.setBrand(brand);
+        car.setColor(color);
+        car.setEngine(engine);
+        car.setLicencePlate(licencePlate);
+        car.setModel(model);
+        car.setOffice(engine);
+        car.setRent(rent);
+        car.setRented(rented);
+        car.setType(type);
+        car.setVIN(VIN);
+        
+        return car;
+    }
+    
+    public static Office createOffice(String address, User manager, Collection<Car> cars, Collection<User> employees)
+    {
+        Office office = new Office();
+        
+        office.setAddress(address);
+        office.setManager(manager);
+        office.setCars(cars);
+        office.setEmployees(employees);
+        
+        return office;
     }
     
     public static Date dateNow(Long more) {
