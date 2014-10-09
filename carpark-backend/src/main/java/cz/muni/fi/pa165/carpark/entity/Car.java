@@ -5,7 +5,19 @@
  */
 package cz.muni.fi.pa165.carpark.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 //import javax.persistence.Entity;
 /**
@@ -13,20 +25,41 @@ import java.util.Objects;
  *
  * @author Jiri Dockal
  */
-//@Entity
-public class Car
+@Entity
+public class Car implements Serializable
 {
-
+    @Id
+    @GeneratedValue
     private Long id;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private mBrand brand;
+    
+    @Enumerated(EnumType.STRING)
     private mType type;
+    
+    @Enumerated(EnumType.STRING)
     private mColor color;
+    
+    @Enumerated(EnumType.STRING)
     private mEngine engine;
+    
+    @Enumerated(EnumType.STRING)
     private mModel model;
+    
+    @Column(nullable = false, unique = true)
     private String licencePlate;
+    
+    @Column(nullable = false, unique = true)
     private String VIN;
+    
     private boolean rented;
+    
+    @ManyToOne(cascade = CascadeType.ALL)
     private Office office;
+    
+    @OneToOne(cascade = CascadeType.ALL)
     private Rental rent;
 
     public mBrand getBrand()
