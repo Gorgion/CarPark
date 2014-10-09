@@ -70,9 +70,9 @@ public class UserDaoImpl implements UserDao {
             entityManager.close();
         } 
         
-        if (user == null) {
-            throw new NullPointerException("User is not found");
-        }
+//        if (user == null) {
+//            throw new IllegalArgumentException("User is not found");
+//        }
         return user;
     }
 
@@ -89,7 +89,9 @@ public class UserDaoImpl implements UserDao {
             entityManager.getTransaction().commit();
         }
         catch(PersistenceException ex){
-            entityManager.getTransaction().rollback();
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
             ex.printStackTrace();
         }
         finally{
@@ -105,8 +107,11 @@ public class UserDaoImpl implements UserDao {
         
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try{
+            User userToDelete = get(user.getId());
+            //User userToDelete = entityManager.find(User.class, user.getId());
+            
             entityManager.getTransaction().begin();
-            entityManager.remove(user);
+            entityManager.remove(userToDelete);
             entityManager.getTransaction().commit();
         }
         catch(PersistenceException ex){
