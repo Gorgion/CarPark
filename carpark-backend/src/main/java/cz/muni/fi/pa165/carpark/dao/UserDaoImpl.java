@@ -128,35 +128,33 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> getAllWithRent() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public List<User> getAllWithRent() {    
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//        
-//        //TODO naive version
-//        Query query = entityManager.createQuery(
-//                "SELECT u FROM User u JOIN u.id rental (SELECT r.user, r.rentalState from Rental r WHERE r.rentalState := state", User.class);
-//                //"SELECT u FROM User u WHERE u.id IN (SELECT r.user, r.rentalState from Rental r WHERE r.rentalState := state", User.class);
-//        //query.setParameter("state", State.APPROVED);
-//        List<User> users = query.getResultList();
-//        entityManager.close();
-//        
-//        return users;
+        //TODO edit naive version
+        Query query = entityManager.createQuery(
+                "SELECT u FROM User u WHERE u.id IN (SELECT DISTINCT r.user FROM Rental r)", User.class);
+                //"SELECT u FROM User u WHERE u.id IN (SELECT r.user, r.rentalState from Rental r WHERE r.rentalState := state", User.class);
+        //query.setParameter("state", State.APPROVED);
+        List<User> users = query.getResultList();
+        entityManager.close();
+        
+        return users;
     }
 
     @Override
     public List<User> getAllWithoutRent() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//        
-//        //TODO state is ok?
-//        Query query = entityManager.createQuery(
-//                "SELECT u FROM User u WHERE u.id IN (SELECT r.user, r.rentalState from Rental r WHERE r.rentalState := state", User.class);
-//        query.setParameter("state", State.APPROVED);
-//        List<User> users = query.getResultList();
-//        entityManager.close();
-//        
-//        return users;
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        
+        //TODO edit naive version
+        Query query = entityManager.createQuery(
+                "SELECT u FROM User u WHERE u.id NOT IN (SELECT DISTINCT r.user FROM Rental r)", User.class);
+                //"SELECT u FROM User u WHERE u.id NOT IN (SELECT r.user, r.rentalState from Rental r WHERE r.rentalState := state", User.class);
+        //query.setParameter("state", State.APPROVED);
+        List<User> users = query.getResultList();
+        entityManager.close();
+        
+        return users;
     }
     
 }
