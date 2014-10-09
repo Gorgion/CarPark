@@ -64,7 +64,7 @@ public class RentalDaoTest {
         //init data for create
         Car car = null; //TODO create car
         Date from = new Date();
-        User user = TestUtils.createUser("Tomáš", "Tester", null, Position.EMPLOYEE, "R1023456");
+        User user = TestUtils.createUser("Tomáš", "Tester", "Polní 25/8a, 755 00 Brno 5", Position.EMPLOYEE, "R1023456");
         Date to = TestUtils.dateNow(3500L);
         State rentalState = State.FINISHED;
         
@@ -99,19 +99,19 @@ public class RentalDaoTest {
         //TODO set car and address instead null 
         Set<Rental> setOfRentals = new HashSet<Rental>();
         setOfRentals.add(TestUtils.createRental(
-                null, State.FINISHED, TestUtils.createUser("Tomáš", "Tester", null, Position.EMPLOYEE, "R1023456"), 
+                null, State.FINISHED, TestUtils.createUser("Tomáš", "Tester", "Polní 25/8a, 755 00 Brno 5", Position.EMPLOYEE, "R1023456"), 
                 new Date(), TestUtils.dateNow(3000L))
         );
         setOfRentals.add(TestUtils.createRental(
-                null, State.NEW, TestUtils.createUser("Pepík", "Tester2", null, Position.ADMIN, "S1013456"), 
+                null, State.NEW, TestUtils.createUser("Pepík", "Tester2", "Světlá 258a, 745 00 Praha 2", Position.ADMIN, "S1013456"), 
                 new Date(), TestUtils.dateNow(2000L))
         );
         setOfRentals.add(TestUtils.createRental(
-                null, State.PENDING, TestUtils.createUser("Mojmír", "Tester3", null, Position.EMPLOYEE, "F1323456"), 
+                null, State.PENDING, TestUtils.createUser("Mojmír", "Tester3", "Temná strana 999, 555 00 Kladno", Position.EMPLOYEE, "F1323456"), 
                 new Date(), TestUtils.dateNow(2850L))
         );
         setOfRentals.add(TestUtils.createRental(
-                null, State.APPROVED, TestUtils.createUser("Kateřina", "Tester4", null, Position.MANAGER, "Z1623456"), 
+                null, State.APPROVED, TestUtils.createUser("Kateřina", "Tester4", "Mincovní 15, 759 10 Brno", Position.MANAGER, "Z1623456"), 
                 new Date(), TestUtils.dateNow(990L))
         );       
         
@@ -134,7 +134,7 @@ public class RentalDaoTest {
         }
         
 
-        User user = TestUtils.createUser("Tomáš", "Tester", null, Position.EMPLOYEE, "R1023456");
+        User user = TestUtils.createUser("Tomáš", "Tester", "Polní 25/8a, 755 00 Brno 5", Position.EMPLOYEE, "R1023456");
         assertNotNull(dao.getAllByUser(user));
         assertEquals(dao.getAll().size(), 0);
         
@@ -156,7 +156,7 @@ public class RentalDaoTest {
                 new Date(), TestUtils.dateNow(3020L))
         );
         
-        User otherUser = TestUtils.createUser("Kateřina", "Tester4", null, Position.MANAGER, "Z1623456");
+        User otherUser = TestUtils.createUser("Kateřina", "Tester4", "Mincovní 15, 759 00 Brno", Position.MANAGER, "Z1623456");
         setOfRentals.add(TestUtils.createRental(
                 null, State.APPROVED, otherUser, 
                 new Date(), TestUtils.dateNow(1000L))
@@ -196,7 +196,7 @@ public class RentalDaoTest {
         //init data for create
         Car car = null; //TODO create car
         Date from = new Date();
-        User user = TestUtils.createUser("Tomáš", "Tester", null, Position.EMPLOYEE, "R1023456");
+        User user = TestUtils.createUser("Tomáš", "Tester", "Polní 25/8a, 755 00 Brno 5", Position.EMPLOYEE, "R1023456");
         Date to = TestUtils.dateNow(3000L);
         State rentalState = State.FINISHED;
         
@@ -230,7 +230,7 @@ public class RentalDaoTest {
         //init data for create
         Car car = null; //TODO create car
         Rental rental = TestUtils.createRental(car, State.FINISHED, 
-                TestUtils.createUser("Tomáš", "Tester", null, Position.EMPLOYEE, "R1023456"), 
+                TestUtils.createUser("Tomáš", "Tester", "Polní 25/8a, 755 00 Brno 5", Position.EMPLOYEE, "R1023456"), 
                 new Date(), TestUtils.dateNow(3000L)
         );
         dao.create(rental);

@@ -6,7 +6,6 @@
 
 package cz.muni.fi.pa165.carpark;
 
-import cz.muni.fi.pa165.carpark.entity.Address;
 import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Rental;
 import cz.muni.fi.pa165.carpark.entity.Rental.State;
@@ -31,7 +30,7 @@ public class TestUtils {
         return rental;
     }
     
-    public static User createUser(String firstName, String LastName, Address address, Position position, String birthNumber) {
+    public static User createUser(String firstName, String LastName, String address, Position position, String birthNumber) {
         User user = new User();
         
         user.setFirstName(firstName);
