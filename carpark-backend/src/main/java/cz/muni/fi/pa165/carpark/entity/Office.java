@@ -4,19 +4,19 @@
  * and open the template in the editor.
  */
 package cz.muni.fi.pa165.carpark.entity;
-import cz.muni.fi.pa165.carpark.entity.User;
-//import cz.muni.fi.pa165.carpark.dao.OfficeDao;
-//import java.util.Collections;
+import java.util.Collection;
 import java.util.Objects;
 /**
  *
- * @author Lorain
+ * @author Karolina Burska
  */
 public class Office {
         private Long iD;
 	private String address;
 	private User manager;
-
+        private Collection employees;
+        private Collection cars;
+        
 	public Long getID() {
 		return this.iD;
 	}
@@ -37,10 +37,38 @@ public class Office {
 		return this.manager;
 	}
 
-	public void setManager(Object user) {
-		throw new UnsupportedOperationException();
+	public void setManager(User manager) {
+            this.manager = manager;
 	}
         
+        /**
+         * @return the empoyees
+         */
+        public Collection getEmployees() {
+            return employees;
+        }
+
+        /**
+         * @param empoyees the empoyees to set
+         */
+        public void setEmployees(Collection empoyees) {
+            this.employees = employees;
+        }
+
+        /**
+         * @return the cars
+         */
+        public Collection getCars() {
+            return cars;
+        }
+
+        /**
+         * @param cars the cars to set
+         */
+        public void setCars(Collection cars) {
+            this.cars = cars;
+        }
+ 
         @Override
         public boolean equals(Object obj)
         {
@@ -70,4 +98,5 @@ public class Office {
             return "Addresss of office with id " + iD + " is: " + address + ". Manager is " + manager;
         }
 
+    
 }

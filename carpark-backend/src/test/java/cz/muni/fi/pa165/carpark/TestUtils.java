@@ -12,6 +12,7 @@ import cz.muni.fi.pa165.carpark.entity.Car.mColor;
 import cz.muni.fi.pa165.carpark.entity.Car.mEngine;
 import cz.muni.fi.pa165.carpark.entity.Car.mModel;
 import cz.muni.fi.pa165.carpark.entity.Car.mType;
+import cz.muni.fi.pa165.carpark.entity.Office;
 import cz.muni.fi.pa165.carpark.entity.Rental;
 import cz.muni.fi.pa165.carpark.entity.Rental.State;
 import cz.muni.fi.pa165.carpark.entity.User;
@@ -57,7 +58,7 @@ public class TestUtils {
         car.setEngine(engine);
         car.setLicencePlate(licencePlate);
         car.setModel(model);
-        car.setOffice(engine);
+        car.setOffice(office);
         car.setRent(rent);
         car.setRented(rented);
         car.setType(type);
