@@ -7,10 +7,13 @@ package cz.muni.fi.pa165.carpark.dao;
 
 import cz.muni.fi.pa165.carpark.entity.Car;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,7 +32,15 @@ public class CarDaoImpl implements CarDao
     @Override
     public void AddCar(Car car)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(car == null)
+            throw new IllegalArgumentException("Car cannot be null!");
+        
+        EntityManager em = emf.createEntityManager();
+        
+        em.getTransaction().begin();
+        em.persist(car);
+        em.getTransaction().commit();
+        em.close();
     }
 
     @Override
@@ -56,34 +67,70 @@ public class CarDaoImpl implements CarDao
     @Override
     public void EditCar(Car car)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(car == null)
+            throw new IllegalArgumentException("Car cannot be null!");
+        
+        EntityManager em = emf.createEntityManager();
+        
+        em.getTransaction().begin();
+        em.persist(car);
+        em.getTransaction().commit();
+        em.close();
     }
 
     @Override
     public void DeleteCar(Car car)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(car == null)
+            throw new IllegalArgumentException("Car cannot be null!");
+        
+        EntityManager em = emf.createEntityManager();
+        
+        em.getTransaction().begin();
+        em.persist(car);
+        em.getTransaction().commit();
+        em.close();
     }
 
     @Override
     public Collection getAllCars()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    {        
+        EntityManager em = emf.createEntityManager();
+        
+        Query query = em.createQuery("SELECT * FROM Cars");
+        List<Car> cars = query.getResultList();
+        
+        em.getTransaction().commit();
+        em.close();
+        
+        return Collections.unmodifiableCollection(cars);
     }
 
     @Override
     public Collection getRentedCars()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        Query query = em.createQuery("SELECT * FROM Cars WHERE Rented = true");
+        List<Car> rentedCars = query.getResultList();
+        
+        em.getTransaction().commit();
+        em.close();
+        
+        return Collections.unmodifiableCollection(rentedCars);
     }
 
     @Override
     public Collection getFreeCars(Date from, Date to)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    private void checkCar(Car car)
-    {
+        EntityManager em = emf.createEntityManager();
+        
+        Query query = em.createQuery("SELECT * FROM Cars WHERE Rented = false");
+        List<Car> freeCars = query.getResultList();
+        
+        em.getTransaction().commit();
+        em.close();
+        
+        return Collections.unmodifiableCollection(freeCars);
     }
 }

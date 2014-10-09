@@ -41,8 +41,7 @@ public class User implements Serializable {
     @Column(nullable = false, unique = true)
     private String birthNumber;
     
-    @OneToOne(cascade = CascadeType.ALL)
-    private Address address;    
+    private String address;    
     
     @Enumerated(EnumType.STRING)
     private Position position;
@@ -104,11 +103,11 @@ public class User implements Serializable {
         this.birthNumber = birthNumber;
     }
 
-    public Address getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 

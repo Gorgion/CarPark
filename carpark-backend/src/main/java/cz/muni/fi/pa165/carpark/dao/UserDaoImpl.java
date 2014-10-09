@@ -33,7 +33,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void add(User user) {
         if (user == null) {
-            throw new IllegalArgumentException("User can not be NULL");
+            throw new NullPointerException("User can not be NULL");
         }
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
@@ -52,7 +52,10 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User get(Long id) {
         if (id == null){
-            throw new IllegalArgumentException("ID can not be NULL");
+            throw new NullPointerException("ID can not be NULL");
+        }
+        if(id < 0) {
+            throw new IllegalArgumentException("ID is less than 0");
         }
         
         User user = null;
@@ -68,7 +71,7 @@ public class UserDaoImpl implements UserDao {
         } 
         
         if (user == null) {
-            throw new IllegalArgumentException("User is not found");
+            throw new NullPointerException("User is not found");
         }
         return user;
     }
@@ -76,7 +79,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void edit(User user) {
         if (user == null) {
-            throw new IllegalArgumentException("User can not be NULL");
+            throw new NullPointerException("User can not be NULL");
         }
         
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -97,7 +100,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void delete(User user) {
         if (user == null) {
-            throw new IllegalArgumentException("User can not be NULL");
+            throw new NullPointerException("User can not be NULL");
         }
         
         EntityManager entityManager = entityManagerFactory.createEntityManager();
