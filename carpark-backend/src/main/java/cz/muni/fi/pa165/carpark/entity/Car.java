@@ -54,6 +54,7 @@ public class Car implements Serializable
     @Column(nullable = false, unique = true)
     private String VIN;
     
+    @Column(nullable = false)
     private boolean rented;
     
     @ManyToOne(cascade = CascadeType.ALL)
