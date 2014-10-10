@@ -1,6 +1,6 @@
-###Final Description ###
+###Final description ###
 
-A company allows a rental of their cars to employees. The company employees can apply for a rental of a car. A manager of the company evaluates the request and allows or cancels the rental. The rental is applied to a given date and can be canceled until is marked as pending (pozn.: nebo spíš approved?). The system offers a list of available cars for rent and also allows it's users to make a reservation of specific car.  
+A company allows a rental of their cars to employees. The company employees can apply for a rental of a car. A manager of the company evaluates the request and allows or cancels the rental. The rental is applied to a given date and can be canceled until is marked as active. The system offers a list of available cars for rent and also allows it's users to make a reservation of a specific car. Users and cars can be added, edited or removed only by administrator of the company.
 
 
 ### Preliminary description ###
