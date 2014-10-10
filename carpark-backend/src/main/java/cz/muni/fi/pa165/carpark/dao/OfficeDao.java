@@ -5,8 +5,10 @@
  */
 package cz.muni.fi.pa165.carpark.dao;
 
+import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Office;
-import java.util.Collection;
+import cz.muni.fi.pa165.carpark.entity.User;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 
 /**
@@ -50,24 +52,44 @@ public interface OfficeDao {
         /**
          * Return all offices
          * 
-         * @return Collection of all offices
+         * @return List of all offices
          */
-	public Collection getAllOffices();
+	public List<Office> getAllOffices();
 
         /**
          * Get all cars from specific office
          * 
          * @param office office from which cars are returned
-         * @return Collection of all cars from one office
+         * @return List of all cars from one office
          */
-	public Collection getOfficeCars(Office office);
+	public List<Car> getOfficeCars(Office office);
+        
+        /**
+         * Adds a new car to some office
+         * 
+         * @param office office into which a car should be added
+         * @param car car for the office
+         */
+        public void addCarToOffice(Office office, Car car);
 
+        /**
+         * Deletes specified car from some office
+         * 
+         * @param office office from which a car is to be deleted
+         * @param car car for deletion
+         */
+        public void deleteCarFromOffice(Office office, Car car);
+        
         /**
          * Get all employees from specified office
          * 
          * @param office office from which employees are returned
-         * @return Collection on all employees from one office
+         * @return List of all employees from one office
          */
-	public Collection getEmployees(Office office);
+	public List<User> getEmployees(Office office);
+        
+        public void addEmployeeToOffice(Office office, User user);
+        
+        public void deleteEmployeeFromOffice(Office office, User user);
 
 }

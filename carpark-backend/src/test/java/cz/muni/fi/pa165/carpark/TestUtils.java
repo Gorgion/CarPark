@@ -17,8 +17,8 @@ import cz.muni.fi.pa165.carpark.entity.Rental;
 import cz.muni.fi.pa165.carpark.entity.Rental.State;
 import cz.muni.fi.pa165.carpark.entity.User;
 import cz.muni.fi.pa165.carpark.entity.User.Position;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -67,7 +67,7 @@ public class TestUtils {
         return car;
     }
     
-    public static Office createOffice(String address, User manager, Collection<Car> cars, Collection<User> employees)
+    public static Office createOffice(String address, User manager, List<Car> cars, List<User> employees)
     {
         Office office = new Office();
         

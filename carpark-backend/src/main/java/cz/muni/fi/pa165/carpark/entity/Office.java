@@ -4,99 +4,140 @@
  * and open the template in the editor.
  */
 package cz.muni.fi.pa165.carpark.entity;
+
+import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 /**
  *
  * @author Karolina Burska
  */
-public class Office {
-        private Long iD;
-	private String address;
-	private User manager;
-        private Collection employees;
-        private Collection cars;
+
+@Entity
+public class Office implements Serializable {
+    
+    @Id
+    @GeneratedValue
+    private Long iD;
+    
+    @Column(nullable = false)
+    private String address;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    private User manager;
+    
+    @OneToMany (cascade = CascadeType.ALL)
+    private List<User> employees;
+    
+    @OneToMany (cascade = CascadeType.ALL)
+    private List<Car> cars;
         
-	public Long getID() {
-		return this.iD;
-	}
+    /**
+     * @return the id
+     */
+    public Long getID() {
+	return this.iD;
+    }
 
-	public void setID(Long iD) {
-		this.iD = iD;
-	}
+    /**
+     * @param iD the id to set
+     */
+    public void setID(Long iD) {
+	this.iD = iD;
+    }
 
-	public String getAddress() {
-		return this.address;
-	}
+    /**
+     * @return the address
+     */
+    public String getAddress() {
+	return this.address;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(String address) {
+	this.address = address;
+    }
 
-	public User getManager() {
-		return this.manager;
-	}
+    /**
+     * @return the manager
+     */
+    public User getManager() {
+	return this.manager;
+    }
 
-	public void setManager(User manager) {
-            this.manager = manager;
-	}
+    /**
+     * @param manager the manager to set
+     */
+    public void setManager(User manager) {
+        this.manager = manager;
+    }
         
-        /**
-         * @return the empoyees
-         */
-        public Collection getEmployees() {
-            return employees;
-        }
+    /**
+     * @return the empoyees
+     */
+    public List<User> getEmployees() {
+        return employees;
+    }
 
-        /**
-         * @param empoyees the empoyees to set
-         */
-        public void setEmployees(Collection empoyees) {
-            this.employees = employees;
-        }
+    /**
+     * @param employees the empoyees to set
+     */
+    public void setEmployees(List<User> employees) {
+        this.employees = employees;
+    }
 
-        /**
-         * @return the cars
-         */
-        public Collection getCars() {
-            return cars;
-        }
+    /**
+     * @return the cars
+     */
+    public List<Car> getCars() {
+        return cars;
+    }
 
-        /**
-         * @param cars the cars to set
-         */
-        public void setCars(Collection cars) {
-            this.cars = cars;
-        }
+    /**
+     * @param cars the cars to set
+     */
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+   }
  
-        @Override
-        public boolean equals(Object obj)
-        {
-        if (obj == null)
-        {
+    @Override
+    public boolean equals(Object obj){
+        if (obj == null){
             return false;
         }
-        if (getClass() != obj.getClass())
-        {
+        if (getClass() != obj.getClass()){
             return false;
         }
         final Office office = (Office) obj;
         return Objects.equals(this.iD, office.iD);
-        }
-
-        @Override
-        public int hashCode() {
-            int hash = 5;
-            hash = 79 * hash + Objects.hashCode(this.iD);
-            hash = 79 * hash + Objects.hashCode(this.address);
-            return hash;
     }
 
-        @Override
-        public String toString()
-        {
-            return "Addresss of office with id " + iD + " is: " + address + ". Manager is " + manager;
-        }
+    @Override
+    public int hashCode(){
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.iD);
+        hash = 79 * hash + Objects.hashCode(this.address);
+        return hash;
+    }
 
-    
+    @Override
+    public String toString(){
+        String string = "Addresss of office with id " + iD + " is: " + address + ". ";
+        string = string.concat("Manager is " + manager + ". ");
+        string = string.concat("Office cars are: " + cars + ", office employess are: " + employees);
+        return string;
+    }
 }
