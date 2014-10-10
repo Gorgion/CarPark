@@ -23,6 +23,7 @@ import org.junit.Assert;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -107,7 +108,7 @@ public class RentalDaoTest {
                 new Date(), TestUtils.dateNow(2000L))
         );
         setOfRentals.add(TestUtils.createRental(
-                null, State.PENDING, TestUtils.createUser("Mojmír", "Tester3", "Temná strana 999, 555 00 Kladno", Position.EMPLOYEE, "F1323456"), 
+                null, State.ACTIVE, TestUtils.createUser("Mojmír", "Tester3", "Temná strana 999, 555 00 Kladno", Position.EMPLOYEE, "F1323456"), 
                 new Date(), TestUtils.dateNow(2850L))
         );
         setOfRentals.add(TestUtils.createRental(
@@ -152,7 +153,7 @@ public class RentalDaoTest {
                 new Date(), TestUtils.dateNow(2000L))
         );
         setOfRentals.add(TestUtils.createRental(
-                null, State.PENDING, user, 
+                null, State.ACTIVE, user, 
                 new Date(), TestUtils.dateNow(3020L))
         );
         
