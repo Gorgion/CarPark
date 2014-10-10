@@ -147,7 +147,7 @@ public class Rental implements Serializable
     {
         NEW,
         APPROVED,
-        PENDING,
+        ACTIVE,
         FINISHED
     }
 }

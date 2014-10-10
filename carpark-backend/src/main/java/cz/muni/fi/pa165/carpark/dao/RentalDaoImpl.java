@@ -14,7 +14,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 /**
- * Create, retrieve and delete operations on Rental entity.
+ * Create, update, retrieve and delete operations on Rental entity.
  *
  * @author Tomas Svoboda
  */
@@ -27,93 +27,113 @@ public class RentalDaoImpl implements RentalDao
     {
         this.emf = emf;
     }
-    
+
     @Override
     public void create(Rental rental)
     {
-        if(rental.getId() != null)
+        if (rental.getId() != null)
         {
             throw new IllegalArgumentException("Rental '" + rental + "' is already created.");
         }
-        
+
         validateRental(rental);
-        
+
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
         em.persist(rental);
 
         em.getTransaction().commit();
-        em.close();        
+        em.close();
     }
-    
+
     @Override
     public List<Rental> getAll()
     {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
+//        em.getTransaction().begin();
 
         Query query = em.createQuery("FROM Rental");
         List<Rental> rentals = query.getResultList();
 
-        em.getTransaction().commit();
-        em.close();        
-        
+//        em.getTransaction().commit();
+        em.close();
+
         return Collections.unmodifiableList(rentals);
     }
-    
+
     @Override
     public List<Rental> getAllByUser(User user)
     {
-        if(user.getId() == null)
+        if (user.getId() == null)
         {
             throw new IllegalArgumentException("User id is null.");
         }
-        
+
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
+//        em.getTransaction().begin();
 
         Query query = em.createQuery("FROM Rental WHERE user=:user");
         query.setParameter("user", user);
         List<Rental> rentals = query.getResultList();
 
-        em.getTransaction().commit();
-        em.close();        
-        
+//        em.getTransaction().commit();
+        em.close();
+
         return Collections.unmodifiableList(rentals);
     }
-    
+
     @Override
     public Rental get(Long id)
     {
-        if(id == null) {
+        if (id == null)
+        {
             throw new IllegalArgumentException("ID is NULL");
         }
-        if(id < 0) {
-            throw new IllegalArgumentException("ID is less than 0");
+        if (id <= 0)
+        {
+            throw new IllegalArgumentException("ID is less than or eq to 0");
         }
-        
+
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
+//        em.getTransaction().begin();
 
         Rental rental = em.find(Rental.class, id);
 
-        em.getTransaction().commit();
+//        em.getTransaction().commit();
         em.close();
-        
+
         return rental;
     }
-    
+
     @Override
-    public void delete(Rental rental)
+    public void edit(Rental rental)
     {
-        if(rental.getId() == null)
+        if (rental.getId() == null)
         {
             throw new IllegalArgumentException("Rental '" + rental + "' is not created.");
         }
-        
+
         validateRental(rental);
-        
+
+        EntityManager em = emf.createEntityManager();
+
+        em.getTransaction().begin();
+        em.merge(rental);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    @Override
+    public void delete(Rental rental)
+    {
+        if (rental.getId() == null)
+        {
+            throw new IllegalArgumentException("Rental '" + rental + "' is not created.");
+        }
+
+        validateRental(rental);
+
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
@@ -121,12 +141,12 @@ public class RentalDaoImpl implements RentalDao
         em.remove(rentalToDelete);
 
         em.getTransaction().commit();
-        em.close();        
+        em.close();
     }
-    
+
     private static void validateRental(Rental rental)
     {
-        if(rental.getFromDate().after(rental.getToDate()))
+        if (rental.getFromDate().after(rental.getToDate()))
         {
             throw new IllegalArgumentException("From date is after to date in entity '" + rental + "'");
         }
