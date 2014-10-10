@@ -31,12 +31,12 @@ public class RentalDaoImpl implements RentalDao
     @Override
     public void create(Rental rental)
     {
+        validateRental(rental);
+
         if (rental.getId() != null)
         {
             throw new IllegalArgumentException("Rental '" + rental + "' is already created.");
         }
-
-        validateRental(rental);
 
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -65,6 +65,11 @@ public class RentalDaoImpl implements RentalDao
     @Override
     public List<Rental> getAllByUser(User user)
     {
+        if (user == null)
+        {
+            throw new IllegalArgumentException("User is null.");
+        }
+
         if (user.getId() == null)
         {
             throw new IllegalArgumentException("User id is null.");
@@ -109,12 +114,12 @@ public class RentalDaoImpl implements RentalDao
     @Override
     public void edit(Rental rental)
     {
+        validateRental(rental);
+
         if (rental.getId() == null)
         {
             throw new IllegalArgumentException("Rental '" + rental + "' is not created.");
         }
-
-        validateRental(rental);
 
         EntityManager em = emf.createEntityManager();
 
@@ -127,12 +132,12 @@ public class RentalDaoImpl implements RentalDao
     @Override
     public void delete(Rental rental)
     {
+        validateRental(rental);
+
         if (rental.getId() == null)
         {
             throw new IllegalArgumentException("Rental '" + rental + "' is not created.");
         }
-
-        validateRental(rental);
 
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -146,6 +151,36 @@ public class RentalDaoImpl implements RentalDao
 
     private static void validateRental(Rental rental)
     {
+        if (rental == null)
+        {
+            throw new IllegalArgumentException("Rental is null");
+        }
+        
+        if(rental.getFromDate() == null)
+        {
+            throw new IllegalArgumentException("Rental from date is null");
+        }
+        
+        if(rental.getToDate() == null)
+        {
+            throw new IllegalArgumentException("Rental to date is null");
+        }
+        
+        if(rental.getCar() == null)
+        {
+            throw new IllegalArgumentException("Rented car is null");
+        }
+        
+        if(rental.getUser() == null)
+        {
+            throw new IllegalArgumentException("Rental user is null");
+        }
+        
+        if(rental.getRentalState() == null)
+        {
+            throw new IllegalArgumentException("Rental state is null");
+        }
+
         if (rental.getFromDate().after(rental.getToDate()))
         {
             throw new IllegalArgumentException("From date is after to date in entity '" + rental + "'");

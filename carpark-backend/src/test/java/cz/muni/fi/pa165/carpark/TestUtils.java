@@ -32,7 +32,7 @@ public class TestUtils {
         rental.setRentalState(rentalState);
         rental.setUser(user);
         rental.setFromDate(fromDate);
-        rental.setFromDate(toDate);
+        rental.setToDate(toDate);
 
         return rental;
     }
