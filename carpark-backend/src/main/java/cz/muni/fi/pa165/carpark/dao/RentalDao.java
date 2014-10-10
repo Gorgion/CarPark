@@ -26,6 +26,13 @@ public interface RentalDao
     void create(Rental rental);
 
     /**
+     * Update rental entity
+     * 
+     * @param rental entity for update
+     */
+    void edit(Rental rental);
+    
+    /**
      * Remove given rental.
      * 
      * @param rental rental for deletion

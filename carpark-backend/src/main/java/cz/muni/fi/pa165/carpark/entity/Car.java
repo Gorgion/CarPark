@@ -235,7 +235,7 @@ public class Car implements Serializable
 
     public static enum mColor
     {
-
+        YELLOW,
         BLACK,
         WHITE,
         RED,

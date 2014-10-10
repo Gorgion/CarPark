@@ -32,7 +32,7 @@ public class CarDaoImpl implements CarDao
     @Override
     public void AddCar(Car car)
     {
-        if(car == null)
+        if(car != null)
             throw new IllegalArgumentException("Car cannot be null!");
         
         EntityManager em = emf.createEntityManager();
