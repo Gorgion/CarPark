@@ -102,7 +102,6 @@ public class CarDaoImpl implements CarDao
         Query query = em.createQuery("FROM Car");
         List<Car> cars = query.getResultList();
         
-//        em.getTransaction().commit();
         em.close();
         
         return Collections.unmodifiableCollection(cars);
@@ -129,7 +128,7 @@ public class CarDaoImpl implements CarDao
         
         EntityManager em = emf.createEntityManager();
         
-        List<Car> allCars = new ArrayList<Car>(getAllCars());
+        /*List<Car> allCars = new ArrayList<Car>(getAllCars());
         List<Car> freeCars = new ArrayList<Car>();
         
         for(Car car : allCars)
@@ -140,7 +139,11 @@ public class CarDaoImpl implements CarDao
                 if(!(from.before(rent.getToDate()) && to.after(rent.getFromDate())))
                     freeCars.add(car);
             }
-        }
+        }*/
+                
+        //TODO edit naive version
+        Query query = em.createQuery("SELECT c FROM Car c WHERE c.id NOT IN (SELECT DISTINCT r.car FROM Rental r WHERE :from < r.toDate AND :to > r.fromDate)", Car.class).setParameter("from", from).setParameter("to", to);
+        List<Car> freeCars = query.getResultList();
         
         em.close();
         
