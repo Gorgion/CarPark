@@ -16,6 +16,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
@@ -57,10 +58,10 @@ public class Car implements Serializable
     @Column(nullable = false)
     private boolean rented;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH, CascadeType.REMOVE,CascadeType.MERGE})//CascadeType.ALL)
     private Office office;
     
-    @OneToOne(cascade = CascadeType.ALL)
+//    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.REFRESH, CascadeType.REMOVE,CascadeType.MERGE})//CascadeType.ALL)
     private Rental rent;
 
     public mBrand getBrand()

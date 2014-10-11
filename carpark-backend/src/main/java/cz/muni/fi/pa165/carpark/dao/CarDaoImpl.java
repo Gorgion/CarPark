@@ -32,7 +32,7 @@ public class CarDaoImpl implements CarDao
     @Override
     public void AddCar(Car car)
     {
-        if(car != null)
+        if(car == null)
             throw new IllegalArgumentException("Car cannot be null!");
         
         EntityManager em = emf.createEntityManager();
@@ -73,7 +73,7 @@ public class CarDaoImpl implements CarDao
         EntityManager em = emf.createEntityManager();
         
         em.getTransaction().begin();
-        em.persist(car);
+        em.merge(car);
         em.getTransaction().commit();
         em.close();
     }
@@ -87,7 +87,7 @@ public class CarDaoImpl implements CarDao
         EntityManager em = emf.createEntityManager();
         
         em.getTransaction().begin();
-        em.persist(car);
+        em.remove(em.find(Car.class, car.getID()));
         em.getTransaction().commit();
         em.close();
     }
@@ -97,10 +97,10 @@ public class CarDaoImpl implements CarDao
     {        
         EntityManager em = emf.createEntityManager();
         
-        Query query = em.createQuery("SELECT * FROM Cars");
+        Query query = em.createQuery("FROM Car");
         List<Car> cars = query.getResultList();
         
-        em.getTransaction().commit();
+//        em.getTransaction().commit();
         em.close();
         
         return Collections.unmodifiableCollection(cars);
@@ -111,10 +111,10 @@ public class CarDaoImpl implements CarDao
     {
         EntityManager em = emf.createEntityManager();
         
-        Query query = em.createQuery("SELECT * FROM Cars WHERE Rented = true");
+        Query query = em.createQuery("SELECT * FROM Car WHERE Rented = true");
         List<Car> rentedCars = query.getResultList();
         
-        em.getTransaction().commit();
+//        em.getTransaction().commit();
         em.close();
         
         return Collections.unmodifiableCollection(rentedCars);
@@ -125,10 +125,10 @@ public class CarDaoImpl implements CarDao
     {
         EntityManager em = emf.createEntityManager();
         
-        Query query = em.createQuery("SELECT * FROM Cars WHERE Rented = false");
+        Query query = em.createQuery("SELECT * FROM Car WHERE Rented = false");
         List<Car> freeCars = query.getResultList();
         
-        em.getTransaction().commit();
+//        em.getTransaction().commit();
         em.close();
         
         return Collections.unmodifiableCollection(freeCars);
