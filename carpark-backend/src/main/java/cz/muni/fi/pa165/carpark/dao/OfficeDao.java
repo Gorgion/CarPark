@@ -88,8 +88,20 @@ public interface OfficeDao {
          */
 	public List<User> getEmployees(Office office);
         
+        /**
+         * Adds specified user into some office
+         * 
+         * @param office office into which an user is to be added
+         * @param user user for the office
+         */
         public void addEmployeeToOffice(Office office, User user);
         
+        /**
+         * Deletes specified user from some office
+         * 
+         * @param office office from which an user is to be deleted
+         * @param user user for deletion
+         */
         public void deleteEmployeeFromOffice(Office office, User user);
 
 }

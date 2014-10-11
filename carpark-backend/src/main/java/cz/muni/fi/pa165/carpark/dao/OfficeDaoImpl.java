@@ -12,8 +12,6 @@ import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-
 /**
  * Office entity with operations add, get, edit, delete. It also finds all
  * offices, office cars and office employees.
@@ -32,7 +30,7 @@ public class OfficeDaoImpl implements OfficeDao {
     @Override
     public void addOffice(Office office) {
         if (office == null) {
-            throw new NullPointerException("Office is null.");
+            throw new IllegalArgumentException("Office is null.");
         }
         if (office.getID() != null) {
             throw new IllegalArgumentException("Office is already added.");
@@ -71,7 +69,7 @@ public class OfficeDaoImpl implements OfficeDao {
     @Override
     public void editOffice(Office office) {
         if (office == null) {
-            throw new NullPointerException("Office is null.");
+            throw new IllegalArgumentException("Office is null.");
         }
 
         EntityManager em = emf.createEntityManager();
@@ -85,7 +83,7 @@ public class OfficeDaoImpl implements OfficeDao {
     @Override
     public void deleteOffice(Office office) {
         if (office == null) {
-            throw new NullPointerException("Office is null.");
+            throw new IllegalArgumentException("Office is null.");
         }
 
         EntityManager em = emf.createEntityManager();
@@ -100,8 +98,7 @@ public class OfficeDaoImpl implements OfficeDao {
     public List<Office> getAllOffices() {
         EntityManager em = emf.createEntityManager();
 
-        Query query = em.createQuery("FROM Office");
-        List<Office> offices = query.getResultList();
+        List<Office> offices = em.createQuery("FROM Office").getResultList();
 
         em.close();
 
@@ -111,13 +108,11 @@ public class OfficeDaoImpl implements OfficeDao {
     @Override
     public List<Car> getOfficeCars(Office office) {
         if (office == null) {
-            throw new NullPointerException("Office is null.");
+            throw new IllegalArgumentException("Office is null.");
         }
 
         EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("SELECT * FROM Car WHERE office=:office");
-
-        List<Car> cars = query.getResultList();
+        List<Car> cars = (List<Car>)em.createQuery("FROM Car WHERE office=:office").setParameter("office", office).getResultList();
 
         return Collections.unmodifiableList(cars);
     }
@@ -125,10 +120,10 @@ public class OfficeDaoImpl implements OfficeDao {
     @Override
     public void addCarToOffice(Office office, Car car) {
         if (office == null) {
-            throw new NullPointerException("Office is null.");
+            throw new IllegalArgumentException("Office is null.");
         }
         if (car == null) {
-            throw new NullPointerException("Car is null.");
+            throw new IllegalArgumentException("Car is null.");
         }
 
         EntityManager em = emf.createEntityManager();
@@ -147,10 +142,10 @@ public class OfficeDaoImpl implements OfficeDao {
     @Override
     public void deleteCarFromOffice(Office office, Car car) {
         if (office == null) {
-            throw new NullPointerException("Office is null.");
+            throw new IllegalArgumentException("Office is null.");
         }
         if (car == null) {
-            throw new NullPointerException("Car is null.");
+            throw new IllegalArgumentException("Car is null.");
         }
 
         EntityManager em = emf.createEntityManager();
@@ -169,13 +164,12 @@ public class OfficeDaoImpl implements OfficeDao {
     @Override
     public List<User> getEmployees(Office office) {
         if (office == null) {
-            throw new NullPointerException("Office is null.");
+            throw new IllegalArgumentException("Office is null.");
         }
 
         EntityManager em = emf.createEntityManager();
 
-        Query query = em.createQuery("SELECT * FROM User WHERE office=:office");
-        List<User> users = query.getResultList();
+        List<User> users = (List<User>)em.createQuery("FROM User WHERE office=:office").setParameter("office", office).getResultList();
 
         return Collections.unmodifiableList(users);
     }
@@ -183,10 +177,10 @@ public class OfficeDaoImpl implements OfficeDao {
     @Override
     public void addEmployeeToOffice(Office office, User user) {
         if (office == null) {
-            throw new NullPointerException("Office is null.");
+            throw new IllegalArgumentException("Office is null.");
         }
         if (user == null) {
-            throw new NullPointerException("User is null.");
+            throw new IllegalArgumentException("User is null.");
         }
 
         EntityManager em = emf.createEntityManager();
@@ -205,10 +199,10 @@ public class OfficeDaoImpl implements OfficeDao {
     @Override
     public void deleteEmployeeFromOffice(Office office, User user) {
         if (office == null) {
-            throw new NullPointerException("Office is null.");
+            throw new IllegalArgumentException("Office is null.");
         }
         if (user == null) {
-            throw new NullPointerException("User is null.");
+            throw new IllegalArgumentException("User is null.");
         }
 
         EntityManager em = emf.createEntityManager();

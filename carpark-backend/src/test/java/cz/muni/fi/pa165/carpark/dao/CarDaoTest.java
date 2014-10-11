@@ -5,10 +5,16 @@
  */
 package cz.muni.fi.pa165.carpark.dao;
 
+import cz.muni.fi.pa165.carpark.TestUtils;
 import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Rental;
+import cz.muni.fi.pa165.carpark.entity.User;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -117,7 +123,7 @@ public class CarDaoTest {
     }
     
     @Test
-    public void deleteCar(){
+    public void deleteCarTest(){
         Car car = new Car();
         
         car.setBrand(Car.mBrand.DAEWOO);
@@ -184,7 +190,45 @@ public class CarDaoTest {
     
     @Test
     public void getRentedCarsTest(){
+        Car car1 = new Car();
+        //Date from = new Date();
+        //Date to = TestUtils.dateNow(3500L);
+        //User user1 = TestUtils.createUser("Jay", "Dee", "Ether", User.Position.EMPLOYEE, "6.6.1986");
+        //Rental rental1 = TestUtils.createRental(car1, Rental.State.NEW, user1, from , to);
         
+        car1.setBrand(Car.mBrand.CHEVROLET);
+        car1.setLicencePlate("4G5-PA161");
+        //car1.setRent(rental1);
+        car1.setRented(Boolean.TRUE);
+        car1.setVIN("SomeVIN1");
+        
+        Car car2 = new Car();
+        car2.setBrand(Car.mBrand.FORD);
+        car2.setLicencePlate("4G5-PA162");
+        car2.setRented(Boolean.FALSE);
+        car2.setVIN("SomeVIN2");
+        
+        Car car3 = new Car();
+        //User user3 = TestUtils.createUser("Lora", "Ina", "L.A.", User.Position.EMPLOYEE, "1.1.1981");
+        //Rental rental3 = TestUtils.createRental(car3, Rental.State.ACTIVE, user3, from, to);
+        
+        car3.setBrand(Car.mBrand.TESLA);
+        car3.setLicencePlate("4G5-PA163");
+        //car3.setRent(rental3);
+        car3.setRented(Boolean.TRUE);
+        car3.setVIN("SomeVIN3");
+        
+        carImpl.AddCar(car1);
+        carImpl.AddCar(car2);
+        carImpl.AddCar(car3);
+        
+        Collection cars = carImpl.getRentedCars();
+        
+        List<Car> rentedCars = new ArrayList<>();
+        rentedCars.add(car1);
+        rentedCars.add(car3);
+        
+        Assert.assertNotSame(cars, rentedCars);
     }
     
     @Test
