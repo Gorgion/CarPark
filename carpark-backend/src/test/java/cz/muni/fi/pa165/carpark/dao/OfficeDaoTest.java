@@ -33,7 +33,7 @@ public class OfficeDaoTest
     public void setup()
     {
         dao = new OfficeDaoImpl();
-        dao.setEMF(Persistence.createEntityManagerFactory("TestOfficePersistence"));
+        dao.setEMF(Persistence.createEntityManagerFactory("TestPU"));
     }
     
     @Test

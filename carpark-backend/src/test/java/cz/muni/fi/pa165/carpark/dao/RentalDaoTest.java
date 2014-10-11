@@ -7,6 +7,7 @@ package cz.muni.fi.pa165.carpark.dao;
 
 import cz.muni.fi.pa165.carpark.TestUtils;
 import cz.muni.fi.pa165.carpark.entity.Car;
+import cz.muni.fi.pa165.carpark.entity.Office;
 import cz.muni.fi.pa165.carpark.entity.Rental;
 import cz.muni.fi.pa165.carpark.entity.Rental.State;
 import cz.muni.fi.pa165.carpark.entity.User;
@@ -54,12 +55,14 @@ public class RentalDaoTest {
         fail("Exception expected - rental is null");
     }
 
-    @Ignore("Rented car is still null")
+
     @Test
     public void testCreateRental() {
         System.out.println("create rental");
 
-        Car car = null; //TODO create car
+        Office office = TestUtils.createSampleOffice();
+        Car car = office.getCars().get(0);
+        
         Date from = new Date();
         User user = TestUtils.createUser("Tomáš", "Tester", "Polní 25/8a, 755 00 Brno 5", Position.EMPLOYEE, "R1023456");
         Date to = TestUtils.dateNow(3500L);
@@ -84,30 +87,37 @@ public class RentalDaoTest {
         }
     }
 
-    @Ignore("Rented car is still null")
     @Test
     public void testGetAllRental() {
         System.out.println("getAll");
 
         assertNotNull(dao.getAll());
         assertEquals(dao.getAll().size(), 0);
-
+        
+        Office office = TestUtils.createSampleOffice();
+        
+        OfficeDao officeDao = new OfficeDaoImpl();
+        officeDao.setEMF(entityManagerFactory);
+        officeDao.addOffice(office);
+        
+        Car car = office.getCars().get(0);
+       
         //TODO set car and address instead null 
         Set<Rental> setOfRentals = new HashSet<Rental>();
         setOfRentals.add(TestUtils.createRental(
-                null, State.FINISHED, TestUtils.createUser("Tomáš", "Tester", "Polní 25/8a, 755 00 Brno 5", Position.EMPLOYEE, "R1023456"),
+                office.getCars().get(0), State.FINISHED, office.getEmployees().get(0),
                 new Date(), TestUtils.dateNow(3000L))
         );
         setOfRentals.add(TestUtils.createRental(
-                null, State.NEW, TestUtils.createUser("Pepík", "Tester2", "Světlá 258a, 745 00 Praha 2", Position.ADMIN, "S1013456"),
+                office.getCars().get(1), State.NEW, office.getEmployees().get(1),
                 new Date(), TestUtils.dateNow(2000L))
         );
         setOfRentals.add(TestUtils.createRental(
-                null, State.ACTIVE, TestUtils.createUser("Mojmír", "Tester3", "Temná strana 999, 555 00 Kladno", Position.EMPLOYEE, "F1323456"),
+                office.getCars().get(2), State.ACTIVE, office.getEmployees().get(2),
                 new Date(), TestUtils.dateNow(2850L))
         );
         setOfRentals.add(TestUtils.createRental(
-                null, State.APPROVED, TestUtils.createUser("Kateřina", "Tester4", "Mincovní 15, 759 10 Brno", Position.MANAGER, "Z1623456"),
+                office.getCars().get(3), State.APPROVED, office.getEmployees().get(3),
                 new Date(), TestUtils.dateNow(990L))
         );
 
@@ -136,7 +146,7 @@ public class RentalDaoTest {
         fail("Exception expected - user id is null");
     }
 
-    @Ignore("Rented car is still null")
+    @Ignore
     @Test
     public void testGetAllRentalsByUser() {
         System.out.println("getAllByUser");
@@ -195,15 +205,14 @@ public class RentalDaoTest {
         fail("Exception expected - id is less than 0 is null");
     }
     
-    @Ignore("Rented car is still null")
     @Test
     public void testGet() {
         System.out.println("get");
 
-        //init data for create
-        Car car = null; //TODO create car
+        Office office = TestUtils.createSampleOffice();
+        Car car = office.getCars().get(0);
         Date from = new Date();
-        User user = TestUtils.createUser("Tomáš", "Tester", "Polní 25/8a, 755 00 Brno 5", Position.EMPLOYEE, "R1023456");
+        User user = office.getEmployees().get(1);
         Date to = TestUtils.dateNow(3000L);
         State rentalState = State.FINISHED;
 
@@ -229,25 +238,18 @@ public class RentalDaoTest {
         fail("Exception expected - rental is null");
     }
 
-    @Ignore("Rented car is still null")
     @Test
     public void testDelete() {
         System.out.println("delete");
 
-        //init data for create
-        Car car = null; //TODO create car
-        Rental rental = TestUtils.createRental(car, State.FINISHED,
-                TestUtils.createUser("Tomáš", "Tester", "Polní 25/8a, 755 00 Brno 5", Position.EMPLOYEE, "R1023456"),
-                new Date(), TestUtils.dateNow(3000L)
-        );
+        Office office = TestUtils.createSampleOffice();
+        User user = office.getEmployees().get(1);
+        Car car = office.getCars().get(0);
+        
+        Rental rental = TestUtils.createRental(car, State.FINISHED, user, new Date(), TestUtils.dateNow(3000L));
         dao.create(rental);
         dao.delete(rental);
 
-        try {
-            dao.get(rental.getId());
-            fail();
-        } catch (IllegalArgumentException ex) {
-            assertEquals(ex.getMessage(), "ID is less than 0");
-        }
+        assertNull(dao.get(rental.getId()));
     }
 }
