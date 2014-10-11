@@ -6,6 +6,8 @@
 package cz.muni.fi.pa165.carpark.dao;
 
 import cz.muni.fi.pa165.carpark.entity.Car;
+import cz.muni.fi.pa165.carpark.entity.Rental;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -111,10 +113,9 @@ public class CarDaoImpl implements CarDao
     {
         EntityManager em = emf.createEntityManager();
         
-        Query query = em.createQuery("SELECT * FROM Car WHERE Rented = true");
+        Query query = em.createQuery("FROM Car WHERE Rented =:rented").setParameter("rented", true);
         List<Car> rentedCars = query.getResultList();
         
-//        em.getTransaction().commit();
         em.close();
         
         return Collections.unmodifiableCollection(rentedCars);
@@ -123,12 +124,24 @@ public class CarDaoImpl implements CarDao
     @Override
     public Collection getFreeCars(Date from, Date to)
     {
+        if(from.after(to))
+            throw new IllegalArgumentException("From date is after to date!");
+        
         EntityManager em = emf.createEntityManager();
         
-        Query query = em.createQuery("SELECT * FROM Car WHERE Rented = false");
-        List<Car> freeCars = query.getResultList();
+        List<Car> allCars = new ArrayList<Car>(getAllCars());
+        List<Car> freeCars = new ArrayList<Car>();
         
-//        em.getTransaction().commit();
+        for(Car car : allCars)
+        {
+            Rental rent = car.getRent();
+            if(rent != null)
+            {
+                if(!(from.before(rent.getToDate()) && to.after(rent.getFromDate())))
+                    freeCars.add(car);
+            }
+        }
+        
         em.close();
         
         return Collections.unmodifiableCollection(freeCars);
