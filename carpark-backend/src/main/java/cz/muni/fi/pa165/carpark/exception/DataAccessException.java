@@ -10,7 +10,7 @@ package cz.muni.fi.pa165.carpark.exception;
  *
  * @author Tomas Svoboda
  */
-public class DataAccessException extends Exception
+public class DataAccessException extends RuntimeException
 {
 
     /**
