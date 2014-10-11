@@ -7,11 +7,15 @@ package cz.muni.fi.pa165.carpark.dao;
 
 import cz.muni.fi.pa165.carpark.entity.Rental;
 import cz.muni.fi.pa165.carpark.entity.User;
+import cz.muni.fi.pa165.carpark.exception.DataAccessException;
 import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.persistence.RollbackException;
 
 /**
  * Create, update, retrieve and delete operations on Rental entity.
@@ -38,26 +42,64 @@ public class RentalDaoImpl implements RentalDao
             throw new IllegalArgumentException("Rental '" + rental + "' is already created.");
         }
 
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
+        try
+        {
+            EntityManager em = emf.createEntityManager();
+            EntityTransaction et = em.getTransaction();
 
-        em.persist(rental);
+            try
+            {
+                et.begin();
 
-        em.getTransaction().commit();
-        em.close();
+                em.persist(rental);
+
+                et.commit();
+            } catch (RollbackException e)
+            {
+                if (et != null && et.isActive())
+                {
+                    et.rollback();
+                }
+
+                throw new DataAccessException("Error while persisting rental entity.", e);
+            } finally
+            {
+                if (em.isOpen())
+                {
+                    em.close();
+                }
+            }
+        } catch (PersistenceException e)
+        {
+            throw new DataAccessException("Error while persisting rental entity.", e);
+        }
     }
 
     @Override
     public List<Rental> getAll()
     {
-        EntityManager em = emf.createEntityManager();
+        try
+        {
+            EntityManager em = emf.createEntityManager();
 
-        Query query = em.createQuery("FROM Rental");
-        List<Rental> rentals = query.getResultList();
+            try
+            {
+                Query query = em.createQuery("FROM Rental");
+                List<Rental> rentals = query.getResultList();
 
-        em.close();
+                return Collections.unmodifiableList(rentals);
 
-        return Collections.unmodifiableList(rentals);
+            } finally
+            {
+                if (em != null && em.isOpen())
+                {
+                    em.close();
+                }
+            }
+        } catch (PersistenceException e)
+        {
+            throw new DataAccessException("Error while retrieving all rental entities.", e);
+        }
     }
 
     @Override
@@ -73,15 +115,30 @@ public class RentalDaoImpl implements RentalDao
             throw new IllegalArgumentException("User id is null.");
         }
 
-        EntityManager em = emf.createEntityManager();
+        try
+        {
+            EntityManager em = emf.createEntityManager();
 
-        Query query = em.createQuery("FROM Rental WHERE user=:user");
-        query.setParameter("user", user);
-        List<Rental> rentals = query.getResultList();
+            try
+            {
 
-        em.close();
+                Query query = em.createQuery("FROM Rental WHERE user=:user");
+                query.setParameter("user", user);
+                List<Rental> rentals = query.getResultList();
 
-        return Collections.unmodifiableList(rentals);
+                return Collections.unmodifiableList(rentals);
+
+            } finally
+            {
+                if (em != null && em.isOpen())
+                {
+                    em.close();
+                }
+            }
+        } catch (PersistenceException e)
+        {
+            throw new DataAccessException("Error while retrieving some rental entities.", e);
+        }
     }
 
     @Override
@@ -96,13 +153,27 @@ public class RentalDaoImpl implements RentalDao
             throw new IllegalArgumentException("ID is less than or eq to 0");
         }
 
-        EntityManager em = emf.createEntityManager();
+        try
+        {
+            EntityManager em = emf.createEntityManager();
 
-        Rental rental = em.find(Rental.class, id);
+            try
+            {
 
-        em.close();
+                Rental rental = em.find(Rental.class, id);
 
-        return rental;
+                return rental;
+            } finally
+            {
+                if (em != null && em.isOpen())
+                {
+                    em.close();
+                }
+            }
+        } catch (PersistenceException e)
+        {
+            throw new DataAccessException("Error while retrieving rental entity.", e);
+        }
     }
 
     @Override
@@ -115,12 +186,37 @@ public class RentalDaoImpl implements RentalDao
             throw new IllegalArgumentException("Rental '" + rental + "' is not created.");
         }
 
-        EntityManager em = emf.createEntityManager();
+        try
+        {
+            EntityManager em = emf.createEntityManager();
+            EntityTransaction et = em.getTransaction();
 
-        em.getTransaction().begin();
-        em.merge(rental);
-        em.getTransaction().commit();
-        em.close();
+            try
+            {
+                et.begin();
+
+                em.merge(rental);
+
+                et.commit();
+            } catch (RollbackException e)
+            {
+                if (et != null && et.isActive())
+                {
+                    et.rollback();
+                }
+
+                throw new DataAccessException("Error while editing rental entity.", e);
+            } finally
+            {
+                if (em.isOpen())
+                {
+                    em.close();
+                }
+            }
+        } catch (PersistenceException e)
+        {
+            throw new DataAccessException("Error while editing rental entity.", e);
+        }
     }
 
     @Override
@@ -133,14 +229,38 @@ public class RentalDaoImpl implements RentalDao
             throw new IllegalArgumentException("Rental '" + rental + "' is not created.");
         }
 
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
+        try
+        {
+            EntityManager em = emf.createEntityManager();
+            EntityTransaction et = em.getTransaction();
 
-        Rental rentalToDelete = em.find(Rental.class, rental.getId());
-        em.remove(rentalToDelete);
+            try
+            {
+                et.begin();
 
-        em.getTransaction().commit();
-        em.close();
+                Rental rentalToDelete = em.find(Rental.class, rental.getId());
+                em.remove(rentalToDelete);
+
+                et.commit();
+            } catch (RollbackException e)
+            {
+                if (et != null && et.isActive())
+                {
+                    et.rollback();
+                }
+
+                throw new DataAccessException("Error while removing rental entity.", e);
+            } finally
+            {
+                if (em.isOpen())
+                {
+                    em.close();
+                }
+            }
+        } catch (PersistenceException e)
+        {
+            throw new DataAccessException("Error while removing rental entity.", e);
+        }
     }
 
     private static void validateRental(Rental rental)
