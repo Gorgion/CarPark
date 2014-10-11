@@ -111,7 +111,7 @@ public class UserDaoImpl implements UserDao {
             //User userToDelete = entityManager.find(User.class, user.getId());
             
             entityManager.getTransaction().begin();
-            entityManager.remove(userToDelete);
+            entityManager.remove(entityManager.merge(userToDelete));
             entityManager.getTransaction().commit();
         }
         catch(PersistenceException ex){

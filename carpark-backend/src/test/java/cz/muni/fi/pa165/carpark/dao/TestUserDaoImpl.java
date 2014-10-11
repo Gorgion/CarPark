@@ -100,7 +100,7 @@ public class TestUserDaoImpl
         daoImpl.get(Long.MIN_VALUE);
     }
     
-    @Ignore
+    //@Ignore
     @Test//CHANGE IMPL
     public void testGetMaxId()
     {
@@ -185,7 +185,7 @@ public class TestUserDaoImpl
     }
     
     @Test
-    @Ignore
+    //@Ignore
     public void testEdit()
     {
         User user = new User();
@@ -200,11 +200,11 @@ public class TestUserDaoImpl
         User updatedUser = new User();
         
         updatedUser.setId(user.getId());
-        user.setLastName("Surname");
-        user.setFirstName("NoName");
-        user.setAddress("noAddress");
-        user.setPosition(User.Position.ADMIN);
-        user.setBirthNumber("1/0001");
+        updatedUser.setLastName("Surname");
+        updatedUser.setFirstName("NoName");
+        updatedUser.setAddress("noAddress");
+        updatedUser.setPosition(User.Position.ADMIN);
+        updatedUser.setBirthNumber("1/0001");
         
         daoImpl.edit(updatedUser);
 
