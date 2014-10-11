@@ -51,12 +51,7 @@ public class RentalDaoTest {
         
         userDao = new UserDaoImpl();
         userDao.setEmf(entityManagerFactory);
-    }
-
-    @After
-    public void tearDown() {        
-        entityManagerFactory.close();
-    }
+    }    
 
     @Test(expected = IllegalArgumentException.class)
     public void testCreateRentalWithNull() {

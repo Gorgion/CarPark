@@ -45,12 +45,6 @@ public class TestUserDaoImpl
         daoImpl.setEmf(emf);
     }
 
-    @After
-    public void tearDown()
-    {
-        emf.close();
-    }
-
     @Test
     public void createUserTest()
     {
