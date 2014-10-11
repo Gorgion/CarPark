@@ -58,7 +58,7 @@ public class Car implements Serializable
     @Column(nullable = false)
     private boolean rented;
     
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH, CascadeType.REMOVE,CascadeType.MERGE})//CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})
     private Office office;
     
 //    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.REFRESH, CascadeType.REMOVE,CascadeType.MERGE})//CascadeType.ALL)

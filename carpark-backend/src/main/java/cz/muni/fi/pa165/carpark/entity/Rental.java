@@ -44,10 +44,10 @@ public class Rental implements Serializable
     @Column(nullable = false)
     private State rentalState;
     
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH, CascadeType.REMOVE,CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})//, CascadeType.REMOVE,CascadeType.MERGE})
     private Car car;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH, CascadeType.REMOVE,CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})//, CascadeType.REMOVE,CascadeType.MERGE})
     private User user;
 
     public User getUser()
@@ -141,7 +141,9 @@ public class Rental implements Serializable
     public String toString()
     {
         return "Rental{" + "id=" + id + ", fromDate=" + fromDate + ", toDate=" + toDate + ", rentalState=" + rentalState + ", car=" + car + ", user=" + user + '}';
-    }        
+    }
+
+         
     
     public static enum State
     {
