@@ -34,13 +34,13 @@ public class Office implements Serializable {
     @Column(nullable = false)
     private String address;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})
     private User manager;
     
-    @OneToMany (cascade = CascadeType.ALL)
+    @OneToMany (cascade = {CascadeType.DETACH,CascadeType.REFRESH})
     private List<User> employees;
     
-    @OneToMany (cascade = CascadeType.ALL)
+    @OneToMany (cascade = {CascadeType.DETACH,CascadeType.REFRESH})
     private List<Car> cars;
         
     /**
