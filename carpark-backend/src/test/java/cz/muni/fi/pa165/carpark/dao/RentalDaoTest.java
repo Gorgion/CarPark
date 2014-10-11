@@ -14,6 +14,7 @@ import cz.muni.fi.pa165.carpark.entity.User.Position;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.junit.After;
 import static org.junit.Assert.*;
@@ -28,14 +29,16 @@ import org.junit.Test;
 public class RentalDaoTest {
 
     private RentalDao dao;
+    private EntityManagerFactory entityManagerFactory;
 
     public RentalDaoTest() {
     }
 
     @Before
     public void setUp() {
+        entityManagerFactory = Persistence.createEntityManagerFactory("TestPU");
         dao = new RentalDaoImpl();
-        dao.setEmf(Persistence.createEntityManagerFactory("TestPU"));
+        dao.setEmf(entityManagerFactory);
     }
 
     @After
@@ -121,18 +124,29 @@ public class RentalDaoTest {
         System.out.println("getAllByUser with null");
 
         dao.getAllByUser(null);
-        fail("Exception expected - rental is null");
+        fail("Exception expected - user is null");
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetAllRentalsByUserWithoutId() {
+        System.out.println("getAllByUser without id");
+
+        User user = TestUtils.createUser("Tomáš", "Tester", "Polní 25/8a, 755 00 Brno 5", Position.EMPLOYEE, "R1023456");
+        dao.getAllByUser(user);
+        fail("Exception expected - user id is null");
     }
 
+    @Ignore("Rented car is still null")
     @Test
     public void testGetAllRentalsByUser() {
         System.out.println("getAllByUser");
 
-        User user = TestUtils.createUser("Tomáš", "Tester", "Polní 25/8a, 755 00 Brno 5", Position.EMPLOYEE, "R1023456");
-        assertNotNull(dao.getAllByUser(user));
         assertEquals(dao.getAll().size(), 0);
 
         UserDao userDao = new UserDaoImpl();
+        userDao.setEmf(entityManagerFactory);
+        
+        User user = TestUtils.createUser("Tomáš", "Tester", "Polní 25/8a, 755 00 Brno 5", Position.EMPLOYEE, "R1023456");
         userDao.add(user);
 
         //TODO set car and address instead null 
