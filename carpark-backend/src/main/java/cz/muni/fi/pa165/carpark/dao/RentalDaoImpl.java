@@ -51,12 +51,10 @@ public class RentalDaoImpl implements RentalDao
     public List<Rental> getAll()
     {
         EntityManager em = emf.createEntityManager();
-//        em.getTransaction().begin();
 
         Query query = em.createQuery("FROM Rental");
         List<Rental> rentals = query.getResultList();
 
-//        em.getTransaction().commit();
         em.close();
 
         return Collections.unmodifiableList(rentals);
@@ -76,13 +74,11 @@ public class RentalDaoImpl implements RentalDao
         }
 
         EntityManager em = emf.createEntityManager();
-//        em.getTransaction().begin();
 
         Query query = em.createQuery("FROM Rental WHERE user=:user");
         query.setParameter("user", user);
         List<Rental> rentals = query.getResultList();
 
-//        em.getTransaction().commit();
         em.close();
 
         return Collections.unmodifiableList(rentals);
@@ -101,11 +97,9 @@ public class RentalDaoImpl implements RentalDao
         }
 
         EntityManager em = emf.createEntityManager();
-//        em.getTransaction().begin();
 
         Rental rental = em.find(Rental.class, id);
 
-//        em.getTransaction().commit();
         em.close();
 
         return rental;
@@ -155,28 +149,28 @@ public class RentalDaoImpl implements RentalDao
         {
             throw new IllegalArgumentException("Rental is null");
         }
-        
-        if(rental.getFromDate() == null)
+
+        if (rental.getFromDate() == null)
         {
             throw new IllegalArgumentException("Rental from date is null");
         }
-        
-        if(rental.getToDate() == null)
+
+        if (rental.getToDate() == null)
         {
             throw new IllegalArgumentException("Rental to date is null");
         }
-        
-        if(rental.getCar() == null)
+
+        if (rental.getCar() == null)
         {
             throw new IllegalArgumentException("Rented car is null");
         }
-        
-        if(rental.getUser() == null)
+
+        if (rental.getUser() == null)
         {
             throw new IllegalArgumentException("Rental user is null");
         }
-        
-        if(rental.getRentalState() == null)
+
+        if (rental.getRentalState() == null)
         {
             throw new IllegalArgumentException("Rental state is null");
         }
