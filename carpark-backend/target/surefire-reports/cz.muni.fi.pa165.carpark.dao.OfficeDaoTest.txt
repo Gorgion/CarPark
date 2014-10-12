@@ -1,15 +1,15 @@
 -------------------------------------------------------------------------------
 Test set: cz.muni.fi.pa165.carpark.dao.OfficeDaoTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 11.311 sec <<< FAILURE!
-editOfficeTest(cz.muni.fi.pa165.carpark.dao.OfficeDaoTest)  Time elapsed: 11.017 sec  <<< ERROR!
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 12.941 sec <<< FAILURE!
+editOfficeTest(cz.muni.fi.pa165.carpark.dao.OfficeDaoTest)  Time elapsed: 12.647 sec  <<< ERROR!
 javax.persistence.PersistenceException: org.hibernate.exception.ConstraintViolationException: could not execute statement
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1763)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1677)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1683)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.merge(AbstractEntityManagerImpl.java:1206)
 	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.editOffice(OfficeDaoImpl.java:79)
-	at cz.muni.fi.pa165.carpark.dao.OfficeDaoTest.editOfficeTest(OfficeDaoTest.java:202)
+	at cz.muni.fi.pa165.carpark.dao.OfficeDaoTest.editOfficeTest(OfficeDaoTest.java:201)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

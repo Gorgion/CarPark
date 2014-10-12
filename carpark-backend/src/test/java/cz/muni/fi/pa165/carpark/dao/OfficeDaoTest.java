@@ -200,9 +200,10 @@ public class OfficeDaoTest
         
         dao.editOffice(officeExp);
         
+        Office officeUpdated = dao.getOffice(office.getID());
                
-        Assert.assertEquals(officeExp, dao.getOffice(office.getID()));
-        Assert.assertNotEquals(dao.getOffice(office.getID()), office);
+        Assert.assertEquals(officeExp, officeUpdated);
+        Assert.assertNotEquals(office, officeUpdated);
     }
     
     @Test

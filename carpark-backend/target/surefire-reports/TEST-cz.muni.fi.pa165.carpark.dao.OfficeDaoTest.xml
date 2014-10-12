@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="cz.muni.fi.pa165.carpark.dao.OfficeDaoTest" time="11.511" errors="1" skipped="0">
+<testsuite tests="1" failures="0" name="cz.muni.fi.pa165.carpark.dao.OfficeDaoTest" time="13.085" errors="1" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_20\jre\bin"/>
@@ -62,14 +62,14 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="cz.muni.fi.pa165.carpark.dao.OfficeDaoTest" name="editOfficeTest" time="11.017">
+  <testcase classname="cz.muni.fi.pa165.carpark.dao.OfficeDaoTest" name="editOfficeTest" time="12.647">
     <error message="org.hibernate.exception.ConstraintViolationException: could not execute statement" type="javax.persistence.PersistenceException">javax.persistence.PersistenceException: org.hibernate.exception.ConstraintViolationException: could not execute statement
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1763)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1677)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.convert(AbstractEntityManagerImpl.java:1683)
 	at org.hibernate.jpa.spi.AbstractEntityManagerImpl.merge(AbstractEntityManagerImpl.java:1206)
 	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.editOffice(OfficeDaoImpl.java:79)
-	at cz.muni.fi.pa165.carpark.dao.OfficeDaoTest.editOfficeTest(OfficeDaoTest.java:202)
+	at cz.muni.fi.pa165.carpark.dao.OfficeDaoTest.editOfficeTest(OfficeDaoTest.java:201)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -217,97 +217,97 @@ Hibernate: values identity_val_local()
 Hibernate: select user0_.Id as Id1_5_0_, user0_.address as address2_5_0_, user0_.birthNumber as birthNum3_5_0_, user0_.firstName as firstNam4_5_0_, user0_.lastName as lastName5_5_0_, user0_.position as position6_5_0_ from users user0_ where user0_.Id=?
 Hibernate: insert into users (Id, address, birthNumber, firstName, lastName, position) values (default, ?, ?, ?, ?, ?)
 </system-out>
-    <system-err>Říj 12, 2014 2:24:00 DOP. org.hibernate.ejb.HibernatePersistence logDeprecation
+    <system-err>Říj 12, 2014 9:24:32 DOP. org.hibernate.ejb.HibernatePersistence logDeprecation
 WARN: HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
-Říj 12, 2014 2:24:00 DOP. org.hibernate.ejb.HibernatePersistence logDeprecation
+Říj 12, 2014 9:24:32 DOP. org.hibernate.ejb.HibernatePersistence logDeprecation
 WARN: HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
-Říj 12, 2014 2:24:00 DOP. org.hibernate.ejb.HibernatePersistence logDeprecation
+Říj 12, 2014 9:24:32 DOP. org.hibernate.ejb.HibernatePersistence logDeprecation
 WARN: HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
-Říj 12, 2014 2:24:00 DOP. org.hibernate.jpa.internal.util.LogHelper logPersistenceUnitInformation
+Říj 12, 2014 9:24:33 DOP. org.hibernate.jpa.internal.util.LogHelper logPersistenceUnitInformation
 INFO: HHH000204: Processing PersistenceUnitInfo [
 	name: TestPU
 	...]
-Říj 12, 2014 2:24:01 DOP. org.hibernate.Version logVersion
+Říj 12, 2014 9:24:33 DOP. org.hibernate.Version logVersion
 INFO: HHH000412: Hibernate Core {4.3.6.Final}
-Říj 12, 2014 2:24:01 DOP. org.hibernate.cfg.Environment &lt;clinit&gt;
+Říj 12, 2014 9:24:33 DOP. org.hibernate.cfg.Environment &lt;clinit&gt;
 INFO: HHH000206: hibernate.properties not found
-Říj 12, 2014 2:24:01 DOP. org.hibernate.cfg.Environment buildBytecodeProvider
+Říj 12, 2014 9:24:33 DOP. org.hibernate.cfg.Environment buildBytecodeProvider
 INFO: HHH000021: Bytecode provider name : javassist
-Říj 12, 2014 2:24:01 DOP. org.hibernate.annotations.common.reflection.java.JavaReflectionManager &lt;clinit&gt;
+Říj 12, 2014 9:24:34 DOP. org.hibernate.annotations.common.reflection.java.JavaReflectionManager &lt;clinit&gt;
 INFO: HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
-Říj 12, 2014 2:24:02 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+Říj 12, 2014 9:24:34 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 WARN: HHH000402: Using Hibernate built-in connection pool (not for production use!)
-Říj 12, 2014 2:24:03 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+Říj 12, 2014 9:24:35 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH000401: using driver [org.apache.derby.jdbc.EmbeddedDriver] at URL [jdbc:derby:memory:CarParkTest;create=true]
-Říj 12, 2014 2:24:03 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+Říj 12, 2014 9:24:35 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH000046: Connection properties: {user=, password=****}
-Říj 12, 2014 2:24:03 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+Říj 12, 2014 9:24:35 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH000006: Autocommit mode: false
-Říj 12, 2014 2:24:03 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+Říj 12, 2014 9:24:35 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 INFO: HHH000115: Hibernate connection pool size: 20 (min=1)
-Říj 12, 2014 2:24:06 DOP. org.hibernate.dialect.Dialect &lt;init&gt;
+Říj 12, 2014 9:24:38 DOP. org.hibernate.dialect.Dialect &lt;init&gt;
 INFO: HHH000400: Using dialect: org.hibernate.dialect.DerbyTenSevenDialect
-Říj 12, 2014 2:24:07 DOP. org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory &lt;init&gt;
+Říj 12, 2014 9:24:39 DOP. org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory &lt;init&gt;
 INFO: HHH000397: Using ASTQueryTranslatorFactory
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport execute
+Říj 12, 2014 9:24:41 DOP. org.hibernate.tool.hbm2ddl.SchemaExport execute
 INFO: HHH000227: Running hbm2ddl schema export
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:41 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: HHH000389: Unsuccessful: alter table Office drop constraint FK_mksb34gtab7bqfif9pb885kqf
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:41 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: &apos;ALTER TABLE&apos; cannot be performed on &apos;OFFICE&apos; because it does not exist.
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:41 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: HHH000389: Unsuccessful: alter table Office_Car drop constraint FK_q3qrrlw1n1njujr4r6gt26nkp
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:41 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: &apos;ALTER TABLE&apos; cannot be performed on &apos;OFFICE_CAR&apos; because it does not exist.
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:41 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: HHH000389: Unsuccessful: alter table Office_Car drop constraint FK_7e74p5tn2wlu2cqj71frlgfqi
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:41 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: &apos;ALTER TABLE&apos; cannot be performed on &apos;OFFICE_CAR&apos; because it does not exist.
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:41 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: HHH000389: Unsuccessful: alter table Office_users drop constraint FK_k8k3g464h7hp9372796t6gu5h
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:41 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: &apos;ALTER TABLE&apos; cannot be performed on &apos;OFFICE_USERS&apos; because it does not exist.
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: HHH000389: Unsuccessful: alter table Office_users drop constraint FK_atjayucsytfuex882uxnneuyc
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: &apos;ALTER TABLE&apos; cannot be performed on &apos;OFFICE_USERS&apos; because it does not exist.
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: HHH000389: Unsuccessful: alter table Rental drop constraint FK_x2jr4ufrannouhfkaf81devw
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: &apos;ALTER TABLE&apos; cannot be performed on &apos;RENTAL&apos; because it does not exist.
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: HHH000389: Unsuccessful: alter table Rental drop constraint FK_mdgwpp5048k8dgbtylvu426nc
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: &apos;ALTER TABLE&apos; cannot be performed on &apos;RENTAL&apos; because it does not exist.
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: HHH000389: Unsuccessful: drop table Car
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: &apos;DROP TABLE&apos; cannot be performed on &apos;CAR&apos; because it does not exist.
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: HHH000389: Unsuccessful: drop table Office
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: &apos;DROP TABLE&apos; cannot be performed on &apos;OFFICE&apos; because it does not exist.
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: HHH000389: Unsuccessful: drop table Office_Car
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: &apos;DROP TABLE&apos; cannot be performed on &apos;OFFICE_CAR&apos; because it does not exist.
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: HHH000389: Unsuccessful: drop table Office_users
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: &apos;DROP TABLE&apos; cannot be performed on &apos;OFFICE_USERS&apos; because it does not exist.
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: HHH000389: Unsuccessful: drop table Rental
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: &apos;DROP TABLE&apos; cannot be performed on &apos;RENTAL&apos; because it does not exist.
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: HHH000389: Unsuccessful: drop table users
-Říj 12, 2014 2:24:08 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport perform
 ERROR: &apos;DROP TABLE&apos; cannot be performed on &apos;USERS&apos; because it does not exist.
-Říj 12, 2014 2:24:09 DOP. org.hibernate.tool.hbm2ddl.SchemaExport execute
+Říj 12, 2014 9:24:42 DOP. org.hibernate.tool.hbm2ddl.SchemaExport execute
 INFO: HHH000230: Schema export complete
-Říj 12, 2014 2:24:10 DOP. org.hibernate.engine.jdbc.spi.SqlExceptionHelper logExceptions
+Říj 12, 2014 9:24:45 DOP. org.hibernate.engine.jdbc.spi.SqlExceptionHelper logExceptions
 WARN: SQL Error: 20000, SQLState: 23505
-Říj 12, 2014 2:24:10 DOP. org.hibernate.engine.jdbc.spi.SqlExceptionHelper logExceptions
+Říj 12, 2014 9:24:45 DOP. org.hibernate.engine.jdbc.spi.SqlExceptionHelper logExceptions
 ERROR: The statement was aborted because it would have caused a duplicate key value in a unique or primary key constraint or unique index identified by &apos;UK_RQASCXYGMXO8L8HJ94YVRIU3N&apos; defined on &apos;USERS&apos;.
 </system-err>
   </testcase>
