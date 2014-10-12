@@ -9,26 +9,20 @@ import cz.muni.fi.pa165.carpark.TestUtils;
 import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Rental;
 import cz.muni.fi.pa165.carpark.entity.User;
-import java.text.DateFormat;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceUnit;
-import javax.persistence.Query;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
+ * This class has unit tests for CarDaoImpl.java. 
  *
  * @author Karolina Burska
  */
@@ -74,24 +68,22 @@ public class CarDaoTest {
         Assert.assertEquals(car, secondCar);
         Assert.assertNotSame(car, secondCar);
     }
-    /*
+    
     @Test(expected = IllegalArgumentException.class)
     public void addCarWithNullTest(){
-        
-    }*/
+        carImpl.AddCar(null);
+    }
     
     @Test(expected = IllegalArgumentException.class)
     public void getCarWithWrongIdTest(){
         carImpl.getCar(Long.getLong("-54"));
-        carImpl.getCar(Long.getLong("0"));
-        carImpl.AddCar(null);
+        carImpl.getCar(Long.getLong("0"));  
     }
     
     @Test
     public void editCarTest(){
         
         Car car = new Car();
-        
         car.setBrand(Car.mBrand.DAEWOO);
         car.setColor(Car.mColor.BLUE);
         car.setEngine(Car.mEngine.ELECTRIC);
@@ -104,7 +96,6 @@ public class CarDaoTest {
         carImpl.AddCar(car);
         
         Car carForEditation = new Car();
-        
         carForEditation.setBrand(Car.mBrand.DAEWOO);
         carForEditation.setColor(Car.mColor.BLUE);
         carForEditation.setEngine(Car.mEngine.ELECTRIC);
@@ -117,8 +108,7 @@ public class CarDaoTest {
         
         carImpl.EditCar(carForEditation);
         
-        Car carForCheck = new Car();
-        
+        Car carForCheck = new Car(); 
         carForCheck.setID(car.getID());
         
         Assert.assertNotNull(carForCheck);
@@ -133,10 +123,9 @@ public class CarDaoTest {
     
     @Test
     public void deleteCarTest(){
-        Car car = new Car();
         
+        Car car = new Car();
         car.setBrand(Car.mBrand.DAEWOO);
-        //car.setID(Long.getLong("2"));
         car.setColor(Car.mColor.BLUE);
         car.setEngine(Car.mEngine.ELECTRIC);
         car.setLicencePlate("4G5-PA165");
@@ -156,8 +145,7 @@ public class CarDaoTest {
     }
     
     @Test(expected = IllegalArgumentException.class)
-    public void deleteCarWithNullTest()
-    {
+    public void deleteCarWithNullTest(){
         carImpl.DeleteCar(null);
     }
     
@@ -200,11 +188,11 @@ public class CarDaoTest {
         Assert.assertTrue("Missing car3. ", cars.contains(car3));
         Assert.assertTrue("Size of collection does not fit. ", cars.size() == 3);
     }
-    
+  
     @Test
     public void getRentedCarsTest(){
-        Car car1 = new Car();
         
+        Car car1 = new Car();
         car1.setBrand(Car.mBrand.CHEVROLET);
         car1.setLicencePlate("4G5-PA161");
         car1.setRented(Boolean.TRUE);
@@ -216,8 +204,7 @@ public class CarDaoTest {
         car2.setRented(Boolean.FALSE);
         car2.setVIN("SomeVIN2");
         
-        Car car3 = new Car();
-        
+        Car car3 = new Car(); 
         car3.setBrand(Car.mBrand.TESLA);
         car3.setLicencePlate("4G5-PA163");
         car3.setRented(Boolean.TRUE);
