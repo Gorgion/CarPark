@@ -71,15 +71,12 @@ public class OfficeDaoImpl implements OfficeDao {
         Office office = new Office();
         
         try {
-            em.getTransaction().begin();
-            office = em.find(Office.class, id);
-            em.getTransaction().commit();
+            office = (Office)em.createQuery("SELECT o FROM Office o WHERE o.id =:ide").setParameter("ide", id).getSingleResult();
         }
         catch(PersistenceException e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            //e.printStackTrace();
         }
         finally {
             em.close();
@@ -119,7 +116,11 @@ public class OfficeDaoImpl implements OfficeDao {
 
         try {
             em.getTransaction().begin();
+            
+            Office o = getOffice(office.getID());
+            
             em.remove(em.find(Office.class, office.getID()));
+           
             em.getTransaction().commit();
         }
         catch(PersistenceException e) {

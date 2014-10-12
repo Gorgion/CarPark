@@ -1,23 +1,14 @@
 -------------------------------------------------------------------------------
 Test set: cz.muni.fi.pa165.carpark.dao.OfficeDaoTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 10.857 sec <<< FAILURE!
-editOfficeTest(cz.muni.fi.pa165.carpark.dao.OfficeDaoTest)  Time elapsed: 10.616 sec  <<< FAILURE!
-java.lang.AssertionError: expected:<[Car: id=3, brand:FORD, model:FOCUS, type:HATCHBACK, engine:DIESEL, color:RED, VIN:VIN222, isRented:false
-, Car: id=2, brand:CHEVROLET, model:CAMARO, type:SEDAN, engine:PETROL, color:YELLOW, VIN:VIN321, isRented:false
-, Car: id=1, brand:SKODA, model:FABIA, type:COMBI, engine:PETROL, color:BLACK, VIN:VIN123, isRented:false
-]> but was:<[Car: id=3, brand:FORD, model:FOCUS, type:HATCHBACK, engine:DIESEL, color:RED, VIN:VIN222, isRented:false
-, Car: id=3, brand:FORD, model:FOCUS, type:HATCHBACK, engine:DIESEL, color:RED, VIN:VIN222, isRented:false
-, Car: id=2, brand:CHEVROLET, model:CAMARO, type:SEDAN, engine:PETROL, color:YELLOW, VIN:VIN321, isRented:false
-, Car: id=2, brand:CHEVROLET, model:CAMARO, type:SEDAN, engine:PETROL, color:YELLOW, VIN:VIN321, isRented:false
-, Car: id=1, brand:SKODA, model:FABIA, type:COMBI, engine:PETROL, color:BLACK, VIN:VIN123, isRented:false
-, Car: id=1, brand:SKODA, model:FABIA, type:COMBI, engine:PETROL, color:BLACK, VIN:VIN123, isRented:false
-]>
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 12.205 sec <<< FAILURE!
+deleteOfficeTest(cz.muni.fi.pa165.carpark.dao.OfficeDaoTest)  Time elapsed: 12.021 sec  <<< FAILURE!
+java.lang.AssertionError: expected null, but was:<Addresss of office with id null is: null. Manager is null. Office cars are: null, office employess are: null>
 	at org.junit.Assert.fail(Assert.java:88)
-	at org.junit.Assert.failNotEquals(Assert.java:743)
-	at org.junit.Assert.assertEquals(Assert.java:118)
-	at org.junit.Assert.assertEquals(Assert.java:144)
-	at cz.muni.fi.pa165.carpark.dao.OfficeDaoTest.editOfficeTest(OfficeDaoTest.java:252)
+	at org.junit.Assert.failNotNull(Assert.java:664)
+	at org.junit.Assert.assertNull(Assert.java:646)
+	at org.junit.Assert.assertNull(Assert.java:656)
+	at cz.muni.fi.pa165.carpark.dao.OfficeDaoTest.deleteOfficeTest(OfficeDaoTest.java:184)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

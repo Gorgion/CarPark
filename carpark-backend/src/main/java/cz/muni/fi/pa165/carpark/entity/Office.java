@@ -36,13 +36,13 @@ public class Office implements Serializable {
     @Column(nullable = false)
     private String address;
     
-    @OneToOne//(cascade = {CascadeType.ALL})
+    @OneToOne
     private User manager;
     
-    @OneToMany(fetch = FetchType.EAGER) //(cascade = {CascadeType.ALL})//CascadeType.DETACH,CascadeType.REFRESH})
+    @OneToMany(fetch = FetchType.EAGER)
     private List<User> employees;
     
-    @OneToMany(fetch = FetchType.EAGER) //(cascade = {CascadeType.ALL})//CascadeType.DETACH,CascadeType.REFRESH})
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Car> cars;
         
     /**

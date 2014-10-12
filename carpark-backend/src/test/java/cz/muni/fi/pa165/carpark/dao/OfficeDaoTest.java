@@ -182,7 +182,7 @@ public class OfficeDaoTest
         dao.deleteOffice(office);
        
         Assert.assertNull(dao.getOffice(office.getID()));
-      
+              
     }
     
     @Test
@@ -241,10 +241,8 @@ public class OfficeDaoTest
         
         Office officeUpdated = dao.getOffice(office.getID());
         
-        System.out.println("AUTA----> List: "+cars+"\n a má uvnitř:" + officeUpdated.getCars());
-        System.out.println("AUTA----> List: "+employees2+"\n a má uvnitř:" + officeUpdated.getEmployees());
-        
         Assert.assertNotNull(officeUpdated);
+        
         Assert.assertEquals(officeExp, officeUpdated);
         Assert.assertNotSame(officeExp, officeUpdated);
 
