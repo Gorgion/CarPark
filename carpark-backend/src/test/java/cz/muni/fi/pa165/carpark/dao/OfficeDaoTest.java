@@ -156,15 +156,9 @@ public class OfficeDaoTest
         
         dao.addOffice(office);
         dao.deleteOffice(office);
-        
-        try
-        {
-            dao.getOffice(office.getID());
-            Assert.fail("Office should be deleted - exception expected");
-        }catch(IllegalArgumentException ex)
-        {
-        }
-            
+       
+        Assert.assertNull(dao.getOffice(office.getID()));
+      
     }
     
     @Test
@@ -190,8 +184,7 @@ public class OfficeDaoTest
         employees2.add(employee);
         
         String address2 = "Adresa 321";
-        
-        
+                
         Car car1 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "TRB1962", "VIN123", false);
         Car car2 = TestUtils.createCar(mBrand.CHEVROLET, mType.SEDAN, mColor.YELLOW, mEngine.PETROL, mModel.CAMARO, "1B21234", "VIN321", false);
         Car car3 = TestUtils.createCar(mBrand.FORD, mType.HATCHBACK, mColor.RED, mEngine.DIESEL, mModel.FOCUS, "1A11111", "VIN222", false);
@@ -201,13 +194,14 @@ public class OfficeDaoTest
         cars.add(car2);
         cars.add(car1);
         
-        Office officeNew = TestUtils.createOffice(address2, manager2, cars, employees2);
+        Office officeExp = TestUtils.createOffice(address2, manager2, cars, employees2);
 
-        officeNew.setID(office.getID());
+        officeExp.setID(office.getID());
         
-        dao.editOffice(officeNew);
+        dao.editOffice(officeExp);
         
-        Assert.assertEquals(officeNew, dao.getOffice(office.getID()));
+               
+        Assert.assertEquals(officeExp, dao.getOffice(office.getID()));
         Assert.assertNotEquals(dao.getOffice(office.getID()), office);
     }
     

@@ -129,7 +129,7 @@ public class CarDaoImpl implements CarDao
         EntityManager em = emf.createEntityManager();
         
         //TODO edit naive version
-        Query query = em.createQuery("SELECT c FROM Car c WHERE c.id NOT IN (SELECT DISTINCT r.car FROM Rental r WHERE :to < r.fromDate AND :from > r.toDate)", Car.class).setParameter("from", from).setParameter("to", to);
+        Query query = em.createQuery("SELECT c FROM Car c WHERE c.id NOT IN (SELECT DISTINCT r.car FROM Rental r WHERE :to < r.fromDate OR :from > r.toDate)", Car.class).setParameter("from", from).setParameter("to", to);
         List<Car> freeCars = query.getResultList();
         
         em.close();
