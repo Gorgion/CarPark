@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: cz.muni.fi.pa165.carpark.dao.OfficeDaoTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 12.205 sec <<< FAILURE!
-deleteOfficeTest(cz.muni.fi.pa165.carpark.dao.OfficeDaoTest)  Time elapsed: 12.021 sec  <<< FAILURE!
+Tests run: 11, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 4.293 sec <<< FAILURE!
+deleteOfficeTest(cz.muni.fi.pa165.carpark.dao.OfficeDaoTest)  Time elapsed: 0.356 sec  <<< FAILURE!
 java.lang.AssertionError: expected null, but was:<Addresss of office with id null is: null. Manager is null. Office cars are: null, office employess are: null>
 	at org.junit.Assert.fail(Assert.java:88)
 	at org.junit.Assert.failNotNull(Assert.java:664)
@@ -27,7 +27,7 @@ java.lang.AssertionError: expected null, but was:<Addresss of office with id nul
 	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
 	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
-	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:45)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:53)
 	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:123)
 	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:104)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)

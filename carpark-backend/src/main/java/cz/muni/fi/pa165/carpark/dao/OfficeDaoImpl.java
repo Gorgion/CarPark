@@ -117,8 +117,6 @@ public class OfficeDaoImpl implements OfficeDao {
         try {
             em.getTransaction().begin();
             
-            Office o = getOffice(office.getID());
-            
             em.remove(em.find(Office.class, office.getID()));
            
             em.getTransaction().commit();
