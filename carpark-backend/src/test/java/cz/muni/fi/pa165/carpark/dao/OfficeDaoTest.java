@@ -100,7 +100,6 @@ public class OfficeDaoTest
         
         dao.addOffice(office);
         
-        
         Assert.assertEquals(dao.getOfficeCars(office),cars);
     }
     
@@ -126,47 +125,9 @@ public class OfficeDaoTest
     @Test
     public void getAllOfficesTest()
     {
-        User empl1 = TestUtils.createUser("Jan", "Jirkovič", "Adresa 1", User.Position.EMPLOYEE, "123bn");
-        User empl2m = TestUtils.createUser("Jiří", "Jirkovič", "Adresa 1", User.Position.MANAGER, "321bn");
-        User empl3m= TestUtils.createUser("Tomáš", "Tomášovič", "Adresa 2", User.Position.MANAGER, "111bn");
-        User empl4 = TestUtils.createUser("Karel", "Karlovič", "Adresa 3", User.Position.EMPLOYEE, "456bn");
-        User empl5m = TestUtils.createUser("Pepa", "Pepovič", "Adresa 4", User.Position.MANAGER, "112bn");
-        
-        List<User> employees1 = new ArrayList<User>();
-        employees1.add(empl1);
-        employees1.add(empl2m);
-        
-        List<User> employees2 = new ArrayList<User>();
-        employees1.add(empl3m);
-        employees1.add(empl4);
-        
-        List<User> employees3 = new ArrayList<User>();
-        employees1.add(empl5m);
-        
-        Office office1 = TestUtils.createOffice("Adresa 1", empl2m, null, employees1);
-        Office office2 = TestUtils.createOffice("Adresa 2", empl3m, null, employees2);
-        Office office3 = TestUtils.createOffice("Adresa 3", empl5m, null, employees3);
-        
-        Car car1 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP1", "VIN1", false);
-        Car car2 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP2", "VIN2", false);
-        Car car3 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP3", "VIN3", false);
-        Car car4 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP4", "VIN4", false);
-        Car car5 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP5", "VIN5", false);
-
-        List<Car> cars1 = new ArrayList<Car>();
-        cars1.add(car1);
-        cars1.add(car2);
-        
-        List<Car> cars2 = new ArrayList<Car>();
-        cars1.add(car3);
-        cars1.add(car4);
-        
-        List<Car> cars3 = new ArrayList<Car>();
-        cars1.add(car5);
-        
-        office1.setCars(cars1);
-        office2.setCars(cars2);
-        office3.setCars(cars3);
+        Office office1 = TestUtils.createOffice("Adresa 1", null, null, null);
+        Office office2 = TestUtils.createOffice("Adresa 2", null, null, null);
+        Office office3 = TestUtils.createOffice("Adresa 3", null, null, null);
         
         List<Office> offices = new ArrayList<Office>();
         offices.add(office1);
@@ -178,65 +139,6 @@ public class OfficeDaoTest
         dao.addOffice(office3);
         
         Assert.assertEquals(dao.getAllOffices(),offices);
-    }
-    
-    @Test
-    public void getEmployeesTest()
-    {
-        User empl1 = TestUtils.createUser("Jan", "Jirkovič", "Adresa 1", User.Position.EMPLOYEE, "123bn");
-        User empl2m = TestUtils.createUser("Jiří", "Jirkovič", "Adresa 1", User.Position.MANAGER, "321bn");
-        User empl3m= TestUtils.createUser("Tomáš", "Tomášovič", "Adresa 2", User.Position.MANAGER, "111bn");
-        User empl4 = TestUtils.createUser("Karel", "Karlovič", "Adresa 3", User.Position.EMPLOYEE, "456bn");
-        User empl5m = TestUtils.createUser("Pepa", "Pepovič", "Adresa 4", User.Position.MANAGER, "112bn");
-        
-        List<User> employees1 = new ArrayList<User>();
-        employees1.add(empl1);
-        employees1.add(empl2m);
-        
-        List<User> employees2 = new ArrayList<User>();
-        employees1.add(empl3m);
-        employees1.add(empl4);
-        
-        List<User> employees3 = new ArrayList<User>();
-        employees1.add(empl5m);
-        
-        Office office1 = TestUtils.createOffice("Adresa 1", empl2m, null, employees1);
-        Office office2 = TestUtils.createOffice("Adresa 2", empl3m, null, employees2);
-        Office office3 = TestUtils.createOffice("Adresa 3", empl5m, null, employees3);
-        
-        Car car1 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP1", "VIN1", false);
-        Car car2 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP2", "VIN2", false);
-        Car car3 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP3", "VIN3", false);
-        Car car4 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP4", "VIN4", false);
-        Car car5 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP5", "VIN5", false);
-
-        List<Car> cars1 = new ArrayList<Car>();
-        cars1.add(car1);
-        cars1.add(car2);
-        
-        List<Car> cars2 = new ArrayList<Car>();
-        cars1.add(car3);
-        cars1.add(car4);
-        
-        List<Car> cars3 = new ArrayList<Car>();
-        cars1.add(car5);
-        
-        office1.setCars(cars1);
-        office2.setCars(cars2);
-        office3.setCars(cars3);
-        
-        List<Office> offices = new ArrayList<Office>();
-        offices.add(office1);
-        offices.add(office2);
-        offices.add(office3);
-        
-        dao.addOffice(office1);
-        dao.addOffice(office2);
-        dao.addOffice(office3);
-        
-        Assert.assertEquals(employees1, office1.getEmployees());
-        Assert.assertEquals(employees2, office2.getEmployees());
-        Assert.assertEquals(employees3, office3.getEmployees());
     }
     
     @Test

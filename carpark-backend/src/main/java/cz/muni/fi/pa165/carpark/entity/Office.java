@@ -13,11 +13,13 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.criteria.Fetch;
 
 /**
  *
@@ -34,13 +36,13 @@ public class Office implements Serializable {
     @Column(nullable = false)
     private String address;
     
-    @OneToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})
+    @OneToOne(cascade = {CascadeType.ALL})
     private User manager;
     
-    @OneToMany (cascade = {CascadeType.DETACH,CascadeType.REFRESH})
+    @OneToMany (cascade = {CascadeType.ALL})//CascadeType.DETACH,CascadeType.REFRESH})
     private List<User> employees;
     
-    @OneToMany (cascade = {CascadeType.DETACH,CascadeType.REFRESH})
+    @OneToMany (cascade = {CascadeType.ALL})//CascadeType.DETACH,CascadeType.REFRESH})
     private List<Car> cars;
         
     /**

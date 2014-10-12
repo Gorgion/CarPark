@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.transaction.Transactional;
 /**
  * Office entity with operations add, get, edit, delete. It also finds all
  * offices, office cars and office employees.
@@ -110,10 +111,12 @@ public class OfficeDaoImpl implements OfficeDao {
         if (office == null) {
             throw new IllegalArgumentException("Office is null.");
         }
-
+        
         EntityManager em = emf.createEntityManager();
-        List<Car> cars = (List<Car>)em.createQuery("FROM Car WHERE office=:office").setParameter("office", office).getResultList();
-
+        List<Car> cars = em.createQuery("SELECT o.cars FROM Office o WHERE o.iD = :officeid").setParameter("officeid", office.getID()).getResultList();
+        
+        em.close();
+        
         return Collections.unmodifiableList(cars);
     }
 
@@ -130,6 +133,8 @@ public class OfficeDaoImpl implements OfficeDao {
 
         em.getTransaction().begin();
 
+        em.persist(office);
+        em.persist(car);
         List<Car> actualCars = getOffice(office.getID()).getCars();
         actualCars.add(car);
         office.setCars(actualCars);
@@ -139,6 +144,7 @@ public class OfficeDaoImpl implements OfficeDao {
         em.close();
     }
 
+    @Transactional
     @Override
     public void deleteCarFromOffice(Office office, Car car) {
         if (office == null) {
@@ -151,7 +157,7 @@ public class OfficeDaoImpl implements OfficeDao {
         EntityManager em = emf.createEntityManager();
 
         em.getTransaction().begin();
-
+        
         List<Car> actualCars = getOffice(office.getID()).getCars();
         actualCars.remove(car);
         office.setCars(actualCars);
@@ -169,8 +175,10 @@ public class OfficeDaoImpl implements OfficeDao {
 
         EntityManager em = emf.createEntityManager();
 
-        List<User> users = (List<User>)em.createQuery("FROM User WHERE office=:office").setParameter("office", office).getResultList();
+        List<User> users = em.createQuery("SELECT o.employees FROM Office o WHERE o.id =:officeId").setParameter("officeId", office.getID()).getResultList();
 
+        em.close();
+        
         return Collections.unmodifiableList(users);
     }
 
