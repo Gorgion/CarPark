@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="cz.muni.fi.pa165.carpark.dao.OfficeDaoTest" time="10.52" errors="0" skipped="0">
+<testsuite tests="1" failures="1" name="cz.muni.fi.pa165.carpark.dao.OfficeDaoTest" time="10.864" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_20\jre\bin"/>
@@ -62,5 +62,231 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="cz.muni.fi.pa165.carpark.dao.OfficeDaoTest" name="editOfficeTest" time="10.235"/>
+  <testcase classname="cz.muni.fi.pa165.carpark.dao.OfficeDaoTest" name="editOfficeTest" time="10.616">
+    <failure message="expected:&lt;[Car: id=3, brand:FORD, model:FOCUS, type:HATCHBACK, engine:DIESEL, color:RED, VIN:VIN222, isRented:false
+, Car: id=2, brand:CHEVROLET, model:CAMARO, type:SEDAN, engine:PETROL, color:YELLOW, VIN:VIN321, isRented:false
+, Car: id=1, brand:SKODA, model:FABIA, type:COMBI, engine:PETROL, color:BLACK, VIN:VIN123, isRented:false
+]&gt; but was:&lt;[Car: id=3, brand:FORD, model:FOCUS, type:HATCHBACK, engine:DIESEL, color:RED, VIN:VIN222, isRented:false
+, Car: id=3, brand:FORD, model:FOCUS, type:HATCHBACK, engine:DIESEL, color:RED, VIN:VIN222, isRented:false
+, Car: id=2, brand:CHEVROLET, model:CAMARO, type:SEDAN, engine:PETROL, color:YELLOW, VIN:VIN321, isRented:false
+, Car: id=2, brand:CHEVROLET, model:CAMARO, type:SEDAN, engine:PETROL, color:YELLOW, VIN:VIN321, isRented:false
+, Car: id=1, brand:SKODA, model:FABIA, type:COMBI, engine:PETROL, color:BLACK, VIN:VIN123, isRented:false
+, Car: id=1, brand:SKODA, model:FABIA, type:COMBI, engine:PETROL, color:BLACK, VIN:VIN123, isRented:false
+]&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;[Car: id=3, brand:FORD, model:FOCUS, type:HATCHBACK, engine:DIESEL, color:RED, VIN:VIN222, isRented:false
+, Car: id=2, brand:CHEVROLET, model:CAMARO, type:SEDAN, engine:PETROL, color:YELLOW, VIN:VIN321, isRented:false
+, Car: id=1, brand:SKODA, model:FABIA, type:COMBI, engine:PETROL, color:BLACK, VIN:VIN123, isRented:false
+]&gt; but was:&lt;[Car: id=3, brand:FORD, model:FOCUS, type:HATCHBACK, engine:DIESEL, color:RED, VIN:VIN222, isRented:false
+, Car: id=3, brand:FORD, model:FOCUS, type:HATCHBACK, engine:DIESEL, color:RED, VIN:VIN222, isRented:false
+, Car: id=2, brand:CHEVROLET, model:CAMARO, type:SEDAN, engine:PETROL, color:YELLOW, VIN:VIN321, isRented:false
+, Car: id=2, brand:CHEVROLET, model:CAMARO, type:SEDAN, engine:PETROL, color:YELLOW, VIN:VIN321, isRented:false
+, Car: id=1, brand:SKODA, model:FABIA, type:COMBI, engine:PETROL, color:BLACK, VIN:VIN123, isRented:false
+, Car: id=1, brand:SKODA, model:FABIA, type:COMBI, engine:PETROL, color:BLACK, VIN:VIN123, isRented:false
+]&gt;
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.junit.Assert.failNotEquals(Assert.java:743)
+	at org.junit.Assert.assertEquals(Assert.java:118)
+	at org.junit.Assert.assertEquals(Assert.java:144)
+	at cz.muni.fi.pa165.carpark.dao.OfficeDaoTest.editOfficeTest(OfficeDaoTest.java:252)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:45)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:123)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:104)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:164)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:110)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:175)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
+</failure>
+    <system-out>Hibernate: alter table Office drop constraint FK_mksb34gtab7bqfif9pb885kqf
+Hibernate: alter table Office_Car drop constraint FK_q3qrrlw1n1njujr4r6gt26nkp
+Hibernate: alter table Office_Car drop constraint FK_7e74p5tn2wlu2cqj71frlgfqi
+Hibernate: alter table Office_users drop constraint FK_k8k3g464h7hp9372796t6gu5h
+Hibernate: alter table Office_users drop constraint FK_atjayucsytfuex882uxnneuyc
+Hibernate: alter table Rental drop constraint FK_x2jr4ufrannouhfkaf81devw
+Hibernate: alter table Rental drop constraint FK_mdgwpp5048k8dgbtylvu426nc
+Hibernate: drop table Car
+Hibernate: drop table Office
+Hibernate: drop table Office_Car
+Hibernate: drop table Office_users
+Hibernate: drop table Rental
+Hibernate: drop table users
+Hibernate: create table Car (id bigint generated by default as identity, VIN varchar(255) not null, brand varchar(255) not null, color varchar(255), engine varchar(255), licencePlate varchar(255) not null, model varchar(255), rented boolean not null, type varchar(255), primary key (id))
+Hibernate: create table Office (iD bigint generated by default as identity, address varchar(255) not null, manager_Id bigint, primary key (iD))
+Hibernate: create table Office_Car (Office_iD bigint not null, cars_id bigint not null)
+Hibernate: create table Office_users (Office_iD bigint not null, employees_Id bigint not null)
+Hibernate: create table Rental (id bigint generated by default as identity, fromDate timestamp not null, rentalState varchar(255) not null, toDate timestamp not null, car_id bigint, user_Id bigint, primary key (id))
+Hibernate: create table users (Id bigint generated by default as identity, address varchar(255), birthNumber varchar(255) not null, firstName varchar(255) not null, lastName varchar(255) not null, position varchar(255), primary key (Id))
+Hibernate: alter table Car add constraint UK_5txy7ysp4s0cjjeocmf3wjjsn  unique (VIN)
+Hibernate: alter table Car add constraint UK_mudtlb8udg5ladg0u5rmj4gwu  unique (licencePlate)
+Hibernate: alter table Office_Car add constraint UK_q3qrrlw1n1njujr4r6gt26nkp  unique (cars_id)
+Hibernate: alter table Office_users add constraint UK_k8k3g464h7hp9372796t6gu5h  unique (employees_Id)
+Hibernate: alter table users add constraint UK_rqascxygmxo8l8hj94yvriu3n  unique (birthNumber)
+Hibernate: alter table Office add constraint FK_mksb34gtab7bqfif9pb885kqf foreign key (manager_Id) references users
+Hibernate: alter table Office_Car add constraint FK_q3qrrlw1n1njujr4r6gt26nkp foreign key (cars_id) references Car
+Hibernate: alter table Office_Car add constraint FK_7e74p5tn2wlu2cqj71frlgfqi foreign key (Office_iD) references Office
+Hibernate: alter table Office_users add constraint FK_k8k3g464h7hp9372796t6gu5h foreign key (employees_Id) references users
+Hibernate: alter table Office_users add constraint FK_atjayucsytfuex882uxnneuyc foreign key (Office_iD) references Office
+Hibernate: alter table Rental add constraint FK_x2jr4ufrannouhfkaf81devw foreign key (car_id) references Car
+Hibernate: alter table Rental add constraint FK_mdgwpp5048k8dgbtylvu426nc foreign key (user_Id) references users
+Hibernate: insert into Car (id, VIN, brand, color, engine, licencePlate, model, rented, type) values (default, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: values identity_val_local()
+Hibernate: insert into Car (id, VIN, brand, color, engine, licencePlate, model, rented, type) values (default, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: values identity_val_local()
+Hibernate: insert into Car (id, VIN, brand, color, engine, licencePlate, model, rented, type) values (default, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: values identity_val_local()
+Hibernate: insert into users (Id, address, birthNumber, firstName, lastName, position) values (default, ?, ?, ?, ?, ?)
+Hibernate: values identity_val_local()
+Hibernate: insert into users (Id, address, birthNumber, firstName, lastName, position) values (default, ?, ?, ?, ?, ?)
+Hibernate: values identity_val_local()
+Hibernate: insert into users (Id, address, birthNumber, firstName, lastName, position) values (default, ?, ?, ?, ?, ?)
+Hibernate: values identity_val_local()
+Hibernate: insert into users (Id, address, birthNumber, firstName, lastName, position) values (default, ?, ?, ?, ?, ?)
+Hibernate: values identity_val_local()
+Hibernate: insert into Office (iD, address, manager_Id) values (default, ?, ?)
+Hibernate: values identity_val_local()
+Hibernate: insert into Office_users (Office_iD, employees_Id) values (?, ?)
+Hibernate: insert into Office_users (Office_iD, employees_Id) values (?, ?)
+Addresss of office with id 1 is: Adresa 123. Manager is User{Id=1, firstName=Jiří, lastName=Dočkal, birthNumber=901212/1234, address=Někde daleko, position=MANAGER}. Office cars are: null, office employess are: [User{Id=1, firstName=Jiří, lastName=Dočkal, birthNumber=901212/1234, address=Někde daleko, position=MANAGER}, User{Id=2, firstName=Honza, lastName=Pracovník, birthNumber=820101/4321, address=Někde jinde, position=EMPLOYEE}]
+Hibernate: select office0_.iD as iD1_1_0_, office0_.address as address2_1_0_, office0_.manager_Id as manager_3_1_0_ from Office office0_ where office0_.iD=?
+Hibernate: select user0_.Id as Id1_5_0_, user0_.address as address2_5_0_, user0_.birthNumber as birthNum3_5_0_, user0_.firstName as firstNam4_5_0_, user0_.lastName as lastName5_5_0_, user0_.position as position6_5_0_ from users user0_ where user0_.Id=?
+Hibernate: select employees0_.Office_iD as Office_i1_1_0_, employees0_.employees_Id as employee2_3_0_, user1_.Id as Id1_5_1_, user1_.address as address2_5_1_, user1_.birthNumber as birthNum3_5_1_, user1_.firstName as firstNam4_5_1_, user1_.lastName as lastName5_5_1_, user1_.position as position6_5_1_ from Office_users employees0_ inner join users user1_ on employees0_.employees_Id=user1_.Id where employees0_.Office_iD=?
+Hibernate: select cars0_.Office_iD as Office_i1_1_0_, cars0_.cars_id as cars_id2_2_0_, car1_.id as id1_0_1_, car1_.VIN as VIN2_0_1_, car1_.brand as brand3_0_1_, car1_.color as color4_0_1_, car1_.engine as engine5_0_1_, car1_.licencePlate as licenceP6_0_1_, car1_.model as model7_0_1_, car1_.rented as rented8_0_1_, car1_.type as type9_0_1_ from Office_Car cars0_ inner join Car car1_ on cars0_.cars_id=car1_.id where cars0_.Office_iD=?
+Hibernate: select car0_.id as id1_0_0_, car0_.VIN as VIN2_0_0_, car0_.brand as brand3_0_0_, car0_.color as color4_0_0_, car0_.engine as engine5_0_0_, car0_.licencePlate as licenceP6_0_0_, car0_.model as model7_0_0_, car0_.rented as rented8_0_0_, car0_.type as type9_0_0_ from Car car0_ where car0_.id=?
+Hibernate: select car0_.id as id1_0_0_, car0_.VIN as VIN2_0_0_, car0_.brand as brand3_0_0_, car0_.color as color4_0_0_, car0_.engine as engine5_0_0_, car0_.licencePlate as licenceP6_0_0_, car0_.model as model7_0_0_, car0_.rented as rented8_0_0_, car0_.type as type9_0_0_ from Car car0_ where car0_.id=?
+Hibernate: select car0_.id as id1_0_0_, car0_.VIN as VIN2_0_0_, car0_.brand as brand3_0_0_, car0_.color as color4_0_0_, car0_.engine as engine5_0_0_, car0_.licencePlate as licenceP6_0_0_, car0_.model as model7_0_0_, car0_.rented as rented8_0_0_, car0_.type as type9_0_0_ from Car car0_ where car0_.id=?
+Hibernate: select user0_.Id as Id1_5_0_, user0_.address as address2_5_0_, user0_.birthNumber as birthNum3_5_0_, user0_.firstName as firstNam4_5_0_, user0_.lastName as lastName5_5_0_, user0_.position as position6_5_0_ from users user0_ where user0_.Id=?
+Hibernate: select user0_.Id as Id1_5_0_, user0_.address as address2_5_0_, user0_.birthNumber as birthNum3_5_0_, user0_.firstName as firstNam4_5_0_, user0_.lastName as lastName5_5_0_, user0_.position as position6_5_0_ from users user0_ where user0_.Id=?
+Hibernate: update Office set address=?, manager_Id=? where iD=?
+Hibernate: insert into Office_Car (Office_iD, cars_id) values (?, ?)
+Hibernate: insert into Office_Car (Office_iD, cars_id) values (?, ?)
+Hibernate: insert into Office_Car (Office_iD, cars_id) values (?, ?)
+Hibernate: delete from Office_users where Office_iD=?
+Hibernate: insert into Office_users (Office_iD, employees_Id) values (?, ?)
+Hibernate: insert into Office_users (Office_iD, employees_Id) values (?, ?)
+Hibernate: select office0_.iD as iD1_1_0_, office0_.address as address2_1_0_, office0_.manager_Id as manager_3_1_0_, cars1_.Office_iD as Office_i1_1_1_, car2_.id as cars_id2_2_1_, car2_.id as id1_0_2_, car2_.VIN as VIN2_0_2_, car2_.brand as brand3_0_2_, car2_.color as color4_0_2_, car2_.engine as engine5_0_2_, car2_.licencePlate as licenceP6_0_2_, car2_.model as model7_0_2_, car2_.rented as rented8_0_2_, car2_.type as type9_0_2_, employees3_.Office_iD as Office_i1_1_3_, user4_.Id as employee2_3_3_, user4_.Id as Id1_5_4_, user4_.address as address2_5_4_, user4_.birthNumber as birthNum3_5_4_, user4_.firstName as firstNam4_5_4_, user4_.lastName as lastName5_5_4_, user4_.position as position6_5_4_, user5_.Id as Id1_5_5_, user5_.address as address2_5_5_, user5_.birthNumber as birthNum3_5_5_, user5_.firstName as firstNam4_5_5_, user5_.lastName as lastName5_5_5_, user5_.position as position6_5_5_ from Office office0_ left outer join Office_Car cars1_ on office0_.iD=cars1_.Office_iD left outer join Car car2_ on cars1_.cars_id=car2_.id left outer join Office_users employees3_ on office0_.iD=employees3_.Office_iD left outer join users user4_ on employees3_.employees_Id=user4_.Id left outer join users user5_ on office0_.manager_Id=user5_.Id where office0_.iD=?
+AUTA----&gt; List: [Car: id=3, brand:FORD, model:FOCUS, type:HATCHBACK, engine:DIESEL, color:RED, VIN:VIN222, isRented:false
+, Car: id=2, brand:CHEVROLET, model:CAMARO, type:SEDAN, engine:PETROL, color:YELLOW, VIN:VIN321, isRented:false
+, Car: id=1, brand:SKODA, model:FABIA, type:COMBI, engine:PETROL, color:BLACK, VIN:VIN123, isRented:false
+]
+ a má uvnitř:[Car: id=3, brand:FORD, model:FOCUS, type:HATCHBACK, engine:DIESEL, color:RED, VIN:VIN222, isRented:false
+, Car: id=3, brand:FORD, model:FOCUS, type:HATCHBACK, engine:DIESEL, color:RED, VIN:VIN222, isRented:false
+, Car: id=2, brand:CHEVROLET, model:CAMARO, type:SEDAN, engine:PETROL, color:YELLOW, VIN:VIN321, isRented:false
+, Car: id=2, brand:CHEVROLET, model:CAMARO, type:SEDAN, engine:PETROL, color:YELLOW, VIN:VIN321, isRented:false
+, Car: id=1, brand:SKODA, model:FABIA, type:COMBI, engine:PETROL, color:BLACK, VIN:VIN123, isRented:false
+, Car: id=1, brand:SKODA, model:FABIA, type:COMBI, engine:PETROL, color:BLACK, VIN:VIN123, isRented:false
+]
+AUTA----&gt; List: [User{Id=3, firstName=Honza, lastName=Navrhal, birthNumber=820101/4, address=Někde úplně jinde, position=MANAGER}, User{Id=4, firstName=Pepa, lastName=Kounil, birthNumber=901212/1, address=Někde hodně daleko, position=EMPLOYEE}]
+ a má uvnitř:[User{Id=3, firstName=Honza, lastName=Navrhal, birthNumber=820101/4, address=Někde úplně jinde, position=MANAGER}, User{Id=4, firstName=Pepa, lastName=Kounil, birthNumber=901212/1, address=Někde hodně daleko, position=EMPLOYEE}, User{Id=3, firstName=Honza, lastName=Navrhal, birthNumber=820101/4, address=Někde úplně jinde, position=MANAGER}, User{Id=4, firstName=Pepa, lastName=Kounil, birthNumber=901212/1, address=Někde hodně daleko, position=EMPLOYEE}, User{Id=3, firstName=Honza, lastName=Navrhal, birthNumber=820101/4, address=Někde úplně jinde, position=MANAGER}, User{Id=4, firstName=Pepa, lastName=Kounil, birthNumber=901212/1, address=Někde hodně daleko, position=EMPLOYEE}]
+</system-out>
+    <system-err>Říj 12, 2014 2:01:46 ODP. org.hibernate.ejb.HibernatePersistence logDeprecation
+WARN: HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
+Říj 12, 2014 2:01:46 ODP. org.hibernate.ejb.HibernatePersistence logDeprecation
+WARN: HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
+Říj 12, 2014 2:01:46 ODP. org.hibernate.ejb.HibernatePersistence logDeprecation
+WARN: HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
+Říj 12, 2014 2:01:47 ODP. org.hibernate.jpa.internal.util.LogHelper logPersistenceUnitInformation
+INFO: HHH000204: Processing PersistenceUnitInfo [
+	name: TestPU
+	...]
+Říj 12, 2014 2:01:47 ODP. org.hibernate.Version logVersion
+INFO: HHH000412: Hibernate Core {4.3.6.Final}
+Říj 12, 2014 2:01:47 ODP. org.hibernate.cfg.Environment &lt;clinit&gt;
+INFO: HHH000206: hibernate.properties not found
+Říj 12, 2014 2:01:47 ODP. org.hibernate.cfg.Environment buildBytecodeProvider
+INFO: HHH000021: Bytecode provider name : javassist
+Říj 12, 2014 2:01:48 ODP. org.hibernate.annotations.common.reflection.java.JavaReflectionManager &lt;clinit&gt;
+INFO: HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+Říj 12, 2014 2:01:48 ODP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+WARN: HHH000402: Using Hibernate built-in connection pool (not for production use!)
+Říj 12, 2014 2:01:49 ODP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+INFO: HHH000401: using driver [org.apache.derby.jdbc.EmbeddedDriver] at URL [jdbc:derby:memory:CarParkTest;create=true]
+Říj 12, 2014 2:01:49 ODP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+INFO: HHH000046: Connection properties: {user=, password=****}
+Říj 12, 2014 2:01:49 ODP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+INFO: HHH000006: Autocommit mode: false
+Říj 12, 2014 2:01:49 ODP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+INFO: HHH000115: Hibernate connection pool size: 20 (min=1)
+Říj 12, 2014 2:01:52 ODP. org.hibernate.dialect.Dialect &lt;init&gt;
+INFO: HHH000400: Using dialect: org.hibernate.dialect.DerbyTenSevenDialect
+Říj 12, 2014 2:01:52 ODP. org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory &lt;init&gt;
+INFO: HHH000397: Using ASTQueryTranslatorFactory
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport execute
+INFO: HHH000227: Running hbm2ddl schema export
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: HHH000389: Unsuccessful: alter table Office drop constraint FK_mksb34gtab7bqfif9pb885kqf
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: &apos;ALTER TABLE&apos; cannot be performed on &apos;OFFICE&apos; because it does not exist.
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: HHH000389: Unsuccessful: alter table Office_Car drop constraint FK_q3qrrlw1n1njujr4r6gt26nkp
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: &apos;ALTER TABLE&apos; cannot be performed on &apos;OFFICE_CAR&apos; because it does not exist.
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: HHH000389: Unsuccessful: alter table Office_Car drop constraint FK_7e74p5tn2wlu2cqj71frlgfqi
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: &apos;ALTER TABLE&apos; cannot be performed on &apos;OFFICE_CAR&apos; because it does not exist.
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: HHH000389: Unsuccessful: alter table Office_users drop constraint FK_k8k3g464h7hp9372796t6gu5h
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: &apos;ALTER TABLE&apos; cannot be performed on &apos;OFFICE_USERS&apos; because it does not exist.
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: HHH000389: Unsuccessful: alter table Office_users drop constraint FK_atjayucsytfuex882uxnneuyc
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: &apos;ALTER TABLE&apos; cannot be performed on &apos;OFFICE_USERS&apos; because it does not exist.
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: HHH000389: Unsuccessful: alter table Rental drop constraint FK_x2jr4ufrannouhfkaf81devw
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: &apos;ALTER TABLE&apos; cannot be performed on &apos;RENTAL&apos; because it does not exist.
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: HHH000389: Unsuccessful: alter table Rental drop constraint FK_mdgwpp5048k8dgbtylvu426nc
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: &apos;ALTER TABLE&apos; cannot be performed on &apos;RENTAL&apos; because it does not exist.
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: HHH000389: Unsuccessful: drop table Car
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: &apos;DROP TABLE&apos; cannot be performed on &apos;CAR&apos; because it does not exist.
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: HHH000389: Unsuccessful: drop table Office
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: &apos;DROP TABLE&apos; cannot be performed on &apos;OFFICE&apos; because it does not exist.
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: HHH000389: Unsuccessful: drop table Office_Car
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: &apos;DROP TABLE&apos; cannot be performed on &apos;OFFICE_CAR&apos; because it does not exist.
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: HHH000389: Unsuccessful: drop table Office_users
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: &apos;DROP TABLE&apos; cannot be performed on &apos;OFFICE_USERS&apos; because it does not exist.
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: HHH000389: Unsuccessful: drop table Rental
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: &apos;DROP TABLE&apos; cannot be performed on &apos;RENTAL&apos; because it does not exist.
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: HHH000389: Unsuccessful: drop table users
+Říj 12, 2014 2:01:54 ODP. org.hibernate.tool.hbm2ddl.SchemaExport perform
+ERROR: &apos;DROP TABLE&apos; cannot be performed on &apos;USERS&apos; because it does not exist.
+Říj 12, 2014 2:01:55 ODP. org.hibernate.tool.hbm2ddl.SchemaExport execute
+INFO: HHH000230: Schema export complete
+</system-err>
+  </testcase>
 </testsuite>
