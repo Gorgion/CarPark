@@ -1,8 +1,0 @@
-#surefire
-#Sun Oct 12 09:12:29 CEST 2014
-maven.ext.class.path=D\:\\Programs\\NetBeans 8.0.1\\java\\maven-nblib\\netbeans-eventspy.jar
-user.dir=D\:\\School\\pa165_java\\pa165-car-park\\carpark-backend
-file.encoding=UTF-8
-localRepository=C\:\\Users\\-JD-\\.m2\\repository
-basedir=D\:\\School\\pa165_java\\pa165-car-park\\carpark-backend
-test=cz.muni.fi.pa165.carpark.dao.OfficeDaoTest
