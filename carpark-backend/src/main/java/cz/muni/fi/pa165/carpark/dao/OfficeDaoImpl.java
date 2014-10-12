@@ -133,8 +133,24 @@ public class OfficeDaoImpl implements OfficeDao {
 
         em.getTransaction().begin();
 
-        em.persist(office);
-        em.persist(car);
+//        em.persist(office);
+//        car = em.merge(car);
+        if(car.getID() == null)
+        {
+            em.persist(car);
+        } else            
+        {
+                    car = em.find(Car.class, car.getID());
+        }
+        
+//        car = em.find(Car.class, car.getID());
+//        if(car == null)
+//        {
+//            em.persist(car);
+//        }
+        
+//        office
+        
         List<Car> actualCars = getOffice(office.getID()).getCars();
         actualCars.add(car);
         office.setCars(actualCars);
@@ -144,7 +160,7 @@ public class OfficeDaoImpl implements OfficeDao {
         em.close();
     }
 
-    @Transactional
+//    @Transactional
     @Override
     public void deleteCarFromOffice(Office office, Car car) {
         if (office == null) {
@@ -195,6 +211,8 @@ public class OfficeDaoImpl implements OfficeDao {
 
         em.getTransaction().begin();
 
+        user = em.merge(user);
+        
         List<User> actualEmployees = getOffice(office.getID()).getEmployees();
         actualEmployees.add(user);
         office.setEmployees(actualEmployees);
