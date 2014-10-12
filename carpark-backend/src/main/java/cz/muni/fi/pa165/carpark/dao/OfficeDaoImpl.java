@@ -68,7 +68,7 @@ public class OfficeDaoImpl implements OfficeDao {
 
         EntityManager em = emf.createEntityManager();
 
-        Office office = new Office();
+        Office office = null;
         
         try {
             office = (Office)em.createQuery("SELECT o FROM Office o WHERE o.id =:ide").setParameter("ide", id).getSingleResult();
@@ -118,7 +118,7 @@ public class OfficeDaoImpl implements OfficeDao {
             em.getTransaction().begin();
             
             em.remove(em.find(Office.class, office.getID()));
-           
+            
             em.getTransaction().commit();
         }
         catch(PersistenceException e) {
