@@ -189,44 +189,47 @@ public class OfficeDaoTest
     //@Ignore
     public void editOfficeTest()
     {
-        List<Car> cars = new ArrayList<Car>();
-        
         Car car1 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "TRB1962", "VIN123", false);
         Car car2 = TestUtils.createCar(mBrand.CHEVROLET, mType.SEDAN, mColor.YELLOW, mEngine.PETROL, mModel.CAMARO, "1B21234", "VIN321", false);
         Car car3 = TestUtils.createCar(mBrand.FORD, mType.HATCHBACK, mColor.RED, mEngine.DIESEL, mModel.FOCUS, "1A11111", "VIN222", false);
-        
-        //cars.add(car3);
-        //cars.add(car2);
-        //cars.add(car1);
         
         carDao.AddCar(car1);
         carDao.AddCar(car2);
         carDao.AddCar(car3);
         
+        List<Car> cars = new ArrayList<Car>();       
+        cars.add(car3);
+        cars.add(car2);
+        cars.add(car1);
+        
+        
         User manager = TestUtils.createUser("Jiří", "Dočkal", "Někde daleko", User.Position.MANAGER, "901212/1234");
         User employee = TestUtils.createUser("Honza", "Pracovník", "Někde jinde", User.Position.EMPLOYEE, "820101/4321");
+                
+        userDao.add(manager);
+        userDao.add(employee);
         
         List<User> employees = new ArrayList<User>();
         employees.add(manager);
         employees.add(employee);
         
-        userDao.add(manager);
-        userDao.add(employee);
         
         String address = "Adresa 123";
         Office office = TestUtils.createOffice(address, manager, null, employees);
         
-        dao.addOffice(office);
-        
+                
         User employee2 = TestUtils.createUser("Pepa", "Kounil", "Někde hodně daleko", User.Position.EMPLOYEE, "901212/1");
         User manager2 = TestUtils.createUser("Honza", "Navrhal", "Někde úplně jinde", User.Position.MANAGER, "820101/4");
+        
+        userDao.add(manager2);
+        userDao.add(employee2);
         
         List<User> employees2 = new ArrayList<User>();
         employees2.add(manager2);
         employees2.add(employee2);
         
-        userDao.add(manager2);
-        userDao.add(employee2);
+        
+        dao.addOffice(office);
         
         String address2 = "Adresa 321";
                       
