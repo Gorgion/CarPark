@@ -11,7 +11,7 @@ The project should emulate a real situation in a company. The company employees 
 ![useCase.jpg](https://bitbucket.org/repo/8op8qp/images/2354194273-useCase.jpg)
 
 ### Class diagram ###
-![classDiagram.jpg](https://bytebucket.org/JayDee8/pa165-car-park/raw/ba1995ba6522e57e725f75f464cedb792be3eae3/res/classDiagram.jpg)
+![classDiagram.jpg](https://bytebucket.org/JayDee8/pa165-car-park/raw/3eb587469281c6509b55f7ef61297e2bcb8d8571/res/classDiagram.jpg)
 
 
 ### Team ###
