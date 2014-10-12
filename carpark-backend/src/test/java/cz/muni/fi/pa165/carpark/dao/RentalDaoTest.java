@@ -35,6 +35,7 @@ public class RentalDaoTest {
     private RentalDao rentalDao;
     private OfficeDao officeDao;
     private UserDao userDao;
+    private CarDao carDao;
     private EntityManagerFactory entityManagerFactory;
     
     public RentalDaoTest() {
@@ -51,6 +52,9 @@ public class RentalDaoTest {
         
         userDao = new UserDaoImpl();
         userDao.setEmf(entityManagerFactory);
+        
+        carDao = new CarDaoImpl();
+        carDao.setEmf(entityManagerFactory);
     }    
 
     @Test(expected = IllegalArgumentException.class)
@@ -67,17 +71,13 @@ public class RentalDaoTest {
         System.out.println("create rental");
 
         Office office = TestUtils.createSampleOffice();
-        Car car = office.getCars().get(0);
+        persistSampleOffice(office);
         
-        officeDao.addOffice(office);
-        
+        Car car = office.getCars().get(0);  
         Date from = new Date();
-        User user = TestUtils.createUser("Tomáš", "Tester", "Polní 25/8a, 755 00 Brno 5", Position.EMPLOYEE, "R1023456");
-        
-        userDao.add(user);
-        
         Date to = TestUtils.dateNow(3500L);
         State rentalState = State.FINISHED;
+        User user = office.getEmployees().get(1);
 
         Rental rental = TestUtils.createRental(car, rentalState, user, from, to);
 
@@ -98,6 +98,16 @@ public class RentalDaoTest {
         }
     }
 
+    private void persistSampleOffice(Office office) {
+        for (Car car : office.getCars()) {
+            carDao.AddCar(car);
+        }
+        for (User user : office.getEmployees()) {
+            userDao.add(user);
+        }
+        officeDao.addOffice(office);
+    }
+
     @Test
     public void testGetAllRental() {
         System.out.println("getAll");
@@ -106,7 +116,7 @@ public class RentalDaoTest {
         assertEquals(rentalDao.getAll().size(), 0);
         
         Office office = TestUtils.createSampleOffice();       
-        officeDao.addOffice(office);        
+        persistSampleOffice(office);    
        
         //TODO set car and address instead null 
 //        Set<Rental> setOfRentals = new HashSet<Rental>();
@@ -165,7 +175,7 @@ public class RentalDaoTest {
         assertEquals(rentalDao.getAll().size(), 0);
           
         Office office = TestUtils.createSampleOffice();       
-        officeDao.addOffice(office);        
+        persistSampleOffice(office);
      
         User user = office.getEmployees().get(1);
         
@@ -228,9 +238,8 @@ public class RentalDaoTest {
         System.out.println("get");
 
         Office office = TestUtils.createSampleOffice();
-        
-        officeDao.addOffice(office);        
-        
+        persistSampleOffice(office);
+
         Car car = office.getCars().get(0);
         Date from = new Date();
         User user = office.getEmployees().get(1);
@@ -241,14 +250,14 @@ public class RentalDaoTest {
         rentalDao.create(rental);
         assertNotNull(rental.getId());
 
-        Rental persistRental = rentalDao.get(rental.getId());
+        Rental actualRental = rentalDao.get(rental.getId());
 
-        assertEquals(rental.getId(), persistRental.getId());
-        assertEquals(rental.getCar(), persistRental.getCar());
-        assertEquals(rental.getRentalState(), persistRental.getRentalState());
-        assertEquals(rental.getFromDate(), persistRental.getFromDate());
-        assertEquals(rental.getToDate(), persistRental.getToDate());
-        assertEquals(rental.getUser(), persistRental.getUser());
+        assertEquals(rental.getId(), actualRental.getId());
+        assertEquals(rental.getCar(), actualRental.getCar());
+        assertEquals(rental.getRentalState(), actualRental.getRentalState());
+        assertEquals(rental.getFromDate(), actualRental.getFromDate());
+        assertEquals(rental.getToDate(), actualRental.getToDate());
+        assertEquals(rental.getUser(), actualRental.getUser());
     }
     
     @Test(expected = IllegalArgumentException.class)
@@ -264,8 +273,7 @@ public class RentalDaoTest {
         System.out.println("delete");
 
         Office office = TestUtils.createSampleOffice();
-        
-        officeDao.addOffice(office);        
+        persistSampleOffice(office);       
         
         User user = office.getEmployees().get(1);
         Car car = office.getCars().get(0);
