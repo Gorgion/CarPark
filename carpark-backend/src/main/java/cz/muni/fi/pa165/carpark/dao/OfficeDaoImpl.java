@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 /**
  * Office entity with operations add, get, edit, delete. It also finds all
@@ -75,9 +76,19 @@ public class OfficeDaoImpl implements OfficeDao {
 
         EntityManager em = emf.createEntityManager();
 
+        try
+        {
         em.getTransaction().begin();
         em.merge(office);
         em.getTransaction().commit();
+        }
+        catch(PersistenceException ex)
+        {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            ex.printStackTrace();
+        }
         em.close();
     }
 

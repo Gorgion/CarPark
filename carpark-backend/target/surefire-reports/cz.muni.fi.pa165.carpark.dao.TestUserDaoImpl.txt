@@ -1,11 +1,11 @@
 -------------------------------------------------------------------------------
 Test set: cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl
 -------------------------------------------------------------------------------
-Tests run: 13, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 7.054 sec <<< FAILURE!
-testGetAllWithoutRent(cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl)  Time elapsed: 0.601 sec  <<< ERROR!
+Tests run: 13, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 6.912 sec <<< FAILURE!
+testGetAllWithoutRent(cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl)  Time elapsed: 1.573 sec  <<< ERROR!
 javax.persistence.RollbackException: Error while committing the transaction
 	at org.hibernate.jpa.internal.TransactionImpl.commit(TransactionImpl.java:94)
-	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.addOffice(OfficeDaoImpl.java:43)
+	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.addOffice(OfficeDaoImpl.java:44)
 	at cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl.testGetAllWithoutRent(TestUserDaoImpl.java:203)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -55,10 +55,10 @@ Caused by: org.hibernate.TransientPropertyValueException: object references an u
 	at org.hibernate.engine.transaction.spi.AbstractTransactionImpl.commit(AbstractTransactionImpl.java:177)
 	at org.hibernate.jpa.internal.TransactionImpl.commit(TransactionImpl.java:77)
 	... 32 more
-testGetAllWithRent(cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl)  Time elapsed: 0.414 sec  <<< ERROR!
+testGetAllWithRent(cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl)  Time elapsed: 0.494 sec  <<< ERROR!
 javax.persistence.RollbackException: Error while committing the transaction
 	at org.hibernate.jpa.internal.TransactionImpl.commit(TransactionImpl.java:94)
-	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.addOffice(OfficeDaoImpl.java:43)
+	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.addOffice(OfficeDaoImpl.java:44)
 	at cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl.testGetAllWithRent(TestUserDaoImpl.java:164)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)

@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Sun Oct 12 09:24:35 CEST 2014:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0149-033e-9c9a-000002ce0350 
+Sun Oct 12 11:22:18 CEST 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0149-03aa-5fad-000002cd1900 
 on database directory memory:D:\School\pa165_java\pa165-car-park\carpark-backend\CarParkTest  with class loader sun.misc.Launcher$AppClassLoader@6bc7c054 
 Loaded from file:/C:/Users/-JD-/.m2/repository/org/apache/derby/derby/10.8.1.2/derby-10.8.1.2.jar
 java.vendor=Oracle Corporation

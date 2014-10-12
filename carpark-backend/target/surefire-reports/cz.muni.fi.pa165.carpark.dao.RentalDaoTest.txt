@@ -1,11 +1,11 @@
 -------------------------------------------------------------------------------
 Test set: cz.muni.fi.pa165.carpark.dao.RentalDaoTest
 -------------------------------------------------------------------------------
-Tests run: 11, Failures: 0, Errors: 4, Skipped: 1, Time elapsed: 6.29 sec <<< FAILURE!
-testCreateRental(cz.muni.fi.pa165.carpark.dao.RentalDaoTest)  Time elapsed: 1.006 sec  <<< ERROR!
+Tests run: 11, Failures: 0, Errors: 4, Skipped: 1, Time elapsed: 4.993 sec <<< FAILURE!
+testCreateRental(cz.muni.fi.pa165.carpark.dao.RentalDaoTest)  Time elapsed: 0.433 sec  <<< ERROR!
 javax.persistence.RollbackException: Error while committing the transaction
 	at org.hibernate.jpa.internal.TransactionImpl.commit(TransactionImpl.java:94)
-	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.addOffice(OfficeDaoImpl.java:43)
+	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.addOffice(OfficeDaoImpl.java:44)
 	at cz.muni.fi.pa165.carpark.dao.RentalDaoTest.testCreateRental(RentalDaoTest.java:72)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -55,10 +55,10 @@ Caused by: org.hibernate.TransientPropertyValueException: object references an u
 	at org.hibernate.engine.transaction.spi.AbstractTransactionImpl.commit(AbstractTransactionImpl.java:177)
 	at org.hibernate.jpa.internal.TransactionImpl.commit(TransactionImpl.java:77)
 	... 32 more
-testGet(cz.muni.fi.pa165.carpark.dao.RentalDaoTest)  Time elapsed: 1.065 sec  <<< ERROR!
+testGet(cz.muni.fi.pa165.carpark.dao.RentalDaoTest)  Time elapsed: 0.37 sec  <<< ERROR!
 javax.persistence.RollbackException: Error while committing the transaction
 	at org.hibernate.jpa.internal.TransactionImpl.commit(TransactionImpl.java:94)
-	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.addOffice(OfficeDaoImpl.java:43)
+	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.addOffice(OfficeDaoImpl.java:44)
 	at cz.muni.fi.pa165.carpark.dao.RentalDaoTest.testGet(RentalDaoTest.java:228)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -108,10 +108,10 @@ Caused by: org.hibernate.TransientPropertyValueException: object references an u
 	at org.hibernate.engine.transaction.spi.AbstractTransactionImpl.commit(AbstractTransactionImpl.java:177)
 	at org.hibernate.jpa.internal.TransactionImpl.commit(TransactionImpl.java:77)
 	... 32 more
-testGetAllRental(cz.muni.fi.pa165.carpark.dao.RentalDaoTest)  Time elapsed: 0.04 sec  <<< ERROR!
+testGetAllRental(cz.muni.fi.pa165.carpark.dao.RentalDaoTest)  Time elapsed: 0.344 sec  <<< ERROR!
 javax.persistence.RollbackException: Error while committing the transaction
 	at org.hibernate.jpa.internal.TransactionImpl.commit(TransactionImpl.java:94)
-	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.addOffice(OfficeDaoImpl.java:43)
+	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.addOffice(OfficeDaoImpl.java:44)
 	at cz.muni.fi.pa165.carpark.dao.RentalDaoTest.testGetAllRental(RentalDaoTest.java:111)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -161,10 +161,10 @@ Caused by: org.hibernate.TransientPropertyValueException: object references an u
 	at org.hibernate.engine.transaction.spi.AbstractTransactionImpl.commit(AbstractTransactionImpl.java:177)
 	at org.hibernate.jpa.internal.TransactionImpl.commit(TransactionImpl.java:77)
 	... 32 more
-testDelete(cz.muni.fi.pa165.carpark.dao.RentalDaoTest)  Time elapsed: 0.525 sec  <<< ERROR!
+testDelete(cz.muni.fi.pa165.carpark.dao.RentalDaoTest)  Time elapsed: 0.426 sec  <<< ERROR!
 javax.persistence.RollbackException: Error while committing the transaction
 	at org.hibernate.jpa.internal.TransactionImpl.commit(TransactionImpl.java:94)
-	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.addOffice(OfficeDaoImpl.java:43)
+	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.addOffice(OfficeDaoImpl.java:44)
 	at cz.muni.fi.pa165.carpark.dao.RentalDaoTest.testDelete(RentalDaoTest.java:264)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)

@@ -165,7 +165,7 @@ public class OfficeDaoTest
     }
     
     @Test
-    @Ignore
+    //@Ignore
     public void deleteOfficeTest()
     {
         try
@@ -186,7 +186,7 @@ public class OfficeDaoTest
     }
     
     @Test
-    @Ignore
+    //@Ignore
     public void editOfficeTest()
     {
         User manager = TestUtils.createUser("Jiří", "Dočkal", "Někde daleko", User.Position.MANAGER, "901212/1234");
@@ -201,15 +201,15 @@ public class OfficeDaoTest
         
         dao.addOffice(office);
         
-        User employee2 = TestUtils.createUser("Jiří", "Dočkal", "Někde daleko", User.Position.EMPLOYEE, "901212/1234");
-        User manager2 = TestUtils.createUser("Honza", "Pracovník", "Někde jinde", User.Position.MANAGER, "820101/4321");
+        User employee2 = TestUtils.createUser("Pepa", "Kounil", "Někde hodně daleko", User.Position.EMPLOYEE, "901212/1");
+        User manager2 = TestUtils.createUser("Honza", "Navrhal", "Někde úplně jinde", User.Position.MANAGER, "820101/4");
         
         List<User> employees2 = new ArrayList<User>();
-        employees2.add(manager);
-        employees2.add(employee);
+        employees2.add(manager2);
+        employees2.add(employee2);
         
         String address2 = "Adresa 321";
-                
+              
         Car car1 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "TRB1962", "VIN123", false);
         Car car2 = TestUtils.createCar(mBrand.CHEVROLET, mType.SEDAN, mColor.YELLOW, mEngine.PETROL, mModel.CAMARO, "1B21234", "VIN321", false);
         Car car3 = TestUtils.createCar(mBrand.FORD, mType.HATCHBACK, mColor.RED, mEngine.DIESEL, mModel.FOCUS, "1A11111", "VIN222", false);
@@ -228,7 +228,15 @@ public class OfficeDaoTest
         Office officeUpdated = dao.getOffice(office.getID());
                
         Assert.assertEquals(officeExp, officeUpdated);
-        Assert.assertNotEquals(office, officeUpdated);
+        
+        Assert.assertNotNull(officeUpdated);
+        Assert.assertEquals(officeExp, officeUpdated);
+        Assert.assertNotSame(officeExp, officeUpdated);
+
+        Assert.assertEquals(officeExp.getAddress(), officeUpdated.getAddress());
+        Assert.assertEquals(officeExp.getCars(), officeUpdated.getCars());
+        Assert.assertEquals(officeExp.getEmployees(), officeUpdated.getEmployees());
+        
     }
     
     @Test
@@ -257,7 +265,7 @@ public class OfficeDaoTest
     }
     
     @Test
-    @Ignore
+    //@Ignore
     public void addCarToOfficeTest()
     {
         String address = "Adresa 123";
@@ -282,7 +290,7 @@ public class OfficeDaoTest
     }
     
     @Test
-    @Ignore
+    //@Ignore
     public void deleteEmployeeToOfficeTest()
     {
         String address = "Adresa 123";
@@ -307,7 +315,7 @@ public class OfficeDaoTest
     }
     
     @Test
-    @Ignore
+    //@Ignore
     public void deleteCarToOfficeTest()
     {
         String address = "Adresa 123";

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="13" failures="0" name="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" time="7.106" errors="2" skipped="0">
+<testsuite tests="13" failures="0" name="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" time="7.062" errors="2" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_20\jre\bin"/>
@@ -61,14 +61,14 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testGetNulllId" time="1.146"/>
-  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testGetMaxId" time="0.03"/>
-  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testGet" time="1.316"/>
-  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testEdit" time="0.49"/>
-  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testGetAllWithoutRent" time="0.601">
+  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testGetNulllId" time="0.43"/>
+  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testGetMaxId" time="0.425"/>
+  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testGet" time="0.529"/>
+  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testEdit" time="0.567"/>
+  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testGetAllWithoutRent" time="1.573">
     <error message="Error while committing the transaction" type="javax.persistence.RollbackException">javax.persistence.RollbackException: Error while committing the transaction
 	at org.hibernate.jpa.internal.TransactionImpl.commit(TransactionImpl.java:94)
-	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.addOffice(OfficeDaoImpl.java:43)
+	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.addOffice(OfficeDaoImpl.java:44)
 	at cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl.testGetAllWithoutRent(TestUserDaoImpl.java:203)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -153,48 +153,48 @@ Hibernate: alter table Rental add constraint FK_mdgwpp5048k8dgbtylvu426nc foreig
 Hibernate: insert into Office (iD, address, manager_Id) values (default, ?, ?)
 Hibernate: values identity_val_local()
 </system-out>
-    <system-err>Říj 11, 2014 10:20:59 ODP. org.hibernate.ejb.HibernatePersistence logDeprecation
+    <system-err>Říj 12, 2014 10:11:50 DOP. org.hibernate.ejb.HibernatePersistence logDeprecation
 WARN: HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
-Říj 11, 2014 10:20:59 ODP. org.hibernate.ejb.HibernatePersistence logDeprecation
+Říj 12, 2014 10:11:50 DOP. org.hibernate.ejb.HibernatePersistence logDeprecation
 WARN: HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
-Říj 11, 2014 10:20:59 ODP. org.hibernate.ejb.HibernatePersistence logDeprecation
+Říj 12, 2014 10:11:50 DOP. org.hibernate.ejb.HibernatePersistence logDeprecation
 WARN: HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
-Říj 11, 2014 10:20:59 ODP. org.hibernate.jpa.internal.util.LogHelper logPersistenceUnitInformation
+Říj 12, 2014 10:11:50 DOP. org.hibernate.jpa.internal.util.LogHelper logPersistenceUnitInformation
 INFO: HHH000204: Processing PersistenceUnitInfo [
 	name: TestPU
 	...]
-Říj 11, 2014 10:20:59 ODP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+Říj 12, 2014 10:11:51 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 WARN: HHH000402: Using Hibernate built-in connection pool (not for production use!)
-Říj 11, 2014 10:20:59 ODP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+Říj 12, 2014 10:11:51 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH000401: using driver [org.apache.derby.jdbc.EmbeddedDriver] at URL [jdbc:derby:memory:CarParkTest;create=true]
-Říj 11, 2014 10:20:59 ODP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+Říj 12, 2014 10:11:51 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH000046: Connection properties: {user=, password=****}
-Říj 11, 2014 10:20:59 ODP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+Říj 12, 2014 10:11:51 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH000006: Autocommit mode: false
-Říj 11, 2014 10:20:59 ODP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+Říj 12, 2014 10:11:51 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 INFO: HHH000115: Hibernate connection pool size: 20 (min=1)
-Říj 11, 2014 10:20:59 ODP. org.hibernate.dialect.Dialect &lt;init&gt;
+Říj 12, 2014 10:11:51 DOP. org.hibernate.dialect.Dialect &lt;init&gt;
 INFO: HHH000400: Using dialect: org.hibernate.dialect.DerbyTenSevenDialect
-Říj 11, 2014 10:20:59 ODP. org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory &lt;init&gt;
+Říj 12, 2014 10:11:51 DOP. org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory &lt;init&gt;
 INFO: HHH000397: Using ASTQueryTranslatorFactory
-Říj 11, 2014 10:20:59 ODP. org.hibernate.tool.hbm2ddl.SchemaExport execute
+Říj 12, 2014 10:11:51 DOP. org.hibernate.tool.hbm2ddl.SchemaExport execute
 INFO: HHH000227: Running hbm2ddl schema export
-Říj 11, 2014 10:20:59 ODP. org.hibernate.tool.hbm2ddl.SchemaExport execute
+Říj 12, 2014 10:11:52 DOP. org.hibernate.tool.hbm2ddl.SchemaExport execute
 INFO: HHH000230: Schema export complete
-Říj 11, 2014 10:20:59 ODP. org.hibernate.jpa.internal.EntityManagerFactoryRegistry addEntityManagerFactory
+Říj 12, 2014 10:11:52 DOP. org.hibernate.jpa.internal.EntityManagerFactoryRegistry addEntityManagerFactory
 WARN: HHH000436: Entity manager factory name (TestPU) is already registered.  If entity manager will be clustered or passivated, specify a unique value for property &apos;hibernate.ejb.entitymanager_factory_name&apos;
 </system-err>
   </testcase>
-  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testEditWithNullArg" time="0.324"/>
-  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testCreateUserWithNullArg" time="0.686"/>
-  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="createUserTest" time="0.423"/>
-  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testDeleteWithNullArg" time="0.49"/>
-  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testDelete" time="0.48"/>
-  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testGetAll" time="0.356"/>
-  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testGetAllWithRent" time="0.414">
+  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testEditWithNullArg" time="0.412"/>
+  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testCreateUserWithNullArg" time="0.545"/>
+  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="createUserTest" time="0.439"/>
+  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testDeleteWithNullArg" time="0.462"/>
+  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testDelete" time="0.284"/>
+  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testGetAll" time="0.45"/>
+  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testGetAllWithRent" time="0.494">
     <error message="Error while committing the transaction" type="javax.persistence.RollbackException">javax.persistence.RollbackException: Error while committing the transaction
 	at org.hibernate.jpa.internal.TransactionImpl.commit(TransactionImpl.java:94)
-	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.addOffice(OfficeDaoImpl.java:43)
+	at cz.muni.fi.pa165.carpark.dao.OfficeDaoImpl.addOffice(OfficeDaoImpl.java:44)
 	at cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl.testGetAllWithRent(TestUserDaoImpl.java:164)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -279,37 +279,37 @@ Hibernate: alter table Rental add constraint FK_mdgwpp5048k8dgbtylvu426nc foreig
 Hibernate: insert into Office (iD, address, manager_Id) values (default, ?, ?)
 Hibernate: values identity_val_local()
 </system-out>
-    <system-err>Říj 11, 2014 10:21:02 ODP. org.hibernate.ejb.HibernatePersistence logDeprecation
+    <system-err>Říj 12, 2014 10:11:54 DOP. org.hibernate.ejb.HibernatePersistence logDeprecation
 WARN: HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
-Říj 11, 2014 10:21:02 ODP. org.hibernate.ejb.HibernatePersistence logDeprecation
+Říj 12, 2014 10:11:54 DOP. org.hibernate.ejb.HibernatePersistence logDeprecation
 WARN: HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
-Říj 11, 2014 10:21:02 ODP. org.hibernate.ejb.HibernatePersistence logDeprecation
+Říj 12, 2014 10:11:54 DOP. org.hibernate.ejb.HibernatePersistence logDeprecation
 WARN: HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
-Říj 11, 2014 10:21:02 ODP. org.hibernate.jpa.internal.util.LogHelper logPersistenceUnitInformation
+Říj 12, 2014 10:11:54 DOP. org.hibernate.jpa.internal.util.LogHelper logPersistenceUnitInformation
 INFO: HHH000204: Processing PersistenceUnitInfo [
 	name: TestPU
 	...]
-Říj 11, 2014 10:21:02 ODP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+Říj 12, 2014 10:11:54 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 WARN: HHH000402: Using Hibernate built-in connection pool (not for production use!)
-Říj 11, 2014 10:21:02 ODP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+Říj 12, 2014 10:11:54 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH000401: using driver [org.apache.derby.jdbc.EmbeddedDriver] at URL [jdbc:derby:memory:CarParkTest;create=true]
-Říj 11, 2014 10:21:02 ODP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+Říj 12, 2014 10:11:54 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH000046: Connection properties: {user=, password=****}
-Říj 11, 2014 10:21:02 ODP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+Říj 12, 2014 10:11:54 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH000006: Autocommit mode: false
-Říj 11, 2014 10:21:02 ODP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+Říj 12, 2014 10:11:54 DOP. org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 INFO: HHH000115: Hibernate connection pool size: 20 (min=1)
-Říj 11, 2014 10:21:02 ODP. org.hibernate.dialect.Dialect &lt;init&gt;
+Říj 12, 2014 10:11:54 DOP. org.hibernate.dialect.Dialect &lt;init&gt;
 INFO: HHH000400: Using dialect: org.hibernate.dialect.DerbyTenSevenDialect
-Říj 11, 2014 10:21:02 ODP. org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory &lt;init&gt;
+Říj 12, 2014 10:11:54 DOP. org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory &lt;init&gt;
 INFO: HHH000397: Using ASTQueryTranslatorFactory
-Říj 11, 2014 10:21:02 ODP. org.hibernate.tool.hbm2ddl.SchemaExport execute
+Říj 12, 2014 10:11:55 DOP. org.hibernate.tool.hbm2ddl.SchemaExport execute
 INFO: HHH000227: Running hbm2ddl schema export
-Říj 11, 2014 10:21:02 ODP. org.hibernate.tool.hbm2ddl.SchemaExport execute
+Říj 12, 2014 10:11:55 DOP. org.hibernate.tool.hbm2ddl.SchemaExport execute
 INFO: HHH000230: Schema export complete
-Říj 11, 2014 10:21:02 ODP. org.hibernate.jpa.internal.EntityManagerFactoryRegistry addEntityManagerFactory
+Říj 12, 2014 10:11:55 DOP. org.hibernate.jpa.internal.EntityManagerFactoryRegistry addEntityManagerFactory
 WARN: HHH000436: Entity manager factory name (TestPU) is already registered.  If entity manager will be clustered or passivated, specify a unique value for property &apos;hibernate.ejb.entitymanager_factory_name&apos;
 </system-err>
   </testcase>
-  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testGetNegativeId" time="0.294"/>
+  <testcase classname="cz.muni.fi.pa165.carpark.dao.TestUserDaoImpl" name="testGetNegativeId" time="0.258"/>
 </testsuite>
