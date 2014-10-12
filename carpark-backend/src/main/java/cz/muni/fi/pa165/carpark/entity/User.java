@@ -62,16 +62,24 @@ public class User implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
+        {
             return false;
         }
         final User other = (User) obj;
+        if (!Objects.equals(this.Id, other.Id))
+        {
+            return false;
+        }
         return true;
     }
+    
 
     public Long getId() {
         return Id;

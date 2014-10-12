@@ -130,8 +130,7 @@ public class Office implements Serializable {
     @Override
     public int hashCode(){
         int hash = 5;
-        hash = 79 * hash + Objects.hashCode(this.iD);
-        hash = 79 * hash + Objects.hashCode(this.address);
+        hash = 79 * hash + Objects.hashCode(this.iD);        
         return hash;
     }
 
