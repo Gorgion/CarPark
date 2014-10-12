@@ -8,6 +8,7 @@ package cz.muni.fi.pa165.carpark.dao;
 import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Office;
 import cz.muni.fi.pa165.carpark.entity.User;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -144,25 +145,16 @@ public class OfficeDaoImpl implements OfficeDao {
 
         em.getTransaction().begin();
 
-//        em.persist(office);
-//        car = em.merge(car);
-        if(car.getID() == null)
+        car = em.merge(car);
+        
+        office = em.find(Office.class, office.getID());
+        
+        if(office == null)
         {
-            em.persist(car);
-        } else            
-        {
-                    car = em.find(Car.class, car.getID());
+            throw new IllegalArgumentException("Office is null.");
         }
         
-//        car = em.find(Car.class, car.getID());
-//        if(car == null)
-//        {
-//            em.persist(car);
-//        }
-        
-//        office
-        
-        List<Car> actualCars = getOffice(office.getID()).getCars();
+        List<Car> actualCars = new ArrayList<>(office.getCars());
         actualCars.add(car);
         office.setCars(actualCars);
 
@@ -171,7 +163,6 @@ public class OfficeDaoImpl implements OfficeDao {
         em.close();
     }
 
-//    @Transactional
     @Override
     public void deleteCarFromOffice(Office office, Car car) {
         if (office == null) {
