@@ -71,19 +71,13 @@ public class RentalDaoTest {
         System.out.println("create rental");
 
         Office office = TestUtils.createSampleOffice();
-        Car car = office.getCars().get(0);
-        
         persistSampleOffice(office);
         
-        officeDao.addOffice(office);
-        
+        Car car = office.getCars().get(0);  
         Date from = new Date();
-        User user = TestUtils.createUser("Tomáš", "Tester", "Polní 25/8a, 755 00 Brno 5", Position.EMPLOYEE, "R1023456");
-        
-        userDao.add(user);
-        
         Date to = TestUtils.dateNow(3500L);
         State rentalState = State.FINISHED;
+        User user = office.getEmployees().get(1);
 
         Rental rental = TestUtils.createRental(car, rentalState, user, from, to);
 
@@ -104,6 +98,16 @@ public class RentalDaoTest {
         }
     }
 
+    private void persistSampleOffice(Office office) {
+        for (Car car : office.getCars()) {
+            carDao.AddCar(car);
+        }
+        for (User user : office.getEmployees()) {
+            userDao.add(user);
+        }
+        officeDao.addOffice(office);
+    }
+
     @Test
     public void testGetAllRental() {
         System.out.println("getAll");
@@ -111,11 +115,8 @@ public class RentalDaoTest {
         assertNotNull(rentalDao.getAll());
         assertEquals(rentalDao.getAll().size(), 0);
         
-        Office office = TestUtils.createSampleOffice();
-        
-        persistSampleOffice(office);
-        
-        officeDao.addOffice(office);        
+        Office office = TestUtils.createSampleOffice();       
+        persistSampleOffice(office);    
        
         //TODO set car and address instead null 
 //        Set<Rental> setOfRentals = new HashSet<Rental>();
@@ -144,7 +145,7 @@ public class RentalDaoTest {
         List<Rental> actualRentals = rentalDao.getAll();
 
         assertNotNull(actualRentals);
-        assertNotSame(expectedRentals, actualRentals);
+        assertEquals(expectedRentals, actualRentals);
         
         expectedRentals.removeAll(actualRentals);
         assertTrue(expectedRentals.isEmpty());
@@ -167,47 +168,53 @@ public class RentalDaoTest {
         fail("Exception expected - user id is null");
     }
 
-    @Ignore
     @Test
     public void testGetAllRentalsByUser() {
         System.out.println("getAllByUser");
 
         assertEquals(rentalDao.getAll().size(), 0);
-
-        UserDao userDao = new UserDaoImpl();
-        userDao.setEmf(entityManagerFactory);
+          
+        Office office = TestUtils.createSampleOffice();       
+        persistSampleOffice(office);
+     
+        User user = office.getEmployees().get(1);
         
-        User user = TestUtils.createUser("Tomáš", "Tester", "Polní 25/8a, 755 00 Brno 5", Position.EMPLOYEE, "R1023456");
-        userDao.add(user);
-
-        //TODO set car and address instead null 
-        Set<Rental> setOfRentals = new HashSet<Rental>();
-        setOfRentals.add(TestUtils.createRental(
-                null, State.FINISHED, user,
+        List<Rental> rentals = new ArrayList<Rental>();
+        rentals.add(TestUtils.createRental(
+                office.getCars().get(0), State.FINISHED, user,
                 new Date(), TestUtils.dateNow(1000L))
         );
-        setOfRentals.add(TestUtils.createRental(
-                null, State.NEW, user,
+        rentals.add(TestUtils.createRental(
+                office.getCars().get(1), State.NEW, user,
                 new Date(), TestUtils.dateNow(2000L))
         );
-        setOfRentals.add(TestUtils.createRental(
-                null, State.ACTIVE, user,
+        rentals.add(TestUtils.createRental(
+                office.getCars().get(2), State.ACTIVE, user,
                 new Date(), TestUtils.dateNow(3020L))
         );
 
-        User otherUser = TestUtils.createUser("Kateřina", "Tester4", "Mincovní 15, 759 00 Brno", Position.MANAGER, "Z1623456");
-        setOfRentals.add(TestUtils.createRental(
-                null, State.APPROVED, otherUser,
-                new Date(), TestUtils.dateNow(1000L))
+        Rental notExpectedRental = TestUtils.createRental(
+                office.getCars().get(3), State.APPROVED, office.getManager(),
+                new Date(), TestUtils.dateNow(1000L)
         );
+        rentals.add(notExpectedRental);
 
-        for (Rental rental : setOfRentals) {
+        for (Rental rental : rentals) {
             rentalDao.create(rental);
         }
-        setOfRentals.remove(otherUser);
-
-        assertEquals(setOfRentals, new HashSet(rentalDao.getAllByUser(user)));
-        assertEquals(1, rentalDao.getAllByUser(otherUser).size());
+        
+        List<Rental> actualRentals = rentalDao.getAllByUser(user);
+        assertNotNull(actualRentals);
+        
+        //List<Rental> expectedRentals = new ArrayList<>(rentals);
+        //expectedRentals.remove(notExpectedRental);
+        //assertEquals(actualRentals, expectedRentals);
+        
+        rentals.removeAll(actualRentals);
+        assertTrue(rentals.contains(notExpectedRental));
+        
+        rentals.remove(notExpectedRental);
+        assertTrue(rentals.isEmpty());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -231,11 +238,8 @@ public class RentalDaoTest {
         System.out.println("get");
 
         Office office = TestUtils.createSampleOffice();
-        
         persistSampleOffice(office);
-        
-        officeDao.addOffice(office);        
-        
+
         Car car = office.getCars().get(0);
         Date from = new Date();
         User user = office.getEmployees().get(1);
@@ -246,14 +250,14 @@ public class RentalDaoTest {
         rentalDao.create(rental);
         assertNotNull(rental.getId());
 
-        Rental persistRental = rentalDao.get(rental.getId());
+        Rental actualRental = rentalDao.get(rental.getId());
 
-        assertEquals(rental.getId(), persistRental.getId());
-        assertEquals(rental.getCar(), persistRental.getCar());
-        assertEquals(rental.getRentalState(), persistRental.getRentalState());
-        assertEquals(rental.getFromDate(), persistRental.getFromDate());
-        assertEquals(rental.getToDate(), persistRental.getToDate());
-        assertEquals(rental.getUser(), persistRental.getUser());
+        assertEquals(rental.getId(), actualRental.getId());
+        assertEquals(rental.getCar(), actualRental.getCar());
+        assertEquals(rental.getRentalState(), actualRental.getRentalState());
+        assertEquals(rental.getFromDate(), actualRental.getFromDate());
+        assertEquals(rental.getToDate(), actualRental.getToDate());
+        assertEquals(rental.getUser(), actualRental.getUser());
     }
     
     @Test(expected = IllegalArgumentException.class)
@@ -269,10 +273,7 @@ public class RentalDaoTest {
         System.out.println("delete");
 
         Office office = TestUtils.createSampleOffice();
-
-        persistSampleOffice(office);
-        
-        officeDao.addOffice(office);        
+        persistSampleOffice(office);       
         
         User user = office.getEmployees().get(1);
         Car car = office.getCars().get(0);
@@ -282,18 +283,5 @@ public class RentalDaoTest {
         rentalDao.delete(rental);
 
         assertNull(rentalDao.get(rental.getId()));
-    }
-    
-    private void persistSampleOffice(Office office)
-    {
-        for(User user : office.getEmployees())
-        {
-            userDao.add(user);
-        }
-        
-        for(Car persistCar : office.getCars())
-        {
-            carDao.AddCar(persistCar);
-        }
     }
 }
