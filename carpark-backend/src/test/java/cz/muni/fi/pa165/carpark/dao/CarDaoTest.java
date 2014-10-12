@@ -10,6 +10,7 @@ import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Rental;
 import cz.muni.fi.pa165.carpark.entity.User;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -143,7 +144,7 @@ public class CarDaoTest {
         Collection cars = carImpl.getAllCars();
         
         Assert.assertNotNull(cars);
-        Assert.assertTrue("Car found after deletion.", !cars.contains(car));
+        Assert.assertTrue("Some car found after deletion.", cars.isEmpty());
     }
     
     @Test(expected = IllegalArgumentException.class)
@@ -185,20 +186,19 @@ public class CarDaoTest {
         rightCars.add(car3);
         
         Assert.assertNotSame(cars, rightCars);
-        Assert.assertTrue("Missing expected user. ", cars.containsAll(rightCars));   
+        Assert.assertTrue("Missing expected car. ", rightCars.containsAll(cars)); 
+        Assert.assertTrue("Missing car1. ", cars.contains(car1));
+        Assert.assertTrue("Missing car2. ", cars.contains(car2));
+        Assert.assertTrue("Missing car3. ", cars.contains(car3));
+        Assert.assertTrue("Size of collection does not fit. ", cars.size() == 3);
     }
     
     @Test
     public void getRentedCarsTest(){
         Car car1 = new Car();
-        //Date from = new Date();
-        //Date to = TestUtils.dateNow(3500L);
-        //User user1 = TestUtils.createUser("Jay", "Dee", "Ether", User.Position.EMPLOYEE, "6.6.1986");
-        //Rental rental1 = TestUtils.createRental(car1, Rental.State.NEW, user1, from , to);
         
         car1.setBrand(Car.mBrand.CHEVROLET);
         car1.setLicencePlate("4G5-PA161");
-        //car1.setRent(rental1);
         car1.setRented(Boolean.TRUE);
         car1.setVIN("SomeVIN1");
         
@@ -209,12 +209,9 @@ public class CarDaoTest {
         car2.setVIN("SomeVIN2");
         
         Car car3 = new Car();
-        //User user3 = TestUtils.createUser("Lora", "Ina", "L.A.", User.Position.EMPLOYEE, "1.1.1981");
-        //Rental rental3 = TestUtils.createRental(car3, Rental.State.ACTIVE, user3, from, to);
         
         car3.setBrand(Car.mBrand.TESLA);
         car3.setLicencePlate("4G5-PA163");
-        //car3.setRent(rental3);
         car3.setRented(Boolean.TRUE);
         car3.setVIN("SomeVIN3");
         
@@ -227,13 +224,48 @@ public class CarDaoTest {
         List<Car> rentedCars = new ArrayList<>();
         rentedCars.add(car1);
         rentedCars.add(car3);
-        
-        Assert.assertNotSame(cars, rentedCars);
+
+        Assert.assertTrue("Missing expected car. ", rentedCars.containsAll(cars));   
+        Assert.assertTrue("Missing car1. ", cars.contains(car1));
+        Assert.assertTrue("Car2 should not be in the collection. ", !cars.contains(car2));
+        Assert.assertTrue("Missing car3. ", cars.contains(car3));
+        Assert.assertTrue("Size of collection does not fit. ", cars.size() == 2);
     }
     
-    @Test
-    public void getFreeCarsTest(){
+    @Test (expected = IllegalArgumentException.class)
+    public void getFreeCarsTest() throws ParseException {
+        Car car = new Car();
         
+        car.setBrand(Car.mBrand.CHEVROLET);
+        car.setLicencePlate("4G5-PA161");
+        car.setRented(Boolean.TRUE);
+        car.setVIN("SomeVIN1"); 
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        
+        String fromString1 = "01-08-2014 10:20:30";
+        String toString1 = "31-08-2014 10:20:30";
+	Date from1 = sdf.parse(fromString1);
+        Date to1 = sdf.parse(toString1); 
+        Rental rental1 = TestUtils.createRental(car, Rental.State.ACTIVE, null, from1, to1);
+        
+        String fromString2 = "02-09-2014 10:20:30";
+        String toString2 = "10-09-2014 10:20:30";
+	Date from2 = sdf.parse(fromString2);
+        Date to2 = sdf.parse(toString2); 
+        //Rental rental2 = TestUtils.createRental(car, Rental.State.NEW, null, from2, to2);
+        
+        carImpl.AddCar(car);
+        
+        carImpl.getFreeCars(to1, from1);
+        
+        //Collection cars = carImpl.getFreeCars(from1, to1);
+        
+        //List<Car> freeCars = new ArrayList<>();
+        //freeCars.add(car);
+        Assert.assertTrue("Car is not avaliable", !(carImpl.getFreeCars(from1, to1).contains(car)));
+        Assert.assertTrue("Car is avaliable", carImpl.getFreeCars(from2, to2).contains(car));
+        Assert.assertTrue("Car is not avaliable", !(carImpl.getFreeCars(from1, to2).contains(car)));
     }
     
 }
