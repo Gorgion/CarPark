@@ -21,6 +21,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -32,7 +33,9 @@ import org.junit.Test;
  * @author Karolina Burska
  */
 public class CarDaoTest {
-    private CarDaoImpl carImpl;  
+    private CarDaoImpl carImpl; 
+    private UserDaoImpl userImpl;
+    private RentalDaoImpl rentalImpl;
     
     public CarDaoTest(){  
     }
@@ -41,6 +44,12 @@ public class CarDaoTest {
     public void setup(){
         carImpl = new CarDaoImpl();
         carImpl.setEmf(Persistence.createEntityManagerFactory("TestPU"));
+        
+        userImpl = new UserDaoImpl();
+        userImpl.setEmf(Persistence.createEntityManagerFactory("TestPU"));
+        
+        rentalImpl = new RentalDaoImpl();
+        rentalImpl.setEmf(Persistence.createEntityManagerFactory("TestPU"));
     }
     
     @Test
@@ -79,7 +88,6 @@ public class CarDaoTest {
     }
     
     @Test
-    @Ignore
     public void editCarTest(){
         
         Car car = new Car();
@@ -232,40 +240,54 @@ public class CarDaoTest {
         Assert.assertTrue("Size of collection does not fit. ", cars.size() == 2);
     }
     
-    @Test (expected = IllegalArgumentException.class)
+    @Test
     public void getFreeCarsTest() throws ParseException {
-        Car car = new Car();
-        
-        car.setBrand(Car.mBrand.CHEVROLET);
-        car.setLicencePlate("4G5-PA161");
-        car.setRented(Boolean.TRUE);
-        car.setVIN("SomeVIN1"); 
         
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
         
-        String fromString1 = "01-08-2014 10:20:30";
-        String toString1 = "31-08-2014 10:20:30";
-	Date from1 = sdf.parse(fromString1);
-        Date to1 = sdf.parse(toString1); 
-        Rental rental1 = TestUtils.createRental(car, Rental.State.ACTIVE, null, from1, to1);
+	Date from1 = sdf.parse("01-08-2014 10:20:30");
+        Date to1 = sdf.parse("31-08-2014 10:20:30"); 
         
-        String fromString2 = "02-09-2014 10:20:30";
-        String toString2 = "10-09-2014 10:20:30";
-	Date from2 = sdf.parse(fromString2);
-        Date to2 = sdf.parse(toString2); 
-        //Rental rental2 = TestUtils.createRental(car, Rental.State.NEW, null, from2, to2);
+	Date from2 = sdf.parse("02-09-2014 10:20:30");
+        Date to2 = sdf.parse("10-09-2014 10:20:30"); 
+        
+        Car car = TestUtils.createCar(Car.mBrand.CHEVROLET, Car.mType.CABRIOLET, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.CAMARO, "4G5-PA161", "SomeVIN1", true);
         
         carImpl.AddCar(car);
         
-        carImpl.getFreeCars(to1, from1);
+        User user1 = TestUtils.createUser("John", "User", "Somewhere", User.Position.EMPLOYEE, "432516/7894");
         
-        //Collection cars = carImpl.getFreeCars(from1, to1);
+        userImpl.add(user1);
         
-        //List<Car> freeCars = new ArrayList<>();
-        //freeCars.add(car);
+        Rental rental1 = TestUtils.createRental(car, Rental.State.ACTIVE, user1, from1, to1);
+        
+        rentalImpl.create(rental1);
+        
         Assert.assertTrue("Car is not avaliable", !(carImpl.getFreeCars(from1, to1).contains(car)));
         Assert.assertTrue("Car is avaliable", carImpl.getFreeCars(from2, to2).contains(car));
         Assert.assertTrue("Car is not avaliable", !(carImpl.getFreeCars(from1, to2).contains(car)));
+    }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void getFreeCarsWitWrongArgTest() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        
+	Date from = sdf.parse("01-08-2014 10:20:30");
+        Date to = sdf.parse("31-08-2014 10:20:30"); 
+        
+        Car car = TestUtils.createCar(Car.mBrand.CHEVROLET, Car.mType.CABRIOLET, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.CAMARO, "4G5-PA161", "SomeVIN1", true);
+        
+        carImpl.AddCar(car);
+        
+        User user1 = TestUtils.createUser("John", "User", "Somewhere", User.Position.EMPLOYEE, "432516/7894");
+        
+        userImpl.add(user1);
+        
+        Rental rental1 = TestUtils.createRental(car, Rental.State.ACTIVE, user1, from, to);
+        
+        rentalImpl.create(rental1);
+        
+        carImpl.getFreeCars(to, from);
     }
     
 }
