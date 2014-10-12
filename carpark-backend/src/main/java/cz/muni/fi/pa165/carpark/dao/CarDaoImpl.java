@@ -15,6 +15,7 @@ import java.util.List;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 /**
@@ -39,10 +40,23 @@ public class CarDaoImpl implements CarDao
         
         EntityManager em = emf.createEntityManager();
         
-        em.getTransaction().begin();
-        em.persist(car);
-        em.getTransaction().commit();
-        em.close();
+        try
+        {
+            em.getTransaction().begin();
+            em.persist(car);
+            em.getTransaction().commit();
+        }
+        catch(PersistenceException ex)
+        {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            ex.printStackTrace();
+        }
+        finally
+        {
+            em.close();
+        }
     }
 
     @Override
@@ -56,12 +70,27 @@ public class CarDaoImpl implements CarDao
         }
         
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
+        Car car = new Car();
+        
+        try
+        {
+            em.getTransaction().begin();
 
-        Car car = em.find(Car.class, id);
+            car = em.find(Car.class, id);
 
-        em.getTransaction().commit();
-        em.close();
+            em.getTransaction().commit();
+        }
+        catch(PersistenceException ex)
+        {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            ex.printStackTrace();
+        }
+        finally
+        {
+            em.close();
+        }
         
         return car;
     }
@@ -74,10 +103,23 @@ public class CarDaoImpl implements CarDao
         
         EntityManager em = emf.createEntityManager();
         
-        em.getTransaction().begin();
-        em.merge(car);
-        em.getTransaction().commit();
-        em.close();
+        try
+        {
+            em.getTransaction().begin();
+            em.merge(car);
+            em.getTransaction().commit();
+        }
+        catch(PersistenceException ex)
+        {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            ex.printStackTrace();
+        }
+        finally
+        {
+            em.close();
+        }
     }
 
     @Override
@@ -88,21 +130,47 @@ public class CarDaoImpl implements CarDao
         
         EntityManager em = emf.createEntityManager();
         
-        em.getTransaction().begin();
-        em.remove(em.find(Car.class, car.getID()));
-        em.getTransaction().commit();
-        em.close();
+        try
+        {
+            em.getTransaction().begin();
+            em.remove(em.find(Car.class, car.getID()));
+            em.getTransaction().commit();
+        }
+        catch(PersistenceException ex)
+        {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            ex.printStackTrace();
+        }
+        finally
+        {
+            em.close();
+        }
     }
 
     @Override
     public Collection getAllCars()
     {        
         EntityManager em = emf.createEntityManager();
+        List<Car> cars = new ArrayList<Car>();
         
-        Query query = em.createQuery("FROM Car");
-        List<Car> cars = query.getResultList();
-        
-        em.close();
+        try
+        {
+            Query query = em.createQuery("FROM Car");
+            cars = query.getResultList();
+        }
+        catch(PersistenceException ex)
+        {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            ex.printStackTrace();
+        }
+        finally
+        {
+            em.close();
+        }
         
         return Collections.unmodifiableCollection(cars);
     }
@@ -111,11 +179,25 @@ public class CarDaoImpl implements CarDao
     public Collection getRentedCars()
     {
         EntityManager em = emf.createEntityManager();
+        List<Car> rentedCars = new ArrayList<Car>();
         
-        Query query = em.createQuery("FROM Car WHERE Rented =:rented").setParameter("rented", true);
-        List<Car> rentedCars = query.getResultList();
+        try
+        {
+            Query query = em.createQuery("FROM Car WHERE Rented =:rented").setParameter("rented", true);
+            rentedCars = query.getResultList();
+        }
+        catch(PersistenceException ex)
+        {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            ex.printStackTrace();
+        }
+        finally
+        {
+            em.close();
+        }
         
-        em.close();
         
         return Collections.unmodifiableCollection(rentedCars);
     }
@@ -128,11 +210,22 @@ public class CarDaoImpl implements CarDao
         
         EntityManager em = emf.createEntityManager();
         
-        //TODO edit naive version
-        Query query = em.createQuery("SELECT c FROM Car c WHERE c.id IN (SELECT DISTINCT r.car FROM Rental r WHERE :to < r.fromDate OR :from > r.toDate)", Car.class).setParameter("from", from).setParameter("to", to);
-        List<Car> freeCars = query.getResultList();
+        List<Car> freeCars = new ArrayList<Car>();
         
-        em.close();
+        try
+        {
+            Query query = em.createQuery("SELECT c FROM Car c WHERE c.id IN (SELECT DISTINCT r.car FROM Rental r WHERE :to < r.fromDate OR :from > r.toDate)", Car.class).setParameter("from", from).setParameter("to", to);
+            freeCars = query.getResultList();
+        }
+        catch(PersistenceException ex){
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            ex.printStackTrace();
+        }
+        finally{
+            em.close();
+        } 
         
         return Collections.unmodifiableCollection(freeCars);
     }

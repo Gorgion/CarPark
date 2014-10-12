@@ -195,9 +195,9 @@ public class OfficeDaoTest
         Car car2 = TestUtils.createCar(mBrand.CHEVROLET, mType.SEDAN, mColor.YELLOW, mEngine.PETROL, mModel.CAMARO, "1B21234", "VIN321", false);
         Car car3 = TestUtils.createCar(mBrand.FORD, mType.HATCHBACK, mColor.RED, mEngine.DIESEL, mModel.FOCUS, "1A11111", "VIN222", false);
         
-        cars.add(car3);
-        cars.add(car2);
-        cars.add(car1);
+        //cars.add(car3);
+        //cars.add(car2);
+        //cars.add(car1);
         
         carDao.AddCar(car1);
         carDao.AddCar(car2);
@@ -237,8 +237,9 @@ public class OfficeDaoTest
         dao.editOffice(officeExp);
         
         Office officeUpdated = dao.getOffice(office.getID());
-               
-        Assert.assertEquals(officeExp, officeUpdated);
+        
+        System.out.println("AUTA----> List: "+cars+"\n a má uvnitř:" + officeUpdated.getCars());
+        System.out.println("AUTA----> List: "+employees2+"\n a má uvnitř:" + officeUpdated.getEmployees());
         
         Assert.assertNotNull(officeUpdated);
         Assert.assertEquals(officeExp, officeUpdated);
@@ -267,6 +268,9 @@ public class OfficeDaoTest
         
         dao.addOffice(office);
         
+        userDao.add(manager);
+        userDao.add(employee);
+        
         dao.addEmployeeToOffice(office, manager);
         dao.addEmployeeToOffice(office, employee);
         
@@ -289,6 +293,9 @@ public class OfficeDaoTest
         
         cars.add(car1);
         cars.add(car2);
+        
+        carDao.AddCar(car1);
+        carDao.AddCar(car2);
         
         dao.addOffice(office);
         
