@@ -189,12 +189,29 @@ public class OfficeDaoTest
     //@Ignore
     public void editOfficeTest()
     {
+        List<Car> cars = new ArrayList<Car>();
+        
+        Car car1 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "TRB1962", "VIN123", false);
+        Car car2 = TestUtils.createCar(mBrand.CHEVROLET, mType.SEDAN, mColor.YELLOW, mEngine.PETROL, mModel.CAMARO, "1B21234", "VIN321", false);
+        Car car3 = TestUtils.createCar(mBrand.FORD, mType.HATCHBACK, mColor.RED, mEngine.DIESEL, mModel.FOCUS, "1A11111", "VIN222", false);
+        
+        cars.add(car3);
+        cars.add(car2);
+        cars.add(car1);
+        
+        carDao.AddCar(car1);
+        carDao.AddCar(car2);
+        carDao.AddCar(car3);
+        
         User manager = TestUtils.createUser("Jiří", "Dočkal", "Někde daleko", User.Position.MANAGER, "901212/1234");
         User employee = TestUtils.createUser("Honza", "Pracovník", "Někde jinde", User.Position.EMPLOYEE, "820101/4321");
         
         List<User> employees = new ArrayList<User>();
         employees.add(manager);
         employees.add(employee);
+        
+        userDao.add(manager);
+        userDao.add(employee);
         
         String address = "Adresa 123";
         Office office = TestUtils.createOffice(address, manager, null, employees);
@@ -208,17 +225,11 @@ public class OfficeDaoTest
         employees2.add(manager2);
         employees2.add(employee2);
         
+        userDao.add(manager2);
+        userDao.add(employee2);
+        
         String address2 = "Adresa 321";
-              
-        Car car1 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "TRB1962", "VIN123", false);
-        Car car2 = TestUtils.createCar(mBrand.CHEVROLET, mType.SEDAN, mColor.YELLOW, mEngine.PETROL, mModel.CAMARO, "1B21234", "VIN321", false);
-        Car car3 = TestUtils.createCar(mBrand.FORD, mType.HATCHBACK, mColor.RED, mEngine.DIESEL, mModel.FOCUS, "1A11111", "VIN222", false);
-        
-        List<Car> cars = new ArrayList<Car>();
-        cars.add(car3);
-        cars.add(car2);
-        cars.add(car1);
-        
+                      
         Office officeExp = TestUtils.createOffice(address2, manager2, cars, employees2);
 
         officeExp.setID(office.getID());
