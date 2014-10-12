@@ -153,6 +153,9 @@ public class TestUserDaoImpl
 
         RentalDao rentalDao = new RentalDaoImpl();
         rentalDao.setEmf(emf);
+        
+        CarDao carDao = new CarDaoImpl();
+        carDao.setEmf(emf);
 
         Office defaultOffice = TestUtils.createSampleOffice();
 
@@ -161,6 +164,16 @@ public class TestUserDaoImpl
 
         Car car = defaultOffice.getCars().get(0);
 
+        for(User tmpUser : defaultOffice.getEmployees())
+        {
+            daoImpl.add(tmpUser);
+        }
+        
+        for(Car persistCar : defaultOffice.getCars())
+        {
+            carDao.AddCar(persistCar);
+        }
+        
         officeDao.addOffice(defaultOffice);
 
         Calendar calendar = Calendar.getInstance();
@@ -187,6 +200,9 @@ public class TestUserDaoImpl
     {
         OfficeDao officeDao = new OfficeDaoImpl();
         officeDao.setEMF(emf);
+        
+        CarDao carDao = new CarDaoImpl();
+        carDao.setEmf(emf);
 
         RentalDao rentalDao = new RentalDaoImpl();
         rentalDao.setEmf(emf);
@@ -200,6 +216,16 @@ public class TestUserDaoImpl
 
         Car car = defaultOffice.getCars().get(0);
 
+        daoImpl.add(user);
+        daoImpl.add(user2);
+        daoImpl.add(user3);
+        daoImpl.add(user4);
+        
+        for(Car persistCar : defaultOffice.getCars())
+        {
+            carDao.AddCar(persistCar);
+        }
+        
         officeDao.addOffice(defaultOffice);
 
         Calendar calendar = Calendar.getInstance();

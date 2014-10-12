@@ -35,6 +35,7 @@ public class RentalDaoTest {
     private RentalDao rentalDao;
     private OfficeDao officeDao;
     private UserDao userDao;
+    private CarDao carDao;
     private EntityManagerFactory entityManagerFactory;
     
     public RentalDaoTest() {
@@ -51,6 +52,9 @@ public class RentalDaoTest {
         
         userDao = new UserDaoImpl();
         userDao.setEmf(entityManagerFactory);
+        
+        carDao = new CarDaoImpl();
+        carDao.setEmf(entityManagerFactory);
     }    
 
     @Test(expected = IllegalArgumentException.class)
@@ -68,6 +72,8 @@ public class RentalDaoTest {
 
         Office office = TestUtils.createSampleOffice();
         Car car = office.getCars().get(0);
+        
+        persistSampleOffice(office);
         
         officeDao.addOffice(office);
         
@@ -107,6 +113,7 @@ public class RentalDaoTest {
         
         Office office = TestUtils.createSampleOffice();
         
+        persistSampleOffice(office);
         
         officeDao.addOffice(office);        
        
@@ -225,6 +232,8 @@ public class RentalDaoTest {
 
         Office office = TestUtils.createSampleOffice();
         
+        persistSampleOffice(office);
+        
         officeDao.addOffice(office);        
         
         Car car = office.getCars().get(0);
@@ -260,6 +269,8 @@ public class RentalDaoTest {
         System.out.println("delete");
 
         Office office = TestUtils.createSampleOffice();
+
+        persistSampleOffice(office);
         
         officeDao.addOffice(office);        
         
@@ -271,5 +282,18 @@ public class RentalDaoTest {
         rentalDao.delete(rental);
 
         assertNull(rentalDao.get(rental.getId()));
+    }
+    
+    private void persistSampleOffice(Office office)
+    {
+        for(User user : office.getEmployees())
+        {
+            userDao.add(user);
+        }
+        
+        for(Car persistCar : office.getCars())
+        {
+            carDao.AddCar(persistCar);
+        }
     }
 }
