@@ -302,13 +302,16 @@ public class OfficeDaoTest
     
     @Test
     //@Ignore
-    public void deleteEmployeeToOfficeTest()
+    public void deleteEmployeeFromOfficeTest()
     {
         String address = "Adresa 123";
         Office office = TestUtils.createOffice(address, null, null, null);
            
         User manager = TestUtils.createUser("Jiří", "Dočkal", "Někde daleko", User.Position.MANAGER, "901212/1234");
         User employee = TestUtils.createUser("Honza", "Pracovník", "Někde jinde", User.Position.EMPLOYEE, "820101/4321");
+        
+        userDao.add(manager);
+        userDao.add(employee);
         
         List<User> employees = new ArrayList<User>();
         
@@ -327,7 +330,7 @@ public class OfficeDaoTest
     
     @Test
     //@Ignore
-    public void deleteCarToOfficeTest()
+    public void deleteCarFromOfficeTest()
     {
         String address = "Adresa 123";
         Office office = TestUtils.createOffice(address, null, null, null);
@@ -335,6 +338,9 @@ public class OfficeDaoTest
         Car car1 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "TRB1962", "VIN123", false);
         Car car2 = TestUtils.createCar(mBrand.CHEVROLET, mType.SEDAN, mColor.YELLOW, mEngine.PETROL, mModel.CAMARO, "1B21234", "VIN321", false);
 
+        carDao.AddCar(car1);
+        carDao.AddCar(car2);
+        
         List<Car> cars = new ArrayList<Car>();
         
         cars.add(car1);
