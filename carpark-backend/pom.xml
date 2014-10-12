@@ -32,15 +32,8 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
-            <!--<scope>test</scope>-->
-        </dependency>
-        
-        <!--        <dependency>
-            <groupId>cz.muni.fi.pa165</groupId>
-            <artifactId>carpark-backend</artifactId>
-            <version>1.0-SNAPSHOT</version>
             <scope>test</scope>
-        </dependency>-->
+        </dependency>        
         
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -75,31 +68,6 @@
                     </compilerArguments>
                 </configuration>
             </plugin>
-<!--            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${endorsed.dir}</outputDirectory>
-                            <silent>true</silent>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>javax</groupId>
-                                    <artifactId>javaee-endorsed-api</artifactId>
-                                    <version>7.0</version>
-                                    <type>jar</type>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
         </plugins>
     </build>
 </project>
