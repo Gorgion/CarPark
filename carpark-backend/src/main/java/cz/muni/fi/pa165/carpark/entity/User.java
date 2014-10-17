@@ -6,6 +6,7 @@
 
 package cz.muni.fi.pa165.carpark.entity;
 
+import cz.muni.fi.pa165.carpark.dto.UserDto;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -134,7 +135,22 @@ public class User implements Serializable {
         EMPLOYEE,
         MANAGER,
         ADMIN
-    }
+    }      
     
-    
+    /**
+     * creates DTO object from User entity
+     * @return UserDto object
+     */
+    public UserDto createDto() {
+        UserDto userDto = new UserDto();
+        
+        userDto.setId(Id);
+        userDto.setFirstName(firstName);
+        userDto.setLastName(lastName);
+        userDto.setAddress(address);
+        userDto.setBirthNumber(birthNumber);
+        userDto.setPosition(position);
+        
+        return userDto;
+    }   
 }
