@@ -8,7 +8,6 @@ package cz.muni.fi.pa165.carpark.dao;
 import cz.muni.fi.pa165.carpark.entity.Rental;
 import cz.muni.fi.pa165.carpark.entity.User;
 import java.util.List;
-import javax.persistence.EntityManagerFactory;
 
 /**
  * Create, retrieve and delete operations on Rental entity.
@@ -20,53 +19,46 @@ public interface RentalDao
 
     /**
      * Persist new rental
-     * 
-     * @param rental rental for persistance. 
+     *
+     * @param rental rental for persistance.
      */
     void create(Rental rental);
 
     /**
      * Update rental entity
-     * 
+     *
      * @param rental entity for update
      */
     void edit(Rental rental);
-    
+
     /**
      * Remove given rental.
-     * 
+     *
      * @param rental rental for deletion
      */
     void delete(Rental rental);
-    
+
     /**
      * Get rental by given id.
-     * 
+     *
      * @param id id of searched rental
      * @return Searched rental
      */
     Rental get(Long id);
 
     /**
-     *  Get all rentals
-     * 
+     * Get all rentals
+     *
      * @return List of rentals.
      */
     List<Rental> getAll();
 
     /**
      * Get all rentals for a given user.
-     * 
+     *
      * @param user user whose rentals we are searching
      * @return List of rentals.
      */
     List<Rental> getAllByUser(User user);
-
-    /**
-     * Setter for entity manager factory.
-     * 
-     * @param emf Given entity manager factory .
-     */
-    void setEmf(EntityManagerFactory emf);
 
 }
