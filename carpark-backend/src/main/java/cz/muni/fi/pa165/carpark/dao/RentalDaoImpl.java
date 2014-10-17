@@ -44,7 +44,7 @@ public class RentalDaoImpl implements RentalDao
     public List<Rental> getAll()
     {
 
-        Query query = entityManager.createQuery("FROM Rental");
+        Query query = entityManager.createQuery("SELECT r FROM Rental r",Rental.class);
         List<Rental> rentals = query.getResultList();
 
         return Collections.unmodifiableList(rentals);
@@ -63,7 +63,7 @@ public class RentalDaoImpl implements RentalDao
             throw new IllegalArgumentException("User id is null.");
         }
 
-        Query query = entityManager.createQuery("FROM Rental WHERE user=:user");
+        Query query = entityManager.createQuery("SELECT r FROM Rental r WHERE r.user=:user", Rental.class);
         query.setParameter("user", user);
         List<Rental> rentals = query.getResultList();
 
