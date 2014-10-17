@@ -17,41 +17,117 @@
 
     <properties>
         <junit.version>4.11</junit.version>
+        
         <hibernate-entitymanager.version>4.3.6.Final</hibernate-entitymanager.version>
         <derbyclient.version>10.10.2.0</derbyclient.version>
+        <derby.version>10.8.1.2</derby.version>
+        
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
         <maven.compiler.version>2.3.2</maven.compiler.version>
         
+        <javaee.web.api.version>7.0</javaee.web.api.version>
+        
+        <slf4j.api.version>1.7.7</slf4j.api.version>
+        
+        <spring.core>4.1.1.RELEASE</spring.core>
+        <spring.security.web>3.2.5.RELEASE</spring.security.web>
+        <spring.context>4.1.1.RELEASE</spring.context>
+        <spring.jdbc>4.1.1.RELEASE</spring.jdbc>
+        <spring.tx>4.1.1.RELEASE</spring.tx>
+        <spring.orm>4.1.1.RELEASE</spring.orm>
+        <spring.test>4.1.1.RELEASE</spring.test>
+        
+        <log4j.version>1.2.16</log4j.version>        
+        
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
     </properties>
             
     <dependencies>
+        <!-- TESTS -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
-        </dependency>        
+        </dependency>    
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.test}</version>
+            <scope>test</scope>
+            <type>jar</type>
+        </dependency>    
         
+        <!-- ORM, JPA, HIBERNATE, DB-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate-entitymanager.version}</version>
+        </dependency>        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.orm}</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derbyclient</artifactId>
             <version>${derbyclient.version}</version>
-        </dependency>
-        
+        </dependency>        
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
-            <version>10.8.1.2</version>
+            <version>${derby.version}</version>
         </dependency>
+        
+        <!-- JAVA EE -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>${javaee.web.api.version}</version>
+        </dependency>
+
+        
+        <!-- LOGGING -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!-- SPRING -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.core}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.context}</version>
+        </dependency>
+<!--        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.web}</version>
+        </dependency>        -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.jdbc}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.tx}</version>
+        </dependency>        
     </dependencies>    
     
     <build>
