@@ -17,6 +17,7 @@
 
     <properties>
         <junit.version>4.11</junit.version>
+        <mockito.all.version>1.10.8</mockito.all.version>
         
         <hibernate-entitymanager.version>4.3.6.Final</hibernate-entitymanager.version>
         <derbyclient.version>10.10.2.0</derbyclient.version>
@@ -59,6 +60,13 @@
             <scope>test</scope>
             <type>jar</type>
         </dependency>    
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.all.version}</version>
+            <scope>test</scope>
+        </dependency>
+
         
         <!-- ORM, JPA, HIBERNATE, DB-->
         <dependency>
