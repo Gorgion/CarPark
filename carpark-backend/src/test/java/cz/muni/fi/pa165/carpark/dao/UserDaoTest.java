@@ -5,6 +5,7 @@
  */
 package cz.muni.fi.pa165.carpark.dao;
 
+import cz.muni.fi.pa165.carpark.config.TestConfig;
 import cz.muni.fi.pa165.carpark.TestUtils;
 import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Office;
@@ -14,36 +15,26 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import org.junit.After;
+import javax.inject.Inject;
+import javax.transaction.Transactional;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Unit tests of userDaoImpl class.
  *
  * @author Tomas Svoboda
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = TestConfig.class)
+@Transactional
 public class UserDaoTest
 {
-    private UserDaoImpl daoImpl;
-    private EntityManagerFactory emf;
-
-    public UserDaoTest()
-    {
-
-    }
-
-    @Before
-    public void setUp()
-    {
-        emf = Persistence.createEntityManagerFactory("TestPU");
-
-        daoImpl = new UserDaoImpl();
-        daoImpl.setEmf(emf);
-    }
+    @Inject
+    private UserDao daoImpl;
 
     @Test
     public void createUserTest()
@@ -61,7 +52,6 @@ public class UserDaoTest
 
         Assert.assertNotNull(foundUser);
         Assert.assertEquals(user, foundUser);
-        Assert.assertNotSame(user, foundUser);
     }
 
     @Test(expected = NullPointerException.class)
@@ -86,7 +76,6 @@ public class UserDaoTest
 
         Assert.assertNotNull(foundUser);
         Assert.assertEquals(user, foundUser);
-        Assert.assertNotSame(user, foundUser);
     }
 
     @Test(expected = NullPointerException.class)
@@ -149,13 +138,10 @@ public class UserDaoTest
     public void testGetAllWithRent()
     {
         OfficeDao officeDao = new OfficeDaoImpl();
-        officeDao.setEMF(emf);
 
         RentalDao rentalDao = new RentalDaoImpl();
-        rentalDao.setEmf(emf);
-        
+
         CarDao carDao = new CarDaoImpl();
-        carDao.setEmf(emf);
 
         Office defaultOffice = TestUtils.createSampleOffice();
 
@@ -164,16 +150,16 @@ public class UserDaoTest
 
         Car car = defaultOffice.getCars().get(0);
 
-        for(User tmpUser : defaultOffice.getEmployees())
+        for (User tmpUser : defaultOffice.getEmployees())
         {
             daoImpl.add(tmpUser);
         }
-        
-        for(Car persistCar : defaultOffice.getCars())
+
+        for (Car persistCar : defaultOffice.getCars())
         {
             carDao.AddCar(persistCar);
         }
-        
+
         officeDao.addOffice(defaultOffice);
 
         Calendar calendar = Calendar.getInstance();
@@ -199,13 +185,10 @@ public class UserDaoTest
     public void testGetAllWithoutRent()
     {
         OfficeDao officeDao = new OfficeDaoImpl();
-        officeDao.setEMF(emf);
-        
+
         CarDao carDao = new CarDaoImpl();
-        carDao.setEmf(emf);
 
         RentalDao rentalDao = new RentalDaoImpl();
-        rentalDao.setEmf(emf);
 
         Office defaultOffice = TestUtils.createSampleOffice();
 
@@ -220,12 +203,12 @@ public class UserDaoTest
         daoImpl.add(user2);
         daoImpl.add(user3);
         daoImpl.add(user4);
-        
-        for(Car persistCar : defaultOffice.getCars())
+
+        for (Car persistCar : defaultOffice.getCars())
         {
             carDao.AddCar(persistCar);
         }
-        
+
         officeDao.addOffice(defaultOffice);
 
         Calendar calendar = Calendar.getInstance();
