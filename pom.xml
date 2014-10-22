@@ -9,7 +9,9 @@
     <name>Car Park</name>
     
     <modules>
-        <module>carpark-backend</module>
+        <module>carpark-dao</module>
+        <module>carpark-web</module>
+        <module>carpark-service</module>
     </modules>
     
     <properties>
