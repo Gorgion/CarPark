@@ -10,12 +10,9 @@ import cz.muni.fi.pa165.carpark.dto.UserRole;
 import cz.muni.fi.pa165.carpark.service.UserCredentialsService;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,31 +34,31 @@ public class UserDetailsServiceImpl implements UserDetailsService
     {
         try
         {
-            UserCredentials credentials = userCredentialsService.getByUsername(username).get();
-            
-            if(credentials == null)
+            UserCredentials credentials = userCredentialsService.getByUsername(username);
+
+            if (credentials == null)
             {
-                throw  new UsernameNotFoundException("User for username '" + username + "' not found.");
+                throw new UsernameNotFoundException("User for username '" + username + "' not found.");
             }
-            
+
             return buildUserDetails(credentials);
-        } catch (InterruptedException | ExecutionException ex)
+        } catch (DataAccessException e)
         {
-            throw  new UsernameNotFoundException("User for username '" + username + "' not found.");
+            throw new UsernameNotFoundException("User for username '" + username + "' not found.", e);
         }
     }
-    
+
     private static UserDetails buildUserDetails(UserCredentials credentials)
-    { 
+    {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        
-        for(UserRole role : credentials.getRoles())
+
+        for (UserRole role : credentials.getRoles())
         {
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         }
-        
+
         UserDetails details = new User(credentials.getUsername(), credentials.getPassword(), authorities);
-        
+
         return details;
     }
 }
