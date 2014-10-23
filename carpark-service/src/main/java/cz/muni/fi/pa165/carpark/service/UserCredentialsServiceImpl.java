@@ -8,13 +8,10 @@ package cz.muni.fi.pa165.carpark.service;
 import cz.muni.fi.pa165.carpark.dao.UserCredentialsDao;
 import cz.muni.fi.pa165.carpark.dto.UserCredentials;
 import cz.muni.fi.pa165.carpark.util.Converter;
-import java.util.concurrent.Future;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 import org.springframework.dao.DataAccessException;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 
 /**
  *
@@ -27,9 +24,8 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
     private UserCredentialsDao credentialsDao;
 
     @Transactional
-    @Async
     @Override
-    public Future<Void> create(UserCredentials credentials)
+    public void create(UserCredentials credentials)
     {
         try
         {
@@ -42,14 +38,11 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
             {
             };
         }
-
-        return new AsyncResult<>(null);
     }
 
     @Transactional
-    @Async
     @Override
-    public Future<Void> delete(UserCredentials credentials)
+    public void delete(UserCredentials credentials)
     {
         try
         {
@@ -60,14 +53,11 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
             {
             };
         }
-
-        return new AsyncResult<>(null);
     }
 
     @Transactional
-    @Async
     @Override
-    public Future<Void> update(UserCredentials credentials)
+    public void update(UserCredentials credentials)
     {
         try
         {
@@ -78,14 +68,11 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
             {
             };
         }
-
-        return new AsyncResult<>(null);
     }
 
     @Transactional
-    @Async
     @Override
-    public Future<UserCredentials> getByUsername(String username)
+    public UserCredentials getByUsername(String username)
     {
         cz.muni.fi.pa165.carpark.entity.UserCredentials credentialsEntity;
         try
@@ -100,6 +87,6 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
 
         UserCredentials credentials = Converter.getTransferObject(credentialsEntity);
 
-        return new AsyncResult<>(credentials);
+        return credentials;
     }
 }

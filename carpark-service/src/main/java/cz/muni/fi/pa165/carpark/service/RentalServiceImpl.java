@@ -35,10 +35,9 @@ public class RentalServiceImpl implements RentalService
         this.rentalDao = rentalDao;
     }
 
-    @Async
     @Transactional
     @Override
-    public Future<Void> create(Rental rental)
+    public void create(Rental rental)
     {
         try
         {
@@ -49,14 +48,11 @@ public class RentalServiceImpl implements RentalService
         {
             throw new DataAccessException("Some error occured during creating rental entity.", e) {};
         }
-
-        return new AsyncResult<>(null);
     }
 
-    @Async
     @Transactional
     @Override
-    public Future<Void> edit(Rental rental)
+    public void edit(Rental rental)
     {
         try
         {
@@ -65,14 +61,11 @@ public class RentalServiceImpl implements RentalService
         {
             throw new DataAccessException("Some error occured during editing rental entity.", e) {};
         }
-
-        return new AsyncResult<>(null);
     }
 
-    @Async
     @Transactional
     @Override
-    public Future<Void> delete(Rental rental)
+    public void delete(Rental rental)
     {
         try
         {
@@ -80,14 +73,12 @@ public class RentalServiceImpl implements RentalService
         } catch (Exception e)
         {
             throw new DataAccessException("Some error occured during removing rental entity.", e) {};
-        }
-        return new AsyncResult<>(null);
+        }        
     }
 
-    @Async
     @Transactional
     @Override
-    public Future<Rental> get(Long id)
+    public Rental get(Long id)
     {
         Rental rental;
 
@@ -98,14 +89,12 @@ public class RentalServiceImpl implements RentalService
         {
             throw new DataAccessException("Some error occured during retrieving rental entity.", e) {};
         }
-
-        return new AsyncResult<>(rental);
+        return rental;
     }
 
-    @Async
     @Transactional
     @Override
-    public Future<List<Rental>> getAll()
+    public List<Rental> getAll()
     {
         List<Rental> rentals = new ArrayList<>();
 
@@ -120,13 +109,12 @@ public class RentalServiceImpl implements RentalService
             throw new DataAccessException("Some error occured during retrieving rental entities.", e) {};
         }
 
-        return new AsyncResult<>(rentals);
+        return rentals;
     }
-
-    @Async
+    
     @Transactional
     @Override
-    public Future<List<Rental>> getAllByUser(UserDto user)
+    public List<Rental> getAllByUser(UserDto user)
     {
         List<Rental> rentals = new ArrayList<>();
 
@@ -141,6 +129,6 @@ public class RentalServiceImpl implements RentalService
             throw new DataAccessException("Some error occured during retrieving rental entities.", e) {};
         }
 
-        return new AsyncResult<>(rentals);
+        return rentals;
     }
 }

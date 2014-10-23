@@ -8,8 +8,6 @@ package cz.muni.fi.pa165.carpark.service;
 import cz.muni.fi.pa165.carpark.dto.Rental;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 import java.util.List;
-import java.util.concurrent.Future;
-import org.springframework.scheduling.annotation.Async;
 
 /**
  * Create, update, retrieve and delete operations on Rental entity.
@@ -19,22 +17,16 @@ import org.springframework.scheduling.annotation.Async;
 public interface RentalService
 {
 
-    @Async
-    Future<Void> create(Rental rental);
+    void create(Rental rental);
 
-    @Async
-    Future<Void> delete(Rental rental);
+    void delete(Rental rental);
 
-    @Async
-    Future<Void> edit(Rental rental);
+    void edit(Rental rental);
 
-    @Async
-    Future<Rental> get(Long id);
+    Rental get(Long id);
 
-    @Async
-    Future<List<Rental>> getAll();
+    List<Rental> getAll();
 
-    @Async
-    Future<List<Rental>> getAllByUser(UserDto user);
-    
+    List<Rental> getAllByUser(UserDto user);
+
 }

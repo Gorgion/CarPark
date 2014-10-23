@@ -6,9 +6,7 @@
 package cz.muni.fi.pa165.carpark.service;
 
 import cz.muni.fi.pa165.carpark.dto.UserCredentials;
-import java.util.concurrent.Future;
 import javax.transaction.Transactional;
-import org.springframework.scheduling.annotation.Async;
 
 /**
  * Service for user credentials.
@@ -19,19 +17,15 @@ public interface UserCredentialsService
 {
 
     @Transactional
-    @Async
-    Future<Void> create(UserCredentials credentials);
+    void create(UserCredentials credentials);
 
     @Transactional
-    @Async
-    Future<Void> delete(UserCredentials credentials);
+    void delete(UserCredentials credentials);
 
     @Transactional
-    @Async
-    Future<UserCredentials> getByUsername(String username);
+    UserCredentials getByUsername(String username);
 
     @Transactional
-    @Async
-    Future<Void> update(UserCredentials credentials);
-    
+    void update(UserCredentials credentials);
+
 }
