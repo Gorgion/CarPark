@@ -6,6 +6,7 @@
 package cz.muni.fi.pa165.carpark.util;
 
 import cz.muni.fi.pa165.carpark.dto.UserDto;
+import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Rental;
 import cz.muni.fi.pa165.carpark.entity.User;
 import cz.muni.fi.pa165.carpark.entity.UserCredentials;
@@ -175,6 +176,27 @@ public class Converter
         dto.setUserCredentials(getTransferObject(role.getUserCredentials()));
         
         return dto;
+    }
+    
+    public static Car getEntity(cz.muni.fi.pa165.carpark.dto.Car car)
+    {
+        if(car == null)
+        {
+            return null;
+        }
+        
+        Car entity = new Car();
+        entity.setID(car.getID());
+        entity.setBrand(car.getBrand());
+        entity.setType(car.getType());
+        entity.setColor(car.getColor());
+        entity.setEngine(car.getEngine());
+        entity.setLicencePlate(car.getLicencePlate());
+        entity.setModel(car.getModel());
+        entity.setRented(car.getRented());
+        entity.setVIN(car.getVIN());
+        
+        return entity;
     }
         
 }
