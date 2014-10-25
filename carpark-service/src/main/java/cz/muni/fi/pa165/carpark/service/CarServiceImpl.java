@@ -18,6 +18,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.transaction.Transactional;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.springframework.dao.DataAccessException;
 
 /**
  * Service CRUD operations for rental entity
@@ -46,7 +47,7 @@ public class CarServiceImpl implements CarService
         }
         catch (Exception ex)
         {
-            throw new DataAccessException("Error when adding a car.",ex);
+            throw new DataAccessException("Error when adding a car.",ex) {};
         }
     }
 
@@ -61,7 +62,7 @@ public class CarServiceImpl implements CarService
         }
         catch(Exception ex)
         {
-            throw new DataAccessException("Error when getting a car.",ex);
+            throw new DataAccessException("Error when getting a car.",ex) {};
         }
     }
 
@@ -76,7 +77,7 @@ public class CarServiceImpl implements CarService
         }
         catch(Exception ex)
         {
-            throw new DataAccessException("Error when editing a car.",ex);
+            throw new DataAccessException("Error when editing a car.",ex) {};
         }
     }
 
@@ -91,7 +92,7 @@ public class CarServiceImpl implements CarService
         }
         catch(Exception ex)
         {
-            throw new DataAccessException("Error when deleting a car.",ex);
+            throw new DataAccessException("Error when deleting a car.",ex) {};
         }
     }
 
@@ -112,7 +113,7 @@ public class CarServiceImpl implements CarService
         }
         catch(Exception ex)
         {
-            throw new DataAccessException("Error when editing a car.",ex);
+            throw new DataAccessException("Error when editing a car.",ex) {};
         }
     }
 
@@ -133,7 +134,7 @@ public class CarServiceImpl implements CarService
         }
         catch(Exception ex)
         {
-            throw new DataAccessException("Error when editing a car.",ex);
+            throw new DataAccessException("Error when editing a car.",ex) {};
         }
     }
 
@@ -154,7 +155,7 @@ public class CarServiceImpl implements CarService
         }
         catch(Exception ex)
         {
-            throw new DataAccessException("Error when editing a car.",ex);
+            throw new DataAccessException("Error when editing a car.",ex) {};
         }
     }
     
