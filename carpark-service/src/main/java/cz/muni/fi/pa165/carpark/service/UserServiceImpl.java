@@ -8,6 +8,7 @@ package cz.muni.fi.pa165.carpark.service;
 import cz.muni.fi.pa165.carpark.dao.UserDao;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.entity.User;
+import cz.muni.fi.pa165.carpark.util.Converter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto get(Long id) {
         User userEntity = userDao.get(id);
-        return userEntity.createDto(); 
+        return Converter.getTransferObject(userEntity);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class UserServiceImpl implements UserService {
         List<User> users = userDao.getAll();
         List<UserDto> userDtoList = new ArrayList<UserDto>();
         for (User user : users) {
-            userDtoList.add(user.createDto());
+            userDtoList.add(Converter.getTransferObject(user));
         }
         return userDtoList;
     }
@@ -66,7 +67,7 @@ public class UserServiceImpl implements UserService {
         List<User> users = userDao.getAllWithRent();
         List<UserDto> userDtoList = new ArrayList<UserDto>();
         for (User user : users) {
-            userDtoList.add(user.createDto());
+            userDtoList.add(Converter.getTransferObject(user));
         }
         return userDtoList;
     }
@@ -76,7 +77,7 @@ public class UserServiceImpl implements UserService {
         List<User> users = userDao.getAllWithoutRent();
         List<UserDto> userDtoList = new ArrayList<UserDto>();
         for (User user : users) {
-            userDtoList.add(user.createDto());
+            userDtoList.add(Converter.getTransferObject(user));
         }
         return userDtoList;
     }

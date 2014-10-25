@@ -63,6 +63,44 @@ public class Converter
         return dto;
     }
     
+        public static User getEntity(UserDto userDto)
+    {
+        if(userDto == null)
+        {
+            return null;
+        }
+        
+        User entity = new User();
+        
+        entity.setId(userDto.getId());
+        entity.setFirstName(userDto.getFirstName());
+        entity.setLastName(userDto.getLastName());
+        entity.setAddress(userDto.getAddress());
+        entity.setBirthNumber(userDto.getBirthNumber());
+        entity.setPosition(userDto.getPosition());
+        
+        return entity;
+    }
+
+    public static UserDto getTransferObject(User entity)
+    {        
+        if(entity == null)
+        {
+            return null;
+        }
+        
+        UserDto dto = new UserDto();
+        
+        dto.setId(entity.getId());
+        dto.setFirstName(entity.getFirstName());
+        dto.setLastName(entity.getLastName());
+        dto.setAddress(entity.getAddress());
+        dto.setBirthNumber(entity.getBirthNumber());
+        dto.setPosition(entity.getPosition());
+        
+        return dto;
+    }
+    
     public static UserCredentials getEntity(cz.muni.fi.pa165.carpark.dto.UserCredentials credentials)
     {
         if(credentials == null)
@@ -92,7 +130,8 @@ public class Converter
             return null;
         }
         
-        UserDto userDto = credentials.getUser().createDto();
+        //TODO
+        UserDto userDto = getTransferObject(credentials.getUser());
         Set<cz.muni.fi.pa165.carpark.dto.UserRole> rolesDto = new HashSet<>();
         
         for(UserRole role : credentials.getRoles())
