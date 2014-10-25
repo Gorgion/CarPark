@@ -44,19 +44,25 @@ public class CarServiceImpl implements CarService
     @Override
     public CarDto getCar(Long id)
     {
-        Car carEntity = carDao.getCar(id);
-        return 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            Car carEntity = carDao.getCar(id);
+            return Converter.getTransferObject(carEntity);
+        }
+        catch(Exception ex)
+        {
+            throw new DataAccessException("Error when getting a car.");
+        }
     }
 
     @Override
-    public void EditCar(Car car)
+    public void EditCar(CarDto car)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void DeleteCar(Car car)
+    public void DeleteCar(CarDto car)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

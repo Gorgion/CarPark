@@ -18,7 +18,7 @@ import java.util.Objects;
  *
  * @author Jiri Dockal
  */
-public class Car implements Serializable
+public class CarDto implements Serializable
 {
     private Long id;
     private mBrand brand;
@@ -30,7 +30,7 @@ public class Car implements Serializable
     private String VIN;
     private boolean rented;
     
-    public Car(mBrand brand, mType type, mColor color, mEngine engine, 
+    public CarDto(mBrand brand, mType type, mColor color, mEngine engine, 
             mModel model, String licencePlate, String VIN, boolean rented)
     {
         this.brand = brand;
@@ -152,7 +152,7 @@ public class Car implements Serializable
         {
             return false;
         }
-        final Car other = (Car) obj;
+        final CarDto other = (CarDto) obj;
         if (!Objects.equals(this.id, other.id))
         {
             return false;
