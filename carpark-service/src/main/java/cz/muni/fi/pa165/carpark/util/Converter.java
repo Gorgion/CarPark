@@ -6,8 +6,10 @@
 package cz.muni.fi.pa165.carpark.util;
 
 import cz.muni.fi.pa165.carpark.dto.CarDto;
+import cz.muni.fi.pa165.carpark.dto.OfficeDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.entity.Car;
+import cz.muni.fi.pa165.carpark.entity.Office;
 import cz.muni.fi.pa165.carpark.entity.Rental;
 import cz.muni.fi.pa165.carpark.entity.User;
 import cz.muni.fi.pa165.carpark.entity.UserCredentials;
@@ -213,5 +215,39 @@ public class Converter
         dto.setID(car.getID());
         
         return dto;
+    }
+    
+        public static Office getOfficeEntity(OfficeDto office)
+    {
+        if(office == null) {
+            return null;
+        }
+        
+        Office officeEntity = new Office();
+        
+        officeEntity.setID(office.getID());
+        officeEntity.setAddress(office.getAddress());
+        officeEntity.setManager(office.getManager());
+        officeEntity.setCars(office.getCars());
+        officeEntity.setEmployees(office.getEmployees());
+        
+        return officeEntity;
+    }
+    
+    public static OfficeDto getTDOOffice(Office office)
+    {
+        if(office == null) {
+            return null;
+        }
+       
+        OfficeDto officeDto = new OfficeDto(
+                office.getID(),
+                office.getAddress(), 
+                office.getManager(), 
+                office.getEmployees(), 
+                office.getCars()
+        );
+        
+        return officeDto;
     }
 }

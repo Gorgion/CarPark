@@ -34,14 +34,14 @@ public class OfficeDto {
     /**
      * @return the iD
      */
-    public Long getiD() {
+    public Long getID() {
         return iD;
     }
 
     /**
      * @param iD the iD to set
      */
-    public void setiD(Long iD) {
+    public void setID(Long iD) {
         this.iD = iD;
     }
 
