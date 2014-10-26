@@ -15,7 +15,7 @@ import java.util.Objects;
  *
  * @author Tomas Svoboda
  */
-public class Rental
+public class RentalDto
 {
     private Long id;
 
@@ -29,11 +29,11 @@ public class Rental
 
     private User user;
 
-    public Rental()
+    public RentalDto()
     {
     }
 
-    public Rental(Date fromDate, Date toDate, cz.muni.fi.pa165.carpark.entity.Rental.State rentalState, Car car, User user)
+    public RentalDto(Date fromDate, Date toDate, cz.muni.fi.pa165.carpark.entity.Rental.State rentalState, Car car, User user)
     {
         this.fromDate = fromDate;
         this.toDate = toDate;
@@ -121,7 +121,7 @@ public class Rental
         {
             return false;
         }
-        final Rental other = (Rental) obj;
+        final RentalDto other = (RentalDto) obj;
         if (!Objects.equals(this.id, other.id))
         {
             return false;

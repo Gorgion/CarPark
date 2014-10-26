@@ -6,7 +6,7 @@
 package cz.muni.fi.pa165.carpark.service;
 
 import cz.muni.fi.pa165.carpark.dao.RentalDao;
-import cz.muni.fi.pa165.carpark.dto.Rental;
+import cz.muni.fi.pa165.carpark.dto.RentalDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.util.Converter;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class RentalServiceImpl implements RentalService
 
     @Transactional
     @Override
-    public void create(Rental rental)
+    public void create(RentalDto rental)
     {
         try
         {
@@ -52,7 +52,7 @@ public class RentalServiceImpl implements RentalService
 
     @Transactional
     @Override
-    public void edit(Rental rental)
+    public void edit(RentalDto rental)
     {
         try
         {
@@ -65,7 +65,7 @@ public class RentalServiceImpl implements RentalService
 
     @Transactional
     @Override
-    public void delete(Rental rental)
+    public void delete(RentalDto rental)
     {
         try
         {
@@ -78,9 +78,9 @@ public class RentalServiceImpl implements RentalService
 
     @Transactional
     @Override
-    public Rental get(Long id)
+    public RentalDto get(Long id)
     {
-        Rental rental;
+        RentalDto rental;
 
         try
         {
@@ -94,9 +94,9 @@ public class RentalServiceImpl implements RentalService
 
     @Transactional
     @Override
-    public List<Rental> getAll()
+    public List<RentalDto> getAll()
     {
-        List<Rental> rentals = new ArrayList<>();
+        List<RentalDto> rentals = new ArrayList<>();
 
         try
         {
@@ -114,9 +114,9 @@ public class RentalServiceImpl implements RentalService
     
     @Transactional
     @Override
-    public List<Rental> getAllByUser(UserDto user)
+    public List<RentalDto> getAllByUser(UserDto user)
     {
-        List<Rental> rentals = new ArrayList<>();
+        List<RentalDto> rentals = new ArrayList<>();
 
         try
         {

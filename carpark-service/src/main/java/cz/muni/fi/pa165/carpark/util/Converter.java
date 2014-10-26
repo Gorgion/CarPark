@@ -27,7 +27,7 @@ public class Converter
     {
     }
     
-    public static Rental getEntity(cz.muni.fi.pa165.carpark.dto.Rental rental)
+    public static Rental getEntity(cz.muni.fi.pa165.carpark.dto.RentalDto rental)
     {
         if(rental == null)
         {
@@ -46,14 +46,14 @@ public class Converter
         return entity;
     }
     
-    public static cz.muni.fi.pa165.carpark.dto.Rental getTransferObject(Rental entity)
+    public static cz.muni.fi.pa165.carpark.dto.RentalDto getTransferObject(Rental entity)
     {        
         if(entity == null)
         {
             return null;
         }
         
-        cz.muni.fi.pa165.carpark.dto.Rental dto = new cz.muni.fi.pa165.carpark.dto.Rental();
+        cz.muni.fi.pa165.carpark.dto.RentalDto dto = new cz.muni.fi.pa165.carpark.dto.RentalDto();
         
         dto.setId(entity.getId());
         dto.setFromDate(entity.getFromDate());
@@ -103,7 +103,7 @@ public class Converter
         return dto;
     }
     
-    public static UserCredentials getEntity(cz.muni.fi.pa165.carpark.dto.UserCredentials credentials)
+    public static UserCredentials getEntity(cz.muni.fi.pa165.carpark.dto.UserCredentialsDto credentials)
     {
         if(credentials == null)
         {
@@ -113,7 +113,7 @@ public class Converter
         User userEntity = credentials.getUser().createEntity();
         Set<UserRole> rolesEntity = new HashSet<>();
         
-        for(cz.muni.fi.pa165.carpark.dto.UserRole role : credentials.getRoles())
+        for(cz.muni.fi.pa165.carpark.dto.UserRoleDto role : credentials.getRoles())
         {
             rolesEntity.add(getEntity(role));
         }
@@ -125,7 +125,7 @@ public class Converter
         return entity;
     }
     
-    public static cz.muni.fi.pa165.carpark.dto.UserCredentials getTransferObject(UserCredentials credentials)
+    public static cz.muni.fi.pa165.carpark.dto.UserCredentialsDto getTransferObject(UserCredentials credentials)
     {
         if(credentials == null)
         {
@@ -134,21 +134,21 @@ public class Converter
         
         //TODO
         UserDto userDto = getTransferObject(credentials.getUser());
-        Set<cz.muni.fi.pa165.carpark.dto.UserRole> rolesDto = new HashSet<>();
+        Set<cz.muni.fi.pa165.carpark.dto.UserRoleDto> rolesDto = new HashSet<>();
         
         for(UserRole role : credentials.getRoles())
         {
             rolesDto.add(getTransferObject(role));
         }
         
-        cz.muni.fi.pa165.carpark.dto.UserCredentials dto = new cz.muni.fi.pa165.carpark.dto.UserCredentials(credentials.getUsername(),credentials.getPassword(),credentials.isEnabled(),userDto,rolesDto);
+        cz.muni.fi.pa165.carpark.dto.UserCredentialsDto dto = new cz.muni.fi.pa165.carpark.dto.UserCredentialsDto(credentials.getUsername(),credentials.getPassword(),credentials.isEnabled(),userDto,rolesDto);
         //TODO rest
         
         
         return dto;
     }
     
-    public static UserRole getEntity(cz.muni.fi.pa165.carpark.dto.UserRole role)
+    public static UserRole getEntity(cz.muni.fi.pa165.carpark.dto.UserRoleDto role)
     {
         if(role == null)
         {
@@ -163,14 +163,14 @@ public class Converter
         return entity;
     }
     
-    public static cz.muni.fi.pa165.carpark.dto.UserRole getTransferObject(UserRole role)
+    public static cz.muni.fi.pa165.carpark.dto.UserRoleDto getTransferObject(UserRole role)
     {
         if(role == null)
         {
             return null;
         }
         
-        cz.muni.fi.pa165.carpark.dto.UserRole dto = new cz.muni.fi.pa165.carpark.dto.UserRole();
+        cz.muni.fi.pa165.carpark.dto.UserRoleDto dto = new cz.muni.fi.pa165.carpark.dto.UserRoleDto();
      
         dto.setId(role.getId());
         dto.setRoleName(role.getRoleName());

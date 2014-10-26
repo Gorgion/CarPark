@@ -11,7 +11,7 @@ import cz.muni.fi.pa165.carpark.dao.OfficeDao;
 import cz.muni.fi.pa165.carpark.dao.RentalDao;
 import cz.muni.fi.pa165.carpark.dao.UserDao;
 import cz.muni.fi.pa165.carpark.dao.UserDaoImpl;
-import cz.muni.fi.pa165.carpark.dto.Rental;
+import cz.muni.fi.pa165.carpark.dto.RentalDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.entity.User;
 import cz.muni.fi.pa165.carpark.exception.DataAccessException;
@@ -134,6 +134,7 @@ public class UserServiceImplTest
         userService.edit(null);
     }
 
+    //Expected?
     @Test(expected = IllegalArgumentException.class)
     public void testGetNegativeId()
     {

@@ -5,7 +5,7 @@
  */
 package cz.muni.fi.pa165.carpark.service;
 
-import cz.muni.fi.pa165.carpark.dto.UserCredentials;
+import cz.muni.fi.pa165.carpark.dto.UserCredentialsDto;
 import javax.transaction.Transactional;
 
 /**
@@ -17,15 +17,15 @@ public interface UserCredentialsService
 {
 
     @Transactional
-    void create(UserCredentials credentials);
+    void create(UserCredentialsDto credentials);
 
     @Transactional
-    void delete(UserCredentials credentials);
+    void delete(UserCredentialsDto credentials);
 
     @Transactional
-    UserCredentials getByUsername(String username);
+    UserCredentialsDto getByUsername(String username);
 
     @Transactional
-    void update(UserCredentials credentials);
+    void update(UserCredentialsDto credentials);
 
 }

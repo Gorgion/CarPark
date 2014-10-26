@@ -14,11 +14,11 @@ import java.util.Objects;
  * @author Tomas Svoboda
  */
 
-public class UserRole implements Serializable
+public class UserRoleDto implements Serializable
 {
     private Long id;
     private String roleName;
-    private UserCredentials userCredentials;
+    private UserCredentialsDto userCredentials;
 
     public Long getId()
     {
@@ -40,12 +40,12 @@ public class UserRole implements Serializable
         this.roleName = roleName;
     }
 
-    public UserCredentials getUserCredentials()
+    public UserCredentialsDto getUserCredentials()
     {
         return userCredentials;
     }
 
-    public void setUserCredentials(UserCredentials userCredentials)
+    public void setUserCredentials(UserCredentialsDto userCredentials)
     {
         this.userCredentials = userCredentials;
     }
@@ -69,7 +69,7 @@ public class UserRole implements Serializable
         {
             return false;
         }
-        final UserRole other = (UserRole) obj;
+        final UserRoleDto other = (UserRoleDto) obj;
         if (!Objects.equals(this.id, other.id))
         {
             return false;

@@ -6,7 +6,7 @@
 package cz.muni.fi.pa165.carpark.service;
 
 import cz.muni.fi.pa165.carpark.dao.UserCredentialsDao;
-import cz.muni.fi.pa165.carpark.dto.UserCredentials;
+import cz.muni.fi.pa165.carpark.dto.UserCredentialsDto;
 import cz.muni.fi.pa165.carpark.util.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,7 +25,7 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
 
     @Transactional
     @Override
-    public void create(UserCredentials credentials)
+    public void create(UserCredentialsDto credentials)
     {
         try
         {
@@ -42,7 +42,7 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
 
     @Transactional
     @Override
-    public void delete(UserCredentials credentials)
+    public void delete(UserCredentialsDto credentials)
     {
         try
         {
@@ -57,7 +57,7 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
 
     @Transactional
     @Override
-    public void update(UserCredentials credentials)
+    public void update(UserCredentialsDto credentials)
     {
         try
         {
@@ -72,7 +72,7 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
 
     @Transactional
     @Override
-    public UserCredentials getByUsername(String username)
+    public UserCredentialsDto getByUsername(String username)
     {
         cz.muni.fi.pa165.carpark.entity.UserCredentials credentialsEntity;
         try
@@ -85,7 +85,7 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
             };
         }
 
-        UserCredentials credentials = Converter.getTransferObject(credentialsEntity);
+        UserCredentialsDto credentials = Converter.getTransferObject(credentialsEntity);
 
         return credentials;
     }

@@ -5,28 +5,28 @@
  */
 package cz.muni.fi.pa165.carpark.service;
 
-import cz.muni.fi.pa165.carpark.dto.Rental;
+import cz.muni.fi.pa165.carpark.dto.RentalDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 import java.util.List;
 
 /**
- * Create, update, retrieve and delete operations on Rental entity.
+ * Create, update, retrieve and delete operations on RentalDto entity.
  *
  * @author Tomas Svoboda
  */
 public interface RentalService
 {
 
-    void create(Rental rental);
+    void create(RentalDto rental);
 
-    void delete(Rental rental);
+    void delete(RentalDto rental);
 
-    void edit(Rental rental);
+    void edit(RentalDto rental);
 
-    Rental get(Long id);
+    RentalDto get(Long id);
 
-    List<Rental> getAll();
+    List<RentalDto> getAll();
 
-    List<Rental> getAllByUser(UserDto user);
+    List<RentalDto> getAllByUser(UserDto user);
 
 }

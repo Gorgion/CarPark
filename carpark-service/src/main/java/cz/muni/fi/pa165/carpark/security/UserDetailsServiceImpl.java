@@ -5,8 +5,8 @@
  */
 package cz.muni.fi.pa165.carpark.security;
 
-import cz.muni.fi.pa165.carpark.dto.UserCredentials;
-import cz.muni.fi.pa165.carpark.dto.UserRole;
+import cz.muni.fi.pa165.carpark.dto.UserCredentialsDto;
+import cz.muni.fi.pa165.carpark.dto.UserRoleDto;
 import cz.muni.fi.pa165.carpark.service.UserCredentialsService;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,7 +34,7 @@ public class UserDetailsServiceImpl implements UserDetailsService
     {
         try
         {
-            UserCredentials credentials = userCredentialsService.getByUsername(username);
+            UserCredentialsDto credentials = userCredentialsService.getByUsername(username);
 
             if (credentials == null)
             {
@@ -48,11 +48,11 @@ public class UserDetailsServiceImpl implements UserDetailsService
         }
     }
 
-    private static UserDetails buildUserDetails(UserCredentials credentials)
+    private static UserDetails buildUserDetails(UserCredentialsDto credentials)
     {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
-        for (UserRole role : credentials.getRoles())
+        for (UserRoleDto role : credentials.getRoles())
         {
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         }

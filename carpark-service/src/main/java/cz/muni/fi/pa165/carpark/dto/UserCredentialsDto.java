@@ -14,7 +14,7 @@ import java.util.Set;
  *
  * @author Tomas Svoboda
  */
-public class UserCredentials implements Serializable
+public class UserCredentialsDto implements Serializable
 {
     private Long userId;
 
@@ -32,13 +32,13 @@ public class UserCredentials implements Serializable
 
     private UserDto user;
 
-    private Set<UserRole> roles;
+    private Set<UserRoleDto> roles;
 
-    public UserCredentials()
+    public UserCredentialsDto()
     {
     }
 
-    public UserCredentials(String username, String password, Boolean enabled, UserDto user, Set<UserRole> roles)
+    public UserCredentialsDto(String username, String password, Boolean enabled, UserDto user, Set<UserRoleDto> roles)
     {
         this.username = username;
         this.password = password;
@@ -127,12 +127,12 @@ public class UserCredentials implements Serializable
         this.user = user;
     }
 
-    public Set<UserRole> getRoles()
+    public Set<UserRoleDto> getRoles()
     {
         return roles;
     }
 
-    public void setRoles(Set<UserRole> roles)
+    public void setRoles(Set<UserRoleDto> roles)
     {
         this.roles = roles;
     }
@@ -156,7 +156,7 @@ public class UserCredentials implements Serializable
         {
             return false;
         }
-        final UserCredentials other = (UserCredentials) obj;
+        final UserCredentialsDto other = (UserCredentialsDto) obj;
         if (!Objects.equals(this.userId, other.userId))
         {
             return false;
