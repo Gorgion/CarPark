@@ -6,6 +6,7 @@
 
 package cz.muni.fi.pa165.carpark;
 
+import cz.muni.fi.pa165.carpark.dto.OfficeDto;
 import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Car.mBrand;
 import cz.muni.fi.pa165.carpark.entity.Car.mColor;
@@ -100,6 +101,24 @@ public class TestUtils {
         office.setCars(Arrays.asList(car1, car2, car3, car4));
         
         return office;
+    }
+    
+    public static OfficeDto createSampleDtoOffice(){
+
+        User empl1m = createUser("Jiří", "Jirkovič", "Adresa 1", User.Position.MANAGER, "321bn");
+        User empl2 = createUser("Jan", "Jirkovič", "Adresa 1", User.Position.EMPLOYEE, "123bn");
+        User empl3 = createUser("Karel", "Karlovič", "Adresa 3", User.Position.EMPLOYEE, "456bn");
+        User empl4 = createUser("Pepa", "Pepovič", "Adresa 4", User.Position.EMPLOYEE, "112bn");
+        
+        Car car1 = createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP1", "VIN1", false);
+        Car car2 = createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP2", "VIN2", false);
+        Car car3 = createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP3", "VIN3", false);
+        Car car4 = createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP4", "VIN4", false);
+        
+        OfficeDto officeDto = new OfficeDto("Polní 22",empl1m,Arrays.asList(empl1m, empl2, empl3, empl4),Arrays.asList(car1, car2, car3, car4));
+        
+        
+        return officeDto;
     }
     
     public static Date dateNow(Long more) {

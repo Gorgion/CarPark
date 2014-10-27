@@ -217,7 +217,7 @@ public class Converter
         return dto;
     }
     
-        public static Office getOfficeEntity(OfficeDto office)
+        public static Office getEntity(OfficeDto office)
     {
         if(office == null) {
             return null;
@@ -234,14 +234,13 @@ public class Converter
         return officeEntity;
     }
     
-    public static OfficeDto getTDOOffice(Office office)
+    public static OfficeDto getTransferObject(Office office)
     {
         if(office == null) {
             return null;
         }
        
         OfficeDto officeDto = new OfficeDto(
-                office.getID(),
                 office.getAddress(), 
                 office.getManager(), 
                 office.getEmployees(), 

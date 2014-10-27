@@ -37,7 +37,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public void addOffice(OfficeDto office) {
         try {
-            Office officeEntity = Converter.getOfficeEntity(office);
+            Office officeEntity = Converter.getEntity(office);
             officeDao.addOffice(officeEntity);
         } 
         catch (Exception e) {
@@ -50,7 +50,7 @@ public class OfficeServiceImpl implements OfficeService {
     public OfficeDto getOffice(Long id) {
         try {
             Office officeEntity = officeDao.getOffice(id);
-            return Converter.getTDOOffice(officeEntity);
+            return Converter.getTransferObject(officeEntity);
         }
         catch(Exception e) {
             throw new DataAccessException("Error occurred while getting office.") {};
@@ -61,7 +61,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public void editOffice(OfficeDto office) {
         try {
-            Office officeEntity = Converter.getOfficeEntity(office);
+            Office officeEntity = Converter.getEntity(office);
             officeDao.editOffice(officeEntity);
         }
         catch(Exception e) {
@@ -73,7 +73,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public void deleteOffice(OfficeDto office) {
         try {
-            Office officeEntity = Converter.getOfficeEntity(office);
+            Office officeEntity = Converter.getEntity(office);
             officeDao.deleteOffice(officeEntity);
         }
         catch(Exception e) {
@@ -88,7 +88,7 @@ public class OfficeServiceImpl implements OfficeService {
             List<OfficeDto> officesDto = new ArrayList<>();
             List<Office> offices = new ArrayList<>(officeDao.getAllOffices());
             for (Office office : offices) {
-                officesDto.add(Converter.getTDOOffice(office));
+                officesDto.add(Converter.getTransferObject(office));
             }
             
             return Collections.unmodifiableList(officesDto);
@@ -119,7 +119,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public void addCarToOffice(OfficeDto office, CarDto car) {
         try {
-            Office officeEntity = Converter.getOfficeEntity(office);
+            Office officeEntity = Converter.getEntity(office);
             Car carEntity = Converter.getEntity(car);
             officeDao.addCarToOffice(officeEntity, carEntity);
         }
@@ -132,7 +132,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public void deleteCarFromOffice(OfficeDto office, CarDto car) {
         try {
-            Office officeEntity = Converter.getOfficeEntity(office);
+            Office officeEntity = Converter.getEntity(office);
             Car carEntity = Converter.getEntity(car);
             officeDao.deleteCarFromOffice(officeEntity, carEntity);
         }
@@ -162,7 +162,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public void addEmployeeToOffice(OfficeDto office, UserDto user) {
         try {
-            Office officeEntity = Converter.getOfficeEntity(office);
+            Office officeEntity = Converter.getEntity(office);
             User userEntity = Converter.getEntity(user);
             officeDao.addEmployeeToOffice(officeEntity, userEntity);
         }
@@ -175,7 +175,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public void deleteEmployeeFromOffice(OfficeDto office, UserDto user) {
         try {
-            Office officeEntity = Converter.getOfficeEntity(office);
+            Office officeEntity = Converter.getEntity(office);
             User userEntity = Converter.getEntity(user);
             officeDao.deleteEmployeeFromOffice(officeEntity, userEntity);
         }

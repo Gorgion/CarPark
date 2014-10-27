@@ -15,6 +15,7 @@ import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.entity.Office;
 import cz.muni.fi.pa165.carpark.entity.User;
 import cz.muni.fi.pa165.carpark.util.Converter;
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,8 +42,6 @@ public class OfficeServiceImplTest
     private CarDao carDaoMocked;
     @Mock
     private UserDao userDaoMocked;
-    @Mock
-    private RentalDao rentalDaoMocked;
 
       
     @Test
@@ -53,70 +52,33 @@ public class OfficeServiceImplTest
         officeService.addOffice(null);
     }
        
-//    @Test
-//    @Ignore
-//    public void addGetOfficeTest()
-//    {
-//        OfficeDto officeDto = new OfficeDto(null,"address",null,null,null);
-//        
-//        Office office = TestUtils.createSampleOffice();
-//        office.setID(1L);
-//        
-//        
-//        
-//        officeService.addOffice(officeDto);
-//        
-//        try
-//        {
-//            dao.addOffice(office);
-//        }
-//        catch(IllegalArgumentException ex)
-//        {
-//            Assert.fail("Expected office addition");
-//        }
-//        
-//        Assert.assertNotNull(dao.getAllOffices());
-//        
-//        Assert.assertEquals(office, dao.getOffice(office.getID()));
-//        Assert.assertEquals(office.getAddress(), address);
-//                
-//        try
-//        {
-//            dao.addOffice(office);
-//            Assert.fail("Office already added - exception expected");
-//        }
-//        catch(IllegalArgumentException ex)
-//        {
-//        }
-//    }
-//    
-//    @Test
-//    @Ignore
-//    public void getOfficeCars()
-//    {
-//        String address = "Adresa 123";
-//        
-//        Car car1 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "TRB1962", "VIN123", false);
-//        Car car2 = TestUtils.createCar(mBrand.CHEVROLET, mType.SEDAN, mColor.YELLOW, mEngine.PETROL, mModel.CAMARO, "1B21234", "VIN321", false);
-//        Car car3 = TestUtils.createCar(mBrand.FORD, mType.HATCHBACK, mColor.RED, mEngine.DIESEL, mModel.FOCUS, "1A11111", "VIN222", false);
-//        
-//        List<Car> cars = new ArrayList<Car>();
-//        
-//        cars.add(car3);
-//        cars.add(car2);
-//        cars.add(car1);        
-//        
-//        Office office = TestUtils.createOffice(address, null, cars, null);
-//        
-//        carDao.AddCar(car1);
-//        carDao.AddCar(car2);
-//        carDao.AddCar(car3);
-//        
-//        dao.addOffice(office);
-//        
-//        Assert.assertEquals(dao.getOfficeCars(office),cars);
-//    }
-//    
+    @Test
+    @Ignore
+    public void addGetOfficeTest()
+    {
+        
+        OfficeDto officeDto = TestUtils.createSampleDtoOffice();
+        officeDto.setID(1L);
+        
+        Office office = Converter.getEntity(officeDto);
+        
+        officeService.addOffice(officeDto);
+                
+        Mockito.verify(officeDaoMocked,Mockito.times(1)).addOffice(office);
+        
+        Mockito.doReturn(office).when(officeDaoMocked).getOffice(office.getID());
+        
+        OfficeDto result = officeService.getOffice(1l);
+        
+        Assert.assertNotNull(result);
+        Assert.assertEquals(officeDto.getID(), result.getID());
+        Assert.assertEquals(officeDto.getAddress(),result.getAddress());
+        Assert.assertEquals(officeDto.getCars(),result.getCars());
+        Assert.assertEquals(officeDto.getEmployees(),result.getEmployees());
+        Assert.assertEquals(officeDto.getManager(),result.getManager());
+    }
+    
+    
 //    @Test
 //    @Ignore
 //    public void getOfficeEmployees()
@@ -160,26 +122,23 @@ public class OfficeServiceImplTest
 //        Assert.assertEquals(dao.getAllOffices(),offices);
 //    }
 //    
-//    @Test
-//    @Ignore
-//    public void deleteOfficeTest()
-//    {
-//        try
-//        {
-//            dao.deleteOffice(null);
-//            Assert.fail("Office cannot be null - exception expected");
-//        }catch(IllegalArgumentException ex)
-//        {
-//        }
-//        
-//        Office office = TestUtils.createOffice("Adresa 1", null, null, null);
-//        
-//        dao.addOffice(office);
-//        dao.deleteOffice(office);
-//       
-//        Assert.assertNull(dao.getOffice(office.getID()));
-//              
-//    }
+    @Test
+    @Ignore
+    public void deleteOfficeTest()
+    {
+        OfficeDto officeDto = TestUtils.createSampleDtoOffice();
+        officeDto.setID(1L);
+        
+        Office office = Converter.getEntity(officeDto);
+        
+        officeService.addOffice(officeDto);    
+        
+        officeService.deleteOffice(officeDto);
+        
+        Mockito.verify(officeDaoMocked,Mockito.times(1)).deleteOffice(office);
+        
+        Assert.assertNull(officeDaoMocked.getOffice(1L));
+    }
 //    
 //    @Test
 //    @Ignore

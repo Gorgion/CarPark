@@ -22,8 +22,8 @@ public class OfficeDto {
     private User manager;
     private List<User> employees;
 
-    public OfficeDto(Long iD, String address, User manager, List<User> employees, List<Car> cars) {
-        this.iD = iD;
+    public OfficeDto(String address, User manager, List<User> employees, List<Car> cars) 
+    {
         this.address = address;
         this.manager = manager;
         this.employees = employees;
