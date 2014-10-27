@@ -6,7 +6,9 @@
 
 package cz.muni.fi.pa165.carpark;
 
+import cz.muni.fi.pa165.carpark.dto.CarDto;
 import cz.muni.fi.pa165.carpark.dto.OfficeDto;
+import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Car.mBrand;
 import cz.muni.fi.pa165.carpark.entity.Car.mColor;
@@ -119,6 +121,24 @@ public class TestUtils {
         
         
         return officeDto;
+    }
+    
+    public static UserDto createSampleDtoUser()
+    {
+        UserDto userDto = new UserDto();
+
+        userDto.setFirstName("Name");
+        userDto.setLastName("Surname");
+        userDto.setAddress("Address");
+        userDto.setBirthNumber("958456/8524");
+        userDto.setPosition(User.Position.EMPLOYEE);
+
+        return userDto;
+    }
+    
+    public static CarDto createSampleDtoCar()
+    {
+        return new CarDto(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP1", "VIN1", false);
     }
     
     public static Date dateNow(Long more) {
