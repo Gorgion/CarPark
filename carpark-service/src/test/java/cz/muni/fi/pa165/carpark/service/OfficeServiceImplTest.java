@@ -5,14 +5,22 @@
  */
 package cz.muni.fi.pa165.carpark.service;
 
+import cz.muni.fi.pa165.carpark.TestUtils;
 import cz.muni.fi.pa165.carpark.dao.CarDao;
 import cz.muni.fi.pa165.carpark.dao.OfficeDao;
 import cz.muni.fi.pa165.carpark.dao.RentalDao;
 import cz.muni.fi.pa165.carpark.dao.UserDao;
+import cz.muni.fi.pa165.carpark.dto.OfficeDto;
+import cz.muni.fi.pa165.carpark.dto.UserDto;
+import cz.muni.fi.pa165.carpark.entity.Office;
+import cz.muni.fi.pa165.carpark.entity.User;
+import cz.muni.fi.pa165.carpark.util.Converter;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -24,6 +32,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 @RunWith(MockitoJUnitRunner.class)
 public class OfficeServiceImplTest
 {
+    @InjectMocks
+    private OfficeService officeService =  new OfficeServiceImpl();
     
     @Mock
     private OfficeDao officeDaoMocked;
@@ -33,29 +43,28 @@ public class OfficeServiceImplTest
     private UserDao userDaoMocked;
     @Mock
     private RentalDao rentalDaoMocked;
-    
+
       
-//    @Test
-//    @Ignore
-//    public void wrongAddOfficeTest()
-//    {
-//        try
-//        {
-//            dao.addOffice(null);
-//            Assert.fail("Office can't be null - exception excepted!");
-//        }
-//        catch(IllegalArgumentException ex)
-//        {
-//        }
-//    }
-//       
+    @Test
+    @Ignore
+    public void wrongAddOfficeTest()
+    {
+        Mockito.doThrow(IllegalArgumentException.class).when(officeDaoMocked).addOffice(null);
+        officeService.addOffice(null);
+    }
+       
 //    @Test
 //    @Ignore
 //    public void addGetOfficeTest()
 //    {
-//        String address = "Adresa 123";
-//                
-//        Office office = TestUtils.createOffice(address, null, null, null);
+//        OfficeDto officeDto = new OfficeDto(null,"address",null,null,null);
+//        
+//        Office office = TestUtils.createSampleOffice();
+//        office.setID(1L);
+//        
+//        
+//        
+//        officeService.addOffice(officeDto);
 //        
 //        try
 //        {

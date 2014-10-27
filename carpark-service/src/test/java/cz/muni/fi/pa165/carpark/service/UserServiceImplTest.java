@@ -14,7 +14,6 @@ import cz.muni.fi.pa165.carpark.dao.UserDaoImpl;
 import cz.muni.fi.pa165.carpark.dto.RentalDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.entity.User;
-import cz.muni.fi.pa165.carpark.exception.DataAccessException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -91,7 +90,7 @@ public class UserServiceImplTest
         Assert.assertEquals(userDto.getPosition(), actualDto.getPosition());
     }
 
-    @Test(expected = DataAccessException.class)
+    @Test
     public void testCreateWithNullArg()
     {
         Mockito.doThrow(IllegalArgumentException.class).when(mockedUserDao).add(null);
@@ -126,7 +125,7 @@ public class UserServiceImplTest
         Assert.assertEquals(userDto.getPosition(), actualDto.getPosition());
     }
 
-    @Test(expected = DataAccessException.class)
+    @Test
     public void testEditWithNullArg()
     {
         Mockito.doThrow(IllegalArgumentException.class).when(mockedUserDao).edit(null);
