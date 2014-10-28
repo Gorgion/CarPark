@@ -8,12 +8,12 @@ package cz.muni.fi.pa165.carpark.dao;
 import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Office;
 import cz.muni.fi.pa165.carpark.entity.User;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 //import javax.transaction.Transactional;
 /**
@@ -22,14 +22,12 @@ import javax.persistence.Query;
  *
  * @author Karolina Burska
  */
+
+@Named
 public class OfficeDaoImpl implements OfficeDao {
 
-    private EntityManagerFactory emf;
-
-    @Override
-    public void setEMF(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    private EntityManager em;
 
     @Override
     public void addOffice(Office office) {
@@ -40,21 +38,7 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new IllegalArgumentException("Office is already added.");
         }
 
-        EntityManager em = emf.createEntityManager();
-        
-        try {
-            em.getTransaction().begin();
-            em.persist(office);
-            em.getTransaction().commit();
-        }
-        catch(PersistenceException e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-        }
-        finally {
-            em.close();
-        }
+        em.persist(office);
     }
 
     @Override
@@ -66,22 +50,8 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new IllegalArgumentException("ID is less than 0.");
         }
 
-        EntityManager em = emf.createEntityManager();
+        Office office = em.find(Office.class, id);
 
-        Office office = null;
-        
-        try {
-            office = (Office)em.createQuery("SELECT o FROM Office o WHERE o.id =:ide").setParameter("ide", id).getSingleResult();
-        }
-        catch(PersistenceException e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-        }
-        finally {
-            em.close();
-        }
-        
         return office;
     }
 
@@ -91,19 +61,7 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new IllegalArgumentException("Office is null.");
         }
 
-        EntityManager em = emf.createEntityManager();
-
-        try {
-        em.getTransaction().begin();
         em.merge(office);
-        em.getTransaction().commit();
-        }
-        catch(PersistenceException e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-        }
-        em.close();
     }
 
     @Override
@@ -112,42 +70,14 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new IllegalArgumentException("Office is null.");
         }
 
-        EntityManager em = emf.createEntityManager();
-
-        try {
-            em.getTransaction().begin();
-            
-            em.remove(em.find(Office.class, office.getID()));
-            
-            em.getTransaction().commit();
-        }
-        catch(PersistenceException e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-        }
-        finally {
-            em.close();
-        }
+        Office toDelete = em.find(Office.class, office.getID());
+        em.remove(toDelete);
     }
 
     @Override
     public List<Office> getAllOffices() {
-        EntityManager em = emf.createEntityManager();
-
-        List<Office> offices  = new ArrayList<>();
-        
-        try {
-            offices = (List<Office>)em.createQuery("FROM Office").getResultList();
-        }
-        catch(PersistenceException e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-        }
-        finally {
-            em.close();
-        }
+        Query query = em.createQuery("SELECT o FROM Office o",Office.class);
+        List<Office> offices = query.getResultList();
 
         return Collections.unmodifiableList(offices);
     }
@@ -157,23 +87,11 @@ public class OfficeDaoImpl implements OfficeDao {
         if (office == null) {
             throw new IllegalArgumentException("Office is null.");
         }
-        EntityManager em = emf.createEntityManager();
         
-        List<Car> cars = new ArrayList<>();
-        
-        try {
-            cars = em.createQuery("SELECT o.cars FROM Office o WHERE o.iD = :officeid")
+        List<Car> cars = em.createQuery("SELECT o.cars FROM Office o WHERE o.iD = :officeid")
                     .setParameter("officeid", office.getID())
                     .getResultList();
-        }
-        catch (PersistenceException e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }  
-        }
-        finally {
-            em.close();
-        }
+        
         
         return Collections.unmodifiableList(cars);
     }
@@ -187,29 +105,13 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new IllegalArgumentException("Car is null.");
         }
 
-        EntityManager em = emf.createEntityManager();
-        
-        try {
-            em.getTransaction().begin();
+        car = em.merge(car);
 
-            car = em.merge(car);
-        
-            List<Car> actualCars = getOffice(office.getID()).getCars();
-            actualCars.add(car);
-            office.setCars(actualCars);
+        List<Car> actualCars = getOffice(office.getID()).getCars();
+        actualCars.add(car);
+        office.setCars(actualCars);
 
-            em.merge(office);
-            em.getTransaction().commit();
-            
-        }
-        catch (PersistenceException e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }  
-        }
-        finally {
-            em.close();
-        }
+        em.merge(office);
     }
 
     @Override
@@ -221,26 +123,11 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new IllegalArgumentException("Car is null.");
         }
 
-        EntityManager em = emf.createEntityManager();
+        List<Car> actualCars = getOffice(office.getID()).getCars();
+        actualCars.remove(car);
+        office.setCars(actualCars);
 
-        try {
-            em.getTransaction().begin();
-        
-            List<Car> actualCars = getOffice(office.getID()).getCars();
-            actualCars.remove(car);
-            office.setCars(actualCars);
-
-            em.merge(office);
-            em.getTransaction().commit();  
-        }
-        catch (PersistenceException e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-        }
-        finally {
-            em.close();
-        }
+        em.merge(office);
     }
 
     @Override
@@ -249,25 +136,10 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new IllegalArgumentException("Office is null.");
         }
 
-        EntityManager em = emf.createEntityManager();
-        
-        List<User> users = new ArrayList<>();
-        
-        try {
-            users = em.createQuery("SELECT o.employees FROM Office o WHERE o.id =:officeId")
+        List<User> users = em.createQuery("SELECT o.employees FROM Office o WHERE o.id =:officeId")
                     .setParameter("officeId", office.getID())
                     .getResultList();
 
-        }
-        catch (PersistenceException e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }  
-        }
-        finally {
-            em.close();
-        }
-        
         return Collections.unmodifiableList(users);
     }
 
@@ -280,28 +152,13 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new IllegalArgumentException("User is null.");
         }
 
-        EntityManager em = emf.createEntityManager();
+        user = em.merge(user);
 
-        try {
-            em.getTransaction().begin();
+        List<User> actualEmployees = getOffice(office.getID()).getEmployees();
+        actualEmployees.add(user);
+        office.setEmployees(actualEmployees);
 
-            user = em.merge(user);
-        
-            List<User> actualEmployees = getOffice(office.getID()).getEmployees();
-            actualEmployees.add(user);
-            office.setEmployees(actualEmployees);
-
-            em.merge(office);
-            em.getTransaction().commit(); 
-        }
-        catch (PersistenceException e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }  
-        }
-        finally {
-            em.close();
-        }
+        em.merge(office);
     }
 
     @Override
@@ -313,25 +170,10 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new IllegalArgumentException("User is null.");
         }
 
-        EntityManager em = emf.createEntityManager();
+        List<User> employees = getOffice(office.getID()).getEmployees();
+        employees.remove(user);
+        office.setEmployees(employees);
 
-        try {
-            em.getTransaction().begin();
-        
-            List<User> employees = getOffice(office.getID()).getEmployees();
-            employees.remove(user);
-            office.setEmployees(employees);
-
-            em.merge(office);
-            em.getTransaction().commit();  
-        }
-        catch (PersistenceException e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-        }
-        finally {
-            em.close();
-        }
+        em.merge(office);
     }
 }

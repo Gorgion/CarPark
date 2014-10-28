@@ -18,7 +18,6 @@ import javax.persistence.EntityManagerFactory;
  * @author Karolina Burska
  */
 public interface OfficeDao { 
-        public void setEMF(EntityManagerFactory emf);
         
         /**
          * Add new office
