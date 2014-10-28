@@ -9,15 +9,12 @@ import cz.muni.fi.pa165.carpark.entity.Car;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.persistence.EntityManagerFactory;
 /**
  *
  * @author Jiri Dockal
  */
 public interface CarDao
 {
-        public void setEmf(EntityManagerFactory emf);
-    
         public void AddCar(Car car);
 
 	public Car getCar(Long id);

@@ -15,6 +15,7 @@ import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.entity.Office;
 import cz.muni.fi.pa165.carpark.entity.User;
 import cz.muni.fi.pa165.carpark.util.Converter;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -79,28 +80,26 @@ public class OfficeServiceImplTest
     }
     
     
-//    @Test
-//    @Ignore
-//    public void getOfficeEmployees()
-//    {
-//        User manager = TestUtils.createUser("Jiří", "Dočkal", "Někde daleko", User.Position.MANAGER, "901212/1234");
-//        User employee = TestUtils.createUser("Honza", "Pracovník", "Někde jinde", User.Position.EMPLOYEE, "820101/4321");
-//        
-//        List<User> employees = new ArrayList<User>();
-//        employees.add(manager);
-//        employees.add(employee);
-//        
-//        String address = "Adresa 123";
-//        
-//        Office office = TestUtils.createOffice(address, manager, null, employees);
-//        
-//        userDao.add(manager);
-//        userDao.add(employee);
-//        
-//        dao.addOffice(office);
-//        
-//        Assert.assertEquals(dao.getEmployees(office),employees);
-//    }
+    @Test
+    @Ignore
+    public void getOfficeEmployees()
+    {
+        OfficeDto officeDto = TestUtils.createSampleDtoOffice();
+        officeDto.setID(1L);
+        
+        Office office = Converter.getEntity(officeDto);
+        
+        Mockito.doReturn(TestUtils.).when(officeDaoMocked).getEmployees(office);
+        
+        List<UserDto> employees = officeService.getEmployees(officeDto);
+        
+        
+        List<UserDto> result = officeService.getEmployees(officeDto);
+        
+        Assert.assertNotNull(result);
+        Assert.assertEquals(employees, result);
+        
+    }
 //    
 //    @Test
 //    @Ignore
