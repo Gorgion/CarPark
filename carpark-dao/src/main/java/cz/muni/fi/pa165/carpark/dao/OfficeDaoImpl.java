@@ -8,6 +8,7 @@ package cz.muni.fi.pa165.carpark.dao;
 import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Office;
 import cz.muni.fi.pa165.carpark.entity.User;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Named;
@@ -108,6 +109,8 @@ public class OfficeDaoImpl implements OfficeDao {
         car = em.merge(car);
 
         List<Car> actualCars = getOffice(office.getID()).getCars();
+        if(actualCars == null)
+            actualCars = new ArrayList<Car>();
         actualCars.add(car);
         office.setCars(actualCars);
 
@@ -155,6 +158,10 @@ public class OfficeDaoImpl implements OfficeDao {
         user = em.merge(user);
 
         List<User> actualEmployees = getOffice(office.getID()).getEmployees();
+        if (actualEmployees == null)
+            actualEmployees = new ArrayList<User>();
+        
+        
         actualEmployees.add(user);
         office.setEmployees(actualEmployees);
 

@@ -15,7 +15,10 @@ import cz.muni.fi.pa165.carpark.entity.Rental;
 import cz.muni.fi.pa165.carpark.entity.User;
 import cz.muni.fi.pa165.carpark.entity.UserCredentials;
 import cz.muni.fi.pa165.carpark.entity.UserRole;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -248,6 +251,24 @@ public class Converter
                 office.getCars()
         );
         
+        officeDto.setID(office.getID());
+        
         return officeDto;
+    }
+    
+    public static List<UserDto> getTransferObject(List<User> users)
+    {
+        if(users == null) {
+            return null;
+        }
+       
+        List<UserDto> usersDto = new ArrayList<UserDto>();
+        
+        for(User u : users)
+        {
+            usersDto.add(Converter.getTransferObject(u));
+        }
+        
+        return usersDto;
     }
 }
