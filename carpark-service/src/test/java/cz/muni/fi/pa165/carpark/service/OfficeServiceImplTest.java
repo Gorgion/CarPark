@@ -10,11 +10,15 @@ import cz.muni.fi.pa165.carpark.dao.CarDao;
 import cz.muni.fi.pa165.carpark.dao.OfficeDao;
 import cz.muni.fi.pa165.carpark.dao.RentalDao;
 import cz.muni.fi.pa165.carpark.dao.UserDao;
+import cz.muni.fi.pa165.carpark.dto.CarDto;
 import cz.muni.fi.pa165.carpark.dto.OfficeDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
+import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Office;
 import cz.muni.fi.pa165.carpark.entity.User;
 import cz.muni.fi.pa165.carpark.util.Converter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -83,48 +87,74 @@ public class OfficeServiceImplTest
     
     
     @Test
-    @Ignore
-    public void getOfficeEmployees()
+    //@Ignore
+    public void getOfficeEmployeesTest()
     {
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
         officeDto.setID(1L);
         
+        officeService.addOffice(officeDto);
+        
         Office office = Converter.getEntity(officeDto);
         List<User> employees = office.getEmployees();
         Mockito.doReturn(employees).when(officeDaoMocked).getEmployees(office);
+        List<UserDto> employeesDto = Converter.getTransferObjectUserList(employees);
         
-        List<UserDto> employeesDto = Converter.getTransferObject(employees);
-        
-        
+        Mockito.doReturn(office).when(officeDaoMocked).getOffice(1L);
         List<UserDto> result = officeService.getEmployees(officeDto);
         
         Assert.assertNotNull(result);
         Assert.assertEquals(employeesDto, result);
         
     }
-//    
-//    @Test
-//    @Ignore
-//    public void getAllOfficesTest()
-//    {
-//        Office office1 = TestUtils.createOffice("Adresa 1", null, null, null);
-//        Office office2 = TestUtils.createOffice("Adresa 2", null, null, null);
-//        Office office3 = TestUtils.createOffice("Adresa 3", null, null, null);
-//        
-//        List<Office> offices = new ArrayList<Office>();
-//        offices.add(office1);
-//        offices.add(office2);
-//        offices.add(office3);
-//        
-//        dao.addOffice(office1);
-//        dao.addOffice(office2);
-//        dao.addOffice(office3);
-//        
-//        Assert.assertEquals(dao.getAllOffices(),offices);
-//    }
-//    
+    
     @Test
-    @Ignore
+    //@Ignore
+    public void getOfficeCarsTest()
+    {
+        OfficeDto officeDto = TestUtils.createSampleDtoOffice();
+        officeDto.setID(1L);
+        
+        officeService.addOffice(officeDto);
+        
+        Office office = Converter.getEntity(officeDto);
+        List<Car> cars = office.getCars();
+        Mockito.doReturn(cars).when(officeDaoMocked).getOfficeCars(office);
+        List<CarDto> carsDto = Converter.getTransferObjectCarList(cars);
+        
+        Mockito.doReturn(office).when(officeDaoMocked).getOffice(1L);
+        List<CarDto> result = officeService.getOfficeCars(officeDto);
+        
+        Assert.assertNotNull(result);
+        Assert.assertEquals(carsDto, result);
+        
+    }
+    
+    @Test
+    //@Ignore
+    public void getAllOfficesTest()
+    {
+        OfficeDto office1 = TestUtils.createSampleDtoOffice();
+        office1.setID(1L);
+        OfficeDto office2 = TestUtils.createSampleDtoOffice();
+        office1.setID(2L);
+        OfficeDto office3 = TestUtils.createSampleDtoOffice();
+        office1.setID(3L);
+        
+        List<OfficeDto> offices = new ArrayList<OfficeDto>();
+        offices.add(office1);
+        offices.add(office2);
+        offices.add(office3);
+        
+        Mockito.doReturn(offices).when(officeDaoMocked).getAllOffices();
+        
+        List<OfficeDto> result = officeService.getAllOffices();
+        
+        Assert.assertEquals(offices,result);
+    }
+    
+    @Test
+    //@Ignore
     public void deleteOfficeTest()
     {
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
@@ -140,186 +170,158 @@ public class OfficeServiceImplTest
         
         Assert.assertNull(officeDaoMocked.getOffice(1L));
     }
-//    
-//    @Test
-//    @Ignore
-//    public void editOfficeTest()
-//    {
-//        Car car1 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "TRB1962", "VIN123", false);
-//        Car car2 = TestUtils.createCar(mBrand.CHEVROLET, mType.SEDAN, mColor.YELLOW, mEngine.PETROL, mModel.CAMARO, "1B21234", "VIN321", false);
-//        Car car3 = TestUtils.createCar(mBrand.FORD, mType.HATCHBACK, mColor.RED, mEngine.DIESEL, mModel.FOCUS, "1A11111", "VIN222", false);
-//        
-//        carDao.AddCar(car1);
-//        carDao.AddCar(car2);
-//        carDao.AddCar(car3);
-//        
-//        List<Car> cars = new ArrayList<Car>();       
-//        cars.add(car3);
-//        cars.add(car2);
-//        cars.add(car1);
-//        
-//        
-//        User manager = TestUtils.createUser("Jiří", "Dočkal", "Někde daleko", User.Position.MANAGER, "901212/1234");
-//        User employee = TestUtils.createUser("Honza", "Pracovník", "Někde jinde", User.Position.EMPLOYEE, "820101/4321");
-//                
-//        userDao.add(manager);
-//        userDao.add(employee);
-//        
-//        List<User> employees = new ArrayList<User>();
-//        employees.add(manager);
-//        employees.add(employee);
-//        
-//        
-//        String address = "Adresa 123";
-//        Office office = TestUtils.createOffice(address, manager, null, employees);
-//        
-//                
-//        User employee2 = TestUtils.createUser("Pepa", "Kounil", "Někde hodně daleko", User.Position.EMPLOYEE, "901212/1");
-//        User manager2 = TestUtils.createUser("Honza", "Navrhal", "Někde úplně jinde", User.Position.MANAGER, "820101/4");
-//        
-//        userDao.add(manager2);
-//        userDao.add(employee2);
-//        
-//        List<User> employees2 = new ArrayList<User>();
-//        employees2.add(manager2);
-//        employees2.add(employee2);
-//        
-//        
-//        dao.addOffice(office);
-//        
-//        String address2 = "Adresa 321";
-//                      
-//        Office officeExp = TestUtils.createOffice(address2, manager2, cars, employees2);
-//
-//        officeExp.setID(office.getID());
-//        
-//        dao.editOffice(officeExp);
-//        
-//        Office officeUpdated = dao.getOffice(office.getID());
-//        
-//        Assert.assertNotNull(officeUpdated);
-//        
-//        Assert.assertEquals(officeExp, officeUpdated);
-//        Assert.assertNotSame(officeExp, officeUpdated);
-//
-//        Assert.assertEquals(officeExp.getAddress(), officeUpdated.getAddress());
-//        Assert.assertEquals(officeExp.getCars(), officeUpdated.getCars());
-//        Assert.assertEquals(officeExp.getEmployees(), officeUpdated.getEmployees());
-//        
-//    }
-//    
-//    @Test
-//    @Ignore
-//    public void addEmployeeToOfficeTest()
-//    {
-//        String address = "Adresa 123";
-//        Office office = TestUtils.createOffice(address, null, null, null);
-//           
-//        User manager = TestUtils.createUser("Jiří", "Dočkal", "Někde daleko", User.Position.MANAGER, "901212/1234");
-//        User employee = TestUtils.createUser("Honza", "Pracovník", "Někde jinde", User.Position.EMPLOYEE, "820101/4321");
-//        
-//        List<User> employees = new ArrayList<User>();
-//        
-//        employees.add(manager);
-//        employees.add(employee);
-//        
-//        dao.addOffice(office);
-//        
-//        userDao.add(manager);
-//        userDao.add(employee);
-//        
-//        dao.addEmployeeToOffice(office, manager);
-//        dao.addEmployeeToOffice(office, employee);
-//        
-//        Office gotOffice = dao.getOffice(office.getID());
-//        
-//        Assert.assertEquals(employees, gotOffice.getEmployees());
-//    }
-//    
-//    @Test
-//    @Ignore
-//    public void addCarToOfficeTest()
-//    {
-//        String address = "Adresa 123";
-//        Office office = TestUtils.createOffice(address, null, null, null);
-//           
-//        Car car1 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "TRB1962", "VIN123", false);
-//        Car car2 = TestUtils.createCar(mBrand.CHEVROLET, mType.SEDAN, mColor.YELLOW, mEngine.PETROL, mModel.CAMARO, "1B21234", "VIN321", false);
-//
-//        List<Car> cars = new ArrayList<Car>();
-//        
-//        cars.add(car1);
-//        cars.add(car2);
-//        
-//        carDao.AddCar(car1);
-//        carDao.AddCar(car2);
-//        
-//        dao.addOffice(office);
-//        
-//        dao.addCarToOffice(office, car1);
-//        dao.addCarToOffice(office, car2);
-//        
-//        Office gotOffice = dao.getOffice(office.getID());
-//        
-//        Assert.assertEquals(cars, gotOffice.getCars());
-//    }
-//    
-//    @Test
-//    @Ignore
-//    public void deleteEmployeeFromOfficeTest()
-//    {
-//        String address = "Adresa 123";
-//        Office office = TestUtils.createOffice(address, null, null, null);
-//           
-//        User manager = TestUtils.createUser("Jiří", "Dočkal", "Někde daleko", User.Position.MANAGER, "901212/1234");
-//        User employee = TestUtils.createUser("Honza", "Pracovník", "Někde jinde", User.Position.EMPLOYEE, "820101/4321");
-//        
-//        userDao.add(manager);
-//        userDao.add(employee);
-//        
-//        List<User> employees = new ArrayList<User>();
-//        
-//        employees.add(manager);
-//        
-//        dao.addOffice(office);
-//        
-//        dao.addEmployeeToOffice(office, manager);
-//        dao.addEmployeeToOffice(office, employee);
-//        
-//        dao.deleteEmployeeFromOffice(office, employee);
-//        Office gotOffice = dao.getOffice(office.getID());
-//        
-//        Assert.assertEquals(employees, gotOffice.getEmployees());
-//    }
-//    
-//    @Test
-//    @Ignore
-//    public void deleteCarFromOfficeTest()
-//    {
-//        String address = "Adresa 123";
-//        Office office = TestUtils.createOffice(address, null, null, null);
-//           
-//        Car car1 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "TRB1962", "VIN123", false);
-//        Car car2 = TestUtils.createCar(mBrand.CHEVROLET, mType.SEDAN, mColor.YELLOW, mEngine.PETROL, mModel.CAMARO, "1B21234", "VIN321", false);
-//
-//        carDao.AddCar(car1);
-//        carDao.AddCar(car2);
-//        
-//        List<Car> cars = new ArrayList<Car>();
-//        
-//        cars.add(car1);
-//        
-//        dao.addOffice(office);
-//        
-//        dao.addCarToOffice(office, car1);
-//        dao.addCarToOffice(office, car2);
-//        
-//        dao.deleteCarFromOffice(office, car2);
-//        
-//        Office gotOffice = dao.getOffice(office.getID());
-//        
-//        Assert.assertEquals(cars, gotOffice.getCars());
-//    }
-//    
+    
+    @Test
+    @Ignore
+    public void editOfficeTest()
+    {
+        CarDto car1 = TestUtils.createSampleDtoCar();
+        car1.setID(5L);
+        
+        
+        List<CarDto> newCars = new ArrayList<CarDto>();       
+        newCars.add(car1);
+        
+        
+        OfficeDto officeDto = TestUtils.createSampleDtoOffice();
+        officeDto.setID(1L);
+        Office office = Converter.getEntity(officeDto);
+        
+        Mockito.doNothing().when(officeDaoMocked).addOffice(office);
+        
+        officeService.addOffice(officeDto);
+        
+        officeDto.setCars(Arrays.asList(Converter.getEntity(car1)));
+                
+        Mockito.verify(officeDaoMocked,Mockito.times(1)).editOffice(office);
+        
+        officeService.editOffice(officeDto);
+        
+        Mockito.doReturn(office).when(officeDaoMocked).getOffice(1L);
+        
+        OfficeDto result = officeService.getOffice(1L);
+        
+        Assert.assertNotNull(result);
+        
+        Assert.assertEquals(officeDto, result);
+        
+        Assert.assertEquals(result.getAddress(), result.getAddress());
+        Assert.assertEquals(newCars, result.getCars());
+        Assert.assertEquals(officeDto.getEmployees(), result.getEmployees());
+        
+    }
+    
+    @Test
+    //@Ignore
+    public void addEmployeeToOfficeTest()
+    {
+        OfficeDto officeDto = TestUtils.createSampleDtoOffice();
+        officeDto.setID(1L);
+        
+        Office office = Converter.getEntity(officeDto);
+        UserDto employeeDto = TestUtils.createSampleDtoUser();
+        
+        List<UserDto> employees = new ArrayList<UserDto>();
+        employees.add(employeeDto);
+        
+        
+        Mockito.doNothing().when(officeDaoMocked).addOffice(office);
+        officeService.addOffice(officeDto);
+        Mockito.doNothing().when(userDaoMocked).add(Converter.getEntity(employeeDto));
+        officeService.addEmployeeToOffice(officeDto, employeeDto);
+         
+        Mockito.doReturn(office).when(officeDaoMocked).getOffice(1L);
+        Mockito.doReturn(Arrays.asList(Converter.getEntity(employeeDto))).when(officeDaoMocked).getEmployees(office);
+        
+        List<UserDto> result = officeService.getEmployees(officeDto);
+        
+        Assert.assertEquals(employees, result);
+    }
+    
+    @Test
+    //@Ignore
+    public void addCarToOfficeTest()
+    {
+        OfficeDto officeDto = TestUtils.createSampleDtoOffice();
+        officeDto.setID(1L);
+        
+        Office office = Converter.getEntity(officeDto);
+        CarDto carDto = TestUtils.createSampleDtoCar();
+        
+        List<CarDto> cars = new ArrayList<CarDto>();
+        cars.add(carDto);
+        
+        
+        Mockito.doNothing().when(officeDaoMocked).addOffice(office);
+        officeService.addOffice(officeDto);
+        Mockito.doNothing().when(carDaoMocked).AddCar(Converter.getEntity(carDto));
+        officeService.addCarToOffice(officeDto, carDto);
+         
+        Mockito.doReturn(office).when(officeDaoMocked).getOffice(1L);
+        Mockito.doReturn(Arrays.asList(Converter.getEntity(carDto))).when(officeDaoMocked).getEmployees(office);
+        
+        List<UserDto> result = officeService.getEmployees(officeDto);
+        
+        Assert.assertEquals(cars, result);
+    }
+    
+    @Test
+    //@Ignore
+    public void deleteEmployeeFromOfficeTest()
+    {
+        OfficeDto officeDto = TestUtils.createSampleDtoOffice();
+        officeDto.setID(1L);
+        
+        Office office = Converter.getEntity(officeDto);
+        
+        List<User> employees = new ArrayList<User>(officeDto.getEmployees());
+        
+        User user = employees.get(1);
+        
+        employees.remove(1);
+        
+        Mockito.doNothing().when(officeDaoMocked).addOffice(office);
+        officeService.addOffice(officeDto);
+        
+        officeService.deleteEmployeeFromOffice(officeDto, Converter.getTransferObject(user));
+        Mockito.verify(officeDaoMocked,Mockito.times(1)).deleteEmployeeFromOffice(office, user);
+        
+        Mockito.doReturn(office).when(officeDaoMocked).getOffice(1L);
+        Mockito.doReturn(employees).when(officeDaoMocked).getEmployees(office);
+        
+        List<UserDto> result = officeService.getEmployees(officeDto);
+        
+        Assert.assertEquals(Converter.getTransferObjectUserList(employees), result);
+    }
+    
+    @Test
+    //@Ignore
+    public void deleteCarFromOfficeTest()
+    {
+        OfficeDto officeDto = TestUtils.createSampleDtoOffice();
+        officeDto.setID(1L);
+        
+        Office office = Converter.getEntity(officeDto);
+        
+        List<Car> cars = new ArrayList<Car>(officeDto.getCars());
+        
+        Car car = cars.get(3);
+        
+        cars.remove(3);
+        
+        Mockito.doNothing().when(officeDaoMocked).addOffice(office);
+        officeService.addOffice(officeDto);
+        
+        officeService.deleteCarFromOffice(officeDto, Converter.getTransferObject(car));
+        Mockito.verify(officeDaoMocked,Mockito.times(1)).deleteCarFromOffice(office, car);
+        
+        Mockito.doReturn(office).when(officeDaoMocked).getOffice(1L);
+        Mockito.doReturn(cars).when(officeDaoMocked).getOfficeCars(office);
+        
+        List<CarDto> result = officeService.getOfficeCars(officeDto);
+        
+        Assert.assertEquals(Converter.getTransferObjectCarList(cars), result);
+    }
+    
     
 }

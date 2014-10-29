@@ -256,7 +256,7 @@ public class Converter
         return officeDto;
     }
     
-    public static List<UserDto> getTransferObject(List<User> users)
+    public static List<UserDto> getTransferObjectUserList(List<User> users)
     {
         if(users == null) {
             return null;
@@ -270,5 +270,21 @@ public class Converter
         }
         
         return usersDto;
+    }
+    
+    public static List<CarDto> getTransferObjectCarList(List<Car> cars)
+    {
+        if(cars == null) {
+            return null;
+        }
+       
+        List<CarDto> carsDto = new ArrayList<CarDto>();
+        
+        for(Car c : cars)
+        {
+            carsDto.add(Converter.getTransferObject(c));
+        }
+        
+        return carsDto;
     }
 }
