@@ -7,6 +7,7 @@ package cz.muni.fi.pa165.carpark.util;
 
 import cz.muni.fi.pa165.carpark.dto.CarDto;
 import cz.muni.fi.pa165.carpark.dto.OfficeDto;
+import cz.muni.fi.pa165.carpark.dto.RentalDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Office;
@@ -29,7 +30,7 @@ public class Converter
     {
     }
     
-    public static Rental getEntity(cz.muni.fi.pa165.carpark.dto.RentalDto rental)
+    public static Rental getEntity(RentalDto rental)
     {
         if(rental == null)
         {
@@ -48,14 +49,14 @@ public class Converter
         return entity;
     }
     
-    public static cz.muni.fi.pa165.carpark.dto.RentalDto getTransferObject(Rental entity)
+    public static RentalDto getTransferObject(Rental entity)
     {        
         if(entity == null)
         {
             return null;
         }
         
-        cz.muni.fi.pa165.carpark.dto.RentalDto dto = new cz.muni.fi.pa165.carpark.dto.RentalDto();
+       RentalDto dto = new RentalDto();
         
         dto.setId(entity.getId());
         dto.setFromDate(entity.getFromDate());
