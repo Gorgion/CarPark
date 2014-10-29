@@ -26,7 +26,7 @@ import javax.persistence.Query;
 @Named
 public class OfficeDaoImpl implements OfficeDao {
 
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext//(type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
     @Override

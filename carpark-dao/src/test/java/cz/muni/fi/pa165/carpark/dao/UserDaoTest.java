@@ -8,7 +8,6 @@ package cz.muni.fi.pa165.carpark.dao;
 import cz.muni.fi.pa165.carpark.config.TestConfig;
 import cz.muni.fi.pa165.carpark.TestUtils;
 import cz.muni.fi.pa165.carpark.entity.Car;
-import cz.muni.fi.pa165.carpark.entity.Office;
 import cz.muni.fi.pa165.carpark.entity.Rental;
 import cz.muni.fi.pa165.carpark.entity.User;
 import java.util.Arrays;
@@ -35,6 +34,12 @@ public class UserDaoTest
 {
     @Inject
     private UserDao daoImpl;
+
+    @Inject
+    private CarDao carDao;
+
+    @Inject
+    private RentalDao rentalDao;
 
     @Test
     public void createUserTest()
@@ -137,30 +142,20 @@ public class UserDaoTest
     @Test
     public void testGetAllWithRent()
     {
-        OfficeDao officeDao = new OfficeDaoImpl();
 
-        RentalDao rentalDao = new RentalDaoImpl();
+        User user = TestUtils.createUser("Jiří", "Jirkovič", "Adresa 1", User.Position.MANAGER, "321bn");
+        User user2 = TestUtils.createUser("Jan", "Jirkovič", "Adresa 1", User.Position.EMPLOYEE, "123bn");
+        User user3 = TestUtils.createUser("Karel", "Karlovič", "Adresa 3", User.Position.EMPLOYEE, "456bn");
+        User user4 = TestUtils.createUser("Pepa", "Pepovič", "Adresa 4", User.Position.EMPLOYEE, "112bn");
 
-        CarDao carDao = new CarDaoImpl();
+        Car car = TestUtils.createCar(Car.mBrand.SKODA, Car.mType.COMBI, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.FABIA, "LP1", "VIN1", false);
 
-        Office defaultOffice = TestUtils.createSampleOffice();
+        daoImpl.add(user);
+        daoImpl.add(user2);
+        daoImpl.add(user3);
+        daoImpl.add(user4);
 
-        User user = defaultOffice.getEmployees().get(0);
-        User user2 = defaultOffice.getEmployees().get(1);
-
-        Car car = defaultOffice.getCars().get(0);
-
-        for (User tmpUser : defaultOffice.getEmployees())
-        {
-            daoImpl.add(tmpUser);
-        }
-
-        for (Car persistCar : defaultOffice.getCars())
-        {
-            carDao.AddCar(persistCar);
-        }
-
-        officeDao.addOffice(defaultOffice);
+        carDao.AddCar(car);
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR, 2);
@@ -184,32 +179,19 @@ public class UserDaoTest
     @Test
     public void testGetAllWithoutRent()
     {
-        OfficeDao officeDao = new OfficeDaoImpl();
+        User user = TestUtils.createUser("Jiří", "Jirkovič", "Adresa 1", User.Position.MANAGER, "321bn");
+        User user2 = TestUtils.createUser("Jan", "Jirkovič", "Adresa 1", User.Position.EMPLOYEE, "123bn");
+        User user3 = TestUtils.createUser("Karel", "Karlovič", "Adresa 3", User.Position.EMPLOYEE, "456bn");
+        User user4 = TestUtils.createUser("Pepa", "Pepovič", "Adresa 4", User.Position.EMPLOYEE, "112bn");
 
-        CarDao carDao = new CarDaoImpl();
-
-        RentalDao rentalDao = new RentalDaoImpl();
-
-        Office defaultOffice = TestUtils.createSampleOffice();
-
-        User user = defaultOffice.getEmployees().get(0);
-        User user2 = defaultOffice.getEmployees().get(1);
-        User user3 = defaultOffice.getEmployees().get(2);
-        User user4 = defaultOffice.getEmployees().get(3);
-
-        Car car = defaultOffice.getCars().get(0);
+        Car car = TestUtils.createCar(Car.mBrand.SKODA, Car.mType.COMBI, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.FABIA, "LP1", "VIN1", false);
 
         daoImpl.add(user);
         daoImpl.add(user2);
         daoImpl.add(user3);
         daoImpl.add(user4);
 
-        for (Car persistCar : defaultOffice.getCars())
-        {
-            carDao.AddCar(persistCar);
-        }
-
-        officeDao.addOffice(defaultOffice);
+        carDao.AddCar(car);
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR, 2);

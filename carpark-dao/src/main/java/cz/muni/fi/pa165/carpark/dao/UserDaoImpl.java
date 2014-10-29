@@ -23,7 +23,7 @@ import javax.persistence.Query;
 public class UserDaoImpl implements UserDao
 {
 
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext//(type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
 
     @Override
@@ -34,7 +34,7 @@ public class UserDaoImpl implements UserDao
             throw new NullPointerException("User can not be NULL");
         }
         
-        entityManager.persist(user);
+        entityManager.persist(user);        
     }
 
     @Override

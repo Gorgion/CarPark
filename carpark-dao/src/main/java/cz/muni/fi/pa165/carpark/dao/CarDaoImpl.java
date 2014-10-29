@@ -28,14 +28,16 @@ import javax.persistence.Query;
 @Named
 public class CarDaoImpl implements CarDao
 {
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext//(type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
     @Override
     public void AddCar(Car car)
     {
         if(car == null)
+        {
             throw new IllegalArgumentException("Car cannot be null!");
+        }
         
         em.persist(car);
     }

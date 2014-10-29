@@ -23,7 +23,7 @@ import javax.persistence.Query;
 @Named
 public class RentalDaoImpl implements RentalDao
 {
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext//(type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
 
     @Override
