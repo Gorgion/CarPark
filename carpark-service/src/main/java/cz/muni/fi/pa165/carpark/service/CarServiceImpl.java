@@ -14,7 +14,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.EntityManagerFactory;
 import javax.transaction.Transactional;
 import javax.inject.Inject;
 import javax.inject.Named;

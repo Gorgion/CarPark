@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.transaction.Transactional;
 import org.springframework.dao.DataAccessException;
 
@@ -24,9 +25,10 @@ import org.springframework.dao.DataAccessException;
  *
  * @author Karolina Burska
  */
+@Named
 public class OfficeServiceImpl implements OfficeService {
 
-    //@Inject
+    @Inject
     private OfficeDao officeDao;
 
     public void setRentalDao(OfficeDao office) {

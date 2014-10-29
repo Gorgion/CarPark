@@ -24,6 +24,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.dao.DataAccessException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -45,8 +46,8 @@ public class OfficeServiceImplTest
     private UserDao userDaoMocked;
 
       
-    @Test
-    @Ignore
+    @Test(expected = DataAccessException.class)
+    //@Ignore
     public void wrongAddOfficeTest()
     {
         Mockito.doThrow(IllegalArgumentException.class).when(officeDaoMocked).addOffice(null);
@@ -54,7 +55,7 @@ public class OfficeServiceImplTest
     }
        
     @Test
-    @Ignore
+    //@Ignore
     public void addGetOfficeTest()
     {
         
@@ -62,16 +63,17 @@ public class OfficeServiceImplTest
         officeDto.setID(1L);
         
         Office office = Converter.getEntity(officeDto);
-        
+          
         officeService.addOffice(officeDto);
-                
+        
         Mockito.verify(officeDaoMocked,Mockito.times(1)).addOffice(office);
         
         Mockito.doReturn(office).when(officeDaoMocked).getOffice(office.getID());
         
-        OfficeDto result = officeService.getOffice(1l);
+        OfficeDto result = officeService.getOffice(1L);
         
         Assert.assertNotNull(result);
+        Assert.assertEquals(officeDto, result);
         Assert.assertEquals(officeDto.getID(), result.getID());
         Assert.assertEquals(officeDto.getAddress(),result.getAddress());
         Assert.assertEquals(officeDto.getCars(),result.getCars());
@@ -88,16 +90,16 @@ public class OfficeServiceImplTest
         officeDto.setID(1L);
         
         Office office = Converter.getEntity(officeDto);
+        List<User> employees = office.getEmployees();
+        Mockito.doReturn(employees).when(officeDaoMocked).getEmployees(office);
         
-        Mockito.doReturn(TestUtils.).when(officeDaoMocked).getEmployees(office);
-        
-        List<UserDto> employees = officeService.getEmployees(officeDto);
+        List<UserDto> employeesDto = Converter.getTransferObject(employees);
         
         
         List<UserDto> result = officeService.getEmployees(officeDto);
         
         Assert.assertNotNull(result);
-        Assert.assertEquals(employees, result);
+        Assert.assertEquals(employeesDto, result);
         
     }
 //    
