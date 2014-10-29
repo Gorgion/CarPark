@@ -40,6 +40,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.mockito.Mockito.*;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.springframework.dao.DataAccessException;
 
 /**
  *
@@ -90,7 +91,7 @@ public class UserServiceImplTest
         Assert.assertEquals(userDto.getPosition(), actualDto.getPosition());
     }
 
-    @Test
+    @Test(expected = DataAccessException.class)
     public void testCreateWithNullArg()
     {
         Mockito.doThrow(IllegalArgumentException.class).when(mockedUserDao).add(null);
@@ -125,7 +126,7 @@ public class UserServiceImplTest
         Assert.assertEquals(userDto.getPosition(), actualDto.getPosition());
     }
 
-    @Test
+    @Test(expected = DataAccessException.class)
     public void testEditWithNullArg()
     {
         Mockito.doThrow(IllegalArgumentException.class).when(mockedUserDao).edit(null);
@@ -134,7 +135,7 @@ public class UserServiceImplTest
     }
 
     //Expected?
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)//(expected = IllegalArgumentException.class)
     public void testGetNegativeId()
     {
         Mockito.doThrow(IllegalArgumentException.class).when(mockedUserDao).get(Long.MIN_VALUE);
