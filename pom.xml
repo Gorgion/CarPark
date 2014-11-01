@@ -10,7 +10,6 @@
     
     <modules>
         <module>carpark-dao</module>
-        <module>carpark-web</module>
         <module>carpark-service</module>
     </modules>
     
