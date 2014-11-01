@@ -7,6 +7,7 @@ package cz.muni.fi.pa165.carpark.service;
 
 
 
+import cz.muni.fi.pa165.carpark.TestUtils;
 import cz.muni.fi.pa165.carpark.dao.RentalDao;
 import cz.muni.fi.pa165.carpark.dao.UserDao;
 import cz.muni.fi.pa165.carpark.dto.CarDto;
@@ -46,14 +47,7 @@ public class RentalServiceImplTest {
     
     @Mock
     private static UserDao mockedUserDao;
-    
-    @Mock
-    private static Car mockedCar;
-    
-    @Mock
-    private static User mockedUser;
-    
-    
+   
     @Test
     public void testCreateAndGet()
     {
@@ -167,11 +161,27 @@ public class RentalServiceImplTest {
     
     
     //TODO
-    @Ignore
     @Test
     public void testGetAllByUser()
     {        
-
+        RentalDto rental1 = createRentalSampleDto();
+        RentalDto rental2 = createRentalSampleDto();
+        RentalDto rental3 = createRentalSampleDto();
+        rental1.setId(1L);
+        rental1.setRentalState(cz.muni.fi.pa165.carpark.entity.Rental.State.APPROVED);
+        rental2.setId(2L);
+        rental2.setRentalState(cz.muni.fi.pa165.carpark.entity.Rental.State.FINISHED);
+        rental3.setId(3L);
+        
+        Mockito.doReturn(Arrays.asList(Converter.getEntity(rental1), Converter.getEntity(rental2)))
+        .when(mockedRentalDao).getAllByUser(rental2.getUser());
+       
+        UserDto userDto = Converter.getTransferObject(rental2.getUser());
+        
+        List<RentalDto> actualRentals = rentalService.getAllByUser(userDto);
+        Assert.assertNotNull(actualRentals);
+        List<RentalDto> expectedRentals = Arrays.asList(rental1, rental2);
+        Assert.assertEquals(expectedRentals, actualRentals);
     }
     
     
@@ -179,13 +189,21 @@ public class RentalServiceImplTest {
     { 
         RentalDto rentalDto = new RentalDto();
 
-        rentalDto.setCar(mockedCar);
+        rentalDto.setCar(TestUtils.createCar(Car.mBrand.SKODA, Car.mType.COMBI, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.FABIA, null, null, true));
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR, 2);   
         rentalDto.setFromDate(calendar.getTime());
         calendar.add(Calendar.HOUR, 2);   
         rentalDto.setToDate(calendar.getTime());
-        rentalDto.setUser(mockedUser);
+        
+        User user = new User();
+        user.setFirstName("name");
+        user.setLastName("surname");
+        user.setAddress("address");
+        user.setBirthNumber("9875698/4587");
+        user.setPosition(User.Position.EMPLOYEE);
+        
+        rentalDto.setUser(user);
         rentalDto.setRentalState(cz.muni.fi.pa165.carpark.entity.Rental.State.FINISHED);
 
         return rentalDto;
