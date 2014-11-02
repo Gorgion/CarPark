@@ -55,7 +55,7 @@ public class UserCredentialsServiceImplTest {
         UserCredentialsDto actualUserCredentialsDto = userCredentialsService.getByUsername(userCredentials.getUsername());
         
         Assert.assertNotNull(actualUserCredentialsDto);
-        //Assert.assertEquals(userCredentialsDto, actualUserCredentialsDto);
+        Assert.assertEquals(userCredentialsDto, actualUserCredentialsDto);
         Assert.assertEquals(userCredentialsDto.getUserId(), actualUserCredentialsDto.getUserId());
         Assert.assertEquals(userCredentialsDto.getPassword(), actualUserCredentialsDto.getPassword());
         Assert.assertEquals(userCredentialsDto.getUser(), actualUserCredentialsDto.getUser());
@@ -97,7 +97,7 @@ public class UserCredentialsServiceImplTest {
         UserCredentialsDto actualUserCredentialsDto = userCredentialsService.getByUsername(userCredentials.getUsername());
 
         Assert.assertNotNull(actualUserCredentialsDto);
-        //Assert.assertEquals(userCredentialsDto, actualUserCredentialsDto);
+        Assert.assertEquals(userCredentialsDto, actualUserCredentialsDto);
         Assert.assertEquals(userCredentialsDto.getUserId(), actualUserCredentialsDto.getUserId());
         Assert.assertEquals(userCredentialsDto.getPassword(), actualUserCredentialsDto.getPassword());
         Assert.assertEquals(userCredentialsDto.getUser(), actualUserCredentialsDto.getUser());
