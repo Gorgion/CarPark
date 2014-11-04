@@ -8,7 +8,6 @@ package cz.muni.fi.pa165.carpark.service;
 import cz.muni.fi.pa165.carpark.TestUtils;
 import cz.muni.fi.pa165.carpark.dao.CarDao;
 import cz.muni.fi.pa165.carpark.dao.OfficeDao;
-import cz.muni.fi.pa165.carpark.dao.RentalDao;
 import cz.muni.fi.pa165.carpark.dao.UserDao;
 import cz.muni.fi.pa165.carpark.dto.CarDto;
 import cz.muni.fi.pa165.carpark.dto.OfficeDto;
@@ -29,7 +28,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.dao.DataAccessException;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  *
@@ -40,7 +38,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class OfficeServiceImplTest
 {
     @InjectMocks
-    private OfficeService officeService =  new OfficeServiceImpl();
+    private final OfficeService officeService =  new OfficeServiceImpl();
     
     @Mock
     private OfficeDao officeDaoMocked;
@@ -141,7 +139,7 @@ public class OfficeServiceImplTest
         OfficeDto office3 = TestUtils.createSampleDtoOffice();
         office1.setID(3L);
         
-        List<OfficeDto> offices = new ArrayList<OfficeDto>();
+        List<OfficeDto> offices = new ArrayList<>();
         offices.add(office1);
         offices.add(office2);
         offices.add(office3);
@@ -224,7 +222,7 @@ public class OfficeServiceImplTest
         Office office = Converter.getEntity(officeDto);
         UserDto employeeDto = TestUtils.createSampleDtoUser();
         
-        List<UserDto> employees = new ArrayList<UserDto>();
+        List<UserDto> employees = new ArrayList<>();
         employees.add(employeeDto);
         
         
@@ -251,7 +249,7 @@ public class OfficeServiceImplTest
         Office office = Converter.getEntity(officeDto);
         CarDto carDto = TestUtils.createSampleDtoCar();
         
-        List<CarDto> cars = new ArrayList<CarDto>();
+        List<CarDto> cars = new ArrayList<>();
         cars.add(carDto);
         
         
@@ -277,7 +275,7 @@ public class OfficeServiceImplTest
         
         Office office = Converter.getEntity(officeDto);
         
-        List<User> employees = new ArrayList<User>(officeDto.getEmployees());
+        List<User> employees = new ArrayList<>(officeDto.getEmployees());
         
         User user = employees.get(1);
         
@@ -306,7 +304,7 @@ public class OfficeServiceImplTest
         
         Office office = Converter.getEntity(officeDto);
         
-        List<Car> cars = new ArrayList<Car>(officeDto.getCars());
+        List<Car> cars = new ArrayList<>(officeDto.getCars());
         
         Car car = cars.get(3);
         

@@ -153,11 +153,7 @@ public class CarDto implements Serializable
             return false;
         }
         final CarDto other = (CarDto) obj;
-        if (!Objects.equals(this.id, other.id))
-        {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
 
     @Override

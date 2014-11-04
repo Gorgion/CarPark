@@ -10,23 +10,62 @@ import java.util.Collection;
 import java.util.Date;
 
 /**
+ * CRUD operations on Car entity with additional getters
  *
  * @author Jiri Dockal
  */
 public interface CarDao
 {
+        /**
+         * Persists new car.
+         * 
+         * @param car 
+         */
         public void AddCar(Car car);
 
+        /**
+         * Return Car entity by given id.
+         * 
+         * @param id
+         * @return car with given id
+         */
 	public Car getCar(Long id);
 
+        /**
+         * Edit car by given car entity.
+         * 
+         * @param car 
+         */
 	public void EditCar(Car car);
 
+        /**
+         * Delete car by given car entity.
+         * 
+         * @param car 
+         */
 	public void DeleteCar(Car car);
 
+        /**
+         * Return all Car entities.
+         * 
+         * @return collection of cars
+         */
 	public Collection getAllCars();
 
+        /**
+         * Return all cars with true variable rented.
+         * 
+         * @return collection of rented cars
+         */
 	public Collection getRentedCars();
 
+        /**
+         * Return all cars which are not rented in date given by parameters from and to.
+         * 
+         * @param from
+         * @param to
+         * @return collection of free cars
+         */
 	public Collection getFreeCars(Date from, Date to);
 
 }

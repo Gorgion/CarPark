@@ -20,7 +20,7 @@ import javax.inject.Named;
 import org.springframework.dao.DataAccessException;
 
 /**
- * Service CRUD operations for rental entity
+ * Service CRUD operations for carDto entity
  * 
  * @author Jiri Dockal
  */
@@ -101,8 +101,8 @@ public class CarServiceImpl implements CarService
     {
         try
         {
-            List<CarDto> carsDto = new ArrayList<CarDto>();
-            List<Car> cars = new ArrayList<Car>(carDao.getAllCars());
+            List<CarDto> carsDto = new ArrayList<>();
+            List<Car> cars = new ArrayList<>(carDao.getAllCars());
             for (Car car : cars)
             {
                 carsDto.add(Converter.getTransferObject(car));
@@ -122,8 +122,8 @@ public class CarServiceImpl implements CarService
     {
         try
         {
-            List<CarDto> carsDto = new ArrayList<CarDto>();
-            List<Car> cars = new ArrayList<Car>(carDao.getRentedCars());
+            List<CarDto> carsDto = new ArrayList<>();
+            List<Car> cars = new ArrayList<>(carDao.getRentedCars());
             for (Car car : cars)
             {
                 carsDto.add(Converter.getTransferObject(car));
@@ -143,8 +143,8 @@ public class CarServiceImpl implements CarService
     {
         try
         {
-            List<CarDto> carsDto = new ArrayList<CarDto>();
-            List<Car> cars = new ArrayList<Car>(carDao.getFreeCars(from, to));
+            List<CarDto> carsDto = new ArrayList<>();
+            List<Car> cars = new ArrayList<>(carDao.getFreeCars(from, to));
             for (Car car : cars)
             {
                 carsDto.add(Converter.getTransferObject(car));

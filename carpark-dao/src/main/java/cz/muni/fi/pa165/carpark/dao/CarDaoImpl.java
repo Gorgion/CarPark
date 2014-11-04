@@ -6,19 +6,14 @@
 package cz.muni.fi.pa165.carpark.dao;
 
 import cz.muni.fi.pa165.carpark.entity.Car;
-import cz.muni.fi.pa165.carpark.entity.Rental;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Named;
 
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 /**
@@ -28,7 +23,7 @@ import javax.persistence.Query;
 @Named
 public class CarDaoImpl implements CarDao
 {
-    @PersistenceContext//(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     private EntityManager em;
 
     @Override

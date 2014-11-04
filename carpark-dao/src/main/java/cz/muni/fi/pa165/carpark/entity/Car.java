@@ -7,7 +7,6 @@ package cz.muni.fi.pa165.carpark.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 import javax.persistence.Id;
@@ -15,10 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
 
 //import javax.persistence.Entity;
 /**
@@ -188,11 +183,7 @@ public class Car implements Serializable
             return false;
         }
         final Car other = (Car) obj;
-        if (!Objects.equals(this.id, other.id))
-        {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
 
     @Override

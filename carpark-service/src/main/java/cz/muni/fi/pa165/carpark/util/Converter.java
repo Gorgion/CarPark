@@ -16,8 +16,6 @@ import cz.muni.fi.pa165.carpark.entity.User;
 import cz.muni.fi.pa165.carpark.entity.UserCredentials;
 import cz.muni.fi.pa165.carpark.entity.UserRole;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -265,7 +263,7 @@ public class Converter
             return null;
         }
        
-        List<UserDto> usersDto = new ArrayList<UserDto>();
+        List<UserDto> usersDto = new ArrayList<>();
         
         for(User u : users)
         {
@@ -281,7 +279,7 @@ public class Converter
             return null;
         }
        
-        List<CarDto> carsDto = new ArrayList<CarDto>();
+        List<CarDto> carsDto = new ArrayList<>();
         
         for(Car c : cars)
         {
@@ -293,7 +291,7 @@ public class Converter
     
     public static List<Office> getEntityOfficeList(List<OfficeDto> officesDto)
     {
-        List<Office> offices = new ArrayList<Office>();
+        List<Office> offices = new ArrayList<>();
         
         for(OfficeDto officeDto : officesDto)
         {
@@ -305,7 +303,7 @@ public class Converter
     
     public static List<Car> getEntityCarList(List<CarDto> carsDto)
     {
-        List<Car> cars = new ArrayList<Car>();
+        List<Car> cars = new ArrayList<>();
         
         for(CarDto carDto : carsDto)
         {
