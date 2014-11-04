@@ -6,17 +6,9 @@
 package cz.muni.fi.pa165.carpark.service;
 
 import cz.muni.fi.pa165.carpark.TestUtils;
-import cz.muni.fi.pa165.carpark.config.TestConfig;
 import cz.muni.fi.pa165.carpark.dao.CarDao;
-import cz.muni.fi.pa165.carpark.dao.OfficeDao;
-import cz.muni.fi.pa165.carpark.dao.RentalDao;
-import cz.muni.fi.pa165.carpark.dao.UserDao;
 import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.dto.CarDto;
-import cz.muni.fi.pa165.carpark.dto.RentalDto;
-import cz.muni.fi.pa165.carpark.dto.UserDto;
-import cz.muni.fi.pa165.carpark.entity.Rental;
-import cz.muni.fi.pa165.carpark.entity.User;
 import cz.muni.fi.pa165.carpark.util.Converter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +21,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -49,16 +40,11 @@ public class CarServiceImplTest {
     
     @Mock
     private CarDao carDM;
-    @Mock
-    private UserDao userDM;
-    @Mock
-    private RentalDao rentalDM;
-    
-    
+
     @Test
     public void addNewCarTest() { 
         CarDto carDto = new CarDto(Car.mBrand.SKODA, Car.mType.COMBI, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.FABIA, "LP", "VIN", false);
-        carDto.setID(Long.getLong("1"));
+        carDto.setID(1L);
         
         Car car = Converter.getEntity(carDto);
         
@@ -87,14 +73,14 @@ public class CarServiceImplTest {
     
     @Test(expected = DataAccessException.class)
     public void getCarWithWrongIdTest(){
-        Mockito.doThrow(IllegalArgumentException.class).when(carDM).getCar(Long.getLong("-54"));
-        carService.getCar(Long.getLong("-54"));
+        Mockito.doThrow(IllegalArgumentException.class).when(carDM).getCar(Long.MIN_VALUE);
+        carService.getCar(Long.MIN_VALUE);
     }
     
     @Test
     public void editCarTest(){
         CarDto carDto = new CarDto(Car.mBrand.SKODA, Car.mType.COMBI, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.FABIA, "LP", "VIN", false);
-        carDto.setID(Long.getLong("1"));
+        carDto.setID(1L);
         
         Car car = Converter.getEntity(carDto);
         
@@ -146,9 +132,9 @@ public class CarServiceImplTest {
         CarDto carDto1 = new CarDto(Car.mBrand.SKODA, Car.mType.COMBI, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.FABIA, "LP", "VIN", false);
         CarDto carDto2 = new CarDto(Car.mBrand.CHEVROLET, Car.mType.CABRIOLET, Car.mColor.RED, Car.mEngine.ELECTRIC, Car.mModel.CAMARO, "LP2", "VIN2", false);
         CarDto carDto3 = new CarDto(Car.mBrand.FORD, Car.mType.COMBI, Car.mColor.BLUE, Car.mEngine.DIESEL, Car.mModel.FOCUS, "LP3", "VIN3", false);
-        carDto1.setID(Long.getLong("1"));
-        carDto2.setID(Long.getLong("2"));
-        carDto3.setID(Long.getLong("3"));
+        carDto1.setID(1L);
+        carDto2.setID(2L);
+        carDto3.setID(3L);
         
         Mockito.doReturn(Arrays.asList(Converter.getEntity(carDto1), Converter.getEntity(carDto2), Converter.getEntity(carDto3))).when(carDM).getAllCars();
 
@@ -173,13 +159,13 @@ public class CarServiceImplTest {
         CarDto carDto2 = new CarDto(Car.mBrand.CHEVROLET, Car.mType.CABRIOLET, Car.mColor.RED, Car.mEngine.ELECTRIC, Car.mModel.CAMARO, "LP2", "VIN2", false);
         CarDto carDto3 = new CarDto(Car.mBrand.FORD, Car.mType.COMBI, Car.mColor.BLUE, Car.mEngine.DIESEL, Car.mModel.FOCUS, "LP3", "VIN3", true);
         carDto1.setID(1L);
-        carDto2.setID(Long.getLong("2"));
-        carDto3.setID(Long.getLong("3"));
+        carDto2.setID(2L);
+        carDto3.setID(3L);
         
         Mockito.doReturn(Arrays.asList(Converter.getEntity(carDto1), Converter.getEntity(carDto3))).when(carDM).getRentedCars();
         
         Collection cars = carService.getRentedCars();
-        //System.out.println(cars.contains(carDto2));
+        System.out.println(cars);
 
         List<CarDto> rentedCars = new ArrayList<>();
         rentedCars.add(carDto1);
