@@ -167,12 +167,12 @@ public class CarServiceImplTest {
     }
     
     @Test
-    @Ignore
+    //@Ignore
     public void getRentedCarsTest(){
         CarDto carDto1 = new CarDto(Car.mBrand.SKODA, Car.mType.COMBI, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.FABIA, "LP", "VIN", true);
         CarDto carDto2 = new CarDto(Car.mBrand.CHEVROLET, Car.mType.CABRIOLET, Car.mColor.RED, Car.mEngine.ELECTRIC, Car.mModel.CAMARO, "LP2", "VIN2", false);
         CarDto carDto3 = new CarDto(Car.mBrand.FORD, Car.mType.COMBI, Car.mColor.BLUE, Car.mEngine.DIESEL, Car.mModel.FOCUS, "LP3", "VIN3", true);
-        carDto1.setID(Long.getLong("1"));
+        carDto1.setID(1L);
         carDto2.setID(Long.getLong("2"));
         carDto3.setID(Long.getLong("3"));
         
