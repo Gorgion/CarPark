@@ -146,7 +146,7 @@ public class OfficeServiceImplTest
         offices.add(office2);
         offices.add(office3);
         
-        Mockito.doReturn(offices).when(officeDaoMocked).getAllOffices();
+        Mockito.doReturn(Converter.getEntityOfficeList(offices)).when(officeDaoMocked).getAllOffices();
         
         List<OfficeDto> result = officeService.getAllOffices();
         
@@ -172,16 +172,18 @@ public class OfficeServiceImplTest
     }
     
     @Test
-    @Ignore
+    //@Ignore
     public void editOfficeTest()
     {
         CarDto car1 = TestUtils.createSampleDtoCar();
         car1.setID(5L);
+        CarDto car2 = TestUtils.createSampleDtoCar();
+        car1.setID(55L);
         
         
-        List<CarDto> newCars = new ArrayList<CarDto>();       
+        List<CarDto> newCars = new ArrayList<>();       
         newCars.add(car1);
-        
+        newCars.add(car2);
         
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
         officeDto.setID(1L);
@@ -191,9 +193,10 @@ public class OfficeServiceImplTest
         
         officeService.addOffice(officeDto);
         
-        officeDto.setCars(Arrays.asList(Converter.getEntity(car1)));
-                
-        Mockito.verify(officeDaoMocked,Mockito.times(1)).editOffice(office);
+        officeDto.setCars(Converter.getEntityCarList(newCars));
+        office = Converter.getEntity(officeDto);
+        
+        Mockito.doNothing().when(officeDaoMocked).editOffice(office);
         
         officeService.editOffice(officeDto);
         
@@ -206,7 +209,7 @@ public class OfficeServiceImplTest
         Assert.assertEquals(officeDto, result);
         
         Assert.assertEquals(result.getAddress(), result.getAddress());
-        Assert.assertEquals(newCars, result.getCars());
+        Assert.assertEquals(officeDto.getCars(), result.getCars());
         Assert.assertEquals(officeDto.getEmployees(), result.getEmployees());
         
     }
@@ -258,9 +261,9 @@ public class OfficeServiceImplTest
         officeService.addCarToOffice(officeDto, carDto);
          
         Mockito.doReturn(office).when(officeDaoMocked).getOffice(1L);
-        Mockito.doReturn(Arrays.asList(Converter.getEntity(carDto))).when(officeDaoMocked).getEmployees(office);
+        Mockito.doReturn(Arrays.asList(Converter.getEntity(carDto))).when(officeDaoMocked).getOfficeCars(office);
         
-        List<UserDto> result = officeService.getEmployees(officeDto);
+        List<CarDto> result = officeService.getOfficeCars(officeDto);
         
         Assert.assertEquals(cars, result);
     }
