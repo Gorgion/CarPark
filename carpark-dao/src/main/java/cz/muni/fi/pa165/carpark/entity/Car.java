@@ -123,7 +123,7 @@ public class Car implements Serializable
         return id;
     }
 
-    public void setID(Long iD)
+    public void setID(Long id)
     {
         this.id = id;
     }
