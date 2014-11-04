@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author Lorain
+ * @author Karolina Burska
  */
 public interface OfficeService {
     /**

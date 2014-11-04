@@ -17,7 +17,6 @@ import java.util.Collection;
 import java.util.List;
 import org.mockito.Mockito;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import java.util.Arrays;
@@ -36,7 +35,7 @@ import org.springframework.dao.DataAccessException;
 public class CarServiceImplTest {
     
     @InjectMocks
-    private CarService carService =  new CarServiceImpl();
+    private final CarService carService =  new CarServiceImpl();
     
     @Mock
     private CarDao carDM;
@@ -138,7 +137,7 @@ public class CarServiceImplTest {
         
         Mockito.doReturn(Arrays.asList(Converter.getEntity(carDto1), Converter.getEntity(carDto2), Converter.getEntity(carDto3))).when(carDM).getAllCars();
 
-        Collection cars = carService.getAllCars();
+        Collection<CarDto> cars = carService.getAllCars();
         List<CarDto> rightCars = new ArrayList<>();
         rightCars.add(carDto1);
         rightCars.add(carDto2);
@@ -164,7 +163,7 @@ public class CarServiceImplTest {
         
         Mockito.doReturn(Arrays.asList(Converter.getEntity(carDto1), Converter.getEntity(carDto3))).when(carDM).getRentedCars();
         
-        Collection cars = carService.getRentedCars();
+        Collection<CarDto> cars = carService.getRentedCars();
         System.out.println(cars);
 
         List<CarDto> rentedCars = new ArrayList<>();

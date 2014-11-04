@@ -117,10 +117,7 @@ public class OfficeDto {
             return false;
         }
         final OfficeDto other = (OfficeDto) obj;
-        if (!Objects.equals(this.iD, other.iD)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.iD, other.iD);
     }
 
     @Override
