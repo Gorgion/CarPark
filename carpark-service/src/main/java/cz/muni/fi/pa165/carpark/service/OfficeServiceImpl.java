@@ -43,7 +43,7 @@ public class OfficeServiceImpl implements OfficeService {
             officeDao.addOffice(officeEntity);
         } 
         catch (Exception e) {
-            throw new DataAccessException("Error occurred while office entity adding."){};
+            throw new DataAccessException("Error occurred while office entity adding.", e){};
         }
     }
 
@@ -55,7 +55,7 @@ public class OfficeServiceImpl implements OfficeService {
             return Converter.getTransferObject(officeEntity);
         }
         catch(Exception e) {
-            throw new DataAccessException("Error occurred while getting office.") {};
+            throw new DataAccessException("Error occurred while getting office.", e) {};
         }
     }
 
@@ -67,7 +67,7 @@ public class OfficeServiceImpl implements OfficeService {
             officeDao.editOffice(officeEntity);
         }
         catch(Exception e) {
-            throw new DataAccessException("Error occurred while editing office.") {};
+            throw new DataAccessException("Error occurred while editing office.", e) {};
         }
     }
 
@@ -79,7 +79,7 @@ public class OfficeServiceImpl implements OfficeService {
             officeDao.deleteOffice(officeEntity);
         }
         catch(Exception e) {
-            throw new DataAccessException("Error occurred while deleting office.") {};
+            throw new DataAccessException("Error occurred while deleting office.", e) {};
         }
     }
 
@@ -96,7 +96,7 @@ public class OfficeServiceImpl implements OfficeService {
             return Collections.unmodifiableList(officesDto);
         }
         catch(Exception e) {
-            throw new DataAccessException("Error occurred while getting a list of offices.") {};
+            throw new DataAccessException("Error occurred while getting a list of offices.", e) {};
         }
     }
 
@@ -113,7 +113,7 @@ public class OfficeServiceImpl implements OfficeService {
             return Collections.unmodifiableList(officeCarsDto);
         }
         catch(Exception e) {
-            throw new DataAccessException("Error occurred while getting a list of office cars.") {};
+            throw new DataAccessException("Error occurred while getting a list of office cars.", e) {};
         }
     }
 
@@ -126,7 +126,7 @@ public class OfficeServiceImpl implements OfficeService {
             officeDao.addCarToOffice(officeEntity, carEntity);
         }
         catch(Exception e) {
-            throw new DataAccessException("Error occurred while adding car into office.") {};
+            throw new DataAccessException("Error occurred while adding car into office.", e) {};
         }  
     }
 
@@ -139,7 +139,7 @@ public class OfficeServiceImpl implements OfficeService {
             officeDao.deleteCarFromOffice(officeEntity, carEntity);
         }
         catch(Exception e) {
-            throw new DataAccessException("Error occurred while adding car into office.") {};
+            throw new DataAccessException("Error occurred while adding car into office.", e) {};
         }  
     }
 
@@ -156,7 +156,7 @@ public class OfficeServiceImpl implements OfficeService {
             return Collections.unmodifiableList(officeEmployeesDto);
         }
         catch(Exception e) {
-            throw new DataAccessException("Error occurred while getting a list of office employees.") {};
+            throw new DataAccessException("Error occurred while getting a list of office employees.", e) {};
         }
     }
 
@@ -169,7 +169,7 @@ public class OfficeServiceImpl implements OfficeService {
             officeDao.addEmployeeToOffice(officeEntity, userEntity);
         }
         catch(Exception e) {
-            throw new DataAccessException("Error occurred while adding car into office.") {};
+            throw new DataAccessException("Error occurred while adding car into office.", e) {};
         }  
     }
 
@@ -182,7 +182,7 @@ public class OfficeServiceImpl implements OfficeService {
             officeDao.deleteEmployeeFromOffice(officeEntity, userEntity);
         }
         catch(Exception e) {
-            throw new DataAccessException("Error occurred while adding car into office.") {};
+            throw new DataAccessException("Error occurred while adding car into office.", e) {};
         } 
     }
     
