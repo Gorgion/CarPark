@@ -15,12 +15,33 @@ import cz.muni.fi.pa165.carpark.entity.UserCredentials;
 public interface UserCredentialsDao
 {
 
+    /**
+     * Create user credentials.
+     *
+     * @param uc user credentials
+     */
     void create(UserCredentials uc);
 
+    /**
+     * remove user credentials.
+     *
+     * @param uc user credentials
+     */
     void delete(UserCredentials uc);
 
+    /**
+     * Retrieve user credentials.
+     *
+     * @param username user credentials for given username.
+     * @return found user credentials
+     */
     UserCredentials getByUsername(String username);
 
+    /**
+     * Update user credentials.
+     *
+     * @param uc user credentials.
+     */
     void update(UserCredentials uc);
     
 }

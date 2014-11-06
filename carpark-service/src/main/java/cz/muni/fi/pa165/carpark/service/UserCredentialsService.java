@@ -16,16 +16,33 @@ import javax.transaction.Transactional;
 public interface UserCredentialsService
 {
 
-    @Transactional
+    /**
+     * Create user credentials.
+     *
+     * @param credentials user credentials.
+     */
     void create(UserCredentialsDto credentials);
 
-    @Transactional
+    /**
+     * Remove user credentials.
+     *
+     * @param credentials user credentials
+     */
     void delete(UserCredentialsDto credentials);
 
-    @Transactional
+    /**
+     * Retrieve user credentials for given username.
+     *
+     * @param username username we want to search user credentials for
+     * @return user credentials
+     */
     UserCredentialsDto getByUsername(String username);
 
-    @Transactional
+    /**
+     * Update user credentials object.
+     *
+     * @param credentials user credentials
+     */
     void update(UserCredentialsDto credentials);
 
 }

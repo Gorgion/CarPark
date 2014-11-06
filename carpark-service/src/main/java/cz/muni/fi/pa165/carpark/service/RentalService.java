@@ -17,16 +17,48 @@ import java.util.List;
 public interface RentalService
 {
 
+    /**
+     * Create new rental.
+     *
+     * @param rental rental for creation.
+     */
     void create(RentalDto rental);
 
+    /**
+     * Remove rental object.
+     *
+     * @param rental rental for deletion.
+     */
     void delete(RentalDto rental);
 
+    /**
+     * Update rental object.
+     *
+     * @param rental rental object
+     */
     void edit(RentalDto rental);
 
+    /**
+     * Retrieve rental object with goven id.
+     *
+     * @param id id of the rental object
+     * @return found rental
+     */
     RentalDto get(Long id);
 
+    /**
+     * Retrieve all rentals
+     *
+     * @return all rentals
+     */
     List<RentalDto> getAll();
 
+    /**
+     * Retrieve all rentals for given user.
+     *
+     * @param user user we want search all rentals for
+     * @return rentals
+     */
     List<RentalDto> getAllByUser(UserDto user);
 
 }

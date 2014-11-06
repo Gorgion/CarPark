@@ -43,6 +43,7 @@ import org.mockito.stubbing.Answer;
 import org.springframework.dao.DataAccessException;
 
 /**
+ * Tests for UserServiceImpl class
  *
  * @author Tomas Svoboda
  */
@@ -54,15 +55,6 @@ public class UserServiceImplTest
 
     @Mock
     private UserDao mockedUserDao;
-
-    @Mock
-    private OfficeDao mockedOfficeDao;
-
-    @Mock
-    private CarDao mockedCarDao;
-
-    @Mock
-    private RentalDao mockedRentalDao;
 
     @Test
     public void testCreateGet()
@@ -134,8 +126,7 @@ public class UserServiceImplTest
         userService.edit(null);
     }
 
-    //Expected?
-    @Test(expected = DataAccessException.class)//(expected = IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void testGetNegativeId()
     {
         Mockito.doThrow(IllegalArgumentException.class).when(mockedUserDao).get(Long.MIN_VALUE);

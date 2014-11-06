@@ -6,7 +6,6 @@
 package cz.muni.fi.pa165.carpark.servicefacade;
 
 import cz.muni.fi.pa165.carpark.dto.UserCredentialsDto;
-import javax.transaction.Transactional;
 
 /**
  * User account service facade.
@@ -21,7 +20,6 @@ public interface UserAccountServiceFacade
      *
      * @param credentials credentials of the user.
      */
-    @Transactional
     void registerUser(UserCredentialsDto credentials);
 
     /**
@@ -29,7 +27,6 @@ public interface UserAccountServiceFacade
      *
      * @param credentials credentials of the user.
      */
-    @Transactional
     void removeUserAccount(UserCredentialsDto credentials);
     
 }
