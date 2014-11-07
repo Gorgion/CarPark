@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 import org.springframework.dao.DataAccessException;
 
@@ -42,6 +43,9 @@ public class OfficeServiceImpl implements OfficeService {
             Office officeEntity = Converter.getEntity(office);
             officeDao.addOffice(officeEntity);
         } 
+        catch (IllegalArgumentException | PersistenceException e) {
+            throw new DataAccessException("Error occurred while office entity adding.", e){};
+        }
         catch (Exception e) {
             throw new DataAccessException("Error occurred while office entity adding.", e){};
         }
@@ -53,6 +57,9 @@ public class OfficeServiceImpl implements OfficeService {
         try {
             Office officeEntity = officeDao.getOffice(id);
             return Converter.getTransferObject(officeEntity);
+        }
+        catch (IllegalArgumentException | PersistenceException e) {
+            throw new DataAccessException("Error occurred while getting office.", e){};
         }
         catch(Exception e) {
             throw new DataAccessException("Error occurred while getting office.", e) {};
@@ -66,6 +73,9 @@ public class OfficeServiceImpl implements OfficeService {
             Office officeEntity = Converter.getEntity(office);
             officeDao.editOffice(officeEntity);
         }
+        catch (IllegalArgumentException | PersistenceException e) {
+            throw new DataAccessException("Error occurred while editing office.", e){};
+        }
         catch(Exception e) {
             throw new DataAccessException("Error occurred while editing office.", e) {};
         }
@@ -77,6 +87,9 @@ public class OfficeServiceImpl implements OfficeService {
         try {
             Office officeEntity = Converter.getEntity(office);
             officeDao.deleteOffice(officeEntity);
+        }
+        catch (IllegalArgumentException | PersistenceException e) {
+            throw new DataAccessException("Error occurred while deleting office.", e){};
         }
         catch(Exception e) {
             throw new DataAccessException("Error occurred while deleting office.", e) {};
@@ -95,6 +108,9 @@ public class OfficeServiceImpl implements OfficeService {
             
             return Collections.unmodifiableList(officesDto);
         }
+        catch (IllegalArgumentException | PersistenceException e) {
+            throw new DataAccessException("Error occurred while getting a list of offices.", e){};
+        }
         catch(Exception e) {
             throw new DataAccessException("Error occurred while getting a list of offices.", e) {};
         }
@@ -112,6 +128,9 @@ public class OfficeServiceImpl implements OfficeService {
             
             return Collections.unmodifiableList(officeCarsDto);
         }
+        catch (IllegalArgumentException | PersistenceException e) {
+            throw new DataAccessException("Error occurred while getting a list of office cars.", e){};
+        }
         catch(Exception e) {
             throw new DataAccessException("Error occurred while getting a list of office cars.", e) {};
         }
@@ -124,6 +143,9 @@ public class OfficeServiceImpl implements OfficeService {
             Office officeEntity = Converter.getEntity(office);
             Car carEntity = Converter.getEntity(car);
             officeDao.addCarToOffice(officeEntity, carEntity);
+        }
+        catch (IllegalArgumentException | PersistenceException e) {
+            throw new DataAccessException("Error occurred while adding car into office.", e){};
         }
         catch(Exception e) {
             throw new DataAccessException("Error occurred while adding car into office.", e) {};
@@ -138,8 +160,11 @@ public class OfficeServiceImpl implements OfficeService {
             Car carEntity = Converter.getEntity(car);
             officeDao.deleteCarFromOffice(officeEntity, carEntity);
         }
+        catch (IllegalArgumentException | PersistenceException e) {
+            throw new DataAccessException("Error occurred while deleting car from office.", e){};
+        }
         catch(Exception e) {
-            throw new DataAccessException("Error occurred while adding car into office.", e) {};
+            throw new DataAccessException("Error occurred while deleting car from office.", e) {};
         }  
     }
 
@@ -155,6 +180,9 @@ public class OfficeServiceImpl implements OfficeService {
             
             return Collections.unmodifiableList(officeEmployeesDto);
         }
+        catch (IllegalArgumentException | PersistenceException e) {
+            throw new DataAccessException("Error occurred while getting a list of office employees.", e){};
+        }
         catch(Exception e) {
             throw new DataAccessException("Error occurred while getting a list of office employees.", e) {};
         }
@@ -168,8 +196,11 @@ public class OfficeServiceImpl implements OfficeService {
             User userEntity = Converter.getEntity(user);
             officeDao.addEmployeeToOffice(officeEntity, userEntity);
         }
+        catch (IllegalArgumentException | PersistenceException e) {
+            throw new DataAccessException("Error occurred while adding employee into office.", e){};
+        }
         catch(Exception e) {
-            throw new DataAccessException("Error occurred while adding car into office.", e) {};
+            throw new DataAccessException("Error occurred while adding employee into office.", e) {};
         }  
     }
 
@@ -181,8 +212,11 @@ public class OfficeServiceImpl implements OfficeService {
             User userEntity = Converter.getEntity(user);
             officeDao.deleteEmployeeFromOffice(officeEntity, userEntity);
         }
+        catch (IllegalArgumentException | PersistenceException e) {
+            throw new DataAccessException("Error occurred while deleting employee from office.", e){};
+        }
         catch(Exception e) {
-            throw new DataAccessException("Error occurred while adding car into office.", e) {};
+            throw new DataAccessException("Error occurred while deleting employee from office.", e) {};
         } 
     }
     
