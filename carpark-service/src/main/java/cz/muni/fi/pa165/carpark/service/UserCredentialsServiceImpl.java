@@ -10,6 +10,7 @@ import cz.muni.fi.pa165.carpark.dto.UserCredentialsDto;
 import cz.muni.fi.pa165.carpark.util.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 import org.springframework.dao.DataAccessException;
 
@@ -32,6 +33,9 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
             cz.muni.fi.pa165.carpark.entity.UserCredentials entity = Converter.getEntity(credentials);
             credentialsDao.create(entity);
             credentials.setUserId(entity.getUserId());
+        } catch ( IllegalArgumentException | PersistenceException e)
+        {
+            throw new DataAccessException("Error occured during creating new user credentials entity.", e) {};
         } catch (Exception e)
         {
             throw new DataAccessException("Error occured during creating new user credentials entity.", e)
@@ -47,6 +51,9 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
         try
         {
             credentialsDao.delete(Converter.getEntity(credentials));
+        } catch ( IllegalArgumentException | PersistenceException e)
+        {
+            throw new DataAccessException("Error occured during removing user credentials entity.", e) {};
         } catch (Exception e)
         {
             throw new DataAccessException("Error occured during removing user credentials entity.", e)
@@ -62,6 +69,9 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
         try
         {
             credentialsDao.update(Converter.getEntity(credentials));
+        } catch ( IllegalArgumentException | PersistenceException e)
+        {
+            throw new DataAccessException("Error occured during updating user credentials entity.", e) {};
         } catch (Exception e)
         {
             throw new DataAccessException("Error occured during updating user credentials entity.", e)
@@ -78,6 +88,9 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
         try
         {
             credentialsEntity = credentialsDao.getByUsername(username);
+        } catch ( IllegalArgumentException | PersistenceException e)
+        {
+            throw new DataAccessException("Error occured during retrieving user credentials entity.", e) {};
         } catch (Exception e)
         {
             throw new DataAccessException("Error occured during retrieving user credentials entity.", e)
