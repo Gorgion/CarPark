@@ -17,6 +17,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.PersistenceException;
 import org.springframework.dao.DataAccessException;
 
 /**
@@ -44,7 +45,10 @@ public class CarServiceImpl implements CarService
             Car carEntity = Converter.getEntity(car);
             carDao.AddCar(carEntity);
         }
-        catch (Exception ex)
+        catch (IllegalArgumentException | PersistenceException ex)
+        {
+            throw new DataAccessException("Error when adding a car.",ex) {};
+        }catch (Exception ex)
         {
             throw new DataAccessException("Error when adding a car.",ex) {};
         }
@@ -59,7 +63,10 @@ public class CarServiceImpl implements CarService
             Car carEntity = carDao.getCar(id);
             return Converter.getTransferObject(carEntity);
         }
-        catch(Exception ex)
+        catch (IllegalArgumentException | PersistenceException ex)
+        {
+            throw new DataAccessException("Error when getting a car.",ex) {};
+        }catch(Exception ex)
         {
             throw new DataAccessException("Error when getting a car.",ex) {};
         }
@@ -74,7 +81,10 @@ public class CarServiceImpl implements CarService
             Car carEntity = Converter.getEntity(car);
             carDao.EditCar(carEntity);
         }
-        catch(Exception ex)
+        catch (IllegalArgumentException | PersistenceException ex)
+        {
+            throw new DataAccessException("Error when editing a car.",ex) {};
+        }catch(Exception ex)
         {
             throw new DataAccessException("Error when editing a car.",ex) {};
         }
@@ -89,7 +99,10 @@ public class CarServiceImpl implements CarService
             Car carEntity = Converter.getEntity(car);
             carDao.DeleteCar(carEntity);
         }
-        catch(Exception ex)
+        catch (IllegalArgumentException | PersistenceException ex)
+        {
+            throw new DataAccessException("Error when deleting a car.",ex) {};
+        }catch(Exception ex)
         {
             throw new DataAccessException("Error when deleting a car.",ex) {};
         }
@@ -110,9 +123,12 @@ public class CarServiceImpl implements CarService
             
             return Collections.unmodifiableCollection(carsDto);
         }
-        catch(Exception ex)
+        catch (IllegalArgumentException | PersistenceException ex)
         {
-            throw new DataAccessException("Error when editing a car.",ex) {};
+            throw new DataAccessException("Error when getting all cars.",ex) {};
+        }catch(Exception ex)
+        {
+            throw new DataAccessException("Error when getting all cars.",ex) {};
         }
     }
 
@@ -131,9 +147,12 @@ public class CarServiceImpl implements CarService
             
             return Collections.unmodifiableCollection(carsDto);
         }
-        catch(Exception ex)
+        catch (IllegalArgumentException | PersistenceException ex)
         {
-            throw new DataAccessException("Error when editing a car.",ex) {};
+            throw new DataAccessException("Error when getting rented cars.",ex) {};
+        }catch(Exception ex)
+        {
+            throw new DataAccessException("Error when getting rented cars.",ex) {};
         }
     }
 
@@ -152,9 +171,12 @@ public class CarServiceImpl implements CarService
             
             return Collections.unmodifiableCollection(carsDto);
         }
-        catch(Exception ex)
+        catch (IllegalArgumentException | PersistenceException ex)
         {
-            throw new DataAccessException("Error when editing a car.",ex) {};
+            throw new DataAccessException("Error when getting free cars.",ex) {};
+        }catch(Exception ex)
+        {
+            throw new DataAccessException("Error when getting free cars.",ex) {};
         }
     }
     
