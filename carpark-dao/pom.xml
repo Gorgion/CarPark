@@ -39,8 +39,11 @@
         <spring.tx>4.1.1.RELEASE</spring.tx>
         <spring.orm>4.1.1.RELEASE</spring.orm>
         <spring.test>4.1.1.RELEASE</spring.test>
+        <spring.aop>4.1.1.RELEASE</spring.aop>
         
-        <log4j.version>1.2.16</log4j.version>        
+        <log4j.version>1.2.16</log4j.version>   
+        
+        <aspectj.version>1.7.4</aspectj.version>     
         
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
     </properties>
@@ -135,7 +138,24 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
             <version>${spring.tx}</version>
-        </dependency>        
+        </dependency>      
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.aop}</version>
+        </dependency>  
+        
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
     </dependencies>    
     
     <build>

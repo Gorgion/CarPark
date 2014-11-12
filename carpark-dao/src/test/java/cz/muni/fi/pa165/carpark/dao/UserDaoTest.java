@@ -19,6 +19,7 @@ import javax.transaction.Transactional;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -59,7 +60,7 @@ public class UserDaoTest
         Assert.assertEquals(user, foundUser);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = DataAccessException.class)//NullPointerException.class)
     public void testCreateUserWithNullArg()
     {
         daoImpl.add(null);
@@ -83,13 +84,13 @@ public class UserDaoTest
         Assert.assertEquals(user, foundUser);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = DataAccessException.class)//NullPointerException.class)
     public void testGetNulllId()
     {
         daoImpl.get(null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)//IllegalArgumentException.class)
     public void testGetNegativeId()
     {
         daoImpl.get(Long.MIN_VALUE);
@@ -248,7 +249,7 @@ public class UserDaoTest
         Assert.assertEquals(updatedUser.getPosition(), foundUser.getPosition());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = DataAccessException.class)//NullPointerException.class)
     public void testEditWithNullArg()
     {
         daoImpl.edit(null);
@@ -275,7 +276,7 @@ public class UserDaoTest
         Assert.assertTrue("User found after deletion.", foundUsers.isEmpty());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = DataAccessException.class)//NullPointerException.class)
     public void testDeleteWithNullArg()
     {
         daoImpl.delete(null);
