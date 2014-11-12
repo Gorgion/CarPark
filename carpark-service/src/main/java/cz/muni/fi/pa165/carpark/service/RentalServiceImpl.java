@@ -13,9 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
-import org.springframework.dao.DataAccessException;
 
 /**
  * CRUD service for rental entity.
@@ -25,6 +23,7 @@ import org.springframework.dao.DataAccessException;
 @Named
 public class RentalServiceImpl implements RentalService
 {
+
     @Inject
     private RentalDao rentalDao;
 
@@ -37,89 +36,31 @@ public class RentalServiceImpl implements RentalService
     @Override
     public void create(RentalDto rental)
     {
-        try
-        {
-            cz.muni.fi.pa165.carpark.entity.Rental entity = Converter.getEntity(rental);
-            rentalDao.create(entity);
-            rental.setId(entity.getId());
-        } catch (IllegalArgumentException e)
-        {
-            throw new DataAccessException("Some error occured during creating rental entity.", e)
-            {
-            };
-        } catch (PersistenceException e)
-        {
-            throw new DataAccessException("Some error occured during creating rental entity.", e)
-            {
-            };
-        } catch (Exception e)
-        {
-            throw new DataAccessException("Some error occured during creating rental entity.", e)
-            {
-            };
-        }
+        cz.muni.fi.pa165.carpark.entity.Rental entity = Converter.getEntity(rental);
+        rentalDao.create(entity);
+        rental.setId(entity.getId());
     }
 
     @Transactional
     @Override
     public void edit(RentalDto rental)
     {
-        try
-        {
-            rentalDao.edit(Converter.getEntity(rental));
-        } catch (IllegalArgumentException | PersistenceException e)
-        {
-            throw new DataAccessException("Some error occured during editing rental entity.", e)
-            {
-            };
-        } catch (Exception e)
-        {
-            throw new DataAccessException("Some error occured during editing rental entity.", e)
-            {
-            };
-        }
+        rentalDao.edit(Converter.getEntity(rental));
     }
 
     @Transactional
     @Override
     public void delete(RentalDto rental)
     {
-        try
-        {
-            rentalDao.delete(Converter.getEntity(rental));
-        } catch (IllegalArgumentException | PersistenceException e)
-        {
-            throw new DataAccessException("Some error occured during removing rental entity.", e)
-            {
-            };
-        } catch (Exception e)
-        {
-            throw new DataAccessException("Some error occured during removing rental entity.", e)
-            {
-            };
-        }
+        rentalDao.delete(Converter.getEntity(rental));
     }
 
     @Transactional
     @Override
     public RentalDto get(Long id)
     {
-        RentalDto rental;
+        RentalDto rental = Converter.getTransferObject(rentalDao.get(id));
 
-        try
-        {
-            rental = Converter.getTransferObject(rentalDao.get(id));
-        } catch (IllegalArgumentException | PersistenceException e)
-        {
-            throw new DataAccessException("Some error occured during retrieving rental entity.", e)
-            {
-            };
-        } catch (Exception e)
-        {
-            throw new DataAccessException("Some error occured during retrieving rental entity.", e)
-            {
-            };
-        }
         return rental;
     }
 
@@ -129,22 +70,9 @@ public class RentalServiceImpl implements RentalService
     {
         List<RentalDto> rentals = new ArrayList<>();
 
-        try
+        for (cz.muni.fi.pa165.carpark.entity.Rental rental : rentalDao.getAll())
         {
-            for (cz.muni.fi.pa165.carpark.entity.Rental rental : rentalDao.getAll())
-            {
-                rentals.add(Converter.getTransferObject(rental));
-            }
-        } catch (IllegalArgumentException | PersistenceException e)
-        {
-            throw new DataAccessException("Some error occured during retrieving rental entities.", e)
-            {
-            };
-        } catch (Exception e)
-        {
-            throw new DataAccessException("Some error occured during retrieving rental entities.", e)
-            {
-            };
+            rentals.add(Converter.getTransferObject(rental));
         }
 
         return rentals;
@@ -156,22 +84,9 @@ public class RentalServiceImpl implements RentalService
     {
         List<RentalDto> rentals = new ArrayList<>();
 
-        try
+        for (cz.muni.fi.pa165.carpark.entity.Rental rental : rentalDao.getAllByUser((user).createEntity()))
         {
-            for (cz.muni.fi.pa165.carpark.entity.Rental rental : rentalDao.getAllByUser((user).createEntity()))
-            {
-                rentals.add(Converter.getTransferObject(rental));
-            }
-        } catch (IllegalArgumentException | PersistenceException e)
-        {
-            throw new DataAccessException("Some error occured during retrieving rental entities.", e)
-            {
-            };
-        } catch (Exception e)
-        {
-            throw new DataAccessException("Some error occured during retrieving rental entities.", e)
-            {
-            };
+            rentals.add(Converter.getTransferObject(rental));
         }
 
         return rentals;

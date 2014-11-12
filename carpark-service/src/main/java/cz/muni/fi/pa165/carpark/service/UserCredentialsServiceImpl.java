@@ -10,9 +10,7 @@ import cz.muni.fi.pa165.carpark.dto.UserCredentialsDto;
 import cz.muni.fi.pa165.carpark.util.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
-import org.springframework.dao.DataAccessException;
 
 /**
  *
@@ -21,6 +19,7 @@ import org.springframework.dao.DataAccessException;
 @Named
 public class UserCredentialsServiceImpl implements UserCredentialsService
 {
+
     @Inject
     private UserCredentialsDao credentialsDao;
 
@@ -28,56 +27,23 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
     @Override
     public void create(UserCredentialsDto credentials)
     {
-        try
-        {
-            cz.muni.fi.pa165.carpark.entity.UserCredentials entity = Converter.getEntity(credentials);
-            credentialsDao.create(entity);
-            credentials.setUserId(entity.getUserId());
-        } catch ( IllegalArgumentException | PersistenceException e)
-        {
-            throw new DataAccessException("Error occured during creating new user credentials entity.", e) {};
-        } catch (Exception e)
-        {
-            throw new DataAccessException("Error occured during creating new user credentials entity.", e)
-            {
-            };
-        }
+        cz.muni.fi.pa165.carpark.entity.UserCredentials entity = Converter.getEntity(credentials);
+        credentialsDao.create(entity);
+        credentials.setUserId(entity.getUserId());
     }
 
     @Transactional
     @Override
     public void delete(UserCredentialsDto credentials)
     {
-        try
-        {
-            credentialsDao.delete(Converter.getEntity(credentials));
-        } catch ( IllegalArgumentException | PersistenceException e)
-        {
-            throw new DataAccessException("Error occured during removing user credentials entity.", e) {};
-        } catch (Exception e)
-        {
-            throw new DataAccessException("Error occured during removing user credentials entity.", e)
-            {
-            };
-        }
+        credentialsDao.delete(Converter.getEntity(credentials));
     }
 
     @Transactional
     @Override
     public void update(UserCredentialsDto credentials)
     {
-        try
-        {
-            credentialsDao.update(Converter.getEntity(credentials));
-        } catch ( IllegalArgumentException | PersistenceException e)
-        {
-            throw new DataAccessException("Error occured during updating user credentials entity.", e) {};
-        } catch (Exception e)
-        {
-            throw new DataAccessException("Error occured during updating user credentials entity.", e)
-            {
-            };
-        }
+        credentialsDao.update(Converter.getEntity(credentials));
     }
 
     @Transactional
@@ -85,18 +51,8 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
     public UserCredentialsDto getByUsername(String username)
     {
         cz.muni.fi.pa165.carpark.entity.UserCredentials credentialsEntity;
-        try
-        {
-            credentialsEntity = credentialsDao.getByUsername(username);
-        } catch ( IllegalArgumentException | PersistenceException e)
-        {
-            throw new DataAccessException("Error occured during retrieving user credentials entity.", e) {};
-        } catch (Exception e)
-        {
-            throw new DataAccessException("Error occured during retrieving user credentials entity.", e)
-            {
-            };
-        }
+
+        credentialsEntity = credentialsDao.getByUsername(username);
 
         UserCredentialsDto credentials = Converter.getTransferObject(credentialsEntity);
 

@@ -5,41 +5,19 @@
  */
 package cz.muni.fi.pa165.carpark.service;
 
-import cz.muni.fi.pa165.carpark.config.TestConfig;
-import cz.muni.fi.pa165.carpark.dao.CarDao;
-import cz.muni.fi.pa165.carpark.dao.OfficeDao;
-import cz.muni.fi.pa165.carpark.dao.RentalDao;
 import cz.muni.fi.pa165.carpark.dao.UserDao;
-import cz.muni.fi.pa165.carpark.dao.UserDaoImpl;
-import cz.muni.fi.pa165.carpark.dto.RentalDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.entity.User;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import javax.inject.Inject;
-import javax.persistence.EntityManagerFactory;
-import javax.transaction.Transactional;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import static org.mockito.Mockito.mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import static org.mockito.Mockito.*;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.springframework.dao.DataAccessException;
 
 /**
