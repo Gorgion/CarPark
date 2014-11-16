@@ -11,6 +11,8 @@
     <modules>
         <module>carpark-dao</module>
         <module>carpark-service</module>
+        <module>carpark-web</module>
+        <module>carpark-api</module>
     </modules>
     
    

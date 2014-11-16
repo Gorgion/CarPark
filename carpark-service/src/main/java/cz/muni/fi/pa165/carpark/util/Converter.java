@@ -44,9 +44,9 @@ public class Converter
         entity.setId(rental.getId());
         entity.setFromDate(rental.getFromDate());
         entity.setToDate(rental.getToDate());
-        entity.setUser(rental.getUser());
-        entity.setCar(rental.getCar());
-        entity.setRentalState(rental.getRentalState());
+        entity.setUser(getEntity(rental.getUser()));
+        entity.setCar(getEntity(rental.getCar()));
+        entity.setRentalState(getEntity(rental.getRentalState()));
         
         return entity;
     }
@@ -63,11 +63,34 @@ public class Converter
         dto.setId(entity.getId());
         dto.setFromDate(entity.getFromDate());
         dto.setToDate(entity.getToDate());
-        dto.setUser(entity.getUser());
-        dto.setCar(entity.getCar());
-        dto.setRentalState(entity.getRentalState());
+        dto.setUser(getTransferObject(entity.getUser()));
+        dto.setCar(getTransferObject(entity.getCar()));
+        dto.setRentalState(getTransferObject(entity.getRentalState()));
         
         return dto;
+    }
+    
+    public static Rental.State getEntity(RentalDto.State rental)
+    {
+        switch(rental)
+        {
+            case NEW: return Rental.State.NEW;
+            case APPROVED: return Rental.State.APPROVED;
+            case ACTIVE: return Rental.State.ACTIVE;
+            case FINISHED: return Rental.State.FINISHED;
+            default: throw new IllegalArgumentException("unknown state.");
+        }
+    }
+    public static RentalDto.State getTransferObject(Rental.State entity)
+    {
+        switch(entity)
+        {
+            case NEW: return RentalDto.State.NEW;
+            case APPROVED: return RentalDto.State.APPROVED;
+            case ACTIVE: return RentalDto.State.ACTIVE;
+            case FINISHED: return RentalDto.State.FINISHED;
+            default: throw new IllegalArgumentException("unknown state.");
+        }
     }
     
         public static User getEntity(UserDto userDto)
@@ -115,7 +138,7 @@ public class Converter
             return null;
         }
         
-        User userEntity = credentials.getUser().createEntity();
+        User userEntity = getEntity(credentials.getUser());//.createEntity();
         Set<UserRole> rolesEntity = new HashSet<>();
         
         for(cz.muni.fi.pa165.carpark.dto.UserRoleDto role : credentials.getRoles())

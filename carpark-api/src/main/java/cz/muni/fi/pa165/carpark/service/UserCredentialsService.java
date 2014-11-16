@@ -6,7 +6,6 @@
 package cz.muni.fi.pa165.carpark.service;
 
 import cz.muni.fi.pa165.carpark.dto.UserCredentialsDto;
-import javax.transaction.Transactional;
 
 /**
  * Service for user credentials.

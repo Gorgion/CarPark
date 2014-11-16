@@ -5,7 +5,7 @@
  */
 package cz.muni.fi.pa165.carpark.dao;
 
-import cz.muni.fi.pa165.carpark.config.TestConfig;
+import cz.muni.fi.pa165.carpark.config.DaoTestConfig;
 import cz.muni.fi.pa165.carpark.TestUtils;
 import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Rental;
@@ -29,7 +29,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Tomas Svoboda
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestConfig.class)
+@ContextConfiguration(classes = DaoTestConfig.class)
 @Transactional
 public class UserDaoTest
 {

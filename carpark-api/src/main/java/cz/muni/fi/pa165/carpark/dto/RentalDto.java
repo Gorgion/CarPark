@@ -5,8 +5,8 @@
  */
 package cz.muni.fi.pa165.carpark.dto;
 
-import cz.muni.fi.pa165.carpark.entity.Car;
-import cz.muni.fi.pa165.carpark.entity.User;
+import cz.muni.fi.pa165.carpark.dto.CarDto;
+import cz.muni.fi.pa165.carpark.dto.UserDto;
 import java.util.Date;
 import java.util.Objects;
 
@@ -23,17 +23,17 @@ public class RentalDto
 
     private Date toDate;
 
-    private cz.muni.fi.pa165.carpark.entity.Rental.State rentalState;
+    private RentalDto.State rentalState;
 
-    private Car car;
+    private CarDto car;
 
-    private User user;
+    private UserDto user;
 
     public RentalDto()
     {
     }
 
-    public RentalDto(Date fromDate, Date toDate, cz.muni.fi.pa165.carpark.entity.Rental.State rentalState, Car car, User user)
+    public RentalDto(Date fromDate, Date toDate, RentalDto.State rentalState, CarDto car, UserDto user)
     {
         this.fromDate = fromDate;
         this.toDate = toDate;
@@ -42,22 +42,22 @@ public class RentalDto
         this.user = user;
     }
 
-    public User getUser()
+    public UserDto getUser()
     {
         return user;
     }
 
-    public void setUser(User user)
+    public void setUser(UserDto user)
     {
         this.user = user;
     }
 
-    public Car getCar()
+    public CarDto getCar()
     {
         return car;
     }
 
-    public void setCar(Car car)
+    public void setCar(CarDto car)
     {
         this.car = car;
     }
@@ -92,12 +92,12 @@ public class RentalDto
         this.toDate = toDate;
     }
 
-    public cz.muni.fi.pa165.carpark.entity.Rental.State getRentalState()
+    public RentalDto.State getRentalState()
     {
         return rentalState;
     }
 
-    public void setRentalState(cz.muni.fi.pa165.carpark.entity.Rental.State rentalState)
+    public void setRentalState(RentalDto.State rentalState)
     {
         this.rentalState = rentalState;
     }
@@ -135,4 +135,11 @@ public class RentalDto
         return "RentalDTO{" + "id=" + id + ", fromDate=" + fromDate + ", toDate=" + toDate + ", rentalState=" + rentalState + ", car=" + car + ", user=" + user + '}';
     }
 
+    public static enum State
+    {
+        NEW,
+        APPROVED,
+        ACTIVE,
+        FINISHED
+    }
 }

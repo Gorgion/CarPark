@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void add(UserDto userDto) {
         try {
-            User userEntity = userDto.createEntity();
+            User userEntity = Converter.getEntity(userDto);
             userDao.add(userEntity);
         } catch (Exception e) {
             throw new DataAccessException("Some error occured during creating user entity.", e) {};
@@ -45,12 +45,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto get(Long id) {
         User userEntity = null;
-
+        
         try {
             userEntity = userDao.get(id);
         } catch (Exception e) {
             throw new DataAccessException("Some error occured during retrieving user entity.", e) {};
-        }
+        }        
         return Converter.getTransferObject(userEntity);
     }
 
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void edit(UserDto userDto) {
         try {
-            User userEntity = userDto.createEntity();
+            User userEntity = Converter.getEntity(userDto);
             userDao.edit(userEntity);
         } catch (Exception e) {
             throw new DataAccessException("Some error occured during editing user entity.", e) {};
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(UserDto userDto) {
         try {
-            User userEntity = userDto.createEntity();
+            User userEntity = Converter.getEntity(userDto);
             userDao.delete(userEntity);
         } catch (Exception e) {
             throw new DataAccessException("Some error occured during removing rental entity.", e) {};

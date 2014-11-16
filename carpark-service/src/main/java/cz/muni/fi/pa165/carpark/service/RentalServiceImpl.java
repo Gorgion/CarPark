@@ -11,26 +11,21 @@ import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.util.Converter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * CRUD service for rental entity.
  *
  * @author Tomas Svoboda
  */
-@Named
+@Service
 public class RentalServiceImpl implements RentalService
 {
 
-    @Inject
+    @Autowired
     private RentalDao rentalDao;
-
-    public void setRentalDao(RentalDao rentalDao)
-    {
-        this.rentalDao = rentalDao;
-    }
 
     @Transactional
     @Override
@@ -84,7 +79,7 @@ public class RentalServiceImpl implements RentalService
     {
         List<RentalDto> rentals = new ArrayList<>();
 
-        for (cz.muni.fi.pa165.carpark.entity.Rental rental : rentalDao.getAllByUser((user).createEntity()))
+        for (cz.muni.fi.pa165.carpark.entity.Rental rental : rentalDao.getAllByUser(Converter.getEntity(user)))
         {
             rentals.add(Converter.getTransferObject(rental));
         }

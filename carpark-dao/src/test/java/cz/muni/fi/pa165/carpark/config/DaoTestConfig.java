@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.instrument.classloading.LoadTimeWeaver;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
@@ -18,21 +20,20 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * Test configuration for unit tests
+ * Dao core configuration.
  *
  * @author Tomas Svoboda
  */
 @Configuration
 @EnableAspectJAutoProxy
-@EnableTransactionManagement
 @ComponentScan(basePackages =
 {
     "cz.muni.fi.pa165.carpark"
 })
-public class TestConfig
+@PropertySource("classpath:config/database.properties")
+public class DaoTestConfig
 {
 
     @Bean

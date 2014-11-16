@@ -51,6 +51,11 @@
             <artifactId>carpark-dao</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>cz.muni.fi.pa165</groupId>
+            <artifactId>carpark-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         
         <!-- TESTS -->
         <dependency>
@@ -96,12 +101,12 @@
             <version>${derby.version}</version>
         </dependency>
         
-        <!-- JAVA EE -->
+<!--         JAVA EE 
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>${javaee.web.api.version}</version>
-        </dependency>
+        </dependency>-->
 
         
         <!-- LOGGING -->
@@ -127,11 +132,11 @@
             <artifactId>spring-context</artifactId>
             <version>${spring.context}</version>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
             <version>${spring.security.web}</version>
-        </dependency>        
+        </dependency>        -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>

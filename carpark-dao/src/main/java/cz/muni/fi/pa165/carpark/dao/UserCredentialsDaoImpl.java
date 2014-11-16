@@ -10,7 +10,6 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 
 /**
@@ -21,7 +20,7 @@ import javax.persistence.Query;
 @Named
 public class UserCredentialsDaoImpl implements UserCredentialsDao
 {
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext//(type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
     @Override

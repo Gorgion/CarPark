@@ -14,13 +14,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
+import org.springframework.stereotype.Repository;
 
 /**
  * Create, update, retrieve and delete operations on Rental entity.
  *
  * @author Tomas Svoboda
  */
-@Named
+@Repository
 public class RentalDaoImpl implements RentalDao
 {
     @PersistenceContext//(type = PersistenceContextType.EXTENDED)

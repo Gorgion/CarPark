@@ -8,6 +8,7 @@ package cz.muni.fi.pa165.carpark.service;
 import cz.muni.fi.pa165.carpark.dao.UserDao;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.entity.User;
+import cz.muni.fi.pa165.carpark.util.Converter;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -38,7 +39,7 @@ public class UserServiceImplTest
     public void testCreateGet()
     {
         UserDto userDto = createUserDto();
-        User user = userDto.createEntity();
+        User user = Converter.getEntity(userDto);
         user.setId(1L);
 
         Mockito.doNothing().when(mockedUserDao).add(user);
@@ -64,7 +65,7 @@ public class UserServiceImplTest
     @Test(expected = DataAccessException.class)
     public void testCreateWithNullArg()
     {
-        Mockito.doThrow(IllegalArgumentException.class).when(mockedUserDao).add(null);
+        Mockito.doThrow(DataAccessException.class).when(mockedUserDao).add(null);
 
         userService.add(null);
     }
@@ -73,7 +74,7 @@ public class UserServiceImplTest
     public void testUpdate()
     {
         UserDto userDto = createUserDto();
-        User user = userDto.createEntity();
+        User user = Converter.getEntity(userDto);
         user.setId(1L);
 
         Mockito.doNothing().when(mockedUserDao).edit(user);
@@ -99,15 +100,15 @@ public class UserServiceImplTest
     @Test(expected = DataAccessException.class)
     public void testEditWithNullArg()
     {
-        Mockito.doThrow(IllegalArgumentException.class).when(mockedUserDao).edit(null);
+        Mockito.doThrow(DataAccessException.class).when(mockedUserDao).edit(null);
 
         userService.edit(null);
     }
 
     @Test(expected = DataAccessException.class)
     public void testGetNegativeId()
-    {
-        Mockito.doThrow(IllegalArgumentException.class).when(mockedUserDao).get(Long.MIN_VALUE);
+    {        
+        Mockito.doThrow(new DataAccessException("") {}).when(mockedUserDao).get(Long.MIN_VALUE);
 
         userService.get(Long.MIN_VALUE);
     }
@@ -130,7 +131,7 @@ public class UserServiceImplTest
         user2.setId(2L);
         user3.setId(3L);
 
-        Mockito.doReturn(Arrays.asList(user1.createEntity(), user2.createEntity(), user3.createEntity()))
+        Mockito.doReturn(Arrays.asList(Converter.getEntity(user1), Converter.getEntity(user2), Converter.getEntity(user3)))
                 .when(mockedUserDao).getAll();
 
         List<UserDto> users = userService.getAll();
@@ -153,7 +154,7 @@ public class UserServiceImplTest
         user2.setId(2L);
         user3.setId(3L);
 
-        Mockito.doReturn(Arrays.asList(user1.createEntity(), user2.createEntity()))
+        Mockito.doReturn(Arrays.asList(Converter.getEntity(user1), Converter.getEntity(user2)))
                 .when(mockedUserDao).getAllWithRent();
 
         Calendar calendar = Calendar.getInstance();
@@ -179,7 +180,7 @@ public class UserServiceImplTest
         user2.setId(2L);
         user3.setId(3L);
 
-        Mockito.doReturn(Arrays.asList(user2.createEntity(), user3.createEntity()))
+        Mockito.doReturn(Arrays.asList(Converter.getEntity(user2), Converter.getEntity(user3)))
                 .when(mockedUserDao).getAllWithoutRent();
 
         Calendar calendar = Calendar.getInstance();
