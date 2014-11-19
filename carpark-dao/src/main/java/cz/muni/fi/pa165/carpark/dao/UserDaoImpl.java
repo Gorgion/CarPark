@@ -7,19 +7,18 @@ package cz.muni.fi.pa165.carpark.dao;
 
 import cz.muni.fi.pa165.carpark.entity.User;
 import java.util.List;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 
 import javax.persistence.Query;
+import org.springframework.stereotype.Repository;
 
 /**
  * CRUD operations on User entity.
  *
  * @author Tomáš Vašíček
  */
-@Named
+@Repository
 public class UserDaoImpl implements UserDao
 {
 
@@ -31,7 +30,7 @@ public class UserDaoImpl implements UserDao
     {
         if (user == null)
         {
-            throw new NullPointerException("User can not be NULL");
+            throw new IllegalArgumentException("User can not be NULL");
         }
         
         entityManager.persist(user);        
@@ -42,7 +41,7 @@ public class UserDaoImpl implements UserDao
     {
         if (id == null)
         {
-            throw new NullPointerException("ID can not be NULL");
+            throw new IllegalArgumentException("ID can not be NULL");
         }
         if (id < 0)
         {
@@ -59,7 +58,7 @@ public class UserDaoImpl implements UserDao
     {
         if (user == null)
         {
-            throw new NullPointerException("User can not be NULL");
+            throw new IllegalArgumentException("User can not be NULL");
         }
 
         entityManager.merge(user);
@@ -70,7 +69,7 @@ public class UserDaoImpl implements UserDao
     {
         if (user == null)
         {
-            throw new NullPointerException("User can not be NULL");
+            throw new IllegalArgumentException("User can not be NULL");
         }
 
         User userToDelete = entityManager.find(User.class, user.getId());

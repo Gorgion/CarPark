@@ -26,6 +26,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Scope;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationAdvisor;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 
 /**
  * Dao core configuration.
@@ -52,14 +54,8 @@ public class DaoCoreConfig
     @Bean
     public JpaTransactionManager transactionManager()
     {
-        return new /*DataSourceTransactionManager(dataSource());/*/JpaTransactionManager(jpaFactoryBean().getObject());
+        return new JpaTransactionManager(jpaFactoryBean().getObject());
     }
-
-//        @Bean
-//    public DataSourceTransactionManager transactionManager()
-//    {
-//        return new DataSourceTransactionManager(dataSource());//JpaTransactionManager(jpaFactoryBean().getObject());
-//    }
     
     @Bean
     public LocalContainerEntityManagerFactoryBean jpaFactoryBean()
@@ -98,53 +94,9 @@ public class DaoCoreConfig
         return dataSource;
     }
     
-//    Bean
-//    public JpaTransactionManager transactionManager()
-//    {
-//        return new /*DataSourceTransactionManager(dataSource());/*/JpaTransactionManager(jpaFactoryBean().getObject());
-//    }
-
-//        @Bean
-//    public DataSourceTransactionManager transactionManager()
-//    {
-//        return new DataSourceTransactionManager(dataSource());//JpaTransactionManager(jpaFactoryBean().getObject());
-//    }
-//    
-//    @Bean
-//    public LocalContainerEntityManagerFactoryBean jpaFactoryBean()
-//    {
-//        LocalContainerEntityManagerFactoryBean jpaFactoryBean = new LocalContainerEntityManagerFactoryBean();
-//        jpaFactoryBean.setDataSource(dataSource());
-//        jpaFactoryBean.setPersistenceUnitName("CarParkPU");
-////        jpaFactoryBean.setLoadTimeWeaver(instrumentationLoadTimeWeaver());
-////        jpaFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-//        return jpaFactoryBean;
-//    }
-//
-////    @Bean
-////    public LoadTimeWeaver instrumentationLoadTimeWeaver()
-////    {
-////        return new InstrumentationLoadTimeWeaver();
-////    }
-//
-//    @Bean
-//    public DataSource dataSource()
-//    {
-////        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-////        EmbeddedDatabase dataSource = builder.setType(EmbeddedDatabaseType.DERBY).build();
-//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
-//        dataSource.setUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
-//        dataSource.setUsername(env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
-//        dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
-//        
-////        BasicDataSource dataSource = new BasicDataSource();
-////        dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
-////        dataSource.setUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
-////        dataSource.setUsername(env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
-////        dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
-//        
-//        return dataSource;
-//    }
-    
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor persistenceExceptionTranslationPostProcessor()
+    {
+        return new PersistenceExceptionTranslationPostProcessor();
+    }
 }

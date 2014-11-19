@@ -6,18 +6,18 @@
 package cz.muni.fi.pa165.carpark.dao;
 
 import cz.muni.fi.pa165.carpark.entity.UserCredentials;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.springframework.stereotype.Repository;
 
 /**
  * UserCredentials dao implementation.
  *
  * @author Tomas Svoboda
  */
-@Named
+@Repository
 public class UserCredentialsDaoImpl implements UserCredentialsDao
 {
     @PersistenceContext//(type = PersistenceContextType.EXTENDED)

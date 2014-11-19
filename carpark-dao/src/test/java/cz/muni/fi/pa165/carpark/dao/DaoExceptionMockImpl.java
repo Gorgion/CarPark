@@ -5,14 +5,14 @@
  */
 package cz.muni.fi.pa165.carpark.dao;
 
-import javax.inject.Named;
+import org.springframework.stereotype.Repository;
 
 /**
  * Class used for testing dao exception aspect.
  *
  * @author Tomas Svoboda
  */
-@Named
+@Repository
 public class DaoExceptionMockImpl
 {
     public void throwIllegalArgumentException()
