@@ -5,12 +5,10 @@
  */
 package cz.muni.fi.pa165.carpark.config;
 
-//import cz.muni.fi.pa165.carpark.config.ServiceCoreConfig;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+//import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * Web core configuration.
