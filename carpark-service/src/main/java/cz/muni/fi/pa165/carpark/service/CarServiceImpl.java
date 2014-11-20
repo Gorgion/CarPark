@@ -110,7 +110,7 @@ public class CarServiceImpl implements CarService
 
     @Transactional
     @Override
-    public Collection getAllCars()
+    public Collection<CarDto> getAllCars()
     {
         try
         {
@@ -134,7 +134,7 @@ public class CarServiceImpl implements CarService
 
     @Transactional
     @Override
-    public Collection getRentedCars()
+    public Collection<CarDto> getRentedCars()
     {
         try
         {
@@ -158,7 +158,7 @@ public class CarServiceImpl implements CarService
 
     @Transactional
     @Override
-    public Collection getFreeCars(Date from, Date to)
+    public Collection<CarDto> getFreeCars(Date from, Date to)
     {
         try
         {
