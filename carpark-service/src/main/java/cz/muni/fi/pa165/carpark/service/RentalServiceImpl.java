@@ -8,6 +8,7 @@ package cz.muni.fi.pa165.carpark.service;
 import cz.muni.fi.pa165.carpark.dao.RentalDao;
 import cz.muni.fi.pa165.carpark.dto.RentalDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
+import cz.muni.fi.pa165.carpark.exception.CarAlreadyReserved;
 import cz.muni.fi.pa165.carpark.util.Converter;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +28,18 @@ public class RentalServiceImpl implements RentalService
     @Autowired
     private RentalDao rentalDao;
 
+    @Autowired
+    private CarService carService;
+    
     @Transactional
     @Override
     public void create(RentalDto rental)
     {
+        if (!carService.getFreeCars(rental.getFromDate(), rental.getToDate()).contains(rental.getCar()))
+        {
+            throw new CarAlreadyReserved("car is already reserved.");
+        }
+        
         cz.muni.fi.pa165.carpark.entity.Rental entity = Converter.getEntity(rental);
         rentalDao.create(entity);
         rental.setId(entity.getId());

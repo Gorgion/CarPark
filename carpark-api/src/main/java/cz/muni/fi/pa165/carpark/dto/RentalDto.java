@@ -5,8 +5,6 @@
  */
 package cz.muni.fi.pa165.carpark.dto;
 
-import cz.muni.fi.pa165.carpark.dto.CarDto;
-import cz.muni.fi.pa165.carpark.dto.UserDto;
 import java.util.Date;
 import java.util.Objects;
 

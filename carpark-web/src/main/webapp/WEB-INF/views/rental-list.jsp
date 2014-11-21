@@ -36,11 +36,11 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th><fmt:message key="id" /></th>
-                    <th><fmt:message key="state" /></th>
-                    <th><fmt:message key="start" /></th>
-                    <th><fmt:message key="end" /></th>
-                    <th><fmt:message key="car" /></th>
+                    <th><fmt:message key="rental.id" /></th>
+                    <th><fmt:message key="rental.state" /></th>
+                    <th><fmt:message key="rental.fromDate" /></th>
+                    <th><fmt:message key="rental.toDate" /></th>
+                    <th><fmt:message key="rental.car" /></th>
                 </tr>
             </thead>
             <tbody>
