@@ -11,7 +11,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <fmt:message var="title" key="rental.list.title"/>
-<custom:layout title="${title}">
+<custom:layout title="${title}">    
     <jsp:attribute name="content">
         <div class="row">
             <a href="<c:url value="/auth/user/${userId}/rental/add" />" class="btn btn-success"><fmt:message key="rental.add"/></a>
@@ -51,11 +51,16 @@
                         <td>${rental.fromDate}</td>
                         <td>${rental.toDate}</td>
                         <td><a href="#" class="btn btn-link">${rental.car.id}</a></td>
-                        <td><a href="#" class="btn btn-default"><fmt:message key="edit" /></a></td>
-                        <td><a href="#" class="btn btn-danger"><fmt:message key="delete" /></a></td>
+                        <td><a href="<c:url value="/auth/user/${userId}/rental/${rental.id}/edit" />" class="btn btn-default"><fmt:message key="edit" /></a></td>
+                        <td>
+                            <form action="<c:url value="/auth/user/${userId}/rental/${rental.id}/delete" />" method="POST" class="form-inline">
+                                <button type="submit" name="delete" class="btn btn-danger"><fmt:message key="delete" /></button>
+                            </form>                            
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>
-        </table>
-    </jsp:attribute>
+        </table>      
+        <custom:delete-dialog key="rental"></custom:delete-dialog>
+    </jsp:attribute>        
 </custom:layout>

@@ -64,7 +64,7 @@
             ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="../../../resources/assets/js/bootstrap.min.js" data-th-src="@{/assets/js/bootstrap.min.js}"></script>
-
+        <script src="<c:url value='/static/js/bootstrap.min.js'/>"</script>
+        <script type="text/javascript" src="<c:url value='/static/js/carpark.js'/>"</script>
     </body>
 </html>
