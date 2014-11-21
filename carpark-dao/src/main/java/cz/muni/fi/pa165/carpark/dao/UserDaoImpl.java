@@ -91,7 +91,6 @@ public class UserDaoImpl implements UserDao
     @Override
     public List<User> getAllWithRent()
     {
-
         Query query = entityManager.createQuery(
                 "SELECT u FROM User u WHERE u.id IN (SELECT DISTINCT r.user FROM Rental r)", User.class);
         //"SELECT u FROM User u WHERE u.id IN (SELECT r.user, r.rentalState from Rental r WHERE r.rentalState := state", User.class);

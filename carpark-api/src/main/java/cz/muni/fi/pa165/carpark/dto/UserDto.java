@@ -4,13 +4,11 @@
  * and open the template in the editor.
  */
 package cz.muni.fi.pa165.carpark.dto;
-
-import cz.muni.fi.pa165.carpark.entity.User;
-import cz.muni.fi.pa165.carpark.entity.User.Position;
 import java.util.Objects;
 
 /**
- *
+ * DTO for User entity
+ * 
  * @author Tomáš Vašíček
  */
 public class UserDto {
@@ -20,7 +18,6 @@ public class UserDto {
     private String lastName;        
     private String birthNumber;
     private String address;    
-    private Position position;
 
     public Long getId() {
         return Id;
@@ -62,14 +59,6 @@ public class UserDto {
         this.address = address;
     }
 
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
     @Override
     public int hashCode() {
         int hash = 3;
@@ -95,19 +84,6 @@ public class UserDto {
 
     @Override
     public String toString() {
-        return "UserDto{" + "Id=" + Id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthNumber=" + birthNumber + ", address=" + address + ", position=" + position + '}';
-    }
-    
-    public User createEntity(){
-        User user = new User();
-        
-        user.setAddress(address);
-        user.setBirthNumber(birthNumber);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setPosition(position);
-        user.setId(Id);
-        
-        return user;
+        return "UserDto{" + "Id=" + Id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthNumber=" + birthNumber + ", address=" + address + '}';
     }
 }

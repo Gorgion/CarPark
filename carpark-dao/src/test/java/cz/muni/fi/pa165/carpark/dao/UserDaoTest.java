@@ -48,7 +48,6 @@ public class UserDaoTest
         User user = new User();
         user.setFirstName("Name");
         user.setLastName("Lastname");
-        user.setPosition(User.Position.EMPLOYEE);
         user.setBirthNumber("999999/9547");
         user.setAddress("NY 401/20");
 
@@ -72,7 +71,6 @@ public class UserDaoTest
         User user = new User();
         user.setFirstName("Name");
         user.setLastName("Lastname");
-        user.setPosition(User.Position.EMPLOYEE);
         user.setBirthNumber("999999/9547");
         user.setAddress("NY 401/20");
 
@@ -108,21 +106,18 @@ public class UserDaoTest
         User user = new User();
         user.setFirstName("Name");
         user.setLastName("Lastname");
-        user.setPosition(User.Position.EMPLOYEE);
         user.setBirthNumber("999999/9547");
         user.setAddress("NY 401/20");
 
         User user2 = new User();
         user2.setFirstName("Noname");
         user2.setLastName("Surname");
-        user2.setPosition(User.Position.ADMIN);
         user2.setBirthNumber("758999/9547");
         user2.setAddress("NY 101/20");
 
         User user3 = new User();
         user3.setFirstName("Name");
         user3.setLastName("Surname");
-        user3.setPosition(User.Position.ADMIN);
         user3.setBirthNumber("755999/9547");
         user3.setAddress("NY 101/10");
 
@@ -144,10 +139,10 @@ public class UserDaoTest
     public void testGetAllWithRent()
     {
 
-        User user = TestUtils.createUser("Jiří", "Jirkovič", "Adresa 1", User.Position.MANAGER, "321bn");
-        User user2 = TestUtils.createUser("Jan", "Jirkovič", "Adresa 1", User.Position.EMPLOYEE, "123bn");
-        User user3 = TestUtils.createUser("Karel", "Karlovič", "Adresa 3", User.Position.EMPLOYEE, "456bn");
-        User user4 = TestUtils.createUser("Pepa", "Pepovič", "Adresa 4", User.Position.EMPLOYEE, "112bn");
+        User user = TestUtils.createUser("Jiří", "Jirkovič", "Adresa 1", "321bn");
+        User user2 = TestUtils.createUser("Jan", "Jirkovič", "Adresa 1", "123bn");
+        User user3 = TestUtils.createUser("Karel", "Karlovič", "Adresa 3", "456bn");
+        User user4 = TestUtils.createUser("Pepa", "Pepovič", "Adresa 4", "112bn");
 
         Car car = TestUtils.createCar(Car.mBrand.SKODA, Car.mType.COMBI, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.FABIA, "LP1", "VIN1", false);
 
@@ -180,10 +175,10 @@ public class UserDaoTest
     @Test
     public void testGetAllWithoutRent()
     {
-        User user = TestUtils.createUser("Jiří", "Jirkovič", "Adresa 1", User.Position.MANAGER, "321bn");
-        User user2 = TestUtils.createUser("Jan", "Jirkovič", "Adresa 1", User.Position.EMPLOYEE, "123bn");
-        User user3 = TestUtils.createUser("Karel", "Karlovič", "Adresa 3", User.Position.EMPLOYEE, "456bn");
-        User user4 = TestUtils.createUser("Pepa", "Pepovič", "Adresa 4", User.Position.EMPLOYEE, "112bn");
+        User user = TestUtils.createUser("Jiří", "Jirkovič", "Adresa 1", "321bn");
+        User user2 = TestUtils.createUser("Jan", "Jirkovič", "Adresa 1", "123bn");
+        User user3 = TestUtils.createUser("Karel", "Karlovič", "Adresa 3", "456bn");
+        User user4 = TestUtils.createUser("Pepa", "Pepovič", "Adresa 4", "112bn");
 
         Car car = TestUtils.createCar(Car.mBrand.SKODA, Car.mType.COMBI, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.FABIA, "LP1", "VIN1", false);
 
@@ -219,7 +214,6 @@ public class UserDaoTest
         User user = new User();
         user.setFirstName("Name");
         user.setLastName("Lastname");
-        user.setPosition(User.Position.EMPLOYEE);
         user.setBirthNumber("999999/9547");
         user.setAddress("NY 401/20");
 
@@ -231,7 +225,6 @@ public class UserDaoTest
         updatedUser.setLastName("Surname");
         updatedUser.setFirstName("NoName");
         updatedUser.setAddress("noAddress");
-        updatedUser.setPosition(User.Position.ADMIN);
         updatedUser.setBirthNumber("1/0001");
 
         daoImpl.edit(updatedUser);
@@ -246,7 +239,6 @@ public class UserDaoTest
         Assert.assertEquals(updatedUser.getBirthNumber(), foundUser.getBirthNumber());
         Assert.assertEquals(updatedUser.getFirstName(), foundUser.getFirstName());
         Assert.assertEquals(updatedUser.getLastName(), foundUser.getLastName());
-        Assert.assertEquals(updatedUser.getPosition(), foundUser.getPosition());
     }
 
     @Test(expected = DataAccessException.class)//NullPointerException.class)
@@ -261,7 +253,6 @@ public class UserDaoTest
         User user = new User();
         user.setFirstName("Name");
         user.setLastName("Lastname");
-        user.setPosition(User.Position.EMPLOYEE);
         user.setBirthNumber("999999/9547");
         user.setAddress("NY 401/20");
 

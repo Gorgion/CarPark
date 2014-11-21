@@ -120,7 +120,6 @@ public class UserCredentialsServiceImplTest {
         userDto.setLastName("surname");
         userDto.setAddress("address");
         userDto.setBirthNumber("9875698/4587");
-        userDto.setPosition(User.Position.EMPLOYEE);
 
         Set<UserRoleDto> roles = new HashSet<>();
 

@@ -19,7 +19,6 @@ import cz.muni.fi.pa165.carpark.entity.Office;
 import cz.muni.fi.pa165.carpark.entity.Rental;
 import cz.muni.fi.pa165.carpark.entity.Rental.State;
 import cz.muni.fi.pa165.carpark.entity.User;
-import cz.muni.fi.pa165.carpark.entity.User.Position;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -42,13 +41,12 @@ public class TestUtils {
         return rental;
     }
     
-    public static User createUser(String firstName, String LastName, String address, Position position, String birthNumber) {
+    public static User createUser(String firstName, String LastName, String address, String birthNumber) {
         User user = new User();
         
         user.setFirstName(firstName);
         user.setLastName(LastName);
         user.setAddress(address);
-        user.setPosition(position);
         user.setBirthNumber(birthNumber);
 
         return user;
@@ -84,10 +82,10 @@ public class TestUtils {
     
     public static Office createSampleOffice(){
 
-        User empl1m = createUser("Jiří", "Jirkovič", "Adresa 1", User.Position.MANAGER, "321bn");
-        User empl2 = createUser("Jan", "Jirkovič", "Adresa 1", User.Position.EMPLOYEE, "123bn");
-        User empl3 = createUser("Karel", "Karlovič", "Adresa 3", User.Position.EMPLOYEE, "456bn");
-        User empl4 = createUser("Pepa", "Pepovič", "Adresa 4", User.Position.EMPLOYEE, "112bn");
+        User empl1m = createUser("Jiří", "Jirkovič", "Adresa 1", "321bn");
+        User empl2 = createUser("Jan", "Jirkovič", "Adresa 1", "123bn");
+        User empl3 = createUser("Karel", "Karlovič", "Adresa 3",  "456bn");
+        User empl4 = createUser("Pepa", "Pepovič", "Adresa 4", "112bn");
         
         Office office = new Office();
         office.setAddress("Polní 22");
@@ -107,10 +105,10 @@ public class TestUtils {
     
     public static OfficeDto createSampleDtoOffice(){
 
-        User empl1m = createUser("Jiří", "Jirkovič", "Adresa 1", User.Position.MANAGER, "321bn");
-        User empl2 = createUser("Jan", "Jirkovič", "Adresa 1", User.Position.EMPLOYEE, "123bn");
-        User empl3 = createUser("Karel", "Karlovič", "Adresa 3", User.Position.EMPLOYEE, "456bn");
-        User empl4 = createUser("Pepa", "Pepovič", "Adresa 4", User.Position.EMPLOYEE, "112bn");
+        User empl1m = createUser("Jiří", "Jirkovič", "Adresa 1", "321bn");
+        User empl2 = createUser("Jan", "Jirkovič", "Adresa 1", "123bn");
+        User empl3 = createUser("Karel", "Karlovič", "Adresa 3", "456bn");
+        User empl4 = createUser("Pepa", "Pepovič", "Adresa 4", "112bn");
         
         Car car1 = createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP1", "VIN1", false);
         Car car2 = createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP2", "VIN2", false);
@@ -131,7 +129,6 @@ public class TestUtils {
         userDto.setLastName("Surname");
         userDto.setAddress("Address");
         userDto.setBirthNumber("958456/8524");
-        userDto.setPosition(User.Position.EMPLOYEE);
 
         return userDto;
     }

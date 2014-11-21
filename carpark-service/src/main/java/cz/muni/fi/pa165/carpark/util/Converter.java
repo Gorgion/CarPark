@@ -107,7 +107,6 @@ public class Converter
         entity.setLastName(userDto.getLastName());
         entity.setAddress(userDto.getAddress());
         entity.setBirthNumber(userDto.getBirthNumber());
-        entity.setPosition(userDto.getPosition());
         
         return entity;
     }
@@ -126,7 +125,6 @@ public class Converter
         dto.setLastName(entity.getLastName());
         dto.setAddress(entity.getAddress());
         dto.setBirthNumber(entity.getBirthNumber());
-        dto.setPosition(entity.getPosition());
         
         return dto;
     }
@@ -138,7 +136,7 @@ public class Converter
             return null;
         }
         
-        User userEntity = getEntity(credentials.getUser());//.createEntity();
+        User userEntity = getEntity(credentials.getUser());
         Set<UserRole> rolesEntity = new HashSet<>();
         
         for(cz.muni.fi.pa165.carpark.dto.UserRoleDto role : credentials.getRoles())

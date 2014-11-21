@@ -45,14 +45,11 @@ public class User implements Serializable {
     private String birthNumber;
     
     private String address;    
-    
-    @Enumerated(EnumType.STRING)
-    private Position position;
-    
+   
 
     @Override
     public String toString() {
-        return "User{" + "Id=" + Id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthNumber=" + birthNumber + ", address=" + address + ", position=" + position + '}';
+        return "User{" + "Id=" + Id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthNumber=" + birthNumber + ", address=" + address + '}';
     }
 
     @Override
@@ -121,36 +118,4 @@ public class User implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-            
-    public static enum Position
-    {
-        EMPLOYEE,
-        MANAGER,
-        ADMIN
-    }      
-    
-    /**
-     * creates DTO object from User entity
-     * @return UserDto object
-     */
-//    public UserDto createDto() {
-//        UserDto userDto = new UserDto();
-//        
-//        userDto.setId(Id);
-//        userDto.setFirstName(firstName);
-//        userDto.setLastName(lastName);
-//        userDto.setAddress(address);
-//        userDto.setBirthNumber(birthNumber);
-//        userDto.setPosition(position);
-//        
-//        return userDto;
-//    }   
 }

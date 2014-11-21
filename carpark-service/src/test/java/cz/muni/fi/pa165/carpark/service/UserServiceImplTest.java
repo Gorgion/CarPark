@@ -59,7 +59,6 @@ public class UserServiceImplTest
         Assert.assertEquals(userDto.getLastName(), actualDto.getLastName());
         Assert.assertEquals(userDto.getAddress(), actualDto.getAddress());
         Assert.assertEquals(userDto.getBirthNumber(), actualDto.getBirthNumber());
-        Assert.assertEquals(userDto.getPosition(), actualDto.getPosition());
     }
 
     @Test(expected = DataAccessException.class)
@@ -94,7 +93,6 @@ public class UserServiceImplTest
         Assert.assertEquals(userDto.getLastName(), actualDto.getLastName());
         Assert.assertEquals(userDto.getAddress(), actualDto.getAddress());
         Assert.assertEquals(userDto.getBirthNumber(), actualDto.getBirthNumber());
-        Assert.assertEquals(userDto.getPosition(), actualDto.getPosition());
     }
 
     @Test(expected = DataAccessException.class)
@@ -204,7 +202,6 @@ public class UserServiceImplTest
         userDto.setLastName("Surname");
         userDto.setAddress("Address");
         userDto.setBirthNumber("958456/8524");
-        userDto.setPosition(User.Position.EMPLOYEE);
 
         return userDto;
     }

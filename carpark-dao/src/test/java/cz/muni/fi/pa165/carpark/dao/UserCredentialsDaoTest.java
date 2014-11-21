@@ -263,7 +263,6 @@ public class UserCredentialsDaoTest
         user.setLastName("surname");
         user.setAddress("address");
         user.setBirthNumber("9875698/4587");
-        user.setPosition(User.Position.EMPLOYEE);
 
         userDao.add(user);
 
