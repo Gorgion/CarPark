@@ -33,61 +33,39 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void add(UserDto userDto) {
-        try {
-            User userEntity = Converter.getEntity(userDto);
-            userDao.add(userEntity);
-        } catch (Exception e) {
-            throw new DataAccessException("Some error occured during creating user entity.", e) {};
-        }
+        User userEntity = Converter.getEntity(userDto);
+        userDao.add(userEntity);
     }
 
     @Transactional
     @Override
     public UserDto get(Long id) {
         User userEntity = null;
-        
-        try {
-            userEntity = userDao.get(id);
-        } catch (Exception e) {
-            throw new DataAccessException("Some error occured during retrieving user entity.", e) {};
-        }        
+        userEntity = userDao.get(id);
         return Converter.getTransferObject(userEntity);
     }
 
     @Transactional
     @Override
     public void edit(UserDto userDto) {
-        try {
-            User userEntity = Converter.getEntity(userDto);
-            userDao.edit(userEntity);
-        } catch (Exception e) {
-            throw new DataAccessException("Some error occured during editing user entity.", e) {};
-        }
+        User userEntity = Converter.getEntity(userDto);
+        userDao.edit(userEntity);
     }
 
     @Transactional
     @Override
     public void delete(UserDto userDto) {
-        try {
-            User userEntity = Converter.getEntity(userDto);
-            userDao.delete(userEntity);
-        } catch (Exception e) {
-            throw new DataAccessException("Some error occured during removing rental entity.", e) {};
-        }
+        User userEntity = Converter.getEntity(userDto);
+        userDao.delete(userEntity);
     }
 
     @Transactional
     @Override
     public List<UserDto> getAll() {
         List<UserDto> userDtoList = new ArrayList<>();
-        try {
-            for (User user : userDao.getAll()) {
-                userDtoList.add(Converter.getTransferObject(user));
-            }
-        } catch (Exception e) {
-            throw new DataAccessException("Some error occured during retrieving rental entities.", e) {};
+        for (User user : userDao.getAll()) {
+            userDtoList.add(Converter.getTransferObject(user));
         }
-
         return userDtoList;
     }
 
@@ -95,14 +73,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> getAllWithRent() {
         List<UserDto> userDtoList = new ArrayList<UserDto>();
-        try {
-            for (User user : userDao.getAllWithRent()) {
-                userDtoList.add(Converter.getTransferObject(user));
-            }
-        } catch (Exception e) {
-            throw new DataAccessException("Some error occured during retrieving rental entities.", e) {};
+        for (User user : userDao.getAllWithRent()) {
+            userDtoList.add(Converter.getTransferObject(user));
         }
-
         return userDtoList;
     }
 
@@ -110,12 +83,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> getAllWithoutRent() {
         List<UserDto> userDtoList = new ArrayList<UserDto>();
-        try {
-            for (User user : userDao.getAllWithoutRent()) {
-                userDtoList.add(Converter.getTransferObject(user));
-            }
-        } catch (Exception e) {
-            throw new DataAccessException("Some error occured during retrieving rental entities.", e) {};
+        for (User user : userDao.getAllWithoutRent()) {
+            userDtoList.add(Converter.getTransferObject(user));
         }
         return userDtoList;
     }
