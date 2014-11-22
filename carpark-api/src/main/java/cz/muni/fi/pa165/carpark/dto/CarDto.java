@@ -5,11 +5,6 @@
  */
 package cz.muni.fi.pa165.carpark.dto;
 
-import cz.muni.fi.pa165.carpark.entity.Car.mBrand;
-import cz.muni.fi.pa165.carpark.entity.Car.mColor;
-import cz.muni.fi.pa165.carpark.entity.Car.mEngine;
-import cz.muni.fi.pa165.carpark.entity.Car.mModel;
-import cz.muni.fi.pa165.carpark.entity.Car.mType;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -160,6 +155,55 @@ public class CarDto implements Serializable
     public String toString()
     {
         return "Car: id=" + id + ", brand:" + brand + ", model:" + model + ", type:" + type + ", engine:" + engine + ", color:" + color + ", VIN:" + VIN + ", isRented:" + rented + "\n";
+    }
+    
+    public static enum mEngine
+    {
+
+        PETROL,
+        DIESEL,
+        ELECTRIC
+    }
+
+    public static enum mType
+    {
+
+        COMBI,
+        SEDAN,
+        HATCHBACK,
+        CABRIOLET
+    }
+
+    public static enum mBrand
+    {
+
+        SKODA,
+        DAEWOO,
+        FORD,
+        CHEVROLET,
+        TESLA
+    }
+
+    public static enum mColor
+    {
+        YELLOW,
+        BLACK,
+        WHITE,
+        RED,
+        GREEN,
+        BLUE
+    }
+
+    public static enum mModel
+    {
+
+        OCTAVIA,
+        FABIA,
+        MATIZ,
+        FOCUS,
+        MONDEO,
+        MODEL_S,
+        CAMARO
     }
 }
 
