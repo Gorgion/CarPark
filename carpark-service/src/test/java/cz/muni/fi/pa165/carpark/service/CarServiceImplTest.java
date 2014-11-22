@@ -42,7 +42,7 @@ public class CarServiceImplTest {
 
     @Test
     public void addNewCarTest() { 
-        CarDto carDto = new CarDto(Car.mBrand.SKODA, Car.mType.COMBI, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.FABIA, "LP", "VIN", false);
+        CarDto carDto = new CarDto(CarDto.mBrand.SKODA, CarDto.mType.COMBI, CarDto.mColor.BLACK, CarDto.mEngine.PETROL, CarDto.mModel.FABIA, "LP", "VIN", false);
         carDto.setID(1L);
         
         Car car = Converter.getEntity(carDto);
@@ -78,7 +78,7 @@ public class CarServiceImplTest {
     
     @Test
     public void editCarTest(){
-        CarDto carDto = new CarDto(Car.mBrand.SKODA, Car.mType.COMBI, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.FABIA, "LP", "VIN", false);
+        CarDto carDto = new CarDto(CarDto.mBrand.SKODA, CarDto.mType.COMBI, CarDto.mColor.BLACK, CarDto.mEngine.PETROL, CarDto.mModel.FABIA, "LP", "VIN", false);
         carDto.setID(1L);
         
         Car car = Converter.getEntity(carDto);
@@ -108,7 +108,7 @@ public class CarServiceImplTest {
     }
     @Test
     public void deleteCarTest(){
-        CarDto carDto = new CarDto(Car.mBrand.SKODA, Car.mType.COMBI, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.FABIA, "LP", "VIN", false);
+        CarDto carDto = new CarDto(CarDto.mBrand.SKODA, CarDto.mType.COMBI, CarDto.mColor.BLACK, CarDto.mEngine.PETROL, CarDto.mModel.FABIA, "LP", "VIN", false);
         carDto.setID(1L);
         
         Car car = Converter.getEntity(carDto);             
@@ -128,9 +128,9 @@ public class CarServiceImplTest {
     
     @Test
     public void getAllCarsTest(){
-        CarDto carDto1 = new CarDto(Car.mBrand.SKODA, Car.mType.COMBI, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.FABIA, "LP", "VIN", false);
-        CarDto carDto2 = new CarDto(Car.mBrand.CHEVROLET, Car.mType.CABRIOLET, Car.mColor.RED, Car.mEngine.ELECTRIC, Car.mModel.CAMARO, "LP2", "VIN2", false);
-        CarDto carDto3 = new CarDto(Car.mBrand.FORD, Car.mType.COMBI, Car.mColor.BLUE, Car.mEngine.DIESEL, Car.mModel.FOCUS, "LP3", "VIN3", false);
+        CarDto carDto1 = new CarDto(CarDto.mBrand.SKODA, CarDto.mType.COMBI, CarDto.mColor.BLACK, CarDto.mEngine.PETROL, CarDto.mModel.FABIA, "LP", "VIN", false);
+        CarDto carDto2 = new CarDto(CarDto.mBrand.CHEVROLET, CarDto.mType.CABRIOLET, CarDto.mColor.RED, CarDto.mEngine.ELECTRIC, CarDto.mModel.CAMARO, "LP2", "VIN2", false);
+        CarDto carDto3 = new CarDto(CarDto.mBrand.FORD, CarDto.mType.COMBI, CarDto.mColor.BLUE, CarDto.mEngine.DIESEL, CarDto.mModel.FOCUS, "LP3", "VIN3", false);
         carDto1.setID(1L);
         carDto2.setID(2L);
         carDto3.setID(3L);
@@ -154,9 +154,9 @@ public class CarServiceImplTest {
     @Test
     //@Ignore
     public void getRentedCarsTest(){
-        CarDto carDto1 = new CarDto(Car.mBrand.SKODA, Car.mType.COMBI, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.FABIA, "LP", "VIN", true);
-        CarDto carDto2 = new CarDto(Car.mBrand.CHEVROLET, Car.mType.CABRIOLET, Car.mColor.RED, Car.mEngine.ELECTRIC, Car.mModel.CAMARO, "LP2", "VIN2", false);
-        CarDto carDto3 = new CarDto(Car.mBrand.FORD, Car.mType.COMBI, Car.mColor.BLUE, Car.mEngine.DIESEL, Car.mModel.FOCUS, "LP3", "VIN3", true);
+        CarDto carDto1 = new CarDto(CarDto.mBrand.SKODA, CarDto.mType.COMBI, CarDto.mColor.BLACK, CarDto.mEngine.PETROL, CarDto.mModel.FABIA, "LP", "VIN", true);
+        CarDto carDto2 = new CarDto(CarDto.mBrand.CHEVROLET, CarDto.mType.CABRIOLET, CarDto.mColor.RED, CarDto.mEngine.ELECTRIC, CarDto.mModel.CAMARO, "LP2", "VIN2", false);
+        CarDto carDto3 = new CarDto(CarDto.mBrand.FORD, CarDto.mType.COMBI, CarDto.mColor.BLUE, CarDto.mEngine.DIESEL, CarDto.mModel.FOCUS, "LP3", "VIN3", true);
         carDto1.setID(1L);
         carDto2.setID(2L);
         carDto3.setID(3L);

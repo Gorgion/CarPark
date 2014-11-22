@@ -135,7 +135,7 @@ public class TestUtils {
     
     public static CarDto createSampleDtoCar()
     {
-        return new CarDto(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP1", "VIN1", false);
+        return new CarDto(CarDto.mBrand.SKODA, CarDto.mType.COMBI, CarDto.mColor.BLACK, CarDto.mEngine.PETROL, CarDto.mModel.FABIA, "LP1", "VIN1", false);
     }
     
     public static Date dateNow(Long more) {
