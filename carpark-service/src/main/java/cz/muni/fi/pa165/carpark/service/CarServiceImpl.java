@@ -40,144 +40,74 @@ public class CarServiceImpl implements CarService
     @Override
     public void AddCar(CarDto car)
     {
-        try
-        {
-            Car carEntity = Converter.getEntity(car);
-            carDao.AddCar(carEntity);
-        }
-        catch (IllegalArgumentException | PersistenceException ex)
-        {
-            throw new DataAccessException("Error when adding a car.",ex) {};
-        }catch (Exception ex)
-        {
-            throw new DataAccessException("Error when adding a car.",ex) {};
-        }
+        Car carEntity = Converter.getEntity(car);
+        carDao.AddCar(carEntity);
     }
 
     @Transactional
     @Override
     public CarDto getCar(Long id)
     {
-        try
-        {
-            Car carEntity = carDao.getCar(id);
-            return Converter.getTransferObject(carEntity);
-        }
-        catch (IllegalArgumentException | PersistenceException ex)
-        {
-            throw new DataAccessException("Error when getting a car.",ex) {};
-        }catch(Exception ex)
-        {
-            throw new DataAccessException("Error when getting a car.",ex) {};
-        }
+        Car carEntity = carDao.getCar(id);
+        return Converter.getTransferObject(carEntity);
     }
 
     @Transactional
     @Override
     public void EditCar(CarDto car)
     {
-        try
-        {
-            Car carEntity = Converter.getEntity(car);
-            carDao.EditCar(carEntity);
-        }
-        catch (IllegalArgumentException | PersistenceException ex)
-        {
-            throw new DataAccessException("Error when editing a car.",ex) {};
-        }catch(Exception ex)
-        {
-            throw new DataAccessException("Error when editing a car.",ex) {};
-        }
+        Car carEntity = Converter.getEntity(car);
+        carDao.EditCar(carEntity);
     }
 
     @Transactional
     @Override
     public void DeleteCar(CarDto car)
     {
-        try
-        {
-            Car carEntity = Converter.getEntity(car);
-            carDao.DeleteCar(carEntity);
-        }
-        catch (IllegalArgumentException | PersistenceException ex)
-        {
-            throw new DataAccessException("Error when deleting a car.",ex) {};
-        }catch(Exception ex)
-        {
-            throw new DataAccessException("Error when deleting a car.",ex) {};
-        }
+        Car carEntity = Converter.getEntity(car);
+        carDao.DeleteCar(carEntity);
     }
 
     @Transactional
     @Override
     public Collection<CarDto> getAllCars()
     {
-        try
+        List<CarDto> carsDto = new ArrayList<>();
+        List<Car> cars = new ArrayList<>(carDao.getAllCars());
+        for (Car car : cars)
         {
-            List<CarDto> carsDto = new ArrayList<>();
-            List<Car> cars = new ArrayList<>(carDao.getAllCars());
-            for (Car car : cars)
-            {
-                carsDto.add(Converter.getTransferObject(car));
-            }
-            
-            return Collections.unmodifiableCollection(carsDto);
+            carsDto.add(Converter.getTransferObject(car));
         }
-        catch (IllegalArgumentException | PersistenceException ex)
-        {
-            throw new DataAccessException("Error when getting all cars.",ex) {};
-        }catch(Exception ex)
-        {
-            throw new DataAccessException("Error when getting all cars.",ex) {};
-        }
+
+        return Collections.unmodifiableCollection(carsDto);
     }
 
     @Transactional
     @Override
     public Collection<CarDto> getRentedCars()
     {
-        try
+        List<CarDto> carsDto = new ArrayList<>();
+        List<Car> cars = new ArrayList<>(carDao.getRentedCars());
+        for (Car car : cars)
         {
-            List<CarDto> carsDto = new ArrayList<>();
-            List<Car> cars = new ArrayList<>(carDao.getRentedCars());
-            for (Car car : cars)
-            {
-                carsDto.add(Converter.getTransferObject(car));
-            }
-            
-            return Collections.unmodifiableCollection(carsDto);
+            carsDto.add(Converter.getTransferObject(car));
         }
-        catch (IllegalArgumentException | PersistenceException ex)
-        {
-            throw new DataAccessException("Error when getting rented cars.",ex) {};
-        }catch(Exception ex)
-        {
-            throw new DataAccessException("Error when getting rented cars.",ex) {};
-        }
+
+        return Collections.unmodifiableCollection(carsDto);
     }
 
     @Transactional
     @Override
     public Collection<CarDto> getFreeCars(Date from, Date to)
     {
-        try
+        List<CarDto> carsDto = new ArrayList<>();
+        List<Car> cars = new ArrayList<>(carDao.getFreeCars(from, to));
+        for (Car car : cars)
         {
-            List<CarDto> carsDto = new ArrayList<>();
-            List<Car> cars = new ArrayList<>(carDao.getFreeCars(from, to));
-            for (Car car : cars)
-            {
-                carsDto.add(Converter.getTransferObject(car));
-            }
-            
-            return Collections.unmodifiableCollection(carsDto);
+            carsDto.add(Converter.getTransferObject(car));
         }
-        catch (IllegalArgumentException | PersistenceException ex)
-        {
-            throw new DataAccessException("Error when getting free cars.",ex) {};
-        }catch(Exception ex)
-        {
-            throw new DataAccessException("Error when getting free cars.",ex) {};
-        }
+
+        return Collections.unmodifiableCollection(carsDto);
     }
     
 }
