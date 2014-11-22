@@ -50,7 +50,10 @@
                         <td>${rental.rentalState}</td>
                         <td>${rental.fromDate}</td>
                         <td>${rental.toDate}</td>
-                        <td><a href="#" class="btn btn-link">${rental.car.id}</a></td>
+                        <td><a href="#" class="btn btn-link" data-toggle="modal" data-target="#carDetails"
+                               data-car-id="${rental.car.id}" data-car-brand="${rental.car.brand}" data-car-type="${rental.car.type}"
+                               data-car-color="${rental.car.color}" data-car-engine="${rental.car.engine}" data-car-model="${rental.car.model}"
+                               data-car-licencePlate="${rental.car.licencePlate}" data-car-vin="${rental.car.VIN}"><fmt:message key="car.details"/></a></td>
                         <td><a href="<c:url value="/auth/user/${userId}/rental/${rental.id}/edit" />" class="btn btn-default"><fmt:message key="edit" /></a></td>
                         <td>
                             <form action="<c:url value="/auth/user/${userId}/rental/${rental.id}/delete" />" method="POST" class="form-inline">
@@ -62,5 +65,8 @@
             </tbody>
         </table>      
         <custom:delete-dialog key="rental"></custom:delete-dialog>
+        <custom:modal-dialog dialogId="carDetails" dialogTitleKey="carDetails.title">
+            <%@include file="" %>
+        </custom:modal-dialog>
     </jsp:attribute>        
 </custom:layout>
