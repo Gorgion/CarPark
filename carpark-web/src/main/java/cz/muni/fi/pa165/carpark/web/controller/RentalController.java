@@ -17,9 +17,12 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import org.aspectj.util.LangUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +48,13 @@ public class RentalController
     @Autowired
     private CarService carService;
 
+    @Autowired
+    private ConversionService conversionService;
+    @InitBinder
+    protected void initBinder(ServletRequestDataBinder binder) {
+        binder.setConversionService(conversionService);
+    }    
+    
     @ModelAttribute("states")
     public RentalDto.State[] rentalStates()
     {
@@ -116,7 +126,8 @@ public class RentalController
             rentalService.create(rental);
         } catch (CarAlreadyReserved e)
         {
-            result.reject("error.rental.carAlreadyReserved");
+//            result.reject("error.rental.carAlreadyReserved");
+            model.addAttribute("error.rental.carAlreadyReserved");
 
             Collection<CarDto> cars = carService.getFreeCars(rentalForm.getRentalDate().getFrom(), rentalForm.getRentalDate().getTo());
             model.addAttribute("cars", cars);
