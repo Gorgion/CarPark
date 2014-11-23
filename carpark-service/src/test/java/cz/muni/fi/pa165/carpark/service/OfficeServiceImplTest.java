@@ -52,7 +52,7 @@ public class OfficeServiceImplTest
     //@Ignore
     public void wrongAddOfficeTest()
     {
-        Mockito.doThrow(IllegalArgumentException.class).when(officeDaoMocked).addOffice(null);
+        Mockito.doThrow(new DataAccessException(""){}).when(officeDaoMocked).addOffice(null);
         officeService.addOffice(null);
     }
        
@@ -288,7 +288,7 @@ public class OfficeServiceImplTest
         Mockito.verify(officeDaoMocked,Mockito.times(1)).deleteEmployeeFromOffice(Converter.getEntity(officeDto), Converter.getEntity(userDto));
         
         Mockito.doReturn(office).when(officeDaoMocked).getOffice(1L);
-        Mockito.doReturn(employees).when(officeDaoMocked).getEmployees(office);
+        Mockito.doReturn(Converter.getEntityUserList(employees)).when(officeDaoMocked).getEmployees(office);
         
         List<UserDto> result = officeService.getEmployees(officeDto);
         
@@ -317,7 +317,7 @@ public class OfficeServiceImplTest
         Mockito.verify(officeDaoMocked,Mockito.times(1)).deleteCarFromOffice(Converter.getEntity(officeDto), Converter.getEntity(carDto));
         
         Mockito.doReturn(office).when(officeDaoMocked).getOffice(1L);
-        Mockito.doReturn(cars).when(officeDaoMocked).getOfficeCars(office);
+        Mockito.doReturn(Converter.getEntityCarList(cars)).when(officeDaoMocked).getOfficeCars(office);
         
         List<CarDto> result = officeService.getOfficeCars(officeDto);
         
