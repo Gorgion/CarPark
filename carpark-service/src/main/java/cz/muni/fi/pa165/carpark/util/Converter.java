@@ -454,6 +454,18 @@ public class Converter
         return users;
     }
     
+    public static List<Office> getEntityOfficeList(List<OfficeDto> officesDto)
+    {
+        List<Office> offices = new ArrayList<>();
+        
+        for(OfficeDto officeDto : officesDto)
+        {
+            offices.add(Converter.getEntity(officeDto));
+        }
+        
+        return offices;
+    }
+    
     public static List<Car> getEntityCarList(List<CarDto> carsDto)
     {
         List<Car> cars = new ArrayList<>();
