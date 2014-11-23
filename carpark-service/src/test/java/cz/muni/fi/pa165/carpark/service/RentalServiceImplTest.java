@@ -192,6 +192,8 @@ public class RentalServiceImplTest {
         rentalDto.setToDate(calendar.getTime());
         rentalDto.setRentalState(RentalDto.State.ACTIVE);
         
+        FUCK GIT!!
+        
         User user = new User();
         user.setFirstName("name");
         user.setLastName("surname");
