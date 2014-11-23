@@ -64,7 +64,7 @@ public class UserServiceImplTest
     @Test(expected = DataAccessException.class)
     public void testCreateWithNullArg()
     {
-        Mockito.doThrow(DataAccessException.class).when(mockedUserDao).add(null);
+        Mockito.doThrow(new DataAccessException("") {}).when(mockedUserDao).add(null);
 
         userService.add(null);
     }
@@ -98,7 +98,7 @@ public class UserServiceImplTest
     @Test(expected = DataAccessException.class)
     public void testEditWithNullArg()
     {
-        Mockito.doThrow(DataAccessException.class).when(mockedUserDao).edit(null);
+        Mockito.doThrow(new DataAccessException("") {}).when(mockedUserDao).edit(null);
 
         userService.edit(null);
     }
