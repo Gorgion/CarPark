@@ -48,12 +48,12 @@ public class RentalController
     @Autowired
     private CarService carService;
 
-    @Autowired
-    private ConversionService conversionService;
-    @InitBinder
-    protected void initBinder(ServletRequestDataBinder binder) {
-        binder.setConversionService(conversionService);
-    }    
+//    @Autowired
+//    private ConversionService conversionService;
+//    @InitBinder
+//    protected void initBinder(ServletRequestDataBinder binder) {
+//        binder.setConversionService(conversionService);
+//    }    
     
     @ModelAttribute("states")
     public RentalDto.State[] rentalStates()
