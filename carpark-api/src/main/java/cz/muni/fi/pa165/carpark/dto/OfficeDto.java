@@ -5,8 +5,6 @@
  */
 package cz.muni.fi.pa165.carpark.dto;
 
-import cz.muni.fi.pa165.carpark.entity.Car;
-import cz.muni.fi.pa165.carpark.entity.User;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,17 +17,17 @@ public class OfficeDto {
     
     private Long iD;
     private String address;
-    private User manager;
-    private List<User> employees;
+    private UserDto manager;
+    private List<UserDto> employees;
 
-    public OfficeDto(String address, User manager, List<User> employees, List<Car> cars) 
+    public OfficeDto(String address, UserDto manager, List<UserDto> employees, List<CarDto> cars) 
     {
         this.address = address;
         this.manager = manager;
         this.employees = employees;
         this.cars = cars;
     }
-    private List<Car> cars;
+    private List<CarDto> cars;
 
     /**
      * @return the iD
@@ -62,42 +60,42 @@ public class OfficeDto {
     /**
      * @return the manager
      */
-    public User getManager() {
+    public UserDto getManager() {
         return manager;
     }
 
     /**
      * @param manager the manager to set
      */
-    public void setManager(User manager) {
+    public void setManager(UserDto manager) {
         this.manager = manager;
     }
 
     /**
      * @return the employees
      */
-    public List<User> getEmployees() {
+    public List<UserDto> getEmployees() {
         return employees;
     }
 
     /**
      * @param employees the employees to set
      */
-    public void setEmployees(List<User> employees) {
+    public void setEmployees(List<UserDto> employees) {
         this.employees = employees;
     }
 
     /**
      * @return the cars
      */
-    public List<Car> getCars() {
+    public List<CarDto> getCars() {
         return cars;
     }
 
     /**
      * @param cars the cars to set
      */
-    public void setCars(List<Car> cars) {
+    public void setCars(List<CarDto> cars) {
         this.cars = cars;
     }
 
