@@ -35,7 +35,8 @@
             </div>
         </c:if>
 
-        <form:form action="/auth/user/${userId}/rental/add" method="POST" modelAttribute="rentalDate" class="form-horizontal">
+        <c:url var="addUrl" value="/auth/user/${userId}/rental/add" />
+        <form:form action="${addUrl}" method="POST" modelAttribute="rentalDate" class="form-horizontal">
             <div class="form-group"> 
                 <form:label path="from" cssClass="col-sm-2"><fmt:message key="rental.fromDate" /></form:label>
                     <div class="col-sm-5">
@@ -83,7 +84,8 @@
                     </div>
                     <div class="col-sm-3">
 
-                        <form:form action="/auth/user/${userId}/rental/add/1" method="POST" modelAttribute="rentalForm" class="form-inline">               
+                        <c:url var="add1Url" value="/auth/user/${userId}/rental/add/1" />
+                        <form:form action="${add1Url}" method="POST" modelAttribute="rentalForm" class="form-inline">               
                             <form:hidden path="rentalDate" />
                             <form:hidden path="car" />
                             <button type="submit" class="btn btn-success"><fmt:message key="btn.rentCar" /></button>
