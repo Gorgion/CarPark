@@ -385,9 +385,9 @@ public class Converter
         
         officeEntity.setID(office.getID());
         officeEntity.setAddress(office.getAddress());
-        officeEntity.setManager(office.getManager());
-        officeEntity.setCars(office.getCars());
-        officeEntity.setEmployees(office.getEmployees());
+        officeEntity.setManager(getEntity(office.getManager()));
+        officeEntity.setCars(getEntityCarList(office.getCars()));
+        officeEntity.setEmployees(getEntityUserList(office.getEmployees()));
         
         return officeEntity;
     }
@@ -400,9 +400,9 @@ public class Converter
        
         OfficeDto officeDto = new OfficeDto(
                 office.getAddress(), 
-                office.getManager(), 
-                office.getEmployees(), 
-                office.getCars()
+                getTransferObject(office.getManager()), 
+                getTransferObjectUserList(office.getEmployees()), 
+                getTransferObjectCarList(office.getCars())
         );
         
         officeDto.setID(office.getID());
@@ -442,16 +442,16 @@ public class Converter
         return carsDto;
     }
     
-    public static List<Office> getEntityOfficeList(List<OfficeDto> officesDto)
+    public static List<User> getEntityUserList(List<UserDto> usersDto)
     {
-        List<Office> offices = new ArrayList<>();
+        List<User> users = new ArrayList<>();
         
-        for(OfficeDto officeDto : officesDto)
+        for(UserDto userDto : usersDto)
         {
-            offices.add(Converter.getEntity(officeDto));
+            users.add(Converter.getEntity(userDto));
         }
         
-        return offices;
+        return users;
     }
     
     public static List<Car> getEntityCarList(List<CarDto> carsDto)
