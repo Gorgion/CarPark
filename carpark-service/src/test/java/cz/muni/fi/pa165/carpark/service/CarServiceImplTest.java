@@ -63,16 +63,16 @@ public class CarServiceImplTest {
         Assert.assertEquals(carDto.getLicencePlate(), actualDto.getLicencePlate());
         Assert.assertEquals(carDto.getVIN(), actualDto.getVIN());
     }
-    
+
     @Test(expected = DataAccessException.class)
     public void addCarWithNullTest() {
-        Mockito.doThrow(IllegalArgumentException.class).when(carDM).AddCar(null);
+        Mockito.doThrow(new DataAccessException("") {}).when(carDM).AddCar(null);
         carService.AddCar(null);
     }
-    
+
     @Test(expected = DataAccessException.class)
     public void getCarWithWrongIdTest(){
-        Mockito.doThrow(IllegalArgumentException.class).when(carDM).getCar(Long.MIN_VALUE);
+        Mockito.doThrow(new DataAccessException("") {}).when(carDM).getCar(Long.MIN_VALUE);
         carService.getCar(Long.MIN_VALUE);
     }
     
@@ -101,9 +101,9 @@ public class CarServiceImplTest {
         Assert.assertEquals(carDto.getVIN(), actualDto.getVIN());
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void editCarWithNullTest(){
-        Mockito.doThrow(IllegalArgumentException.class).when(carDM).EditCar(null);
+        Mockito.doThrow(new DataAccessException("") {}).when(carDM).EditCar(null);
         carDM.EditCar(null);
     }
     @Test
@@ -120,9 +120,9 @@ public class CarServiceImplTest {
         Assert.assertNull(carDM.getCar(1L));
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void deleteCarWithNullTest(){
-        Mockito.doThrow(IllegalArgumentException.class).when(carDM).DeleteCar(null);
+        Mockito.doThrow(new DataAccessException("") {}).when(carDM).DeleteCar(null);
         carDM.DeleteCar(null);
     }
     
@@ -152,7 +152,6 @@ public class CarServiceImplTest {
     }
     
     @Test
-    //@Ignore
     public void getRentedCarsTest(){
         CarDto carDto1 = new CarDto(CarDto.mBrand.SKODA, CarDto.mType.COMBI, CarDto.mColor.BLACK, CarDto.mEngine.PETROL, CarDto.mModel.FABIA, "LP", "VIN", true);
         CarDto carDto2 = new CarDto(CarDto.mBrand.CHEVROLET, CarDto.mType.CABRIOLET, CarDto.mColor.RED, CarDto.mEngine.ELECTRIC, CarDto.mModel.CAMARO, "LP2", "VIN2", false);
