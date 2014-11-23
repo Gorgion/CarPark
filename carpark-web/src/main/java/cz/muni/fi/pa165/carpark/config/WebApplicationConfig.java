@@ -7,13 +7,14 @@ package cz.muni.fi.pa165.carpark.config;
 
 import cz.muni.fi.pa165.carpark.web.util.StringToCarDtoConverter;
 import java.util.List;
-import javax.validation.Validator;
+//import javax.validation.Validator;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -38,10 +39,10 @@ public class WebApplicationConfig extends WebMvcConfigurerAdapter
 //        registry.addResourceHandler("/images/**").addResourceLocations("classpath:/images/");
     }
     
-    @Override
-    public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new StringToCarDtoConverter());                
-    }
+//    @Override
+//    public void addFormatters(FormatterRegistry registry) {
+//        registry.addConverter(new StringToCarDtoConverter());                
+//    }
 
     @Bean
     public MessageSource messageSource()
@@ -53,11 +54,19 @@ public class WebApplicationConfig extends WebMvcConfigurerAdapter
         messageSource.setCacheSeconds(5);
         return messageSource;
     }
-
-    @Bean
-    public Validator validator()
+    
+    @Bean(name = "validator")
+    public LocalValidatorFactoryBean validator()
     {
-        return new LocalValidatorFactoryBean();
+        LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+        bean.setValidationMessageSource(messageSource());
+        return bean;
+    }
+
+    @Override
+    public Validator getValidator()
+    {
+        return validator();
     }
 
     @Bean
