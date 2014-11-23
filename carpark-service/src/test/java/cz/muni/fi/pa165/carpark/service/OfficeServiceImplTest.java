@@ -191,7 +191,7 @@ public class OfficeServiceImplTest
         
         officeService.addOffice(officeDto);
         
-        officeDto.setCars(Converter.getEntityCarList(newCars));
+        officeDto.setCars(newCars);
         office = Converter.getEntity(officeDto);
         
         Mockito.doNothing().when(officeDaoMocked).editOffice(office);
@@ -275,24 +275,24 @@ public class OfficeServiceImplTest
         
         Office office = Converter.getEntity(officeDto);
         
-        List<User> employees = new ArrayList<>(officeDto.getEmployees());
+        List<UserDto> employees = new ArrayList<>(officeDto.getEmployees());
         
-        User user = employees.get(1);
+        UserDto userDto = employees.get(1);
         
         employees.remove(1);
         
         Mockito.doNothing().when(officeDaoMocked).addOffice(office);
         officeService.addOffice(officeDto);
         
-        officeService.deleteEmployeeFromOffice(officeDto, Converter.getTransferObject(user));
-        Mockito.verify(officeDaoMocked,Mockito.times(1)).deleteEmployeeFromOffice(office, user);
+        officeService.deleteEmployeeFromOffice(officeDto, userDto);
+        Mockito.verify(officeDaoMocked,Mockito.times(1)).deleteEmployeeFromOffice(Converter.getEntity(officeDto), Converter.getEntity(userDto));
         
         Mockito.doReturn(office).when(officeDaoMocked).getOffice(1L);
         Mockito.doReturn(employees).when(officeDaoMocked).getEmployees(office);
         
         List<UserDto> result = officeService.getEmployees(officeDto);
         
-        Assert.assertEquals(Converter.getTransferObjectUserList(employees), result);
+        Assert.assertEquals(employees, result);
     }
     
     @Test
@@ -304,24 +304,24 @@ public class OfficeServiceImplTest
         
         Office office = Converter.getEntity(officeDto);
         
-        List<Car> cars = new ArrayList<>(officeDto.getCars());
+        List<CarDto> cars = new ArrayList<>(officeDto.getCars());
         
-        Car car = cars.get(3);
+        CarDto carDto = cars.get(3);
         
         cars.remove(3);
         
         Mockito.doNothing().when(officeDaoMocked).addOffice(office);
         officeService.addOffice(officeDto);
         
-        officeService.deleteCarFromOffice(officeDto, Converter.getTransferObject(car));
-        Mockito.verify(officeDaoMocked,Mockito.times(1)).deleteCarFromOffice(office, car);
+        officeService.deleteCarFromOffice(officeDto, carDto);
+        Mockito.verify(officeDaoMocked,Mockito.times(1)).deleteCarFromOffice(Converter.getEntity(officeDto), Converter.getEntity(carDto));
         
         Mockito.doReturn(office).when(officeDaoMocked).getOffice(1L);
         Mockito.doReturn(cars).when(officeDaoMocked).getOfficeCars(office);
         
         List<CarDto> result = officeService.getOfficeCars(officeDto);
         
-        Assert.assertEquals(Converter.getTransferObjectCarList(cars), result);
+        Assert.assertEquals(cars, result);
     }
     
     

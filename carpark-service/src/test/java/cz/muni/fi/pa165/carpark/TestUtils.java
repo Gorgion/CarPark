@@ -19,6 +19,7 @@ import cz.muni.fi.pa165.carpark.entity.Office;
 import cz.muni.fi.pa165.carpark.entity.Rental;
 import cz.muni.fi.pa165.carpark.entity.Rental.State;
 import cz.muni.fi.pa165.carpark.entity.User;
+import cz.muni.fi.pa165.carpark.util.Converter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -105,15 +106,15 @@ public class TestUtils {
     
     public static OfficeDto createSampleDtoOffice(){
 
-        User empl1m = createUser("Jiří", "Jirkovič", "Adresa 1", "321bn");
-        User empl2 = createUser("Jan", "Jirkovič", "Adresa 1", "123bn");
-        User empl3 = createUser("Karel", "Karlovič", "Adresa 3", "456bn");
-        User empl4 = createUser("Pepa", "Pepovič", "Adresa 4", "112bn");
+        UserDto empl1m = Converter.getTransferObject(createUser("Jiří", "Jirkovič", "Adresa 1", "321bn"));
+        UserDto empl2 = Converter.getTransferObject(createUser("Jan", "Jirkovič", "Adresa 1", "123bn"));
+        UserDto empl3 = Converter.getTransferObject(createUser("Karel", "Karlovič", "Adresa 3", "456bn"));
+        UserDto empl4 = Converter.getTransferObject(createUser("Pepa", "Pepovič", "Adresa 4", "112bn"));
         
-        Car car1 = createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP1", "VIN1", false);
-        Car car2 = createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP2", "VIN2", false);
-        Car car3 = createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP3", "VIN3", false);
-        Car car4 = createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP4", "VIN4", false);
+        CarDto car1 = Converter.getTransferObject(createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP1", "VIN1", false));
+        CarDto car2 = Converter.getTransferObject(createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP2", "VIN2", false));
+        CarDto car3 = Converter.getTransferObject(createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP3", "VIN3", false));
+        CarDto car4 = Converter.getTransferObject(createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP4", "VIN4", false));
         
         OfficeDto officeDto = new OfficeDto("Polní 22",empl1m,Arrays.asList(empl1m, empl2, empl3, empl4),Arrays.asList(car1, car2, car3, car4));
         
