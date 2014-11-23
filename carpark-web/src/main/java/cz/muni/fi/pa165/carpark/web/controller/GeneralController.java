@@ -18,7 +18,8 @@ public class GeneralController
     @RequestMapping(value = "/")
     public String homePage()
     {        
-        return "office-list";
-//        return "index";
+        //return "office-list";
+        //return "user-list";
+        return "index";
     }    
 }
