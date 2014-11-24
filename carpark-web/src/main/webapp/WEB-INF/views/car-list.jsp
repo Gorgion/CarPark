@@ -4,15 +4,12 @@
     Author     : Jiri Dockal
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" session="false"%>
 
 <%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:message var="title" key="car.list.title"/>
-<custom:layout title="${title}">    
-    <jsp:attribute name="content">
         <div class="row">
             <a href="<c:url value="/auth/user/${userId}/car/add" />" class="btn btn-success"><fmt:message key="car.add"/></a>
         </div>
@@ -71,5 +68,4 @@
             </tbody>
         </table>      
         <custom:delete-dialog key="car"></custom:delete-dialog>
-    </jsp:attribute>        
-</custom:layout>
+  
