@@ -22,8 +22,8 @@
     <head>
         <title><c:out value="${title}"/></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css"/>-->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/style.css"/>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />      
         <jsp:invoke fragment="head"/>
     </head>
     <body>
@@ -54,9 +54,11 @@
             <jsp:invoke fragment="content"/>
         </div>
 
-        <footer class="container">
+        <footer>
+            <div class="container">
             <p>&copy; Carp Park 2014</p>
             <p><a href="#"><fmt:message key="navigation.backToTop"/></a></p>            
+            </div>
         </footer>
 
 

@@ -36,15 +36,15 @@
         </c:if>
 
         <c:url var="addUrl" value="/auth/user/${userId}/rental/add" />
-        <form:form action="${addUrl}" method="POST" modelAttribute="rentalDate" class="form-horizontal">
+        <form:form action="${addUrl}" method="POST" modelAttribute="rentalForm" class="form-horizontal">
             <div class="form-group"> 
                 <form:label path="from" cssClass="col-sm-2"><fmt:message key="rental.fromDate" /></form:label>
                     <div class="col-sm-5">
                     <c:if test="${phase == 0}">
-                        <form:input type="type" path="from" cssClass="form-control"/>
+                        <form:input type="date" path="from" cssClass="form-control"/>
                     </c:if>
                     <c:if test="${phase != 0}">
-                        <form:input type="type" path="from" cssClass="form-control" readonly=""/>
+                        <form:input type="date" path="from" cssClass="form-control" readonly=""/>
                     </c:if>
                 </div>
                 <div class="col-sm-5"><form:errors path="from" cssClass="help-block"></form:errors></div>                
@@ -53,10 +53,10 @@
                 <form:label path="to" cssClass="col-sm-2"><fmt:message key="rental.toDate" /></form:label>
                     <div class="col-sm-5">
                     <c:if test="${phase == 0}">
-                        <form:input type="type" path="to" cssClass="form-control"/>
+                        <form:input type="date" path="to" cssClass="form-control"/>
                     </c:if>
                     <c:if test="${phase != 0}">
-                        <form:input type="type" path="to" cssClass="form-control" readonly=""/>
+                        <form:input type="date" path="to" cssClass="form-control" readonly=""/>
                     </c:if>
                 </div>
                 <div class="col-sm-5"><form:errors path="to" cssClass="help-block"></form:errors></div>                
@@ -86,8 +86,12 @@
 
                         <c:url var="add1Url" value="/auth/user/${userId}/rental/add/1" />
                         <form:form action="${add1Url}" method="POST" modelAttribute="rentalForm" class="form-inline">               
-                            <form:hidden path="rentalDate" />
-                            <form:hidden path="car" />
+                            <%--<form:hidden path="rentalDate" />--%>
+                            <form:hidden path="from"  />
+                            <!--<input type="hidden" name="from" id="from" value="${rentalDate.from}">-->
+                            <form:hidden path="to" />
+                            
+                            <form:hidden path="carId" value="${car.ID}"/>
                             <button type="submit" class="btn btn-success"><fmt:message key="btn.rentCar" /></button>
                         </form:form>
                     </div>

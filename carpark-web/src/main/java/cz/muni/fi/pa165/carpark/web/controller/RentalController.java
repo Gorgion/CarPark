@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 import org.aspectj.util.LangUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -82,7 +83,7 @@ public class RentalController
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String createRentalStepZero(Model model)
     {
-        model.addAttribute("rentalDate", new RentalDate());
+        model.addAttribute("rentalForm", new RentalForm());
         model.addAttribute("phase", 0);
 
         return "rental-form";
@@ -92,17 +93,27 @@ public class RentalController
     {
         RequestMethod.POST, RequestMethod.PUT
     })
-    public String createRentalStepOne(@PathVariable Long userId, @Valid @ModelAttribute RentalDate rentalDate, BindingResult result, Model model)
+    public String createRentalStepOne(@PathVariable Long userId, @Valid @ModelAttribute /*RentalDate rentalDate*/ RentalForm rentalForm, final BindingResult result, Model model)
     {
         if (result.hasErrors())
         {
-//            model.addAttribute("phase", 0);
+            model.addAttribute("phase", 0);
             return "rental-form";
         }
-        Collection<CarDto> cars = carService.getFreeCars(rentalDate.from, rentalDate.to);
-
+        Collection<CarDto> cars = carService./*getAllCars();//*/getFreeCars(rentalForm.getFrom(), rentalForm.getTo());//rentalDate.from, rentalDate.to);
+        System.out.println("\n\n\nFREE------------------" + cars + "\n----------");
+        System.out.println("\n\n\nRented------------------" + carService.getRentedCars() + "\n----------");
+        System.out.println("\n\n\nAll------------------" + carService.getAllCars() + "\n----------");
         model.addAttribute("cars", cars);
         model.addAttribute("phase", 1);
+        
+//        RentalForm rf = new RentalForm();
+//        rf.setRentalDate(rentalDate);
+//        rf.setFrom(rentalDate.getFrom());
+//        rf.setTo(rentalDate.getTo());
+        
+//        model.addAttribute("rentalDate", rentalDate);
+        model.addAttribute("rentalForm", rentalForm);
 
         return "rental-form";
     }
@@ -111,25 +122,46 @@ public class RentalController
     {
         RequestMethod.POST, RequestMethod.PUT
     })
-    public String createRentalStepTwo(@PathVariable Long userId, @Valid @ModelAttribute RentalForm rentalForm, BindingResult result, Model model, RedirectAttributes redirectAttributes)
+    public String createRentalStepTwo(@PathVariable Long userId, /*@Valid*/ @ModelAttribute RentalForm rentalForm, final BindingResult result, Model model, RedirectAttributes redirectAttributes)
     {
+        
+        System.out.println("\n#1");
         if (result.hasErrors())
         {
+         System.out.println("\n#2-------\n" + result.getAllErrors());   
+//         RentalDate rentalDate = new RentalDate();
+//         rentalDate.setFrom(rentalForm.from);
+//         rentalDate.setTo(rentalForm.getTo());
+//         model.addAttribute("rentalDate", rentalDate);
+            model.addAttribute("phase", 1);
             return "rental-form";
         }
-
+//System.out.println("\n#3\n"+rentalForm.from  + "\n" + rentalForm.to+ "\n"+rentalForm.carId+"\n--------");
+        CarDto car = carService.getCar(rentalForm.getCarId());
         try
         {
             UserDto user = userService.get(userId);
-            RentalDto rental = new RentalDto(rentalForm.getRentalDate().getFrom(), rentalForm.getRentalDate().getTo(), RentalDto.State.NEW, rentalForm.getCar(), user);
+//            RentalDto rental = new RentalDto(rentalForm.getRentalDate().getFrom(), rentalForm.getRentalDate().getTo(), RentalDto.State.NEW, rentalForm.getCar(), user);
+            RentalDto rental = new RentalDto(rentalForm.getFrom(), rentalForm.getTo(), RentalDto.State.NEW, /*rentalForm.getCar()*/car, user);
 
+//            System.out.println("\n#4");
             rentalService.create(rental);
+//            System.out.println("\n#5");
         } catch (CarAlreadyReserved e)
         {
+//            System.out.println("\n#6");
 //            result.reject("error.rental.carAlreadyReserved");
             model.addAttribute("error.rental.carAlreadyReserved");
+//System.out.println("\nERR-------\n" + result.getAllErrors());   
 
-            Collection<CarDto> cars = carService.getFreeCars(rentalForm.getRentalDate().getFrom(), rentalForm.getRentalDate().getTo());
+//         RentalDate rentalDate = new RentalDate();
+//         rentalDate.setFrom(rentalForm.from);
+//         rentalDate.setTo(rentalForm.getTo());
+//         model.addAttribute("rentalDate", rentalDate);
+         
+            model.addAttribute("phase", 1);
+//            Collection<CarDto> cars = carService.getFreeCars(rentalForm.getRentalDate().getFrom(), rentalForm.getRentalDate().getTo());
+            Collection<CarDto> cars = carService.getAllCars();//FreeCars(rentalForm.getFrom(), rentalForm.getTo());
             model.addAttribute("cars", cars);
 
             return "rental-form";
@@ -206,22 +238,76 @@ public class RentalController
         return "redirect:/auth/user/" + userId + "/rental";
     }
 
+//    @AfterDate(fromFieldName = "from", toFieldName = "to")
+//    public static class RentalDate
+//    {
+//
+//        @NotNull
+//        @Future
+//        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+//        private Date from;
+//
+//        @NotNull
+//        @Future
+//        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+//        private Date to;
+//
+//        public RentalDate()
+//        {
+//        }
+//
+//        public Date getFrom()
+//        {
+//            return from;
+//        }
+//
+//        public void setFrom(Date from)
+//        {
+//            this.from = from;
+//        }
+//
+//        public Date getTo()
+//        {
+//            return to;
+//        }
+//
+//        public void setTo(Date to)
+//        {
+//            this.to = to;
+//        }
+//
+//    }
+
     @AfterDate(fromFieldName = "from", toFieldName = "to")
-    public static class RentalDate
+    public static class RentalForm
     {
 
+//        @NotNull
+//        private RentalDate rentalDate;
+
+//        @NotNull
+        private Long carId;
+
+        public Long getCarId()
+        {
+            return carId;
+        }
+
+        public void setCarId(Long carId)
+        {
+            this.carId = carId;
+        }
+        
         @NotNull
         @Future
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
         private Date from;
 
         @NotNull
         @Future
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
         private Date to;
-
-        public RentalDate()
-        {
-        }
-
+        
         public Date getFrom()
         {
             return from;
@@ -241,37 +327,29 @@ public class RentalController
         {
             this.to = to;
         }
-
-    }
-
-    public static class RentalForm
-    {
-
-        @NotNull
-        private RentalDate rentalDate;
-
-        @NotNull
-        private CarDto car;
-
-        public RentalDate getRentalDate()
-        {
-            return rentalDate;
-        }
-
-        public void setRentalDate(RentalDate rentalDate)
-        {
-            this.rentalDate = rentalDate;
-        }
-
-        public CarDto getCar()
-        {
-            return car;
-        }
-
-        public void setCar(CarDto car)
-        {
-            this.car = car;
-        }
+        
+//        @NotNull
+//        private CarDto car;
+//
+//        public RentalDate getRentalDate()
+//        {
+//            return rentalDate;
+//        }
+//
+//        public void setRentalDate(RentalDate rentalDate)
+//        {
+//            this.rentalDate = rentalDate;
+//        }
+//
+//        public CarDto getCar()
+//        {
+//            return car;
+//        }
+//
+//        public void setCar(CarDto car)
+//        {
+//            this.car = car;
+//        }
     }
 
     public static class RentalState
