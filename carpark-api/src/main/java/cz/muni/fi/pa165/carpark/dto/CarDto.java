@@ -23,6 +23,8 @@ public class CarDto implements Serializable
     private String VIN;
     private boolean rented;
     
+    public CarDto(){}
+    
     public CarDto(mBrand brand, mType type, mEngine engine, String licencePlate, String VIN, boolean rented)
     {
         this.brand = brand;
