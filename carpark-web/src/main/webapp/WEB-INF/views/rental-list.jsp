@@ -44,19 +44,23 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="rentals" var="rental">
+                <c:forEach items="${rentals}" var="rental">
                     <tr>
-                        <td>${rental.id}</td>
-                        <td>${rental.rentalState}</td>
-                        <td>${rental.fromDate}</td>
-                        <td>${rental.toDate}</td>
-                        <td><a href="#" class="btn btn-link" data-toggle="modal" data-target="#carDetails"
-                               data-car-id="${rental.car.id}" data-car-brand="${rental.car.brand}" data-car-type="${rental.car.type}"
-                               data-car-color="${rental.car.color}" data-car-engine="${rental.car.engine}" data-car-model="${rental.car.model}"
-                               data-car-licencePlate="${rental.car.licencePlate}" data-car-vin="${rental.car.VIN}"><fmt:message key="car.details"/></a></td>
-                        <td><a href="<c:url value="/auth/user/${userId}/rental/${rental.id}/edit" />" class="btn btn-default"><fmt:message key="edit" /></a></td>
+                        <td><c:out value="${rental.id}"/></td>
+                        <td><fmt:message key="rental.states.${rental.rentalState}"/></td>
+                        <td><fmt:formatDate value="${rental.fromDate}" type="DATE"/></td>
+                        <td><fmt:formatDate value="${rental.toDate}" type="DATE"/></td>
                         <td>
-                            <form action="<c:url value="/auth/user/${userId}/rental/${rental.id}/delete" />" method="POST" class="form-inline">
+                            <a href="#" class="btn btn-link" data-toggle="modal" data-target="#carDetails"
+                               data-car-id="${rental.car.ID}" data-car-brand="${rental.car.brand}" data-car-type="${rental.car.type}"
+                               data-car-engine="${rental.car.engine}" 
+                               data-car-licencePlate="${rental.car.licencePlate}" data-car-vin="${rental.car.VIN}"><fmt:message key="car.details"/></a>
+                        </td>
+                        <td>
+                            <a href='<c:url value="/auth/user/${userId}/rental/${rental.id}/edit" />' class="btn btn-default"><fmt:message key="edit" /></a>
+                        </td>
+                        <td>
+                            <form action="<c:url value='/auth/user/${userId}/rental/${rental.id}/delete' />" method="POST" class="form-inline">
                                 <button type="submit" name="delete" class="btn btn-danger"><fmt:message key="delete" /></button>
                             </form>                            
                         </td>
@@ -66,7 +70,7 @@
         </table>      
         <custom:delete-dialog key="rental"></custom:delete-dialog>
         <custom:modal-dialog dialogId="carDetails" dialogTitleKey="carDetails.title">
-            <%@include file="" %>
+            <jsp:include page="car-list.jsp" flush="false"/>
         </custom:modal-dialog>
     </jsp:attribute>        
 </custom:layout>

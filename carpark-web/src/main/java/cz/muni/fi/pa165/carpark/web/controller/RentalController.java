@@ -83,6 +83,17 @@ public class RentalController
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String createRentalStepZero(Model model)
     {
+//        UserDto user = new UserDto();
+//        user.setAddress("Address");
+//        user.setBirthNumber("396578");
+//        user.setFirstName("Name");
+//        user.setLastName("Surname");
+//        
+//        userService.add(user);
+        
+//        CarDto car = new CarDto(CarDto.mBrand.FORD_FOCUS, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "plate", "vinvin", false);
+//        carService.AddCar(car);
+        
         model.addAttribute("rentalForm", new RentalForm());
         model.addAttribute("phase", 0);
 
@@ -151,7 +162,7 @@ public class RentalController
         {
 //            System.out.println("\n#6");
 //            result.reject("error.rental.carAlreadyReserved");
-            model.addAttribute("error.rental.carAlreadyReserved");
+            model.addAttribute("error","error.rental.carAlreadyReserved");
 //System.out.println("\nERR-------\n" + result.getAllErrors());   
 
 //         RentalDate rentalDate = new RentalDate();
@@ -202,6 +213,20 @@ public class RentalController
         originalRental.setRentalState(rentalState.getState());
 
         rentalService.edit(originalRental);
+        
+        if(rentalState.getState() == RentalDto.State.ACTIVE)
+        {
+            CarDto car = originalRental.getCar();
+            car.setRented(true);
+            carService.EditCar(car);
+        }
+        
+        if(rentalState.getState() == RentalDto.State.FINISHED)
+        {
+            CarDto car = originalRental.getCar();
+            car.setRented(false);
+            carService.EditCar(car);
+        }
 
         redirectAttributes.addFlashAttribute("msg", "msg.rental.edited");
 

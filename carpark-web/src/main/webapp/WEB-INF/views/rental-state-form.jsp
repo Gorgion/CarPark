@@ -39,7 +39,7 @@
         <c:url var="changeStateUrl" value="/auth/user/${userId}/rental/${id}/edit" />
         <form:form action="${changeStateUrl}" method="POST" modelAttribute="rentalState">
             <form:errors cssClass="alert alert-danger alert-dismissable" element="dir" path="*"/>
-                <c:forEach items="states" var="s">
+                <c:forEach items="${states}" var="s">
                     <div class="radio">
                         <label>
                             <c:if test="${checked == s}">
