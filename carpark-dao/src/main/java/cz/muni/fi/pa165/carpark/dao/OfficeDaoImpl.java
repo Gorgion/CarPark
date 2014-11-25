@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
+import org.springframework.stereotype.Repository;
 //import javax.transaction.Transactional;
 /**
  * Office entity with operations add, get, edit, delete. It also finds all
@@ -24,7 +25,7 @@ import javax.persistence.Query;
  * @author Karolina Burska
  */
 
-@Named
+@Repository
 public class OfficeDaoImpl implements OfficeDao {
 
     @PersistenceContext//(type = PersistenceContextType.EXTENDED)
