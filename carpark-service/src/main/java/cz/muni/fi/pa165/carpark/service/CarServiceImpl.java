@@ -26,7 +26,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class CarServiceImpl implements CarService
 {
-    @Inject
     private CarDao carDao;
     
     public void setCarDao(CarDao carDao)
