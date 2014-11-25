@@ -22,6 +22,7 @@ import javax.transaction.Transactional;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -62,12 +63,12 @@ public class CarDaoTest {
         Assert.assertEquals(car, secondCar);
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void addCarWithNullTest(){
         carDao.AddCar(null);
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void getCarWithWrongIdTest(){
         carDao.getCar(Long.getLong("-54"));
         carDao.getCar(Long.getLong("0"));  
@@ -105,7 +106,7 @@ public class CarDaoTest {
         Assert.assertNotSame(car, carForCheck);
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void editCarWithNullTest(){
         carDao.EditCar(null);
     }
@@ -131,7 +132,7 @@ public class CarDaoTest {
         Assert.assertTrue("Some car found after deletion.", cars.isEmpty());
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void deleteCarWithNullTest(){
         carDao.DeleteCar(null);
     }
@@ -242,7 +243,7 @@ public class CarDaoTest {
         Assert.assertTrue("Car is not avaliable", !(carDao.getFreeCars(from1, to2).contains(car)));
     }
     
-    @Test (expected = IllegalArgumentException.class)
+    @Test (expected = DataAccessException.class)
     public void getFreeCarsWitWrongArgTest() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
         
