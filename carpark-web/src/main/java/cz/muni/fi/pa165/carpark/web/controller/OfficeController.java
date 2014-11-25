@@ -5,6 +5,7 @@
  */
 package cz.muni.fi.pa165.carpark.web.controller;
 
+import cz.muni.fi.pa165.carpark.dto.CarDto;
 import cz.muni.fi.pa165.carpark.dto.OfficeDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 
@@ -75,9 +76,14 @@ public class OfficeController {
         {
             return "office-form";
         }
-        attributes.addFlashAttribute("msg","msg.office.succesful"); 
-        model.addAttribute("employees", userService.getAll());
-        model.addAttribute("officeForm", new OfficeForm());
+        List<UserDto> employees = new ArrayList<>();
+        List<CarDto> cars = new ArrayList<>();
+        OfficeDto office = new OfficeDto(officeForm.getAddress(), officeForm.getManager(), employees, cars);
+        officeService.addOffice(office);
+        attributes.addFlashAttribute("msg","msg.office.succesful");
+
+        //model.addAttribute("employees", userService.getAll());
+        //model.addAttribute("officeForm", new OfficeForm());
         return "redirect:/auth/office";
     }
     
