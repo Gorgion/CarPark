@@ -10,17 +10,17 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import javax.inject.Named;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Jiri Dockal
  */
-@Named
+@Repository
 public class CarDaoImpl implements CarDao
 {
     @PersistenceContext
