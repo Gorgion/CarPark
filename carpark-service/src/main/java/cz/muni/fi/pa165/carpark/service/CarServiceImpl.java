@@ -16,16 +16,14 @@ import java.util.Date;
 import java.util.List;
 import javax.transaction.Transactional;
 import javax.inject.Inject;
-import javax.inject.Named;
-import javax.persistence.PersistenceException;
-import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 
 /**
  * Service CRUD operations for carDto entity
  * 
  * @author Jiri Dockal
  */
-@Named
+@Service
 public class CarServiceImpl implements CarService
 {
     @Inject
