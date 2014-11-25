@@ -25,6 +25,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.model.MultipleFailureException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -44,20 +45,13 @@ public class OfficeDaoTest
     @Inject
     private UserDao userDao;
     
-    @Test
+    @Test(expected = DataAccessException.class)
     public void wrongAddOfficeTest()
     {
-        try
-        {
-            dao.addOffice(null);
-            Assert.fail("Office can't be null - exception excepted!");
-        }
-        catch(IllegalArgumentException ex)
-        {
-        }
+        dao.addOffice(null);
     }
        
-    @Test
+    @Test(expected = DataAccessException.class)
     //@Ignore
     public void addGetOfficeTest()
     {
@@ -65,28 +59,17 @@ public class OfficeDaoTest
                 
         Office office = TestUtils.createOffice(address, null, null, null);
         
-        try
-        {
-            dao.addOffice(office);
-        }
-        catch(IllegalArgumentException ex)
-        {
-            Assert.fail("Expected office addition");
-        }
-        
+        dao.addOffice(office);
+               
         Assert.assertNotNull(dao.getAllOffices());
         
         Assert.assertEquals(office, dao.getOffice(office.getID()));
         Assert.assertEquals(office.getAddress(), address);
                 
-        try
-        {
-            dao.addOffice(office);
-            Assert.fail("Office already added - exception expected");
-        }
-        catch(IllegalArgumentException ex)
-        {
-        }
+        
+        dao.addOffice(office);
+        Assert.fail("Office already added - exception expected");
+        
     }
     
     @Test
@@ -159,17 +142,14 @@ public class OfficeDaoTest
         Assert.assertEquals(dao.getAllOffices(),offices);
     }
     
-    @Test
+    @Test(expected = DataAccessException.class)
     //@Ignore
     public void deleteOfficeTest()
     {
-        try
-        {
-            dao.deleteOffice(null);
-            Assert.fail("Office cannot be null - exception expected");
-        }catch(IllegalArgumentException ex)
-        {
-        }
+        
+        dao.deleteOffice(null);
+        Assert.fail("Office cannot be null - exception expected");
+        
         
         Office office = TestUtils.createOffice("Adresa 1", null, null, null);
         
