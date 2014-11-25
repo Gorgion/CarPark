@@ -13,6 +13,5 @@
 <fmt:message var="title" key="index.title"/>
 <custom:layout title="${title}">
     <jsp:attribute name="content">
-
     </jsp:attribute>
 </custom:layout>

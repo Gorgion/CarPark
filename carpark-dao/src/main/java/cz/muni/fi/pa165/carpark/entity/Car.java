@@ -117,26 +117,6 @@ public class Car implements Serializable
         this.rented = rented;
     }
 
-   /* public Rental getRent()
-    {
-        return rent;
-    }
-
-    public void setRent(Rental rent)
-    {
-        this.rent = rent;
-    }
-
-    public Office getOffice()
-    {
-        return office;
-    }
-
-    public void setOffice(Office office)
-    {
-        this.office = office;
-    }*/
-
     @Override
     public int hashCode()
     {
