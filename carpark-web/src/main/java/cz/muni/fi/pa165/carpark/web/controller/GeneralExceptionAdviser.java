@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author Tomas Svoboda
  */
-@ControllerAdvice
+//@ControllerAdvice
 public class GeneralExceptionAdviser
 {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

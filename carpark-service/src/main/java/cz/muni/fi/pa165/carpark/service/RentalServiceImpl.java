@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class RentalServiceImpl implements RentalService
 {
-
     @Autowired
     private RentalDao rentalDao;
 
@@ -35,6 +34,10 @@ public class RentalServiceImpl implements RentalService
     @Override
     public void create(RentalDto rental)
     {
+        if(rental == null){
+            throw new IllegalArgumentException("Rental is null");
+        }
+        
         if (!carService.getFreeCars(rental.getFromDate(), rental.getToDate()).contains(rental.getCar()))
         {
             throw new CarAlreadyReserved("car is already reserved.");

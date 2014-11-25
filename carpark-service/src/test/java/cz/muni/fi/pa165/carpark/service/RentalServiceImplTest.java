@@ -45,17 +45,20 @@ public class RentalServiceImplTest {
     @Mock
     private RentalDao mockedRentalDao;
     
+    
     @Mock
-    private static UserDao mockedUserDao;
+    private CarService mockedCarService;
+   
    
     @Test
-    @Ignore
+     @Ignore
     public void testCreateAndGet()
     {
         RentalDto rentalDto = createRentalSampleDto();
         Rental rental = Converter.getEntity(rentalDto);
           
-        Mockito.doNothing().when(mockedRentalDao).create(rental);    
+        Mockito.doNothing().when(mockedRentalDao).create(rental);  
+        Mockito.doNothing().when(mockedCarService).getFreeCars(rental.getFromDate(), rental.getToDate()); 
         rentalService.create(rentalDto);
         rentalDto.setId(rental.getId());
 
@@ -119,7 +122,7 @@ public class RentalServiceImplTest {
     }
     
     @Test
-    @Ignore
+       @Ignore
     public void testDelete()          
     {        
         RentalDto rentalDto = createRentalSampleDto();
@@ -159,8 +162,7 @@ public class RentalServiceImplTest {
         Assert.assertEquals(expectedRentals, rentals);
     }
     
-    
-    //TODO
+
     @Test
     public void testGetAllByUser()
     {        
