@@ -52,10 +52,11 @@ public class OfficeController {
     //@ModelAttribute("office-form")
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model)
-    {
-        List<OfficeDto> offices = officeService.getAllOffices();
+    { 
+        List<OfficeDto> offices = new ArrayList<>(officeService.getAllOffices());
         model.addAttribute("offices", offices);
-        //model.addAttribute("officeForm", new OfficeForm());
+        //model.addAttribute("employees", userService.getAll());
+        model.addAttribute("officeForm", new OfficeForm());
         return "office-list";
     }
     
@@ -68,13 +69,15 @@ public class OfficeController {
         return "office-form";
     }
     
-    @RequestMapping(method = RequestMethod.POST)
-    public String processSubmit(@Valid @ModelAttribute("office-form") OfficeForm officeForm, BindingResult result, RedirectAttributes attributes){
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String processSubmit(@Valid @ModelAttribute("officeForm") OfficeForm officeForm, BindingResult result, Model model, RedirectAttributes attributes){
         if(result.hasErrors())
         {
             return "office-form";
         }
-        attributes.addFlashAttribute("msg","msg.office.succesful");  
+        attributes.addFlashAttribute("msg","msg.office.succesful"); 
+        model.addAttribute("employees", userService.getAll());
+        model.addAttribute("officeForm", new OfficeForm());
         return "redirect:/auth/office";
     }
     
@@ -82,7 +85,7 @@ public class OfficeController {
     {
         @NotBlank
         private String address;
-        @NotNull
+        //@NotNull
         private UserDto manager;
         //private List<UserDto> employees;
         

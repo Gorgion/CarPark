@@ -21,12 +21,12 @@
             <div class="form-group"> 
                 <form:label path="manager" cssClass="col-sm-2"><fmt:message key="office.manager" /></form:label>
                 <form:select path="manager" cssClass="form-control">
-                    <c:forEach items="${employees}" var="empl" >
-                        <form:option value="${empl.id}" label="${empl.id}"/>
+                    <c:forEach items="${employees}" var="empl">     
+                        <form:option path = "${empl.id}" value="${empl.id}" />
                     </c:forEach>
                 </form:select>
             </div>
            
-            <button type="submit" class="btn btn-success"><fmt:message key="office.find" /></button>
+            <button type="submit" class="btn btn-success"><fmt:message key="office.add" /></button>
         </form:form>
 

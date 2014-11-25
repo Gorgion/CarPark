@@ -42,12 +42,12 @@
             <tbody>
                 <c:forEach items="${offices}" var="office">
                     <tr>
-                        <td>${office.id}</td>
+                        <td>${office.ID}</td>
                         <td>${office.manager}</td>
                         <td>${office.address}</td>
                         <td>${office.employees}</td>
                         <td>
-                            <form action="<c:url value="/auth/office/${office.id}/delete" />" method="POST" class="form-inline">
+                            <form action="<c:url value="/auth/office/${office.ID}/delete" />" method="POST" class="form-inline">
                                 <button type="submit" name="delete" class="btn btn-danger"><fmt:message key="delete" /></button>
                             </form>                            
                         </td>
@@ -56,5 +56,3 @@
             </tbody>
         </table>
         </div>
-
-    
