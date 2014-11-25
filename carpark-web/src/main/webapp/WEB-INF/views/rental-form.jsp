@@ -77,7 +77,7 @@
                         <c:out value="${car.brand}" escapeXml="true"/>
                     </div>
                     <div class="col-sm-3">
-                        <c:out value="${car.model}" escapeXml="true"/>
+                        <%--<c:out value="${car.model}" escapeXml="true"/>--%>
                     </div>
                     <div class="col-sm-3">
                         <c:out value="${car.type}" escapeXml="true"/>
