@@ -144,7 +144,7 @@ public class UserDaoTest
         User user3 = TestUtils.createUser("Karel", "Karlovič", "Adresa 3", "456bn");
         User user4 = TestUtils.createUser("Pepa", "Pepovič", "Adresa 4", "112bn");
 
-        Car car = TestUtils.createCar(Car.mBrand.SKODA, Car.mType.COMBI, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.FABIA, "LP1", "VIN1", false);
+        Car car = TestUtils.createCar(Car.mBrand.SKODA_FABIA, Car.mType.COMBI, Car.mEngine.PETROL, "LP1", "VIN1", false);
 
         daoImpl.add(user);
         daoImpl.add(user2);
@@ -180,7 +180,7 @@ public class UserDaoTest
         User user3 = TestUtils.createUser("Karel", "Karlovič", "Adresa 3", "456bn");
         User user4 = TestUtils.createUser("Pepa", "Pepovič", "Adresa 4", "112bn");
 
-        Car car = TestUtils.createCar(Car.mBrand.SKODA, Car.mType.COMBI, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.FABIA, "LP1", "VIN1", false);
+        Car car = TestUtils.createCar(Car.mBrand.SKODA_OCTAVIA, Car.mType.COMBI, Car.mEngine.PETROL, "LP1", "VIN1", false);
 
         daoImpl.add(user);
         daoImpl.add(user2);

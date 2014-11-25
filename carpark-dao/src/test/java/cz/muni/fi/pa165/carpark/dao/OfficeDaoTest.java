@@ -9,9 +9,7 @@ import cz.muni.fi.pa165.carpark.TestUtils;
 import cz.muni.fi.pa165.carpark.config.DaoTestConfig;
 import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Car.mBrand;
-import cz.muni.fi.pa165.carpark.entity.Car.mColor;
 import cz.muni.fi.pa165.carpark.entity.Car.mEngine;
-import cz.muni.fi.pa165.carpark.entity.Car.mModel;
 import cz.muni.fi.pa165.carpark.entity.Car.mType;
 import cz.muni.fi.pa165.carpark.entity.Office;
 import cz.muni.fi.pa165.carpark.entity.User;
@@ -97,9 +95,9 @@ public class OfficeDaoTest
     {
         String address = "Adresa 123";
         
-        Car car1 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "TRB1962", "VIN123", false);
-        Car car2 = TestUtils.createCar(mBrand.CHEVROLET, mType.SEDAN, mColor.YELLOW, mEngine.PETROL, mModel.CAMARO, "1B21234", "VIN321", false);
-        Car car3 = TestUtils.createCar(mBrand.FORD, mType.HATCHBACK, mColor.RED, mEngine.DIESEL, mModel.FOCUS, "1A11111", "VIN222", false);
+        Car car1 = TestUtils.createCar(mBrand.SKODA_OCTAVIA, mType.COMBI, mEngine.PETROL, "TRB1962", "VIN123", false);
+        Car car2 = TestUtils.createCar(mBrand.FORD_MONDEO, mType.SEDAN, mEngine.PETROL, "1B21234", "VIN321", false);
+        Car car3 = TestUtils.createCar(mBrand.FORD_FOCUS, mType.HATCHBACK, mEngine.DIESEL, "1A11111", "VIN222", false);
         
         List<Car> cars = new ArrayList<Car>();
         
@@ -186,9 +184,9 @@ public class OfficeDaoTest
     //@Ignore
     public void editOfficeTest()
     {
-        Car car1 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "TRB1962", "VIN123", false);
-        Car car2 = TestUtils.createCar(mBrand.CHEVROLET, mType.SEDAN, mColor.YELLOW, mEngine.PETROL, mModel.CAMARO, "1B21234", "VIN321", false);
-        Car car3 = TestUtils.createCar(mBrand.FORD, mType.HATCHBACK, mColor.RED, mEngine.DIESEL, mModel.FOCUS, "1A11111", "VIN222", false);
+        Car car1 = TestUtils.createCar(mBrand.SKODA_FABIA, mType.COMBI, mEngine.PETROL, "TRB1962", "VIN123", false);
+        Car car2 = TestUtils.createCar(mBrand.SKODA_SUPERB, mType.SEDAN, mEngine.PETROL, "1B21234", "VIN321", false);
+        Car car3 = TestUtils.createCar(mBrand.FORD_MONDEO, mType.HATCHBACK, mEngine.DIESEL, "1A11111", "VIN222", false);
         
         carDao.AddCar(car1);
         carDao.AddCar(car2);
@@ -284,8 +282,8 @@ public class OfficeDaoTest
         String address = "Adresa 123";
         Office office = TestUtils.createOffice(address, null, null, null);
            
-        Car car1 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "TRB1962", "VIN123", false);
-        Car car2 = TestUtils.createCar(mBrand.CHEVROLET, mType.SEDAN, mColor.YELLOW, mEngine.PETROL, mModel.CAMARO, "1B21234", "VIN321", false);
+        Car car1 = TestUtils.createCar(mBrand.SKODA_FABIA, mType.COMBI, mEngine.PETROL, "TRB1962", "VIN123", false);
+        Car car2 = TestUtils.createCar(mBrand.SKODA_OCTAVIA, mType.SEDAN, mEngine.PETROL, "1B21234", "VIN321", false);
 
         List<Car> cars = new ArrayList<Car>();
         
@@ -340,8 +338,8 @@ public class OfficeDaoTest
         String address = "Adresa 123";
         Office office = TestUtils.createOffice(address, null, null, null);
            
-        Car car1 = TestUtils.createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "TRB1962", "VIN123", false);
-        Car car2 = TestUtils.createCar(mBrand.CHEVROLET, mType.SEDAN, mColor.YELLOW, mEngine.PETROL, mModel.CAMARO, "1B21234", "VIN321", false);
+        Car car1 = TestUtils.createCar(mBrand.SKODA_OCTAVIA, mType.COMBI, mEngine.PETROL, "TRB1962", "VIN123", false);
+        Car car2 = TestUtils.createCar(mBrand.SKODA_SUPERB, mType.SEDAN, mEngine.PETROL, "1B21234", "VIN321", false);
 
         carDao.AddCar(car1);
         carDao.AddCar(car2);

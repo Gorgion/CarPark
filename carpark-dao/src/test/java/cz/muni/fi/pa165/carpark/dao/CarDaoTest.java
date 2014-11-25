@@ -47,13 +47,11 @@ public class CarDaoTest {
     {  
         Car car = new Car();
         
-        car.setBrand(Car.mBrand.DAEWOO);
-        car.setColor(Car.mColor.BLUE);
-        car.setEngine(Car.mEngine.ELECTRIC);
+        car.setBrand(Car.mBrand.FORD_FOCUS);
+        car.setEngine(Car.mEngine.PETROL);
         car.setLicencePlate("4G5-PA165");
-        car.setModel(Car.mModel.MATIZ);
         car.setRented(Boolean.FALSE);
-        car.setType(Car.mType.CABRIOLET);
+        car.setType(Car.mType.COMBI);
         car.setVIN("SomeVIN");
         
         carDao.AddCar(car);
@@ -79,23 +77,19 @@ public class CarDaoTest {
     public void editCarTest(){
         
         Car car = new Car();
-        car.setBrand(Car.mBrand.DAEWOO);
-        car.setColor(Car.mColor.BLUE);
-        car.setEngine(Car.mEngine.ELECTRIC);
+        car.setBrand(Car.mBrand.SKODA_FABIA);
+        car.setEngine(Car.mEngine.DIESEL);
         car.setLicencePlate("4G5-PA165");
-        car.setModel(Car.mModel.MATIZ);
         car.setRented(Boolean.FALSE);
-        car.setType(Car.mType.CABRIOLET);
+        car.setType(Car.mType.HATCHBACK);
         car.setVIN("SomeVIN");
         
         carDao.AddCar(car);
         
         Car carForEditation = new Car();
-        carForEditation.setBrand(Car.mBrand.DAEWOO);
-        carForEditation.setColor(Car.mColor.BLUE);
-        carForEditation.setEngine(Car.mEngine.ELECTRIC);
-        carForEditation.setModel(Car.mModel.MATIZ);
-        carForEditation.setType(Car.mType.CABRIOLET);
+        carForEditation.setBrand(Car.mBrand.SKODA_SUPERB);
+        carForEditation.setEngine(Car.mEngine.DIESEL);
+        carForEditation.setType(Car.mType.SEDAN);
         carForEditation.setID(car.getID());
         carForEditation.setLicencePlate("differentLicencePlate");
         car.setRented(Boolean.FALSE);
@@ -120,13 +114,11 @@ public class CarDaoTest {
     public void deleteCarTest(){
         
         Car car = new Car();
-        car.setBrand(Car.mBrand.DAEWOO);
-        car.setColor(Car.mColor.BLUE);
-        car.setEngine(Car.mEngine.ELECTRIC);
+        car.setBrand(Car.mBrand.SKODA_SUPERB);
+        car.setEngine(Car.mEngine.PETROL);
         car.setLicencePlate("4G5-PA165");
-        car.setModel(Car.mModel.MATIZ);
         car.setRented(Boolean.FALSE);
-        car.setType(Car.mType.CABRIOLET);
+        car.setType(Car.mType.COMBI);
         car.setVIN("SomeVIN");
         
         carDao.AddCar(car);
@@ -148,19 +140,19 @@ public class CarDaoTest {
     public void getAllCarsTest(){
         
         Car car1 = new Car();
-        car1.setBrand(Car.mBrand.CHEVROLET);
+        car1.setBrand(Car.mBrand.FORD_FOCUS);
         car1.setLicencePlate("4G5-PA161");
         car1.setRented(Boolean.FALSE);
         car1.setVIN("SomeVIN1");
         
         Car car2 = new Car();
-        car2.setBrand(Car.mBrand.FORD);
+        car2.setBrand(Car.mBrand.FORD_MONDEO);
         car2.setLicencePlate("4G5-PA162");
         car2.setRented(Boolean.FALSE);
         car2.setVIN("SomeVIN2");
         
         Car car3 = new Car();
-        car3.setBrand(Car.mBrand.TESLA);
+        car3.setBrand(Car.mBrand.SKODA_FABIA);
         car3.setLicencePlate("4G5-PA163");
         car3.setRented(Boolean.FALSE);
         car3.setVIN("SomeVIN3");
@@ -188,19 +180,19 @@ public class CarDaoTest {
     public void getRentedCarsTest(){
         
         Car car1 = new Car();
-        car1.setBrand(Car.mBrand.CHEVROLET);
+        car1.setBrand(Car.mBrand.SKODA_FABIA);
         car1.setLicencePlate("4G5-PA161");
         car1.setRented(Boolean.TRUE);
         car1.setVIN("SomeVIN1");
         
         Car car2 = new Car();
-        car2.setBrand(Car.mBrand.FORD);
+        car2.setBrand(Car.mBrand.FORD_FOCUS);
         car2.setLicencePlate("4G5-PA162");
         car2.setRented(Boolean.FALSE);
         car2.setVIN("SomeVIN2");
         
         Car car3 = new Car(); 
-        car3.setBrand(Car.mBrand.TESLA);
+        car3.setBrand(Car.mBrand.SKODA_OCTAVIA);
         car3.setLicencePlate("4G5-PA163");
         car3.setRented(Boolean.TRUE);
         car3.setVIN("SomeVIN3");
@@ -233,7 +225,7 @@ public class CarDaoTest {
 	Date from2 = sdf.parse("02-09-2014 10:20:30");
         Date to2 = sdf.parse("10-09-2014 10:20:30"); 
         
-        Car car = TestUtils.createCar(Car.mBrand.CHEVROLET, Car.mType.CABRIOLET, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.CAMARO, "4G5-PA161", "SomeVIN1", true);
+        Car car = TestUtils.createCar(Car.mBrand.FORD_FOCUS, Car.mType.COMBI, Car.mEngine.PETROL, "4G5-PA161", "SomeVIN1", true);
         
         carDao.AddCar(car);
         
@@ -257,7 +249,7 @@ public class CarDaoTest {
 	Date from = sdf.parse("01-08-2014 10:20:30");
         Date to = sdf.parse("31-08-2014 10:20:30"); 
         
-        Car car = TestUtils.createCar(Car.mBrand.CHEVROLET, Car.mType.CABRIOLET, Car.mColor.BLACK, Car.mEngine.PETROL, Car.mModel.CAMARO, "4G5-PA161", "SomeVIN1", true);
+        Car car = TestUtils.createCar(Car.mBrand.FORD_MONDEO, Car.mType.HATCHBACK, Car.mEngine.PETROL, "4G5-PA161", "SomeVIN1", true);
         
         carDao.AddCar(car);
         

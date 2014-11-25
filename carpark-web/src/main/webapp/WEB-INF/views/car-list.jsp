@@ -45,7 +45,7 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="cars" var="car">
+                <c:forEach items="${cars}" var="car">
                     <tr>
                         <td>${car.id}</td>
                         <td>${car.brand}</td>
@@ -56,10 +56,9 @@
                         <td>${car.licenceplate}</td>
                         <td>${car.vin}</td>
                         <td>${car.rented}</td>
-                        <td><a href="#" class="btn btn-link">${rental.car.id}</a></td>
-                        <td><a href="<c:url value="/auth/user/${userId}/rental/${car.id}/edit" />" class="btn btn-default"><fmt:message key="edit" /></a></td>
+                        <td><a href="<c:url value="/auth/user/${userId}/car/${car.id}/edit" />" class="btn btn-default"><fmt:message key="edit" /></a></td>
                         <td>
-                            <form action="<c:url value="/auth/user/${userId}/rental/${car.id}/delete" />" method="POST" class="form-inline">
+                            <form action="<c:url value="/auth/user/${userId}/car/${car.id}/delete" />" method="POST" class="form-inline">
                                 <button type="submit" name="delete" class="btn btn-danger"><fmt:message key="delete" /></button>
                             </form>                            
                         </td>

@@ -88,7 +88,6 @@ public class Converter
         {
             case PETROL: return Car.mEngine.PETROL;
             case DIESEL: return Car.mEngine.DIESEL;
-            case ELECTRIC: return Car.mEngine.ELECTRIC;
             default: throw new IllegalArgumentException("unknown engine.");
         }
     }
@@ -97,11 +96,11 @@ public class Converter
     {
         switch(mBrand)
         {
-            case CHEVROLET: return Car.mBrand.CHEVROLET;
-            case DAEWOO: return Car.mBrand.DAEWOO;
-            case FORD: return Car.mBrand.FORD;
-            case SKODA: return Car.mBrand.SKODA;
-            case TESLA: return Car.mBrand.TESLA;
+            case FORD_FOCUS: return Car.mBrand.FORD_FOCUS;
+            case FORD_MONDEO: return Car.mBrand.FORD_MONDEO;
+            case SKODA_FABIA: return Car.mBrand.SKODA_FABIA;
+            case SKODA_OCTAVIA: return Car.mBrand.SKODA_OCTAVIA;
+            case SKODA_SUPERB: return Car.mBrand.SKODA_SUPERB;
             default: throw new IllegalArgumentException("unknown brand");
         }
     }
@@ -113,37 +112,7 @@ public class Converter
             case COMBI: return Car.mType.COMBI;
             case SEDAN: return Car.mType.SEDAN;
             case HATCHBACK: return Car.mType.HATCHBACK;
-            case CABRIOLET: return Car.mType.CABRIOLET;
             default: throw new IllegalArgumentException("unknown type");
-        }
-    }
-
-    public static Car.mColor getEntity(CarDto.mColor mColor)
-    {
-        switch(mColor)
-        {
-            case YELLOW: return Car.mColor.YELLOW;
-            case BLACK: return Car.mColor.BLACK;
-            case BLUE: return Car.mColor.BLUE;
-            case RED: return Car.mColor.RED;
-            case GREEN: return Car.mColor.GREEN;
-            case WHITE: return Car.mColor.WHITE;
-            default: throw new IllegalArgumentException("unknown color");
-        }
-    }
-
-    public static Car.mModel getEntity(CarDto.mModel mModel)
-    {
-        switch(mModel)
-        {
-            case OCTAVIA: return Car.mModel.OCTAVIA;
-            case FABIA: return Car.mModel.FABIA;
-            case MATIZ: return Car.mModel.MATIZ;
-            case FOCUS: return Car.mModel.FOCUS;
-            case MONDEO: return Car.mModel.MONDEO;
-            case MODEL_S: return Car.mModel.MODEL_S;
-            case CAMARO: return Car.mModel.CAMARO;
-            default: throw new IllegalArgumentException("unknown model"); 
         }
     }
     
@@ -165,7 +134,6 @@ public class Converter
         {
             case PETROL: return CarDto.mEngine.PETROL;
             case DIESEL: return CarDto.mEngine.DIESEL;
-            case ELECTRIC: return CarDto.mEngine.ELECTRIC;
             default: throw new IllegalArgumentException("unknown engine.");
         }
     }
@@ -174,11 +142,11 @@ public class Converter
     {
         switch(mBrand)
         {
-            case CHEVROLET: return CarDto.mBrand.CHEVROLET;
-            case DAEWOO: return CarDto.mBrand.DAEWOO;
-            case FORD: return CarDto.mBrand.FORD;
-            case SKODA: return CarDto.mBrand.SKODA;
-            case TESLA: return CarDto.mBrand.TESLA;
+            case FORD_FOCUS: return CarDto.mBrand.FORD_FOCUS;
+            case FORD_MONDEO: return CarDto.mBrand.FORD_MONDEO;
+            case SKODA_FABIA: return CarDto.mBrand.SKODA_FABIA;
+            case SKODA_OCTAVIA: return CarDto.mBrand.SKODA_OCTAVIA;
+            case SKODA_SUPERB: return CarDto.mBrand.SKODA_SUPERB;
             default: throw new IllegalArgumentException("unknown brand");
         }
     }
@@ -190,37 +158,7 @@ public class Converter
             case COMBI: return CarDto.mType.COMBI;
             case SEDAN: return CarDto.mType.SEDAN;
             case HATCHBACK: return CarDto.mType.HATCHBACK;
-            case CABRIOLET: return CarDto.mType.CABRIOLET;
             default: throw new IllegalArgumentException("unknown type");
-        }
-    }
-
-    public static CarDto.mColor getTransferObject(Car.mColor mColor)
-    {
-        switch(mColor)
-        {
-            case YELLOW: return CarDto.mColor.YELLOW;
-            case BLACK: return CarDto.mColor.BLACK;
-            case BLUE: return CarDto.mColor.BLUE;
-            case RED: return CarDto.mColor.RED;
-            case GREEN: return CarDto.mColor.GREEN;
-            case WHITE: return CarDto.mColor.WHITE;
-            default: throw new IllegalArgumentException("unknown color");
-        }
-    }
-
-    public static CarDto.mModel getTransferObject(Car.mModel mModel)
-    {
-        switch(mModel)
-        {
-            case OCTAVIA: return CarDto.mModel.OCTAVIA;
-            case FABIA: return CarDto.mModel.FABIA;
-            case MATIZ: return CarDto.mModel.MATIZ;
-            case FOCUS: return CarDto.mModel.FOCUS;
-            case MONDEO: return CarDto.mModel.MONDEO;
-            case MODEL_S: return CarDto.mModel.MODEL_S;
-            case CAMARO: return CarDto.mModel.CAMARO;
-            default: throw new IllegalArgumentException("unknown model"); 
         }
     }
     
@@ -349,10 +287,8 @@ public class Converter
         entity.setID(car.getID());
         entity.setBrand(getEntity(car.getBrand()));
         entity.setType(getEntity(car.getType()));
-        entity.setColor(getEntity(car.getColor()));
         entity.setEngine(getEntity(car.getEngine()));
         entity.setLicencePlate(car.getLicencePlate());
-        entity.setModel(getEntity(car.getModel()));
         entity.setRented(car.getRented());
         entity.setVIN(car.getVIN());
         
@@ -367,8 +303,7 @@ public class Converter
         }
         
         CarDto dto = new CarDto(getTransferObject(car.getBrand()), getTransferObject(car.getType()), 
-                getTransferObject(car.getColor()),getTransferObject(car.getEngine()),getTransferObject(car.getModel()),
-                car.getLicencePlate(), car.getVIN(), car.getRented());
+                getTransferObject(car.getEngine()), car.getLicencePlate(), car.getVIN(), car.getRented());
      
         dto.setID(car.getID());
         

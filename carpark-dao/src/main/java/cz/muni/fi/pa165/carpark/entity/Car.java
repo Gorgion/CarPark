@@ -34,15 +34,9 @@ public class Car implements Serializable
     
     @Enumerated(EnumType.STRING)
     private mType type;
-    
-    @Enumerated(EnumType.STRING)
-    private mColor color;
-    
+
     @Enumerated(EnumType.STRING)
     private mEngine engine;
-    
-    @Enumerated(EnumType.STRING)
-    private mModel model;
     
     @Column(nullable = false, unique = true)
     private String licencePlate;
@@ -83,16 +77,6 @@ public class Car implements Serializable
         this.type = type;
     }
 
-    public mColor getColor()
-    {
-        return color;
-    }
-
-    public void setColor(mColor color)
-    {
-        this.color = color;
-    }
-
     public mEngine getEngine()
     {
         return engine;
@@ -101,16 +85,6 @@ public class Car implements Serializable
     public void setEngine(mEngine engine)
     {
         this.engine = engine;
-    }
-
-    public mModel getModel()
-    {
-        return model;
-    }
-
-    public void setModel(mModel model)
-    {
-        this.model = model;
     }
 
     public Long getID()
@@ -189,15 +163,14 @@ public class Car implements Serializable
     @Override
     public String toString()
     {
-        return "Car: id=" + id + ", brand:" + brand + ", model:" + model + ", type:" + type + ", engine:" + engine + ", color:" + color + ", VIN:" + VIN + ", isRented:" + rented + "\n";
+        return "Car: id=" + id + ", brand:" + brand + ", type:" + type + ", engine:" + engine + ", VIN:" + VIN + ", isRented:" + rented + "\n";
     }
 
     public static enum mEngine
     {
 
         PETROL,
-        DIESEL,
-        ELECTRIC
+        DIESEL
     }
 
     public static enum mType
@@ -205,39 +178,16 @@ public class Car implements Serializable
 
         COMBI,
         SEDAN,
-        HATCHBACK,
-        CABRIOLET
+        HATCHBACK
     }
 
     public static enum mBrand
     {
 
-        SKODA,
-        DAEWOO,
-        FORD,
-        CHEVROLET,
-        TESLA
-    }
-
-    public static enum mColor
-    {
-        YELLOW,
-        BLACK,
-        WHITE,
-        RED,
-        GREEN,
-        BLUE
-    }
-
-    public static enum mModel
-    {
-
-        OCTAVIA,
-        FABIA,
-        MATIZ,
-        FOCUS,
-        MONDEO,
-        MODEL_S,
-        CAMARO
+        SKODA_OCTAVIA,
+        SKODA_FABIA,
+        SKODA_SUPERB,
+        FORD_FOCUS,
+        FORD_MONDEO
     }
 }

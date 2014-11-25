@@ -8,9 +8,7 @@ package cz.muni.fi.pa165.carpark;
 
 import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Car.mBrand;
-import cz.muni.fi.pa165.carpark.entity.Car.mColor;
 import cz.muni.fi.pa165.carpark.entity.Car.mEngine;
-import cz.muni.fi.pa165.carpark.entity.Car.mModel;
 import cz.muni.fi.pa165.carpark.entity.Car.mType;
 import cz.muni.fi.pa165.carpark.entity.Office;
 import cz.muni.fi.pa165.carpark.entity.Rental;
@@ -49,15 +47,13 @@ public class TestUtils {
         return user;
     }
     
-    public static Car createCar(mBrand brand, mType type, mColor color, mEngine engine, mModel model, String licencePlate, String VIN, boolean rented)
+    public static Car createCar(mBrand brand, mType type, mEngine engine, String licencePlate, String VIN, boolean rented)
     {
         Car car = new Car();
         
         car.setBrand(brand);
-        car.setColor(color);
         car.setEngine(engine);
         car.setLicencePlate(licencePlate);
-        car.setModel(model);
         car.setRented(rented);
         car.setType(type);
         car.setVIN(VIN);
@@ -89,11 +85,11 @@ public class TestUtils {
         office.setEmployees(Arrays.asList(empl1m, empl2, empl3, empl4));
         office.setManager(empl1m);
         
-        Car car1 = createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP1", "VIN1", false);
-        Car car2 = createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP2", "VIN2", false);
-        Car car3 = createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP3", "VIN3", false);
-        Car car4 = createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP4", "VIN4", false);
-        Car car5 = createCar(mBrand.SKODA, mType.COMBI, mColor.BLACK, mEngine.PETROL, mModel.FABIA, "LP5", "VIN5", false);
+        Car car1 = createCar(mBrand.SKODA_FABIA, mType.COMBI, mEngine.PETROL, "LP1", "VIN1", false);
+        Car car2 = createCar(mBrand.SKODA_OCTAVIA, mType.COMBI, mEngine.PETROL, "LP2", "VIN2", false);
+        Car car3 = createCar(mBrand.SKODA_SUPERB, mType.COMBI, mEngine.PETROL, "LP3", "VIN3", false);
+        Car car4 = createCar(mBrand.SKODA_OCTAVIA, mType.COMBI, mEngine.PETROL, "LP4", "VIN4", false);
+        Car car5 = createCar(mBrand.SKODA_FABIA, mType.COMBI, mEngine.PETROL, "LP5", "VIN5", false);
         
         office.setCars(Arrays.asList(car1, car2, car3, car4));
         
