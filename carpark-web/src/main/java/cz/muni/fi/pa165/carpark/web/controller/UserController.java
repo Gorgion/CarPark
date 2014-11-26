@@ -12,11 +12,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import org.aspectj.util.LangUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * User controller.
@@ -35,47 +38,72 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author Tomas Vasicek
  */
 @Controller
-@RequestMapping("/auth/user/{userId}/user")
-public class UserController
-{
+@RequestMapping("/auth/user")
+public class UserController {
     @Autowired
     private UserService userService;
-
-    @ModelAttribute("userId")
-    public Long getUserId(@PathVariable Long userId)
-    {
-        return userId;
-    }
-
-    @RequestMapping(method = RequestMethod.GET)
-    public String list(@PathVariable(value = "userId") Long userId, Model model)
-    {
-        List<UserDto> users = userService.getAll();
-        model.addAttribute("users", users);
-        return "user-list";
-    }
     
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    @Autowired
+    private MessageSource messageSource;
+
+    //@ModelAttribute("user-form")
+    //@RequestMapping(value = "/add", method = RequestMethod.GET)
     public UserForm getNewForm() {
         return new UserForm();
     }
     
-    @RequestMapping(value = "/{id}/delete", method =
+    @RequestMapping(method = RequestMethod.GET)
+    public String list(Model model)
+    { 
+//        UserDto userDto = new UserDto();
+//        userDto.setFirstName("Name");
+//        userDto.setLastName("Surname");
+//        userDto.setAddress("Address");
+//        userDto.setBirthNumber("958456/8524");
+//        userService.add(userDto);
+        List<UserDto> users = userService.getAll();
+        model.addAttribute("users", users);
+        model.addAttribute("userForm", new UserForm());
+        return "user-list";
+    }
+    
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String addRequest(Model model)
     {
-        RequestMethod.POST, RequestMethod.DELETE
-    })
-    public String userDeleted(@PathVariable Long userId, @PathVariable Long id, /*@Valid @ModelAttribute RentalDto rental, BindingResult result,*/ RedirectAttributes redirectAttributes)
+        //System.out.println("On Submit");
+        model.addAttribute("userForm", new UserForm());
+        return "user-form";
+    }
+    
+    
+    @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
+    public String editRental(@PathVariable Long id, Model model)
     {
         UserDto user = userService.get(id);
-        if (user == null)
-        {
-            redirectAttributes.addFlashAttribute("error", "error.user.deleted");
-        }
-        userService.delete(user);
-        redirectAttributes.addFlashAttribute("msg", "msg.user.deleted");
         
-        return "redirect:/auth/user/" + userId + "/user";
+        UserForm userForm = new UserForm();
+        userForm.setFirstName(user.getFirstName());
+        userForm.setLastName(user.getLastName());
+        userForm.setAddress(user.getAddress());
+        userForm.setBirthNumber(user.getBirthNumber());
+        
+        model.addAttribute("userForm", userForm);
+        model.addAttribute("action", "edit");
+        
+        return "user-form";
     }
+        
+    
+    @RequestMapping(value = "/{id}/delete", method = { RequestMethod.POST, RequestMethod.DELETE })
+    public String delete(@PathVariable long id, RedirectAttributes redirectAttributes, Locale locale, UriComponentsBuilder uriBuilder) {
+        UserDto user = userService.get(id);
+        userService.delete(user);
+        redirectAttributes.addFlashAttribute(
+                "message",
+                messageSource.getMessage("user.delete.message", new Object[]{ user.getId(), user.getFirstName(), user.getLastName(), user.getBirthNumber(), user.getAddress()}, locale)
+        );
+        return "redirect:" + uriBuilder.path("/auth/user").build();
+    }    
     
     public static class UserForm
     {
