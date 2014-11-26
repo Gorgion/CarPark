@@ -18,7 +18,7 @@
 
 <custom:layout title="${title}">
     <jsp:attribute name="content">
-        <c:if test="${msg}">
+        <c:if test="${not empty msg}">
             <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     &times;
@@ -26,7 +26,7 @@
                 <fmt:message key="${msg}" />
             </div>
         </c:if>
-        <c:if test="${error}">
+        <c:if test="${not empty error}">
             <div class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     &times;

@@ -17,7 +17,7 @@
             <a href="<c:url value="/auth/user/${userId}/rental/add" />" class="btn btn-success"><fmt:message key="rental.add"/></a>
         </div>
         <hr class="divider" />
-        <c:if test="${msg}">
+        <c:if test="${not empty msg}">
             <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     &times;
@@ -25,7 +25,7 @@
                 <fmt:message key="${msg}" />
             </div>
         </c:if>
-        <c:if test="${error}">
+        <c:if test="${not empty error}">
             <div class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     &times;
@@ -57,7 +57,7 @@
                                data-car-licencePlate="${rental.car.licencePlate}" data-car-vin="${rental.car.VIN}"><fmt:message key="car.details"/></a>
                         </td>
                         <td>
-                            <a href='<c:url value="/auth/user/${userId}/rental/${rental.id}/edit" />' class="btn btn-default"><fmt:message key="edit" /></a>
+                            <a href='<c:url value="/auth/user/${userId}/rental/${rental.id}/edit" />' class="btn btn-success"><fmt:message key="edit" /></a>
                         </td>
                         <td>
                             <form action="<c:url value='/auth/user/${userId}/rental/${rental.id}/delete' />" method="POST" class="form-inline">
@@ -70,7 +70,32 @@
         </table>      
         <custom:delete-dialog key="rental"></custom:delete-dialog>
         <custom:modal-dialog dialogId="carDetails" dialogTitleKey="carDetails.title">
-            <jsp:include page="car-list.jsp" flush="false"/>
+            <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-4"><fmt:message key="car.brand"/>:</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static"><fmt:message key="car.brand.${car.brand}" /></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4"><fmt:message key="car.type"/>:</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static"><fmt:message key="car.type.${car.type}" /></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="engine"><fmt:message key="car.engine"/>:</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static"><fmt:message key="car.engine.${car.engine}" /></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="licencePlate"><fmt:message key="car.licencePlate"/>:</label>
+                <div class="col-sm-8">                    
+                    <p class="form-control-static"><c:out value="${car.engine}" /></p>
+                </div>
+            </div>
+            </div>
         </custom:modal-dialog>
     </jsp:attribute>        
 </custom:layout>

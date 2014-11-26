@@ -1,0 +1,65 @@
+<%-- 
+    Document   : car-form
+    Created on : 24.11.2014, 11:44:59
+    Author     : Jiří Dočkal
+--%>
+
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" session="false"%>
+
+<%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<fmt:message var="title" key="car.form.title"/>
+
+<custom:layout title="${title}">
+    <jsp:attribute name="content">
+        <c:if test="${msg}">
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    &times;
+                </button>
+                <fmt:message key="${msg}" />
+            </div>
+        </c:if>
+        <c:if test="${error}">
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    &times;
+                </button>
+                <fmt:message key="${error}"/>
+            </div>
+        </c:if>
+        
+        <c:url var="addUrl" value="/auth/car/add2" />
+        <form:form action="${addUrl}" method="POST" modelAttribute="carForm" class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="brand"><fmt:message key="car.brand"/>:</label>
+                <form:select path="brand" class="form-control col-md-6" id="brand" >
+                    <form:options items="${brands}"></form:options>
+                </form:select>
+                
+                <label class="control-label col-md-2" for="type"><fmt:message key="car.type"/>:</label>
+                <form:select path="type" class="form-control" id="type" >
+                    <form:options items="${types}"></form:options>
+                </form:select>
+                
+                <label class="control-label col-md-2" for="engine"><fmt:message key="car.engine"/>:</label>
+                <form:select path="engine" class="form-control" id="engine" >
+                    <form:options items="${engines}"></form:options>
+                </form:select>
+                
+                <label class="control-label col-md-2" for="VIN"><fmt:message key="car.VIN"/>:</label>
+                <form:input path="VIN" class="form-control" id="VIN" />
+               
+                <label class="control-label col-md-2" for="licencePlate"><fmt:message key="car.licencePlate"/>:</label>
+                <form:input path="licencePlate" class="form-control" id="licencePlate" />
+            </div>
+            <button type="submit" class="btn btn-success"><fmt:message key="car.add" /></button>
+            
+        </form:form>
+        </jsp:attribute>
+</custom:layout>
+
+
