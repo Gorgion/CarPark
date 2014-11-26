@@ -5,7 +5,7 @@
 --%>
 
 <%@tag description="custom modal dialog" pageEncoding="UTF-8"%>
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="dialogId" required="true"%>
 <%@attribute name="dialogTitleKey" required="true"%>
