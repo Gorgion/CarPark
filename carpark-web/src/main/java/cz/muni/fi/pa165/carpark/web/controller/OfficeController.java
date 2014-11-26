@@ -82,9 +82,9 @@ public class OfficeController {
             return "office-form";
         }
         System.out.println("\n#1");
-        UserDto manager = null;//new UserDto();
-        List<UserDto> employees = null;//new ArrayList<>();
-        List<CarDto> cars = null;//new ArrayList<>();
+        UserDto manager = new UserDto();
+        List<UserDto> employees = new ArrayList<>();
+        List<CarDto> cars = new ArrayList<>();
         System.out.println("\n#2");
         OfficeDto office = new OfficeDto(officeForm.getAddress(), manager, employees, cars);
         System.out.println("office:"+office);
