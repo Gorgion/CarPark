@@ -10,8 +10,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:message var="title" key="index.title"/>
-<custom:layout title="${title}">
-    <jsp:attribute name="content">
-    </jsp:attribute>
-</custom:layout>
+<c:redirect url="/auth/office"/>
+<%--<fmt:message var="title" key="index.title"/>--%>
+<%--<custom:layout title="${title}">--%>
+    <%--<jsp:attribute name="content">--%>
+        
+    <%--</jsp:attribute>--%>
+<%--</custom:layout>--%>
