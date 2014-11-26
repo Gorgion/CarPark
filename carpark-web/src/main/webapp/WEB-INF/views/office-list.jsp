@@ -10,7 +10,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
+<fmt:message var="title" key="office.list.title"/>
+<custom:layout title="${title}">    
+    <jsp:attribute name="content">
         <div class="row">
             <a href="<c:url value="/auth/office/add" />" class="btn btn-success"><fmt:message key="office.add"/></a>
             <hr class="divider" />
@@ -43,9 +45,12 @@
                 <c:forEach items="${offices}" var="office">
                     <tr>
                         <td>${office.ID}</td>
-                        <td>${office.manager}</td>
                         <td>${office.address}</td>
+                        <td>${office.manager}</td>
                         <td>${office.employees}</td>
+                        <td>
+                            <a href='<c:url value="/auth/office/${office.ID}/edit" />' class="btn btn-success"><fmt:message key="edit" /></a>
+                        </td>
                         <td>
                             <form action="<c:url value="/auth/office/${office.ID}/delete" />" method="POST" class="form-inline">
                                 <button type="submit" name="delete" class="btn btn-danger"><fmt:message key="delete" /></button>
@@ -56,3 +61,5 @@
             </tbody>
         </table>
         </div>
+    </jsp:attribute>        
+</custom:layout>
