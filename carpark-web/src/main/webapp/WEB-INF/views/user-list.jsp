@@ -14,7 +14,7 @@
 <custom:layout title="${title}">    
     <jsp:attribute name="content">
         <div class="row">
-            <a href="<c:url value="/auth/user/${userId}/user/add" />" class="btn btn-success"><fmt:message key="user.add"/></a>
+            <a href="<c:url value="/auth/user/add" />" class="btn btn-success"><fmt:message key="user.add"/></a>
         </div>
         <hr class="divider" />
         <c:if test="${msg}">
@@ -41,6 +41,8 @@
                     <th><fmt:message key="user.lastName" /></th>
                     <th><fmt:message key="user.birthNumber" /></th>
                     <th><fmt:message key="user.address" /></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -51,10 +53,9 @@
                         <td>${user.lastName}</td>
                         <td>${user.birthNumber}</td>
                         <td>${user.address}</td>
-                        <td><a href="#" class="btn btn-link">${user.id}</a></td>
-                        <td><a href="<c:url value="/auth/user/${userId}/user/${user.id}/edit" />" class="btn btn-default"><fmt:message key="edit" /></a></td>
+                        <td><a href="<c:url value="/auth/user/${user.id}/edit" />" class="btn btn-default"><fmt:message key="edit" /></a></td>
                         <td>
-                            <form action="<c:url value="/auth/user/${userId}/user/${user.id}/delete" />" method="POST" class="form-inline">
+                            <form action="<c:url value="/auth/user/${user.id}/delete" />" method="POST" class="form-inline">
                                 <button type="submit" name="delete" class="btn btn-danger"><fmt:message key="delete" /></button>
                             </form>                            
                         </td>
