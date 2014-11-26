@@ -95,9 +95,8 @@ public class CarDaoImpl implements CarDao
             throw new IllegalArgumentException("From date is after to date!");
                 
         Query query = em.createQuery(/*"SELECT c FROM Car c WHERE c.id NOT IN (*/"SELECT DISTINCT r.car FROM Rental r WHERE "
-                + "(:to between r.toDate AND r.fromDate) OR "
-                + "(:from between r.toDate AND r.fromDate) OR"
-                + "(:from <= r.fromDate AND :to >= r.toDate)"
+                + "(:to < r.fromDate) OR "
+                + "(:from > r.toDate)"
                 /*+ ")"*/, Car.class).setParameter("from", from).setParameter("to", to);
         List<Car> freeCars = query.getResultList();
         
