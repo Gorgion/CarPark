@@ -35,44 +35,47 @@
         <c:url var="addUrl" value="/auth/car/add" />
         <form:form action="${addUrl}" method="POST" modelAttribute="carForm" class="form-horizontal">
             <div class="form-group">
-                <form:label class="control-label col-md-2" path="brand"><fmt:message key="car.brand"/>:</form:label>
-                <div class="col-md-6">
+                <form:label class="control-label col-sm-2" path="brand"><fmt:message key="car.brand"/>:</form:label>
+                <div class="col-sm-6">
                     <form:select path="brand" class="form-control" id="brand" >
                         <form:options items="${brands}"></form:options>
                     </form:select>
                 </div>
             </div>
             <div class="form-group">
-                <form:label class="control-label col-md-2" path="type"><fmt:message key="car.type"/>:</form:label>
-                <div class="col-md-6">
+                <form:label class="control-label col-sm-2" path="type"><fmt:message key="car.type"/>:</form:label>
+                <div class="col-sm-6">
                     <form:select path="type" class="form-control" id="type" >
                         <form:options items="${types}"></form:options>
                     </form:select>
                 </div>
             </div>
             <div class="form-group">
-                <form:label class="control-label col-md-2" path="engine"><fmt:message key="car.engine"/>:</form:label>
-                <div class="col-md-6">
+                <form:label class="control-label col-sm-2" path="engine"><fmt:message key="car.engine"/>:</form:label>
+                <div class="col-sm-6">
                     <form:select path="engine" class="form-control" id="engine" >
-                        <form:options items="${engines}"></form:options>
+                        
+                        <c:forEach items="${engines}" var="engine">    
+                            <form:option value="${engine}"></form:option>
+                        </c:forEach>
                     </form:select>
                 </div>
             </div>
             <div class="form-group">
-                <form:label class="control-label col-md-2" path="VIN"><fmt:message key="car.VIN"/>:</form:label>
-                <div class="col-md-6">
+                <form:label class="control-label col-sm-2" path="VIN"><fmt:message key="car.VIN"/>:</form:label>
+                <div class="col-sm-6">
                     <form:input path="VIN" class="form-control" id="VIN" />
                 </div>
             </div>
             <div class="form-group">
-                <form:label class="control-label col-md-2" path="licencePlate"><fmt:message key="car.licencePlate"/>:</form:label>
-                <div class="col-md-6">
+                <form:label class="control-label col-sm-2" path="licencePlate"><fmt:message key="car.licencePlate"/>:</form:label>
+                <div class="col-sm-6">
                 <form:input path="licencePlate" class="form-control" id="licencePlate" />
                 </div>
             </div>
             <div class="form-group">
-                <form:label class="control-label col-md-2" path="idOffice"><fmt:message key="office"/>:</form:label>
-                <div class="col-md-6">
+                <form:label class="control-label col-sm-2" path="idOffice"><fmt:message key="office"/>:</form:label>
+                <div class="col-sm-6">
                     <form:select path="idOffice" class="form-control" >
                         <c:forEach items="${offices}" var="off">    
                             <form:option path="idOffice" value="${off.ID}" label="${off.address}" />
@@ -80,9 +83,9 @@
                     </form:select>
                 </div>
             </div>    
-            <div class="pull-right col-md-6 ">    
-            <button type="submit" class="btn btn-success btn-lg"><fmt:message key="car.add" /></button>
-            <button type="button" class="btn btn-warning btn-lg" onclick="window.location.href='/pa165/auth/car'"><fmt:message key="btn.cancel" /></button>
+            <div class="pull-right col-sm-6 ">    
+            <button type="submit" class="btn btn-success"><fmt:message key="car.add" /></button>
+            <button type="button" class="btn btn-warning" onclick="window.location.href='/pa165/auth/car'"><fmt:message key="btn.cancel" /></button>
             </div>
         </form:form>
         </jsp:attribute>

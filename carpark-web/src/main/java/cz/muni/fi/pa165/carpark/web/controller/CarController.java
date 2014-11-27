@@ -86,20 +86,30 @@ public class CarController {
         car.setLicencePlate(carForm.getLicencePlate());
         car.setVIN(carForm.getVIN());
         
-        try
-        {
-            carService.EditCar(car);
-            if(carForm.getPrevOfficeId() != null)
-                officeService.deleteCarFromOffice(officeService.getOffice(carForm.getPrevOfficeId()), car);
-            
-            officeService.addCarToOffice(officeService.getOffice(carForm.getIdOffice()),car);
-            carForm.setPrevOfficeId(carForm.getIdOffice());
-        }
-        catch(Exception ex)
-        {
-            return "car-form";
-        }
+        Long carId = carService.AddCar(car);
+        car.setID(carId);
+           
         
+        OfficeDto office = officeService.getOffice(carForm.getIdOffice());
+        List<CarDto> cars = new ArrayList<>(office.getCars());
+        cars.add(car);
+        office.setCars(cars);
+        officeService.editOffice(office);
+        
+        for(OfficeDto o : officeService.getAllOffices())
+        {
+            if(!o.equals(office))
+            {
+                if(o.getCars().contains(car))
+                {
+                    List<CarDto> c = new ArrayList(o.getCars());
+                    c.remove(car);
+                    o.setCars(c);
+                    officeService.editOffice(o);
+                }
+            }
+        }
+                       
         redirectAttributes.addFlashAttribute("msg", "msg.car.edited");
         
         return "redirect:/auth/car";
@@ -119,38 +129,21 @@ public class CarController {
     public String addNewCar(@Valid @ModelAttribute CarForm carForm, final BindingResult result,Model model,RedirectAttributes redirectAttributes) {
         if (result.hasErrors())
         {
-            System.out.println("\nIDIDIDIDIDIDIDIDIDIDDIDIIDD: "+carForm.idOffice);
             redirectAttributes.addFlashAttribute("error", "error.car.wrongform");
             return "car-form";
         }
         
         CarDto car = new CarDto(carForm.getBrand(),carForm.getType(),carForm.getEngine()
                 ,carForm.getLicencePlate(),carForm.getVIN(),false);
-//        try
-//        {
-            Long carId = carService.AddCar(car);
-            car.setID(carId);
-//            if(carForm.getPrevOfficeId() != null)
-//            {
-//                officeService.deleteCarFromOffice(officeService.getOffice(carForm.getPrevOfficeId()), car);
-//            }
-            
-            System.out.println("\n\n\n----------\n" + carForm.getIdOffice());
-            
-            OfficeDto office = officeService.getOffice(carForm.getIdOffice());
-            System.out.println("\n\n>" + office + "\n\n" + car + "\n\n");
-            List<CarDto> cars = new ArrayList<>(office.getCars());
-            cars.add(car);
-            office.setCars(cars);
-            System.out.println("\n\n>" + office + "\n\n" + car + "\n\n");
-            officeService.editOffice(office);
-//            officeService.addCarToOffice(office,car);
-//            carForm.setPrevOfficeId(carForm.getIdOffice());
-//        }
-//        catch(Exception ex)
-//        {
-//            return "car-form";
-//        }
+        
+        Long carId = carService.AddCar(car);
+        car.setID(carId);
+    
+        OfficeDto office = officeService.getOffice(carForm.getIdOffice());
+        List<CarDto> cars = new ArrayList<>(office.getCars());
+        cars.add(car);
+        office.setCars(cars);
+        officeService.editOffice(office);
         
         redirectAttributes.addFlashAttribute("msg", "msg.car.created");
         
@@ -203,7 +196,6 @@ public class CarController {
         
         @NotNull
         private Long idOffice;
-        private Long prevIdOffice;
 
         public CarDto.mBrand getBrand()
         {
@@ -255,24 +247,10 @@ public class CarController {
             this.VIN = VIN;
         }
 
-        public Long getPrevOfficeId() {
-            return prevIdOffice;
-        }
-
-        public void setPrevOfficeId(Long prevIdOffice) {
-            this.prevIdOffice = prevIdOffice;
-        }
-
-        /**
-         * @return the idOffice
-         */
         public Long getIdOffice() {
             return idOffice;
         }
 
-        /**
-         * @param idOffice the idOffice to set
-         */
         public void setIdOffice(Long idOffice) {
             this.idOffice = idOffice;
         }

@@ -15,7 +15,7 @@
 <custom:layout title="${title}">
     <jsp:attribute name="content">
         <div class="row">
-            <a href="<c:url value="/auth/car/add" />" class="btn btn-success btn-lg"><fmt:message key="car.add"/></a>
+            <a href="<c:url value="/auth/car/add" />" class="btn btn-success"><fmt:message key="car.add"/></a>
         </div>
         <hr class="divider" />
        
