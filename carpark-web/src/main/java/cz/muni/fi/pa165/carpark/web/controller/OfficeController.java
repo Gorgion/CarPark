@@ -81,7 +81,7 @@ public class OfficeController {
     public String processSubmit(@ModelAttribute("officeForm") OfficeForm officeForm,final BindingResult result, Model model, RedirectAttributes attributes){
         if(result.hasErrors())
         {
-            attributes.addFlashAttribute("msg","msg.office.unsuccesful");
+            attributes.addFlashAttribute("msg","error.office.created");
             return "office-form";
         }
         UserDto manager = null;
@@ -89,7 +89,7 @@ public class OfficeController {
         List<CarDto> cars = Collections.EMPTY_LIST;
         OfficeDto office = new OfficeDto(officeForm.getAddress(), manager, employees, cars);
         officeService.addOffice(office);
-        attributes.addFlashAttribute("msg","msg.office.succesful");
+        attributes.addFlashAttribute("msg","msg.office.created");
 
         //model.addAttribute("employees", userService.getAll());
         //model.addAttribute("officeForm", new OfficeForm());
@@ -148,7 +148,7 @@ public class OfficeController {
             //System.out.println("\n man:"+userService.get(officeEditForm.getManagerId()));
             //System.out.println("\n empl:"+officeEditForm.getEmployees());
             //System.out.println("\n cars:"+officeEditForm.getCars());
-            redirectAttributes.addFlashAttribute("msg","msg.office.edit.unsuccesful");
+            redirectAttributes.addFlashAttribute("msg","error.office.edit");
             return "office-edit-form";
         }
 
@@ -169,11 +169,11 @@ public class OfficeController {
         }
         catch(Exception e)
         {
-            redirectAttributes.addFlashAttribute("msg","msg.office.edit.unsuccesful");
+            redirectAttributes.addFlashAttribute("msg","error.office.edit");
             return "office-edit-form";
         }
         
-        redirectAttributes.addFlashAttribute("msg", "msg.office.edited");
+        redirectAttributes.addFlashAttribute("msg", "msg.office.edit");
         return "redirect:/auth/office";
     }
     
