@@ -20,7 +20,7 @@
         <hr class="divider" />
        
         <c:if test="${not empty errMsg}" >
-            <div id="alert" class="alert alert-danger alert-dismissable">
+            <div class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     &times;
                 </button>
@@ -30,7 +30,7 @@
         
         
         <c:if test="${not empty msg}" >
-            <div id="alert" class="alert alert-success alert-dismissable">
+            <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     &times;
                 </button>
