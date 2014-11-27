@@ -70,9 +70,19 @@
                 <form:input path="licencePlate" class="form-control" id="licencePlate" />
                 </div>
             </div>
+            <div class="form-group">
+                <form:label class="control-label col-md-2" path="idOffice"><fmt:message key="office"/>:</form:label>
+                <div class="col-md-6">
+                    <form:select path="idOffice" class="form-control" >
+                        <c:forEach items="${offices}" var="off">    
+                            <form:option path="idOffice" value="${off.ID}" label="${off.address}" />
+                        </c:forEach>
+                    </form:select>
+                </div>
+            </div>    
             <div class="pull-right col-md-6 ">    
             <button type="submit" class="btn btn-success btn-lg"><fmt:message key="car.add" /></button>
-            <button type="button" class="btn btn-warning btn-lg" onclick="history.back()"><fmt:message key="btn.cancel" /></button>
+            <button type="button" class="btn btn-warning btn-lg" onclick="window.location.href='/pa165/auth/car'"><fmt:message key="btn.cancel" /></button>
             </div>
         </form:form>
         </jsp:attribute>
