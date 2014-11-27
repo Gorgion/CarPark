@@ -31,3 +31,8 @@ $('#carDetails').on('show.bs.modal', function (event) {
     modal.find('.modal-body input[name = "vin"]').val(vin);
 });
 
+window.setTimeout(function() {
+    $(".alert-dismissable").fadeTo(500, 0).slideUp(500, function(){
+        $(".alert-dismissable").alert('close');
+    });
+},5000);

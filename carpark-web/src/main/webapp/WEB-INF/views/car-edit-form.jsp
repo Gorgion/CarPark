@@ -16,7 +16,7 @@
 <custom:layout title="${title}">
     <jsp:attribute name="content">
         <c:if test="${msg}">
-            <div id="alert" class="alert alert-success alert-dismissable">
+            <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     &times;
                 </button>
@@ -24,7 +24,7 @@
             </div>
         </c:if>
         <c:if test="${error}">
-            <div id="alert" class="alert alert-danger alert-dismissable">
+            <div class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     &times;
                 </button>
