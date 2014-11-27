@@ -17,10 +17,13 @@ import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Office;
 import cz.muni.fi.pa165.carpark.entity.Rental;
 import cz.muni.fi.pa165.carpark.entity.User;
+import cz.muni.fi.pa165.carpark.exception.CarAlreadyReserved;
 import cz.muni.fi.pa165.carpark.util.Converter;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.junit.Assert;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Ignore;
@@ -51,14 +54,14 @@ public class RentalServiceImplTest {
    
    
     @Test
-     @Ignore
     public void testCreateAndGet()
     {
         RentalDto rentalDto = createRentalSampleDto();
         Rental rental = Converter.getEntity(rentalDto);
           
+        Mockito.doReturn(Arrays.asList(rentalDto.getCar())).when(mockedCarService).getFreeCars(rentalDto.getFromDate(), rentalDto.getToDate());  
+        
         Mockito.doNothing().when(mockedRentalDao).create(rental);  
-        Mockito.doNothing().when(mockedCarService).getFreeCars(rental.getFromDate(), rental.getToDate()); 
         rentalService.create(rentalDto);
         rentalDto.setId(rental.getId());
 
@@ -74,12 +77,21 @@ public class RentalServiceImplTest {
         Assert.assertEquals(rentalDto.getToDate(), actualDto.getToDate());
         Assert.assertEquals(rentalDto.getUser(), actualDto.getUser());
     }
+    
+   @Test(expected = CarAlreadyReserved.class)
+    public void testCreateRentalWithoutFreeCar()
+    {
+        RentalDto rentalDto = createRentalSampleDto();
+        Rental rental = Converter.getEntity(rentalDto);
+          
+        Mockito.doReturn(Arrays.asList()).when(mockedCarService).getFreeCars(rentalDto.getFromDate(), rentalDto.getToDate());  
+        rentalService.create(rentalDto);
+    }
        
-    @Ignore
-    @Test(expected = DataAccessException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testCreateWithNullArg()
     {
-        Mockito.doThrow(new DataAccessException("") {}).when(mockedRentalDao).create(null);
+        Mockito.doThrow(new IllegalArgumentException("Rental is null") {}).when(mockedRentalDao).create(null);
         rentalService.create(null);
     }
     
@@ -122,16 +134,17 @@ public class RentalServiceImplTest {
     }
     
     @Test
-       @Ignore
     public void testDelete()          
     {        
         RentalDto rentalDto = createRentalSampleDto();
         rentalDto.setId(1L);
         
-        Rental rental = Converter.getEntity(rentalDto);             
+        Mockito.doReturn(Arrays.asList(rentalDto.getCar())).when(mockedCarService).getFreeCars(rentalDto.getFromDate(), rentalDto.getToDate()); 
+                
         rentalService.create(rentalDto);         
         rentalService.delete(rentalDto);     
         
+        Rental rental = Converter.getEntity(rentalDto);     
         Mockito.verify(mockedRentalDao, Mockito.times(1)).delete(rental);       
         Assert.assertNull(mockedRentalDao.get(1L));
     }
@@ -204,6 +217,8 @@ public class RentalServiceImplTest {
         user.setBirthNumber("9875698/4587");
         
         rentalDto.setUser(Converter.getTransferObject(user));
+        
+        rentalDto.setCar(TestUtils.createSampleDtoCar());   
 
         return rentalDto;
     }
