@@ -36,9 +36,12 @@
         </c:if>
 
         <c:url var="addUrl" value="/auth/user/${userId}/rental/add" />
-        <form:form action="${addUrl}" method="POST" modelAttribute="rentalForm" class="form-horizontal">
-            <div class="form-group"> 
-                <form:label path="from" cssClass="col-sm-2"><fmt:message key="rental.fromDate" /></form:label>
+        <form:form action="${addUrl}" method="POST" role="form" modelAttribute="rentalForm" class="form-horizontal">
+            <c:set var="fromErrors"><form:errors path="from"/></c:set>
+            <c:set var="toErrors"><form:errors path="to"/></c:set>
+
+                <div class="${not empty fromErrors ? 'has-error' : ''} form-group"> 
+                <form:label path="from" cssClass="col-sm-2 control-label"><fmt:message key="rental.fromDate" /></form:label>
                     <div class="col-sm-5">
                     <c:if test="${phase == 0}">
                         <form:input type="date" path="from" cssClass="form-control"/>
@@ -47,10 +50,10 @@
                         <form:input type="date" path="from" cssClass="form-control" readonly=""/>
                     </c:if>
                 </div>
-                <div class="col-sm-5"><form:errors path="from" cssClass="help-block"></form:errors></div>                
-                </div>
-                <div class="form-group"> 
-                <form:label path="to" cssClass="col-sm-2"><fmt:message key="rental.toDate" /></form:label>
+                <div class="col-sm-5 help-block">${fromErrors}</div>                
+            </div>
+            <div class="${not empty toErrors ? 'has-error' : ''} form-group"> 
+                <form:label path="to" cssClass="col-sm-2 control-label"><fmt:message key="rental.toDate" /></form:label>
                     <div class="col-sm-5">
                     <c:if test="${phase == 0}">
                         <form:input type="date" path="to" cssClass="form-control"/>
@@ -59,16 +62,20 @@
                         <form:input type="date" path="to" cssClass="form-control" readonly=""/>
                     </c:if>
                 </div>
-                <div class="col-sm-5"><form:errors path="to" cssClass="help-block"></form:errors></div>                
+                <div class="col-sm-5 help-block">${toErrors}</div>                
                 </div>
-            <%--<c:if test="${phase == 0}">--%>                        
-                <button type="submit" class="btn btn-success"><fmt:message key="car.findFree" /></button>
-                <a href="<c:url value="/auth/user/${userId}/rental"/>" class="btn btn-default"><fmt:message key="btn.cancel" /></a>
+            <%--<c:if test="${phase == 0}">--%>  
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-success"><fmt:message key="car.findFree" /></button>
+                    <a href="<c:url value="/auth/user/${userId}/rental"/>" class="btn btn-default"><fmt:message key="btn.cancel" /></a>
+                </div>
+            </div>
             <%--</c:if>--%>
             <%--<c:if test="${phase != 0}">--%>                        
-                <!--<button type="submit" class="btn btn-success" disabled="disabled">
-                <%--<fmt:message key="car.findFree" />--%>
-                </button>-->
+            <!--<button type="submit" class="btn btn-success" disabled="disabled">
+            <%--<fmt:message key="car.findFree" />--%>
+            </button>-->
             <%--</c:if>--%>
         </form:form>
 
@@ -88,7 +95,7 @@
                         <form:form action="${add1Url}" method="POST" modelAttribute="rentalForm" class="form-inline">                                           
                             <form:hidden path="from"  />
                             <form:hidden path="to" />
-                            
+
                             <form:hidden path="carId" value="${car.ID}"/>
                             <button type="submit" class="btn btn-success"><fmt:message key="btn.rentCar" /></button>
                         </form:form>
