@@ -56,7 +56,6 @@
                                 <fmt:message key="office.manager.show"/>
                             </a>
                         </td>-->
-                        <td>${office.employees[status.index].firstName} ${office.employees[status.index].lastName}</td>
                         <td>
                             <c:forEach items="${office.employees}" var="of" varStatus="status">
                                <p>${of.firstName} ${of.lastName}  </p>

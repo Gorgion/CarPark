@@ -40,20 +40,23 @@
             
             <div class="form-group"> 
                 <form:label path="manager" cssClass="col-sm-2"><fmt:message key="office.manager" /></form:label>
-                <form:select path="manager" cssClass="form-control">
-                    <form:option value="">&nbsp;</form:option>
-                    <c:forEach items="${employees}" var="manager">    
-                        <form:option path ="${manager.id}" value="${manager.firstName} ${manager.lastName} (ID: ${manager.id} )" />
-                    </c:forEach>
-                </form:select>
+                    <!--<form:select path="manager" class="form-control" id="manager" >
+                        <form:option value="">&nbsp;</form:option>
+                        <c:forEach items="${managers}" var="manager">    
+                            <form:option value="${manager}" label="${manager.firstName} ${manager.lastName}"/>
+                        </c:forEach>
+                    </form:select>-->
+                    <form:select path="manager" class="form-control" id="manager" >
+                        <form:options items="${managers}"></form:options>
+                    </form:select>
             </div>
                 
             <div class="form-group"> 
                 <form:label path="employees" cssClass="col-sm-2"><fmt:message key="office.employees" /></form:label>
-                <form:select multiple="true" path="employees" cssClass="form-control">
+                <form:select path="employees" multiple="true" cssClass="form-control">
                     <form:option value="">&nbsp;</form:option>
                     <c:forEach items="${employees}" var="empl">    
-                        <form:option path ="${empl}" value="${empl}" />
+                        <form:option path ="${empl}" value="${empl.id}" />
                     </c:forEach>
                 </form:select>
             </div>
@@ -64,7 +67,7 @@
                     <form:option value="">&nbsp;</form:option>
                     <c:forEach items="${cars}" var="cars">     
                         
-                        <form:option path = "cars[${status.index}]" value="${cars}" />
+                        <form:option path = "${cars}" value="${cars}" />
                     </c:forEach>
                 </form:select>
             </div>
