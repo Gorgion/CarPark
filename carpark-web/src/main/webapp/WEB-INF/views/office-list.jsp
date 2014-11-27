@@ -16,22 +16,24 @@
         <div class="row">
             <a href="<c:url value="/auth/office/add" />" class="btn btn-success"><fmt:message key="office.add"/></a>
             <hr class="divider" />
-        <c:if test="${msg}">
-            <div class="alert alert-success alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    &times;
-                </button>
-                <fmt:message key="${msg}" />
-            </div>
-        </c:if>
-        <c:if test="${error}">
-            <div class="alert alert-danger alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    &times;
-                </button>
-                <fmt:message key="${error}"/>
-            </div>
-        </c:if>
+        <c:if test="${not empty error}" >
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                        &times;
+                    </button>
+                    <fmt:message key="${error}" />
+                </div>
+            </c:if>
+
+
+            <c:if test="${not empty msg}" >
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                        &times;
+                    </button>
+                    <fmt:message key="${msg}" />
+                </div>
+            </c:if>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -39,6 +41,9 @@
                     <th><fmt:message key="office.address" /></th>
                     <th><fmt:message key="office.manager" /></th>
                     <th><fmt:message key="office.employees" /></th>
+                    <th><fmt:message key="office.cars" /></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -61,14 +66,17 @@
                                <p>${of.firstName} ${of.lastName}  </p>
                             </c:forEach>
                         </td>
-                        
                         <td>
-                            <a href='<c:url value="/auth/office/${office.ID}/edit" />' class="btn btn-success"><fmt:message key="edit" /></a>
+                            
                         </td>
                         <td>
-                            <form action="<c:url value="/auth/office/${office.ID}/delete" />" method="POST" class="form-inline">
-                                <button type="submit" name="delete" class="btn btn-danger"><fmt:message key="delete" /></button>
-                            </form>                            
+                            <a href='<c:url value="/auth/office/${office.ID}/edit" />' class="btn btn-default"><fmt:message key="edit" /></a>
+                        </td>
+                            
+                        <td>
+                            <form action="<c:url value="/auth/office/${office.ID}/delete" />" method="POST" class="form-inline" >
+                                    <button type="submit" name="delete" class="btn btn-danger"><fmt:message key="delete" /></button>
+                            </form>                           
                         </td>
                     </tr>
                 </c:forEach>

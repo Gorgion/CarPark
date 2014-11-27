@@ -54,6 +54,7 @@ footer a:focus{
 
 .container {
     padding-bottom: 20px;
+    min-height: 230px;
 }
 
 .container .main-contact{
@@ -70,14 +71,23 @@ footer a:focus{
     color: white;
 }
 
-.navbar-default .navbar-brand{
+.navbar-default .navbar-brand,
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus{
     color: white;
 }
+
 
 .navbar-default
 .navbar-nav>li>a:hover,
 .navbar-default 
 .navbar-nav>li>a:focus{
+    color: white;
+    background-color: #BBD335;
+}
+
+.navbar-default
+.navbar-nav>li>.active{
     color: white;
     background-color: #9DBD15;
 }

@@ -43,11 +43,11 @@
 
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a class="office" id="office" href="/pa165/auth/office"></span><span><fmt:message key="offices" /></span></a></li>
-                        <li><a id="car" href="/pa165/auth/car"></span><span><fmt:message key="cars" /></span></a></li>
-                        <li><a id="rental" href="/pa165/auth/user/1/rental"><span><fmt:message key="rentals" /></span></a></li>
-                        <li><a id="user" href="/pa165/auth/user"><span><fmt:message key="users" /></span></a></li>
-                        <li><a id="info" href="#"><span><fmt:message key="info" /></span></a></li>
+                        <li><a id="office" href="/pa165/auth/office"><fmt:message key="offices" /></a></li>
+                        <li><a id="car" href="/pa165/auth/car"><fmt:message key="cars" /></a></li>
+                        <li><a id="rental" href="/pa165/auth/user/1/rental"><fmt:message key="rentals" /></a></li>
+                        <li><a id="user" href="/pa165/auth/user"><fmt:message key="users" /></a></li>
+                        <li><a id="info" href="#"><fmt:message key="info" /></a></li>
                     </ul>
                 </div>
                 <div class="page-header">
@@ -78,10 +78,9 @@
         <script src="<c:url value='/static/js/carpark.js'/>"></script>
         <script>
             var url = window.location.toString();
-/*
+
         if(url.indexOf("office") > -1) {
-            var div = $(".office");
-            div.addClass("active");
+            $("li #office").addClass("active");
         }
             
         if(url.indexOf("car") > -1) 
@@ -90,8 +89,8 @@
         if(url.indexOf("rental") > -1) 
             $("li #rental").addClass("active");
             
-        if(url.indexOf("user") > -1) 
-            $("li #user").addClass("active");*/
+        if(url.indexOf("user") > -1 && !(url.indexOf("rental") > -1)) 
+            $("li #user").addClass("active");
         </script>
     </body>
 </html>

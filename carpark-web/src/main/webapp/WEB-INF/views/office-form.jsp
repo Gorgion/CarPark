@@ -21,6 +21,7 @@
                 <form:input path="address" cssClass="form-control"/>
             </div>
             <button type="submit" class="btn btn-success"><fmt:message key="office.add" /></button>
+            <button type="button" class="btn btn-danger" onclick="window.location.href='/pa165/auth/office'"><fmt:message key="btn.cancel" /></button>
         </form:form>
      </jsp:attribute>        
 </custom:layout>           

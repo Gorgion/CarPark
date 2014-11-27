@@ -47,7 +47,8 @@
                     </form:select>
                     
             </div>
-            <button type="submit" class="btn btn-success"><fmt:message key="office.edit" /></button>
+            <button type="submit" class="btn btn-success"><fmt:message key="edit" /></button>
+            <button type="button" class="btn btn-danger" onclick="window.location.href='/pa165/auth/office'"><fmt:message key="btn.cancel" /></button>
         </form:form>
      </jsp:attribute>        
 </custom:layout>           
