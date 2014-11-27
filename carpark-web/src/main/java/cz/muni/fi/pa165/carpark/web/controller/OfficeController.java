@@ -5,8 +5,10 @@
  */
 package cz.muni.fi.pa165.carpark.web.controller;
 
+import cz.muni.fi.pa165.carpark.dto.CarDto;
 import cz.muni.fi.pa165.carpark.dto.OfficeDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
+import cz.muni.fi.pa165.carpark.service.CarService;
 
 import cz.muni.fi.pa165.carpark.service.OfficeService;
 import cz.muni.fi.pa165.carpark.service.UserService;
@@ -42,6 +44,9 @@ public class OfficeController {
     
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private CarService carService;
 
     //@ModelAttribute("office-form")
     //@RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -63,21 +68,92 @@ public class OfficeController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String handleRequest(Model model)
     {
-        //System.out.println("On Submit");
         model.addAttribute("officeForm", new OfficeForm());
-        model.addAttribute("employees", userService.getAll());
+        //model.addAttribute("employees", userService.getAll());
         return "office-form";
     }
     
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processSubmit(@Valid @ModelAttribute("officeForm") OfficeForm officeForm, BindingResult result, Model model, RedirectAttributes attributes){
+    @RequestMapping(value = "/add", method = {RequestMethod.POST,RequestMethod.PUT})
+    public String processSubmit(@ModelAttribute("officeForm") OfficeForm officeForm, BindingResult result, Model model, RedirectAttributes attributes){
         if(result.hasErrors())
         {
+            attributes.addFlashAttribute("msg","msg.office.unsuccesful");
+            //System.out.println("chyba");
             return "office-form";
         }
-        attributes.addFlashAttribute("msg","msg.office.succesful"); 
+        System.out.println("\n#1");
+        UserDto manager = new UserDto();
+        List<UserDto> employees = new ArrayList<>();
+        List<CarDto> cars = new ArrayList<>();
+        System.out.println("\n#2");
+        OfficeDto office = new OfficeDto(officeForm.getAddress(), manager, employees, cars);
+        System.out.println("office:"+office);
+        officeService.addOffice(office);
+        System.out.println("\n#3");
+        attributes.addFlashAttribute("msg","msg.office.succesful");
+
+        //model.addAttribute("employees", userService.getAll());
+        //model.addAttribute("officeForm", new OfficeForm());
+        return "redirect:/auth/office";
+    }
+    
+    @RequestMapping(value = "/{id}/delete", method ={RequestMethod.POST, RequestMethod.DELETE})
+    public String officeDeletion(@PathVariable Long id, RedirectAttributes redirectAttributes)
+    {
+        OfficeDto office = officeService.getOffice(id);
+
+        if (office == null)
+        {
+            redirectAttributes.addFlashAttribute("error", "error.office.deleted");
+        }
+
+        officeService.deleteOffice(office);
+
+        redirectAttributes.addFlashAttribute("msg", "msg.office.deleted");
+
+        return "redirect:/auth/office";
+    }
+    
+    @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
+    public String editOffice(@PathVariable Long id, Model model)
+    {
+        //OfficeDto office = officeService.getOffice(id);
+        
+        model.addAttribute("manager", userService.getAll());
         model.addAttribute("employees", userService.getAll());
-        model.addAttribute("officeForm", new OfficeForm());
+        model.addAttribute("cars", carService.getAllCars());
+        //UserDto manager = new UserDto();
+        
+        /*OfficeForm officeForm = new OfficeForm();
+        officeForm.(office.getRentalState());*/
+
+        model.addAttribute("officeEditForm",new OfficeEditForm());
+
+        return "office-edit-form";
+    }
+    
+    @RequestMapping(value = "/{id}/edit", method ={RequestMethod.POST, RequestMethod.PUT})
+    public String officeEdition(@PathVariable Long id, @Valid @ModelAttribute OfficeEditForm officeEditForm, BindingResult result, RedirectAttributes redirectAttributes)
+    {
+        if (result.hasErrors())
+        {
+            redirectAttributes.addFlashAttribute("msg","msg.office.edit.unsuccesful");
+            return "office-edit-form";
+        }
+
+        OfficeDto office = officeService.getOffice(id);
+        UserDto manager = officeEditForm.getManager();
+        List<CarDto> cars = officeEditForm.getCars();
+        List<UserDto> employees = officeEditForm.getEmployees();
+       
+        office.setManager(manager);
+        office.setEmployees(employees);
+        office.setCars(cars);
+
+        officeService.editOffice(office);
+        
+        redirectAttributes.addFlashAttribute("msg", "msg.office.edited");
+
         return "redirect:/auth/office";
     }
     
@@ -85,9 +161,26 @@ public class OfficeController {
     {
         @NotBlank
         private String address;
-        //@NotNull
+        
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+    }
+    
+    public static class OfficeEditForm
+    {
+        @NotBlank
+        private String address;
+        @NotNull
         private UserDto manager;
-        //private List<UserDto> employees;
+        
+        private List<UserDto> employees;
+        
+        private List<CarDto> cars;
         
         public String getAddress() {
             return address;
@@ -104,13 +197,21 @@ public class OfficeController {
         public void setLastName(UserDto manager) {
             this.manager = manager;
         }
-/*
+
         public List<UserDto> getEmployees() {
             return employees;
         }
 
         public void setEmployees(List<UserDto> employees) {
             this.employees = employees;
-        }*/
+        }
+        
+        public List<CarDto> getCars() {
+            return cars;
+        }
+
+        public void setCars(List<CarDto> cars) {
+            this.cars = cars;
+        }
     }
 }

@@ -19,21 +19,27 @@ public class GeneralExceptionHandlerController
     @RequestMapping("/500")
     public String handle500error(Model model)
     {
-//        model.addAttribute("", model);
-        return "";
+        model.addAttribute("error.code", "500");
+        model.addAttribute("error.msg", "error.500.body");
+        
+        return "error";
     }
     
     @RequestMapping("/400")
     public String handle400error(Model model)
     {
-//        model.addAttribute("", model);
-        return "";
+        model.addAttribute("error.code", "400");
+        model.addAttribute("error.msg", "error.400.body");
+        
+        return "error";
     }
     
     @RequestMapping("/404")
     public String handle404error(Model model)
     {
-//        model.addAttribute("", model);
-        return "500";
+        model.addAttribute("error.code", "404");
+        model.addAttribute("error.msg", "error.404.body");
+        
+        return "error";
     }
 }

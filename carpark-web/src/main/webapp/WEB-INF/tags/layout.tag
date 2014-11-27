@@ -24,7 +24,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/style.css"/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />      
+        <script src="${pageContext.request.contextPath}/static/js/jquery.min.js" ></script>
+        <script src="${pageContext.request.contextPath}/static/js/bootstrap.min.js" ></script>
+        
         <jsp:invoke fragment="head"/>
+        
+        <script type="text/javascript">
+            window.setTimeout(function() {
+                $("#alert").fadeTo(500, 0).slideUp(500, function(){
+                    $("#alert").alert('close');
+                });
+            },5000);
+        </script>
     </head>
     <body>
         <div class="navbar navbar-default navbar-static-top" role="navigation">

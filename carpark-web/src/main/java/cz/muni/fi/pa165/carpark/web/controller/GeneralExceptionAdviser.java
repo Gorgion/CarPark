@@ -23,17 +23,23 @@ public class GeneralExceptionAdviser
     @ExceptionHandler(value = {DataAccessException.class})
     public ModelAndView serverErrorHandler(DataAccessException e)
     {
-        ModelAndView view = new ModelAndView("500");
+        ModelAndView model = new ModelAndView("error");
         
-        return view;
+        model.addObject("error.code", "500");
+        model.addObject("error.msg", "error.500.body");
+        
+        return model;
     }
      
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ModelAndView generalExceptionHandler(Exception e)
     {
-        ModelAndView view = new ModelAndView("500");
+        ModelAndView model = new ModelAndView("error");
         
-        return view;
+        model.addObject("error.code", "500");
+        model.addObject("error.msg", "error.500.body");
+        
+        return model;
     }
 }
