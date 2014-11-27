@@ -15,30 +15,19 @@
 
 <custom:layout title="${title}">
     <jsp:attribute name="content">
-        <c:if test="${msg}">
-            <div class="alert alert-success alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    &times;
-                </button>
-                <fmt:message key="${msg}" />
-            </div>
-        </c:if>
-        <c:if test="${error}">
-            <div class="alert alert-danger alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    &times;
-                </button>
-                <fmt:message key="${error}"/>
-            </div>
-        </c:if>
-        
-        <c:url var="addUrl" value="/auth/car/add" />
+                
+        <c:url var="addUrl" value="/auth/car/add2" />
         <form:form action="${addUrl}" method="POST" modelAttribute="carForm" class="form-horizontal">
+            <c:set var="vinErrors"><form:errors path="VIN"/></c:set>
+            <c:set var="licencePlateErrors"><form:errors path="licencePlate"/></c:set>
+            
             <div class="form-group">
                 <form:label class="control-label col-sm-2" path="brand"><fmt:message key="car.brand"/>:</form:label>
                 <div class="col-sm-6">
                     <form:select path="brand" class="form-control" id="brand" >
-                        <form:options items="${brands}"></form:options>
+                        <c:forEach items="${brands}" var="brand">    
+                            <form:option value="${brand}"><fmt:message key="car.brand.${brand}"/></form:option>
+                        </c:forEach>
                     </form:select>
                 </div>
             </div>
@@ -46,7 +35,9 @@
                 <form:label class="control-label col-sm-2" path="type"><fmt:message key="car.type"/>:</form:label>
                 <div class="col-sm-6">
                     <form:select path="type" class="form-control" id="type" >
-                        <form:options items="${types}"></form:options>
+                        <c:forEach items="${types}" var="type">    
+                            <form:option value="${type}"><fmt:message key="car.type.${type}"/></form:option>
+                        </c:forEach>
                     </form:select>
                 </div>
             </div>
@@ -54,20 +45,19 @@
                 <form:label class="control-label col-sm-2" path="engine"><fmt:message key="car.engine"/>:</form:label>
                 <div class="col-sm-6">
                     <form:select path="engine" class="form-control" id="engine" >
-                        
                         <c:forEach items="${engines}" var="engine">    
-                            <form:option value="${engine}"></form:option>
+                            <form:option value="${engine}"><fmt:message key="car.engine.${engine}"/></form:option>
                         </c:forEach>
                     </form:select>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="${not empty vinErrors ? 'has-error' : ''} form-group">
                 <form:label class="control-label col-sm-2" path="VIN"><fmt:message key="car.VIN"/>:</form:label>
                 <div class="col-sm-6">
                     <form:input path="VIN" class="form-control" id="VIN" />
                 </div>
             </div>
-            <div class="form-group">
+            <div class="${not empty licencePlateErrors ? 'has-error' : ''} form-group">
                 <form:label class="control-label col-sm-2" path="licencePlate"><fmt:message key="car.licencePlate"/>:</form:label>
                 <div class="col-sm-6">
                 <form:input path="licencePlate" class="form-control" id="licencePlate" />

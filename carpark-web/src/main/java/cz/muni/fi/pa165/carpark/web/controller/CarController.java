@@ -71,7 +71,7 @@ public class CarController {
     }
     
     @RequestMapping(value = "/{id}/edit", method = {RequestMethod.POST,RequestMethod.PUT})
-    public String editCar(@PathVariable Long id,@Valid@ModelAttribute CarForm carForm, final BindingResult result,Model model,RedirectAttributes redirectAttributes) {
+    public String editCar(@PathVariable Long id,@Valid@ModelAttribute("carForm") CarForm carForm, final BindingResult result,Model model,RedirectAttributes redirectAttributes) {
         if (result.hasErrors())
         {
             redirectAttributes.addFlashAttribute("error", "error.car.wrongform");
@@ -86,9 +86,7 @@ public class CarController {
         car.setLicencePlate(carForm.getLicencePlate());
         car.setVIN(carForm.getVIN());
         
-        Long carId = carService.AddCar(car);
-        car.setID(carId);
-           
+        carService.EditCar(car);
         
         OfficeDto office = officeService.getOffice(carForm.getIdOffice());
         List<CarDto> cars = new ArrayList<>(office.getCars());
@@ -125,8 +123,8 @@ public class CarController {
         return "car-form";
     }
     
-    @RequestMapping(value = "/add", method = {RequestMethod.POST})
-    public String addNewCar(@Valid @ModelAttribute CarForm carForm, final BindingResult result,Model model,RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "/add2", method = {RequestMethod.POST})
+    public String addNewCar(@Valid @ModelAttribute("carForm") CarForm carForm, final BindingResult result,Model model,RedirectAttributes redirectAttributes) {
         if (result.hasErrors())
         {
             redirectAttributes.addFlashAttribute("error", "error.car.wrongform");
