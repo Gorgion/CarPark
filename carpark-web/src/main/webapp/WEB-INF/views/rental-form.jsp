@@ -42,25 +42,16 @@
 
                 <div class="${not empty fromErrors ? 'has-error' : ''} form-group"> 
                 <form:label path="from" cssClass="col-sm-2 control-label"><fmt:message key="rental.fromDate" /></form:label>
-                    <div class="col-sm-5">
-                    <c:if test="${phase == 0}">
-                        <form:input type="date" path="from" cssClass="form-control"/>
-                    </c:if>
-                    <c:if test="${phase != 0}">
-                        <form:input type="date" path="from" cssClass="form-control" readonly=""/>
-                    </c:if>
+                    <div class="col-sm-5">                    
+                        <form:input type="date" path="from" cssClass="form-control" autofocus="true"/>
+                    
                 </div>
                 <div class="col-sm-5 help-block">${fromErrors}</div>                
             </div>
             <div class="${not empty toErrors ? 'has-error' : ''} form-group"> 
                 <form:label path="to" cssClass="col-sm-2 control-label"><fmt:message key="rental.toDate" /></form:label>
                     <div class="col-sm-5">
-                    <c:if test="${phase == 0}">
-                        <form:input type="date" path="to" cssClass="form-control"/>
-                    </c:if>
-                    <c:if test="${phase != 0}">
-                        <form:input type="date" path="to" cssClass="form-control" readonly=""/>
-                    </c:if>
+                        <form:input type="date" path="to" cssClass="form-control"/>                    
                 </div>
                 <div class="col-sm-5 help-block">${toErrors}</div>                
                 </div>
