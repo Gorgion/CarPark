@@ -15,12 +15,12 @@
 <custom:layout title="${title}">
     <jsp:attribute name="content">
         <div class="row">
-            <a href="<c:url value="/auth/car/add" />" class="btn btn-success"><fmt:message key="car.add"/></a>
+            <a href="<c:url value="/auth/car/add" />" class="btn btn-success btn-lg"><fmt:message key="car.add"/></a>
         </div>
         <hr class="divider" />
        
         <c:if test="${not empty errMsg}" >
-            <div class="alert alert-danger alert-dismissable">
+            <div id="alert" class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     &times;
                 </button>
@@ -30,7 +30,7 @@
         
         
         <c:if test="${not empty msg}" >
-            <div class="alert alert-success alert-dismissable">
+            <div id="alert" class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     &times;
                 </button>
@@ -54,12 +54,12 @@
                <c:forEach items="${cars}" var="car">
                     <tr>
                         <td>${car.ID}</td>
-                        <td><fmt:message key="${car.brand}" /></td>
-                        <td>${car.type}</td>
-                        <td>${car.engine}</td>
+                        <td><fmt:message key="car.brand.${car.brand}" /></td>
+                        <td><fmt:message key="car.type.${car.type}" /></td>
+                        <td><fmt:message key="car.engine.${car.engine}" /></td>
                         <td>${car.licencePlate}</td>
                         <td>${car.VIN}</td>
-                        <td>${car.rented}</td>
+                        <td><fmt:message key="${car.rented}" /></td>
                         <td><a href="<c:url value="/auth/car/${car.ID}/edit" />" class="btn btn-default"><fmt:message key="edit" /></a></td>
                         <td>
                             <form action="<c:url value="/auth/car/${car.ID}/delete" />" method="POST" class="form-inline">

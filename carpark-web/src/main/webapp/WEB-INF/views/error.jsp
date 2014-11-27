@@ -10,15 +10,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:message var="title" key="error.title"/>
-
-<custom:layout title="${title}">
+<custom:layout title="${error.code}">
     <jsp:attribute name="content">
         <div class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     &times;
                 </button>
-                <fmt:message key="err.xxx.body" /><fmt:message key="${msg}" />
+                <fmt:message key="error.xxx.body" /><fmt:message key="${error.msg}" />
+                <button type="button" class="btn btn-warning" onclick="history.back()"><fmt:message key="btn.back" /></button>
             </div>
     </jsp:attribute>
 </custom:layout>
