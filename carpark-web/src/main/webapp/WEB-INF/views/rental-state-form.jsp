@@ -54,6 +54,7 @@
                 </c:forEach>
 
                 <button type="submit" class="btn btn-success"><fmt:message key="btn.save" /></button>
+                <a href="<c:url value="/auth/user/${userId}/rental"/>" class="btn btn-default"><fmt:message key="btn.cancel" /></a>
         </form:form>
     </jsp:attribute>
 </custom:layout>

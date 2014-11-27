@@ -61,34 +61,32 @@
                 </div>
                 <div class="col-sm-5"><form:errors path="to" cssClass="help-block"></form:errors></div>                
                 </div>
-            <c:if test="${phase == 0}">                        
+            <%--<c:if test="${phase == 0}">--%>                        
                 <button type="submit" class="btn btn-success"><fmt:message key="car.findFree" /></button>
-            </c:if>
-            <c:if test="${phase != 0}">                        
-                <button type="submit" class="btn btn-success" disabled="disabled"><fmt:message key="car.findFree" /></button>
-            </c:if>
+                <a href="<c:url value="/auth/user/${userId}/rental"/>" class="btn btn-default"><fmt:message key="btn.cancel" /></a>
+            <%--</c:if>--%>
+            <%--<c:if test="${phase != 0}">--%>                        
+                <!--<button type="submit" class="btn btn-success" disabled="disabled">
+                <%--<fmt:message key="car.findFree" />--%>
+                </button>-->
+            <%--</c:if>--%>
         </form:form>
 
         <c:if test="${phase == 1}">
             <h2><fmt:message key="rental.chooseCar" /></h2>
             <c:forEach items="${cars}" var="car" varStatus="status">
                 <div class="row">
-                    <div class="col-sm-3">
-                        <c:out value="${car.brand}" escapeXml="true"/>
+                    <div class="col-sm-4">
+                        <fmt:message key="car.brand.${car.brand}"/>
                     </div>
-                    <div class="col-sm-3">
-                        <%--<c:out value="${car.model}" escapeXml="true"/>--%>
+                    <div class="col-sm-4">
+                        <fmt:message key="car.type.${car.type}"/>
                     </div>
-                    <div class="col-sm-3">
-                        <c:out value="${car.type}" escapeXml="true"/>
-                    </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
 
                         <c:url var="add1Url" value="/auth/user/${userId}/rental/add/1" />
-                        <form:form action="${add1Url}" method="POST" modelAttribute="rentalForm" class="form-inline">               
-                            <%--<form:hidden path="rentalDate" />--%>
+                        <form:form action="${add1Url}" method="POST" modelAttribute="rentalForm" class="form-inline">                                           
                             <form:hidden path="from"  />
-                            <!--<input type="hidden" name="from" id="from" value="${rentalDate.from}">-->
                             <form:hidden path="to" />
                             
                             <form:hidden path="carId" value="${car.ID}"/>

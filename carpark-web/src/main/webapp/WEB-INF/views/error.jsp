@@ -12,13 +12,10 @@
 
 <custom:layout title="${error.code}">
     <jsp:attribute name="content">
-        <div class="alert alert-danger alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    &times;
-                </button>
-                <fmt:message key="error.xxx.body" /><fmt:message key="${error.msg}" />
-                <button type="button" class="btn btn-warning" onclick="history.back()"><fmt:message key="btn.back" /></button>
-            </div>
+        <div class="alert alert-danger">        
+            <fmt:message key="error.xxx.body" /><fmt:message key="${error.msg}" />
+        </div>
+        <button type="button" class="btn btn-warning" onclick="history.back()"><fmt:message key="btn.back" /></button>
     </jsp:attribute>
 </custom:layout>
  
