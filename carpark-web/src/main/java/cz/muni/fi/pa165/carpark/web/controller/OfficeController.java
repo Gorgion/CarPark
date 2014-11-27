@@ -117,18 +117,24 @@ public class OfficeController {
     public String editOffice(@PathVariable Long id, Model model)
     {
         OfficeDto office = officeService.getOffice(id);
-
+        //List<UserDto> users = userService.getAll();
         OfficeEditForm officeEditForm = new OfficeEditForm();
         
         officeEditForm.setAddress(office.getAddress());
-        officeEditForm.setManager(office.getManager());
-        officeEditForm.setEmployees(office.getEmployees());
-        officeEditForm.setCars(office.getCars());
+        try
+        {
+        officeEditForm.setManagerId(office.getManager().getId());
+        } 
+        catch (NullPointerException e)
+        {
+        }
+        //officeEditForm.setEmployees(office.getEmployees());
+        //officeEditForm.setCars(office.getCars());
         
         model.addAttribute("officeEditForm", officeEditForm);
-        model.addAttribute("managers", userService.getAll());
-        model.addAttribute("employees", userService.getAll());
-        model.addAttribute("cars", carService.getAllCars());
+        model.addAttribute("managerId", userService.getAll());
+        //model.addAttribute("employees", userService.getAll());
+        //model.addAttribute("cars", carService.getAllCars());
         
         return "office-edit-form";
     }
@@ -139,18 +145,23 @@ public class OfficeController {
         if (result.hasErrors())
         {            
             System.out.println("\n add:"+officeEditForm.getAddress());
-            System.out.println("\n man:"+officeEditForm.getManager());
-            System.out.println("\n empl:"+officeEditForm.getEmployees());
-            System.out.println("\n cars:"+officeEditForm.getCars());
+            //System.out.println("\n man:"+userService.get(officeEditForm.getManagerId()));
+            //System.out.println("\n empl:"+officeEditForm.getEmployees());
+            //System.out.println("\n cars:"+officeEditForm.getCars());
             redirectAttributes.addFlashAttribute("msg","msg.office.edit.unsuccesful");
             return "office-edit-form";
         }
 
         OfficeDto office = officeService.getOffice(id);
+        List<OfficeDto> offices = officeService.getAllOffices();
         office.setAddress(officeEditForm.getAddress());
-        office.setManager(officeEditForm.getManager());
-        office.setEmployees(officeEditForm.getEmployees());
-        office.setCars(officeEditForm.getCars());
+        if(officeEditForm.getManagerId() != null){
+            //if(offices.get(office.getID()getManager().getId()))//==(officeEditForm.getManagerId()))){
+                office.setManager(userService.get(officeEditForm.getManagerId()));
+            //}
+        }
+        //office.setEmployees(officeEditForm.getEmployees());
+        //office.setCars(officeEditForm.getCars());
 
         try
         {
@@ -183,13 +194,10 @@ public class OfficeController {
     public static class OfficeEditForm
     {
         @NotBlank
+        @Valid
         private String address;
         @NotNull
-        private UserDto manager;
-        
-        private List<UserDto> employees;
-        
-        private List<CarDto> cars;
+        private Long managerId;
         
         public String getAddress() {
             return address;
@@ -199,28 +207,12 @@ public class OfficeController {
             this.address = address;
         }
 
-        public UserDto getManager() {
-            return manager;
+        public Long getManagerId() {
+            return managerId;
         }
 
-        public void setManager(UserDto manager) {
-            this.manager = manager;
-        }
-
-        public List<UserDto> getEmployees() {
-            return employees;
-        }
-
-        public void setEmployees(List<UserDto> employees) {
-            this.employees = employees;
-        }
-        
-        public List<CarDto> getCars() {
-            return cars;
-        }
-
-        public void setCars(List<CarDto> cars) {
-            this.cars = cars;
+        public void setManagerId(Long managerId) {
+            this.managerId = managerId;
         }
     }
 }
