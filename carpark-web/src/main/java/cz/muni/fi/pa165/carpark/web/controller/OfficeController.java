@@ -15,6 +15,7 @@ import cz.muni.fi.pa165.carpark.service.UserService;
 import cz.muni.fi.pa165.carpark.validation.AfterDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 import java.util.List;
 import javax.validation.Valid;
@@ -82,9 +83,9 @@ public class OfficeController {
             return "office-form";
         }
         System.out.println("\n#1");
-        UserDto manager = new UserDto();
-        List<UserDto> employees = new ArrayList<>();
-        List<CarDto> cars = new ArrayList<>();
+        UserDto manager = null;
+        List<UserDto> employees = Collections.EMPTY_LIST;
+        List<CarDto> cars = Collections.EMPTY_LIST;
         System.out.println("\n#2");
         OfficeDto office = new OfficeDto(officeForm.getAddress(), manager, employees, cars);
         System.out.println("office:"+office);
