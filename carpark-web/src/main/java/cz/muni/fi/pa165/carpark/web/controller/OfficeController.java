@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -135,7 +134,7 @@ public class OfficeController {
     }
     
     @RequestMapping(value = "/{id}/edit", method ={RequestMethod.POST, RequestMethod.PUT})
-    public String officeEdition(@PathVariable Long id, @Valid @ModelAttribute OfficeEditForm officeEditForm,@RequestParam UserDto manager,final BindingResult result,Model model, RedirectAttributes redirectAttributes)
+    public String officeEdition(@PathVariable Long id, @Valid @ModelAttribute OfficeEditForm officeEditForm,final BindingResult result,Model model, RedirectAttributes redirectAttributes)
     {
         if (result.hasErrors())
         {            
@@ -148,7 +147,7 @@ public class OfficeController {
         }
 
         OfficeDto office = officeService.getOffice(id);
-        
+        office.setAddress(officeEditForm.getAddress());
         office.setManager(officeEditForm.getManager());
         office.setEmployees(officeEditForm.getEmployees());
         office.setCars(officeEditForm.getCars());
@@ -185,13 +184,11 @@ public class OfficeController {
     {
         @NotBlank
         private String address;
-        
         @NotNull
-        @NotBlank
         private UserDto manager;
-        @NotBlank
+        
         private List<UserDto> employees;
-        @NotBlank
+        
         private List<CarDto> cars;
         
         public String getAddress() {
