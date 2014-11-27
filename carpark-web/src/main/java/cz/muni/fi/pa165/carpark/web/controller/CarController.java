@@ -123,7 +123,7 @@ public class CarController {
         return "car-form";
     }
     
-    @RequestMapping(value = "/add2", method = {RequestMethod.POST})
+    @RequestMapping(value = "/add", method = {RequestMethod.POST})
     public String addNewCar(@Valid @ModelAttribute("carForm") CarForm carForm, final BindingResult result,Model model,RedirectAttributes redirectAttributes) {
         if (result.hasErrors())
         {

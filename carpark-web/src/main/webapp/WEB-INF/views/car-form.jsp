@@ -16,7 +16,7 @@
 <custom:layout title="${title}">
     <jsp:attribute name="content">
                 
-        <c:url var="addUrl" value="/auth/car/add2" />
+        <c:url var="addUrl" value="/auth/car/add" />
         <form:form action="${addUrl}" method="POST" modelAttribute="carForm" class="form-horizontal">
             <c:set var="vinErrors"><form:errors path="VIN"/></c:set>
             <c:set var="licencePlateErrors"><form:errors path="licencePlate"/></c:set>
