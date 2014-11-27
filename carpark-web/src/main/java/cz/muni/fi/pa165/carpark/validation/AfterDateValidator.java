@@ -37,7 +37,7 @@ public class AfterDateValidator implements ConstraintValidator<AfterDate, Object
             final Date from = (Date) ValidationUtil.getFieldValue(value, fromFieldName);
             final Date to = (Date) ValidationUtil.getFieldValue(value, toFieldName);
 
-            boolean isValid = from.before(to);
+            boolean isValid = !from.after(to);
 
             if (!isValid)
             {
