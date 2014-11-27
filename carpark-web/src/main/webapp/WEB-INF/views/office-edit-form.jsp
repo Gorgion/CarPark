@@ -42,7 +42,7 @@
                     <form:select path="managerId" class="form-control" id="managerId" >
                         <form:option value="">&nbsp;</form:option>
                         <c:forEach items="${managerId}" var="man">    
-                            <form:option value="${man.id}" label="${man}"/>
+                            <form:option value="${man.id}" label="${man.firstName} ${man.lastName}, ID: ${man.id}"/>
                         </c:forEach>
                     </form:select>
                     
