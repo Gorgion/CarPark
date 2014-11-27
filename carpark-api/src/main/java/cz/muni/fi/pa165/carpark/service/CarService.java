@@ -16,7 +16,7 @@ import java.util.Date;
  */
 public interface CarService
 {
-    public void AddCar(CarDto car);
+    public Long AddCar(CarDto car);
 
 	public CarDto getCar(Long id);
 

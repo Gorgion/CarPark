@@ -27,7 +27,7 @@ public class CarDaoImpl implements CarDao
     private EntityManager em;
 
     @Override
-    public void AddCar(Car car)
+    public Long AddCar(Car car)
     {
         if(car == null)
         {
@@ -35,6 +35,8 @@ public class CarDaoImpl implements CarDao
         }
         
         em.persist(car);
+        em.flush();
+        return car.getID();
     }
 
     @Override
