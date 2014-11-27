@@ -14,7 +14,6 @@
 <fmt:message var="title" key="office.edit.title"/>
 <custom:layout title="${title}">    
     <jsp:attribute name="content">
-        <c:url var="editOfficeUrl" value="/auth/office/${id}/edit" />
         <c:if test="${msg}">
             <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -31,7 +30,7 @@
                 <fmt:message key="${error}"/>
             </div>
         </c:if>
-        
+        <c:url var="editOfficeUrl" value="/auth/office/${id}/edit" />
         <form:form action="${editOfficeUrl}" method="POST" modelAttribute="officeEditForm" class="form-horizontal">
             <div class="form-group"> 
                 <form:label path="address" cssClass="col-sm-2"><fmt:message key="office.address" /></form:label>
@@ -39,42 +38,17 @@
             </div>
             
             <div class="form-group"> 
-                <form:label path="manager" cssClass="col-sm-2"><fmt:message key="office.manager" /></form:label>
-                    <!--<form:select path="manager" class="form-control" id="manager" >
+                <form:label path="managerId" cssClass="col-sm-2"><fmt:message key="office.manager" /></form:label>
+                    <form:select path="managerId" class="form-control" id="managerId" >
                         <form:option value="">&nbsp;</form:option>
-                        <c:forEach items="${managers}" var="manager">    
-                            <form:option value="${manager}" label="${manager.firstName} ${manager.lastName}"/>
+                        <c:forEach items="${managerId}" var="man">    
+                            <form:option value="${man.id}" label="${man}"/>
                         </c:forEach>
-                    </form:select>-->
-                    <form:select path="manager" class="form-control" id="manager" >
-                        <form:options items="${managers}"></form:options>
                     </form:select>
+                    
             </div>
-                
-            <div class="form-group"> 
-                <form:label path="employees" cssClass="col-sm-2"><fmt:message key="office.employees" /></form:label>
-                <form:select path="employees" multiple="true" cssClass="form-control">
-                    <form:option value="">&nbsp;</form:option>
-                    <c:forEach items="${employees}" var="empl">    
-                        <form:option path ="${empl}" value="${empl.id}" />
-                    </c:forEach>
-                </form:select>
-            </div>
-                
-            <div class="form-group"> 
-                <form:label path="cars" cssClass="col-sm-2"><fmt:message key="office.cars" /></form:label>
-                <form:select path="cars" cssClass="form-control">
-                    <form:option value="">&nbsp;</form:option>
-                    <c:forEach items="${cars}" var="cars">     
-                        
-                        <form:option path = "${cars}" value="${cars}" />
-                    </c:forEach>
-                </form:select>
-            </div>
-           
             <button type="submit" class="btn btn-success"><fmt:message key="office.edit" /></button>
         </form:form>
-        
      </jsp:attribute>        
 </custom:layout>           
 
