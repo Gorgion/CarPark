@@ -84,7 +84,9 @@
                 </div>  
                 <div class="form-group"> 
                     <button type="submit" class="btn btn-success"><fmt:message key="user.form.confirm" /></button>
-                    <button type="cancel" class="btn btn-danger"><fmt:message key="user.form.cancel" /></button>
+                    <button type="button" class="btn btn-danger" onclick="window.location.href='/pa165/auth/user'">
+                        <fmt:message key="user.form.cancel" />
+                    </button>
                 </div>
             </form:form>
         </div>
