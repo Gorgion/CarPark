@@ -52,7 +52,7 @@
                         <td>${office.ID}</td>
                         <td>${office.address}</td>
                         <td>${office.manager.firstName} ${office.manager.lastName}
-                            <a href="#" class="btn btn-link" data-toggle="modal" data-target="#carDetails"
+                            <!--<a href="#" class="btn btn-link" data-toggle="modal" data-target="#carDetails"
                             <c:forEach items="${office.cars}" var="car" varStatus="status">   
                                data-car-id="${car.ID}" 
                                data-car-type="${car.type}"
@@ -60,7 +60,7 @@
                                data-car-engine="${car.engine}" 
                                data-car-licencePlate="${car.licencePlate}">
                             </c:forEach>
-                            <fmt:message key="car.details"/></a>
+                            <fmt:message key="car.details"/></a>-->
                         </td>
                         <td>
                             <c:forEach items="${office.employees}" var="of" varStatus="status">
@@ -70,7 +70,7 @@
                             
                         <td>
                             <c:forEach items="${office.cars}" var="of" varStatus="status">
-                               <fmt:message key="car.brand.${of.brand}"/>
+                               <fmt:message key="car.brand.${of.brand}"/><br/>
                             </c:forEach>
                         </td>
                         <td>
