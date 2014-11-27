@@ -47,7 +47,7 @@ public class CarServiceImplTest {
         
         Car car = Converter.getEntity(carDto);
         
-        Mockito.doNothing().when(carDM).AddCar(car);
+        Mockito.doReturn(1L).when(carDM).AddCar(car);
 
         carService.AddCar(carDto);
 

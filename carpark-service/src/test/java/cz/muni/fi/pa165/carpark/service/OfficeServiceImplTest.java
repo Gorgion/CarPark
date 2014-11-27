@@ -255,7 +255,7 @@ public class OfficeServiceImplTest
         
         Mockito.doNothing().when(officeDaoMocked).addOffice(office);
         officeService.addOffice(officeDto);
-        Mockito.doNothing().when(carDaoMocked).AddCar(Converter.getEntity(carDto));
+        Mockito.doReturn(1L).when(carDaoMocked).AddCar(Converter.getEntity(carDto));
         officeService.addCarToOffice(officeDto, carDto);
          
         Mockito.doReturn(office).when(officeDaoMocked).getOffice(1L);

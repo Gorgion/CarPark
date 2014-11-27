@@ -21,7 +21,7 @@ public interface CarDao
          * 
          * @param car 
          */
-        public void AddCar(Car car);
+        public Long AddCar(Car car);
 
         /**
          * Return Car entity by given id.

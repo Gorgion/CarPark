@@ -32,10 +32,10 @@ public class CarServiceImpl implements CarService
     
     @Transactional
     @Override
-    public void AddCar(CarDto car)
+    public Long AddCar(CarDto car)
     {
         Car carEntity = Converter.getEntity(car);
-        carDao.AddCar(carEntity);
+        return carDao.AddCar(carEntity);
     }
 
     @Transactional
