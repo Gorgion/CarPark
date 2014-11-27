@@ -64,7 +64,7 @@ public class RentalDaoImpl implements RentalDao
             throw new IllegalArgumentException("User id is null.");
         }
 
-        Query query = entityManager.createQuery("SELECT r FROM Rental r WHERE r.user=:user", Rental.class);
+        Query query = entityManager.createQuery("SELECT r FROM Rental r WHERE r.user=:user ORDER BY r.fromDate DESC", Rental.class);
         query.setParameter("user", user);
         List<Rental> rentals = query.getResultList();
 
