@@ -68,6 +68,7 @@ public class CarController {
     public String editCar(@PathVariable Long id,@Valid@ModelAttribute CarForm carForm, final BindingResult result,Model model,RedirectAttributes redirectAttributes) {
         if (result.hasErrors())
         {
+            redirectAttributes.addFlashAttribute("error", "error.car.wrongform");
             return "car-form";
         }
         
@@ -106,6 +107,7 @@ public class CarController {
     public String addNewCar(@Valid@ModelAttribute CarForm carForm, final BindingResult result,Model model,RedirectAttributes redirectAttributes) {
         if (result.hasErrors())
         {
+            redirectAttributes.addFlashAttribute("error", "error.car.wrongform");
             return "car-form";
         }
         
