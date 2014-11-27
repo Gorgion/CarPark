@@ -16,7 +16,18 @@
         <div class="row">
             <a href="<c:url value="/auth/user/add" />" class="btn btn-success"><fmt:message key="user.add"/></a>
             <hr class="divider" />
-            <c:if test="${msg}">
+
+            <c:if test="${not empty error}" >
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                        &times;
+                    </button>
+                    <fmt:message key="${error}" />
+                </div>
+            </c:if>
+
+
+            <c:if test="${not empty msg}" >
                 <div class="alert alert-success alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                         &times;
@@ -24,15 +35,8 @@
                     <fmt:message key="${msg}" />
                 </div>
             </c:if>
-            <c:if test="${error}">
-                <div class="alert alert-danger alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                        &times;
-                    </button>
-                    <fmt:message key="${error}"/>
-                </div>
-            </c:if>
-            <table class="table table-hover">
+
+            <table class="table table-hover table-responsive">
                 <thead>
                     <tr>
                         <th><fmt:message key="user.id" /></th>

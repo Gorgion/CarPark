@@ -107,7 +107,7 @@ public class UserController {
             );
             */
         
-        redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("msg.user.add", null, locale));
+        redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("msg.user.created", null, locale));
         return "redirect:" + uriBuilder.path("/auth/user").build();
     }
     
@@ -158,7 +158,7 @@ public class UserController {
            System.out.println("fuk!");
 
         
-        redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("msg.user.edit", null, locale));
+        redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("msg.user.edited", null, locale));
         return "redirect:" + uriBuilder.path("/auth/user").build();
     }
     
