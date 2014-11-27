@@ -42,12 +42,27 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${offices}" var="office">
+                <c:forEach items="${offices}" var="office" varStatus="status">
                     <tr>
                         <td>${office.ID}</td>
                         <td>${office.address}</td>
-                        <td>${office.manager}</td>
-                        <td>${office.employees}</td>
+                        <td>${office.manager.firstName} ${office.manager.lastName}</td>
+                        <!--<td>
+                            <a href="#" class="btn btn-link" data-toggle="modal" data-target="#showManager"
+                               data-employee-id="${office.manager.id}" 
+                               data-employee-name="${office.manager.firstName}" 
+                               data-employee-lastName="${office.manager.lastName}" 
+                               data-employee-address="${office.manager.address}">
+                                <fmt:message key="office.manager.show"/>
+                            </a>
+                        </td>-->
+                        <td>${office.employees[status.index].firstName} ${office.employees[status.index].lastName}</td>
+                        <td>
+                            <c:forEach items="${office.employees}" var="of" varStatus="status">
+                               <p>${of.firstName} ${of.lastName}  </p>
+                            </c:forEach>
+                        </td>
+                        
                         <td>
                             <a href='<c:url value="/auth/office/${office.ID}/edit" />' class="btn btn-success"><fmt:message key="edit" /></a>
                         </td>
@@ -61,5 +76,23 @@
             </tbody>
         </table>
         </div>
+        <custom:modal-dialog dialogId="showManager" dialogTitleKey="office.employee.show">
+            <div class="row">
+                <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th><fmt:message key="user" /></th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                    <tr>
+                        <td>${office.employees}</td>
+                    </tr>
+                
+            </tbody>
+        </table>
+            </div>
+        </custom:modal-dialog>
     </jsp:attribute>        
 </custom:layout>

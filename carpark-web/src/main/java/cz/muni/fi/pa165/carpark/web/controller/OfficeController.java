@@ -61,8 +61,11 @@ public class OfficeController {
     { 
         List<OfficeDto> offices = new ArrayList<>(officeService.getAllOffices());
         model.addAttribute("offices", offices);
+        //model.addAttribute("hasEmployee", offices);
+        /*List<UserDto> users = new ArrayList<>(userService.getAll());
+        model.addAttribute("users", users);*/
         //model.addAttribute("employees", userService.getAll());
-        model.addAttribute("officeForm", new OfficeForm());
+        //model.addAttribute("officeForm", new OfficeForm());
         return "office-list";
     }
     
@@ -118,17 +121,19 @@ public class OfficeController {
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
     public String editOffice(@PathVariable Long id, Model model)
     {
-        //OfficeDto office = officeService.getOffice(id);
+        OfficeDto office = officeService.getOffice(id);
+
+        OfficeEditForm officeEditForm = new OfficeEditForm();
+        officeEditForm.setAddress(office.getAddress());
+        officeEditForm.setManager(office.getManager());
+        officeEditForm.setEmployees(office.getEmployees());
+        officeEditForm.setCars(office.getCars());
         
+        model.addAttribute("officeEditForm", officeEditForm);
         model.addAttribute("manager", userService.getAll());
         model.addAttribute("employees", userService.getAll());
         model.addAttribute("cars", carService.getAllCars());
-        //UserDto manager = new UserDto();
         
-        /*OfficeForm officeForm = new OfficeForm();
-        officeForm.(office.getRentalState());*/
-
-        model.addAttribute("officeEditForm",new OfficeEditForm());
 
         return "office-edit-form";
     }
@@ -138,21 +143,29 @@ public class OfficeController {
     {
         if (result.hasErrors())
         {
+            
+            System.out.println("\n add:"+officeEditForm.getAddress());
+            System.out.println("\n man:"+officeEditForm.getManager());
+            System.out.println("\n empl:"+officeEditForm.getEmployees());
+            System.out.println("\n cars:"+officeEditForm.getCars());
             redirectAttributes.addFlashAttribute("msg","msg.office.edit.unsuccesful");
             return "office-edit-form";
+            /*** TODO add model add attr.***/
         }
-
+        System.out.println("\n#1");
         OfficeDto office = officeService.getOffice(id);
         UserDto manager = officeEditForm.getManager();
         List<CarDto> cars = officeEditForm.getCars();
+        System.out.println("\n#2");
         List<UserDto> employees = officeEditForm.getEmployees();
-       
+       System.out.println("\n#3");
         office.setManager(manager);
         office.setEmployees(employees);
         office.setCars(cars);
+        System.out.println("\n#4");
 
         officeService.editOffice(office);
-        
+        System.out.println("\n#5");
         redirectAttributes.addFlashAttribute("msg", "msg.office.edited");
 
         return "redirect:/auth/office";
@@ -195,7 +208,7 @@ public class OfficeController {
             return manager;
         }
 
-        public void setLastName(UserDto manager) {
+        public void setManager(UserDto manager) {
             this.manager = manager;
         }
 
