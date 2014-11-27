@@ -11,7 +11,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<fmt:message var="title" key="user.form.title"/>
+<c:url var="actionUrl" value="/auth/user/addUser" />
+<fmt:message var="title" key="user.form.title.add"/>
+<c:if test="${action == 'edit'}">  
+    <fmt:message var="title" key="user.form.title.edit"/>
+    <c:url var="actionUrl" value="/auth/user/edit" /> 
+</c:if>
 
 <custom:layout title="${title}">
     <jsp:attribute name="content">
@@ -31,12 +36,8 @@
                 <fmt:message key="${error}"/>
             </div>
         </c:if>
-        
+
         <div class="col-md-4">
-            <c:url var="actionUrl" value="/auth/user/addUser" />
-            <c:if test="${action == 'edit'}">
-                <c:url var="actionUrl" value="/auth/user/edit" />       
-            </c:if>
             <form:form action="${actionUrl}" method="POST" modelAttribute="userForm" class="form-horizontal">
                 <form:hidden path="id"/>
                 <div class="form-group">
@@ -56,8 +57,8 @@
                     <form:input path="address" cssClass="form-control input-md" required=""/>
                 </div>  
                 <div class="form-group"> 
-                  <button type="submit" class="btn btn-success"><fmt:message key="user.add" /></button>
-                  <button type="cancel" class="btn btn-danger"><fmt:message key="user.cancel" /></button>
+                    <button type="submit" class="btn btn-success"><fmt:message key="user.form.confirm" /></button>
+                    <button type="cancel" class="btn btn-danger"><fmt:message key="user.form.cancel" /></button>
                 </div>
             </form:form>
         </div>
