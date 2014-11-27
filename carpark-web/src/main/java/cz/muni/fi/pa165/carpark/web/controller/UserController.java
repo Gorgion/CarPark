@@ -23,6 +23,8 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -75,13 +77,50 @@ public class UserController {
         return "user-form";
     }
     
+        @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    public String addedUser(@Valid @ModelAttribute UserForm userForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale) {
+               System.out.println("add!");
+        if (bindingResult.hasErrors()) {
+            for (ObjectError ge : bindingResult.getGlobalErrors()) {
+                //log.debug("ObjectError: {}", ge);
+            }
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                //log.debug("FieldError: {}", fe);
+            }
+            //return book.getId()==null?"book/list":"book/edit";
+        }
+ 
+
+          System.out.println(userForm);
+          UserDto user = new UserDto();
+           user.setAddress(userForm.getAddress());
+           user.setBirthNumber(userForm.getBirthNumber());
+           user.setFirstName(userForm.getFirstName());
+           user.setLastName(userForm.getLastName());
+           userService.add(user);
+           System.out.println("add!+"+ user.toString());
+
+            /*
+            redirectAttributes.addFlashAttribute(
+                    "message",
+                    messageSource.getMessage("book.add.message", new Object[]{book.getTitle(), book.getAuthor(), book.getId()}, locale)
+            );
+            */
+        
+        redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("msg.user.add", null, locale));
+        return "redirect:" + uriBuilder.path("/auth/user").build();
+    }
+    
     
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-    public String editRental(@PathVariable Long id, Model model)
+    public String editUser(@PathVariable Long id, Model model)
     {
+                System.out.println("edit!");
         UserDto user = userService.get(id);
-        
+        System.out.println("id:"+ id);
+        System.out.println("user:"+ user.getId());
         UserForm userForm = new UserForm();
+        userForm.setId(user.getId());
         userForm.setFirstName(user.getFirstName());
         userForm.setLastName(user.getLastName());
         userForm.setAddress(user.getAddress());
@@ -93,23 +132,61 @@ public class UserController {
         return "user-form";
     }
         
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String editedUser(@Valid @ModelAttribute UserForm userForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, Locale locale) {
+               System.out.println("FUNGUJ!");
+        if (bindingResult.hasErrors()) {
+            for (ObjectError ge : bindingResult.getGlobalErrors()) {
+                //log.debug("ObjectError: {}", ge);
+            }
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                //log.debug("FieldError: {}", fe);
+            }
+            //return book.getId()==null?"book/list":"book/edit";
+        }
+ 
+
+          System.out.println(userForm);
+           UserDto user = userService.get(userForm.getId());
+             System.out.println("FUNGUJ2!+"+ user.toString());
+           user.setAddress(userForm.getAddress());
+           user.setBirthNumber(userForm.getBirthNumber());
+           user.setFirstName(userForm.getFirstName());
+           user.setLastName(userForm.getLastName());
+           System.out.println("prask!");
+           userService.edit(user);
+           System.out.println("fuk!");
+
+        
+        redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("msg.user.edit", null, locale));
+        return "redirect:" + uriBuilder.path("/auth/user").build();
+    }
+    
     
     @RequestMapping(value = "/{id}/delete", method = { RequestMethod.POST, RequestMethod.DELETE })
     public String delete(@PathVariable long id, RedirectAttributes redirectAttributes, Locale locale, UriComponentsBuilder uriBuilder) {
         UserDto user = userService.get(id);
-        userService.delete(user);
-        redirectAttributes.addFlashAttribute(
-                "message",
-                messageSource.getMessage("user.delete.message", new Object[]{ user.getId(), user.getFirstName(), user.getLastName(), user.getBirthNumber(), user.getAddress()}, locale)
-        );
+        if (user == null)
+        {
+            redirectAttributes.addFlashAttribute("error", "error.user.deleted");
+        }else{
+             userService.delete(user);
+            redirectAttributes.addFlashAttribute("msg", "msg.user.deleted");    
+        }
+
         return "redirect:" + uriBuilder.path("/auth/user").build();
     }    
+    
+    
     
     public static class UserForm
     {
         @NotNull
+        private Long id;
+
+        @NotNull
         private String firstName;
-       
+
         @NotNull
         private String lastName;
         
@@ -117,6 +194,20 @@ public class UserController {
         private String birthNumber;
         
         private String address;
+        
+        @Override
+        public String toString() {
+            return "UserForm{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthNumber=" + birthNumber + ", address=" + address + '}';
+        }
+        
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+        
         
         public String getFirstName() {
             return firstName;
