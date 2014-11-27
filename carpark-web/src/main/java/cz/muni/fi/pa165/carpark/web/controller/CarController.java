@@ -7,7 +7,9 @@
 package cz.muni.fi.pa165.carpark.web.controller;
 
 import cz.muni.fi.pa165.carpark.dto.CarDto;
+import cz.muni.fi.pa165.carpark.dto.OfficeDto;
 import cz.muni.fi.pa165.carpark.service.CarService;
+import cz.muni.fi.pa165.carpark.service.OfficeService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +36,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class CarController {
     @Autowired
     private CarService carService;
+    
+    @Autowired
+    private OfficeService officeService;
         
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model)
@@ -58,9 +63,10 @@ public class CarController {
         carForm.setType(car.getType());
         
         model.addAttribute("carForm",carForm);
-        model.addAttribute("brands",Arrays.asList(CarDto.mBrand.values()));
-        model.addAttribute("types",Arrays.asList(CarDto.mType.values()));
-        model.addAttribute("engines",Arrays.asList(CarDto.mEngine.values()));
+        model.addAttribute("brands",CarDto.mBrand.values());
+        model.addAttribute("types",CarDto.mType.values());
+        model.addAttribute("engines",CarDto.mEngine.values());
+        model.addAttribute("offices",officeService.getAllOffices());
         return "car-edit-form";
     }
     
@@ -82,7 +88,12 @@ public class CarController {
         
         try
         {
-        carService.EditCar(car);
+            carService.EditCar(car);
+            if(carForm.getPrevOfficeId() != null)
+                officeService.deleteCarFromOffice(officeService.getOffice(carForm.getPrevOfficeId()), car);
+            
+            officeService.addCarToOffice(officeService.getOffice(carForm.getIdOffice()),car);
+            carForm.setPrevOfficeId(carForm.getIdOffice());
         }
         catch(Exception ex)
         {
@@ -97,9 +108,10 @@ public class CarController {
     @RequestMapping(value = "/add", method = {RequestMethod.GET})
     public String createNewCar(Model model) {
         model.addAttribute("carForm",new CarForm());
-        model.addAttribute("brands",Arrays.asList(CarDto.mBrand.values()));
-        model.addAttribute("types",Arrays.asList(CarDto.mType.values()));
-        model.addAttribute("engines",Arrays.asList(CarDto.mEngine.values()));
+        model.addAttribute("brands",CarDto.mBrand.values());
+        model.addAttribute("types",CarDto.mType.values());
+        model.addAttribute("engines",CarDto.mEngine.values());
+        model.addAttribute("offices",officeService.getAllOffices());
         return "car-form";
     }
     
@@ -107,6 +119,7 @@ public class CarController {
     public String addNewCar(@Valid@ModelAttribute CarForm carForm, final BindingResult result,Model model,RedirectAttributes redirectAttributes) {
         if (result.hasErrors())
         {
+            System.out.println("\nIDIDIDIDIDIDIDIDIDIDDIDIIDD: "+carForm.idOffice);
             redirectAttributes.addFlashAttribute("error", "error.car.wrongform");
             return "car-form";
         }
@@ -115,7 +128,12 @@ public class CarController {
                 ,carForm.getLicencePlate(),carForm.getVIN(),false);
         try
         {
-        carService.AddCar(car);
+            carService.AddCar(car);
+            if(carForm.getPrevOfficeId() != null)
+                officeService.deleteCarFromOffice(officeService.getOffice(carForm.getPrevOfficeId()), car);
+            
+            officeService.addCarToOffice(officeService.getOffice(carForm.getIdOffice()),car);
+            carForm.setPrevOfficeId(carForm.getIdOffice());
         }
         catch(Exception ex)
         {
@@ -170,6 +188,10 @@ public class CarController {
         @NotBlank
         @NotNull
         private String VIN;
+        
+        
+        private Long idOffice;
+        private Long prevIdOffice;
 
         public CarDto.mBrand getBrand()
         {
@@ -219,6 +241,28 @@ public class CarController {
         public void setVIN(String VIN)
         {
             this.VIN = VIN;
+        }
+
+        public Long getPrevOfficeId() {
+            return prevIdOffice;
+        }
+
+        public void setPrevOfficeId(Long prevIdOffice) {
+            this.prevIdOffice = prevIdOffice;
+        }
+
+        /**
+         * @return the idOffice
+         */
+        public Long getIdOffice() {
+            return idOffice;
+        }
+
+        /**
+         * @param idOffice the idOffice to set
+         */
+        public void setIdOffice(Long idOffice) {
+            this.idOffice = idOffice;
         }
 
     }
