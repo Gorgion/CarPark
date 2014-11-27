@@ -52,9 +52,9 @@
                         <td><fmt:formatDate value="${rental.toDate}" type="DATE"/></td>
                         <td>
                             <a href="#" class="btn btn-link" data-toggle="modal" data-target="#carDetails"
-                               data-car-id="${rental.car.ID}" data-car-brand="${rental.car.brand}" data-car-type="${rental.car.type}"
-                               data-car-engine="${rental.car.engine}" 
-                               data-car-licencePlate="${rental.car.licencePlate}" data-car-vin="${rental.car.VIN}"><fmt:message key="car.details"/></a>
+                               data-car-id="${rental.car.ID}" data-car-brand="<fmt:message key="car.brand.${rental.car.brand}"/>" data-car-type="<fmt:message key="car.type.${rental.car.type}" />"
+                               data-car-engine="<fmt:message key="car.engine.${rental.car.engine}" />" 
+                               data-car-licencePlate="${rental.car.licencePlate}"><fmt:message key="car.details"/></a>
                         </td>
                         <td>
                             <a href='<c:url value="/auth/user/${userId}/rental/${rental.id}/edit" />' class="btn btn-success"><fmt:message key="edit" /></a>
@@ -74,28 +74,28 @@
             <div class="form-group">
                 <label class="control-label col-sm-4"><fmt:message key="car.brand"/>:</label>
                 <div class="col-sm-8">
-                    <p class="form-control-static"><fmt:message key="car.brand.${car.brand}" /></p>
+                    <p name="brand" class="form-control-static"></p>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-4"><fmt:message key="car.type"/>:</label>
                 <div class="col-sm-8">
-                    <p class="form-control-static"><fmt:message key="car.type.${car.type}" /></p>
+                    <p name="type" class="form-control-static"></p>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-4" for="engine"><fmt:message key="car.engine"/>:</label>
+                <label class="control-label col-sm-4"><fmt:message key="car.engine"/>:</label>
                 <div class="col-sm-8">
-                    <p class="form-control-static"><fmt:message key="car.engine.${car.engine}" /></p>
+                    <p name="engine" class="form-control-static"></p>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-4" for="licencePlate"><fmt:message key="car.licencePlate"/>:</label>
+                <label class="control-label col-sm-4"><fmt:message key="car.licencePlate"/>:</label>
                 <div class="col-sm-8">                    
-                    <p class="form-control-static"><c:out value="${car.engine}" /></p>
+                    <p name="licencePlate" class="form-control-static"></p>
                 </div>
             </div>
             </div>
-        </custom:modal-dialog>
+        </custom:modal-dialog>        
     </jsp:attribute>        
 </custom:layout>

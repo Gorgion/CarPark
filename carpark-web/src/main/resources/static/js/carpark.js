@@ -15,18 +15,18 @@ $('#carDetails').on('show.bs.modal', function (event) {
     var brand = button.data('car-brand');
     var type = button.data('car-type');
     var engine = button.data('car-engine');
-    var licencePlate = button.data('car-licencePlate');
+    var licencePlate = button.data('car-licenceplate');
 
     var modal = $(this);
 //    modal.find('.modal-body p[name = "id"]').val(id);
-    modal.find('p[name = "brand"]').val(brand);
-    modal.find('p[name = "type"]').val(type);
+    modal.find('p[name = "brand"]').text(brand);
+    modal.find('p[name = "type"]').text(type);
 //    modal.find('.modal-body p[name = "color"]').val(color);
-    modal.find('.modal-body p[name = "engine"]').val(engine);
+    modal.find('.modal-body p[name = "engine"]').text(engine);
 //    modal.find('.modal-body input[name = "model"]').val(model);
-    modal.find('.modal-body p[name = "licencePlate"]').val(licencePlate);
+    modal.find('.modal-body p[name = "licencePlate"]').text(licencePlate);
 //    modal.find('.modal-body input[name = "vin"]').val(vin);
-console.log(modal.find('p[name = "brand"]'));
+console.log(modal.find('p[name = "licencePlate"]').text());
 });
 
 window.setTimeout(function() {
