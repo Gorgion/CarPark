@@ -52,7 +52,7 @@ footer a:focus{
 }
 
 .container {
-    padding-bottom: 20px;
+    padding-bottom: 30px;
     min-height: 260px;
 }
 
@@ -111,4 +111,8 @@ footer a:focus{
 .btn-link:focus {
     color: #9DBD15;
     text-decoration: none;
+}
+
+form-horizontal {
+    margin: 10px 0px;
 }
