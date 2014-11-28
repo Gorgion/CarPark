@@ -107,7 +107,7 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new IllegalArgumentException("Car is null.");
         }
 
-        car = em.merge(car);
+        car = em.find(Car.class, car.getID());//merge(car);
 
         List<Car> actualCars = getOffice(office.getID()).getCars();
         if(actualCars == null)
@@ -156,7 +156,7 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new IllegalArgumentException("User is null.");
         }
 
-        user = em.merge(user);
+        user = em.find(User.class,user.getId());
 
         List<User> actualEmployees = getOffice(office.getID()).getEmployees();
         if (actualEmployees == null)
