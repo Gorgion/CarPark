@@ -15,7 +15,15 @@
 
 <custom:layout title="${title}">
     <jsp:attribute name="content">
-                
+        <c:if test="${not empty errMsg}" >
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    &times;
+                </button>
+                <fmt:message key="${errMsg}" />
+            </div>
+        </c:if> 
+        
         <c:url var="addUrl" value="/auth/car/add" />
         <form:form action="${addUrl}" method="POST" modelAttribute="carForm" class="form-horizontal">
             <c:set var="vinErrors"><form:errors path="VIN"/></c:set>

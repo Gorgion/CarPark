@@ -11,7 +11,6 @@ import cz.muni.fi.pa165.carpark.dto.OfficeDto;
 import cz.muni.fi.pa165.carpark.service.CarService;
 import cz.muni.fi.pa165.carpark.service.OfficeService;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -25,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -33,17 +33,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @Controller
 @RequestMapping("/auth/car")
+//@SessionAttributes("carForm")
 public class CarController {
     @Autowired
     private CarService carService;
     
     @Autowired
     private OfficeService officeService;
-        
+    
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model)
     {           
-        List<CarDto> cars = new ArrayList(carService.getAllCars());
+        List<CarDto> cars = new ArrayList<>(carService.getAllCars());
         model.addAttribute("cars", cars);
         return "car-list";
     }
@@ -71,11 +72,11 @@ public class CarController {
     }
     
     @RequestMapping(value = "/{id}/edit", method = {RequestMethod.POST,RequestMethod.PUT})
-    public String editCar(@PathVariable Long id,@Valid@ModelAttribute("carForm") CarForm carForm, final BindingResult result,Model model,RedirectAttributes redirectAttributes) {
+    public String editCar(@PathVariable Long id,@Valid@ModelAttribute("carForm") CarForm carForm, BindingResult result,Model model,RedirectAttributes redirectAttributes) {
         if (result.hasErrors())
         {
             redirectAttributes.addFlashAttribute("error", "error.car.wrongform");
-            return "car-form";
+            return "car-edit-form";
         }
         
         CarDto car = carService.getCar(id);
@@ -100,7 +101,7 @@ public class CarController {
             {
                 if(o.getCars().contains(car))
                 {
-                    List<CarDto> c = new ArrayList(o.getCars());
+                    List<CarDto> c = new ArrayList<>(o.getCars());
                     c.remove(car);
                     o.setCars(c);
                     officeService.editOffice(o);
@@ -114,7 +115,7 @@ public class CarController {
     }
     
     @RequestMapping(value = "/add", method = {RequestMethod.GET})
-    public String createNewCar(Model model) {
+    public String createNewCar(@ModelAttribute("carForm") CarForm carForm, Model model) {
         model.addAttribute("carForm",new CarForm());
         model.addAttribute("brands",CarDto.mBrand.values());
         model.addAttribute("types",CarDto.mType.values());
@@ -124,11 +125,11 @@ public class CarController {
     }
     
     @RequestMapping(value = "/add", method = {RequestMethod.POST})
-    public String addNewCar(@Valid @ModelAttribute("carForm") CarForm carForm, final BindingResult result,Model model,RedirectAttributes redirectAttributes) {
+    public String addNewCar(@Valid @ModelAttribute("carForm") CarForm carForm, BindingResult result,Model model,RedirectAttributes redirectAttributes) {
         if (result.hasErrors())
-        {
-            redirectAttributes.addFlashAttribute("error", "error.car.wrongform");
-            return "car-form";
+        {            
+            redirectAttributes.addFlashAttribute("errMsg", "error.car.wrongform");
+            return "redirect:/auth/car/add";
         }
         
         CarDto car = new CarDto(carForm.getBrand(),carForm.getType(),carForm.getEngine()

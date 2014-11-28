@@ -22,7 +22,9 @@
                 <form:label class="control-label col-md-2" path="brand"><fmt:message key="car.brand"/>:</form:label>
                 <div class="col-md-6">
                     <form:select path="brand" class="form-control" id="brand" >
-                        <form:options items="${brands}"></form:options>
+                        <c:forEach items="${brands}" var="brand">    
+                            <form:option value="${brand}"><fmt:message key="car.brand.${brand}"/></form:option>
+                        </c:forEach>
                     </form:select>
                 </div>
             </div>
@@ -30,7 +32,9 @@
                 <form:label class="control-label col-md-2" path="type"><fmt:message key="car.type"/>:</form:label>
                 <div class="col-md-6">
                     <form:select path="type" class="form-control" id="type" >
-                        <form:options items="${types}"></form:options>
+                        <c:forEach items="${types}" var="type">    
+                            <form:option value="${type}"><fmt:message key="car.type.${type}"/></form:option>
+                        </c:forEach>
                     </form:select>
                 </div>
             </div>
@@ -38,7 +42,9 @@
                 <form:label class="control-label col-md-2" path="engine"><fmt:message key="car.engine"/>:</form:label>
                 <div class="col-md-6">
                     <form:select path="engine" class="form-control" id="engine" >
-                        <form:options items="${engines}"></form:options>
+                        <c:forEach items="${engines}" var="engine">    
+                            <form:option value="${engine}"><fmt:message key="car.engine.${engine}"/></form:option>
+                        </c:forEach>
                     </form:select>
                 </div>
             </div>
