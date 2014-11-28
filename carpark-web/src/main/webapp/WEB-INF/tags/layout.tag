@@ -45,7 +45,6 @@
                     <ul class="nav navbar-nav">
                         <li><a id="office" href="/pa165/auth/office"><fmt:message key="offices" /></a></li>
                         <li><a id="car" href="/pa165/auth/car"><fmt:message key="cars" /></a></li>
-                        <li><a id="rental" href="/pa165/auth/user/1/rental"><fmt:message key="rentals" /></a></li>
                         <li><a id="user" href="/pa165/auth/user"><fmt:message key="users" /></a></li>
                         <li><a id="info" href="#"><fmt:message key="info" /></a></li>
                     </ul>
@@ -84,10 +83,7 @@
             if (url.indexOf("car") > -1)
                 $("li #car").addClass("active");
 
-            if (url.indexOf("rental") > -1)
-                $("li #rental").addClass("active");
-
-            if (url.indexOf("user") > -1 && !(url.indexOf("rental") > -1))
+            if (url.indexOf("user") > -1)
                 $("li #user").addClass("active");
         </script>
 

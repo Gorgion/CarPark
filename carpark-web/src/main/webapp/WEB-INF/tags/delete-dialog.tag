@@ -26,7 +26,7 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirm-btn"><fmt:message key="btn.delete" /></button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirm-btn"><fmt:message key="btn.delete" /></button>
                 <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="btn.cancel" /></button>
             </div>
         </div>

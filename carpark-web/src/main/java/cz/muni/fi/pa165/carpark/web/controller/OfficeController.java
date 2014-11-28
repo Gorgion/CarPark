@@ -49,23 +49,16 @@ public class OfficeController {
     @Autowired
     private CarService carService;
 
-    //@ModelAttribute("office-form")
-    //@RequestMapping(value = "/add", method = RequestMethod.GET)
     public OfficeForm getNewForm() {
         return new OfficeForm();
     }
     
-    //@ModelAttribute("office-form")
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model)
     { 
         List<OfficeDto> offices = new ArrayList<>(officeService.getAllOffices());
         model.addAttribute("offices", offices);
-        //model.addAttribute("hasEmployee", offices);
-        /*List<UserDto> users = new ArrayList<>(userService.getAll());
-        model.addAttribute("users", users);*/
-        //model.addAttribute("employees", userService.getAll());
-        //model.addAttribute("officeForm", new OfficeForm());
+
         return "office-list";
     }
     
@@ -78,7 +71,7 @@ public class OfficeController {
     }
     
     @RequestMapping(value = "/add", method = {RequestMethod.POST,RequestMethod.PUT})
-    public String processSubmit(@ModelAttribute("officeForm") OfficeForm officeForm,final BindingResult result, Model model, RedirectAttributes attributes){
+    public String processSubmit(@Valid@ModelAttribute("officeForm") OfficeForm officeForm,final BindingResult result, Model model, RedirectAttributes attributes){
         if(result.hasErrors())
         {
             attributes.addFlashAttribute("msg","error.office.created");
@@ -91,8 +84,6 @@ public class OfficeController {
         officeService.addOffice(office);
         attributes.addFlashAttribute("msg","msg.office.created");
 
-        //model.addAttribute("employees", userService.getAll());
-        //model.addAttribute("officeForm", new OfficeForm());
         return "redirect:/auth/office";
     }
     
@@ -117,59 +108,45 @@ public class OfficeController {
     public String editOffice(@PathVariable Long id, Model model)
     {
         OfficeDto office = officeService.getOffice(id);
-        //List<UserDto> users = userService.getAll();
         OfficeEditForm officeEditForm = new OfficeEditForm();
         
         officeEditForm.setAddress(office.getAddress());
-        try
-        {
-        officeEditForm.setManagerId(office.getManager().getId());
+        if(officeEditForm.getManagerId() != null){
+            officeEditForm.setManagerId(office.getManager().getId());
         } 
-        catch (NullPointerException e)
-        {
-        }
-        //officeEditForm.setEmployees(office.getEmployees());
-        //officeEditForm.setCars(office.getCars());
         
         model.addAttribute("officeEditForm", officeEditForm);
-        model.addAttribute("managerId", userService.getAll());
-        //model.addAttribute("employees", userService.getAll());
-        //model.addAttribute("cars", carService.getAllCars());
+        model.addAttribute("managerId", officeService.getEmployees(office));//userService.getAll());
         
         return "office-edit-form";
     }
     
     @RequestMapping(value = "/{id}/edit", method ={RequestMethod.POST, RequestMethod.PUT})
-    public String officeEdition(@PathVariable Long id, @Valid @ModelAttribute OfficeEditForm officeEditForm,final BindingResult result,Model model, RedirectAttributes redirectAttributes)
+    public String officeEdition(@PathVariable Long id, @Valid@ModelAttribute OfficeEditForm officeEditForm,final BindingResult result,Model model, RedirectAttributes redirectAttributes)
     {
+        OfficeDto office = officeService.getOffice(id);
+        
         if (result.hasErrors())
         {            
-            System.out.println("\n add:"+officeEditForm.getAddress());
-            //System.out.println("\n man:"+userService.get(officeEditForm.getManagerId()));
-            //System.out.println("\n empl:"+officeEditForm.getEmployees());
-            //System.out.println("\n cars:"+officeEditForm.getCars());
             redirectAttributes.addFlashAttribute("msg","error.office.edit");
+            model.addAttribute("officeEditForm", officeEditForm);
+            model.addAttribute("managerId", officeService.getEmployees(office));
             return "office-edit-form";
         }
 
-        OfficeDto office = officeService.getOffice(id);
-        List<OfficeDto> offices = officeService.getAllOffices();
         office.setAddress(officeEditForm.getAddress());
+        
         if(officeEditForm.getManagerId() != null){
-            //if(offices.get(office.getID()getManager().getId()))//==(officeEditForm.getManagerId()))){
-                office.setManager(userService.get(officeEditForm.getManagerId()));
-            //}
+            office.setManager(userService.get(officeEditForm.getManagerId()));
         }
-        //office.setEmployees(officeEditForm.getEmployees());
-        //office.setCars(officeEditForm.getCars());
 
-        try
-        {
-        officeService.editOffice(office);
+        try {
+            officeService.editOffice(office);
         }
-        catch(Exception e)
-        {
+        catch(Exception e) {
             redirectAttributes.addFlashAttribute("msg","error.office.edit");
+            model.addAttribute("officeEditForm", officeEditForm);
+            model.addAttribute("managerId", officeService.getEmployees(office));
             return "office-edit-form";
         }
         
@@ -179,6 +156,7 @@ public class OfficeController {
     
     public static class OfficeForm
     {
+        @NotNull
         @NotBlank
         private String address;
         
@@ -193,6 +171,7 @@ public class OfficeController {
     
     public static class OfficeEditForm
     {
+        @NotNull
         @NotBlank
         @Valid
         private String address;
