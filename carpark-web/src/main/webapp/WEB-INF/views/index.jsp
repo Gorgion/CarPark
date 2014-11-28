@@ -18,6 +18,6 @@
         <br/>
         <fmt:message key="contact-us" />
         <br/>
-        <a href="#" class="main-contact"><fmt:message key="contact" /></a>
+        <a href="/pa165/auth/about-us" class="main-contact"><fmt:message key="contact" /></a>
     </jsp:attribute>
 </custom:layout>

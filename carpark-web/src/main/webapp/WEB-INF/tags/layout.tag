@@ -24,7 +24,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />      
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/style.css"/>
-
+        <link rel="icon" href="${pageContext.request.contextPath}/static/img/Icon.ico">
         <jsp:invoke fragment="head"/>
 
     </head>
@@ -46,7 +46,7 @@
                         <li><a id="office" href="/pa165/auth/office"><fmt:message key="offices" /></a></li>
                         <li><a id="car" href="/pa165/auth/car"><fmt:message key="cars" /></a></li>
                         <li><a id="user" href="/pa165/auth/user"><fmt:message key="users" /></a></li>
-                        <li><a id="info" href="#"><fmt:message key="info" /></a></li>
+                        <li><a id="about-us" href="/pa165/auth/about-us"><fmt:message key="about-us" /></a></li>
                     </ul>
                 </div>
                 <div class="page-header visible-lg visible-md">
@@ -85,6 +85,9 @@
 
             if (url.indexOf("user") > -1)
                 $("li #user").addClass("active");
+            
+            if (url.indexOf("about-us") > -1)
+                $("li #about-us").addClass("active");
         </script>
 
         <script>

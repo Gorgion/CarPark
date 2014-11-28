@@ -39,7 +39,7 @@ footer a:focus{
 
 .page-header {
     background-color: #BBD335;
-    background-image: url("header.png");
+    background-image: url("../img/header.png");
     margin: 0px;
     height: 200px;
     background-position: right;
