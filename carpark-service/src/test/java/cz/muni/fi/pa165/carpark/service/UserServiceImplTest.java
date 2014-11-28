@@ -42,7 +42,7 @@ public class UserServiceImplTest
         User user = Converter.getEntity(userDto);
         user.setId(1L);
 
-        Mockito.doNothing().when(mockedUserDao).add(user);
+        Mockito.doReturn(1L).when(mockedUserDao).add(user);
 
         userService.add(userDto);
 
