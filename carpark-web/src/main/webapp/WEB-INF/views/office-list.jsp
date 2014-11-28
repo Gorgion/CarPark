@@ -16,7 +16,7 @@
         <div class="row">
             <a href="<c:url value="/auth/office/add" />" class="btn btn-success"><fmt:message key="office.add"/></a>
             <hr class="divider" />
-        <c:if test="${not empty error}" >
+            <c:if test="${not empty error}" >
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                         &times;
@@ -34,73 +34,69 @@
                     <fmt:message key="${msg}" />
                 </div>
             </c:if>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th><fmt:message key="office.id" /></th>
-                    <th><fmt:message key="office.address" /></th>
-                    <th><fmt:message key="office.manager" /></th>
-                    <th><fmt:message key="office.employees" /></th>
-                    <th><fmt:message key="office.cars" /></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach items="${offices}" var="office" varStatus="status">
+            <table class="table table-hover">
+                <thead>
                     <tr>
-                        <td>${office.ID}</td>
-                        <td>${office.address}</td>
-                        <td>${office.manager.firstName} ${office.manager.lastName}
-                            <!--
-                            <a href="#" class="btn btn-link" data-toggle="modal" data-target="#managerDetails"
-                                    data-manager-firstName="${office.manager.firstName}" 
-                                    data-manager-lastName="${office.manager.lastName}" 
-                            ><fmt:message key="manager.details"/></a>-->
-                        </td>
-                        <td>
-                            <c:forEach items="${office.employees}" var="of" varStatus="status">
-                               <p>${of.firstName} ${of.lastName}  </p>
-                            </c:forEach>
-                        </td>
-                            
-                        <td>
-                            <c:forEach items="${office.cars}" var="of" varStatus="status">
-                               <p><fmt:message key="car.brand.${of.brand}"/> <fmt:message key="car.type.${of.type}"/></p>
-                            </c:forEach>
-                        </td>
-                        <td>
-                            <a href='<c:url value="/auth/office/${office.ID}/edit" />' class="btn btn-default"><fmt:message key="edit" /></a>
-                        </td>
-                            
-                        <td>
-                            <form action="<c:url value="/auth/office/${office.ID}/delete" />" method="POST" class="form-inline" >
-                                    <button type="submit" name="delete" class="btn btn-danger"><fmt:message key="delete" /></button>
-                            </form>                           
-                        </td>
+                        <th><fmt:message key="office.id" /></th>
+                        <th><fmt:message key="office.address" /></th>
+                        <th><fmt:message key="office.manager" /></th>
+                        <th><fmt:message key="office.employees" /></th>
+                        <th><fmt:message key="office.cars" /></th>
+                        <th></th>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <c:forEach items="${offices}" var="office" varStatus="status">
+                        <tr>
+                            <td>${office.ID}</td>
+                            <td>${office.address}</td>
+                            <td>${office.manager.firstName} ${office.manager.lastName}
+                                <!--
+                                <a href="#" class="btn btn-link" data-toggle="modal" data-target="#managerDetails"
+                                        data-manager-firstName="${office.manager.firstName}" 
+                                        data-manager-lastName="${office.manager.lastName}" 
+                                ><fmt:message key="manager.details"/></a>-->
+                            </td>
+                            <td>
+                                <c:forEach items="${office.employees}" var="of" varStatus="status">
+                                    <p>${of.firstName} ${of.lastName}  </p>
+                                </c:forEach>
+                            </td>
+
+                            <td>
+                                <c:forEach items="${office.cars}" var="of" varStatus="status">
+                                    <p><fmt:message key="car.brand.${of.brand}"/> <fmt:message key="car.type.${of.type}"/></p>
+                                </c:forEach>
+                            </td>
+                            <td>
+                                <a href='<c:url value="/auth/office/${office.ID}/edit" />' class="btn btn-info"><span class="glyphicon glyphicon-edit" /></a>
+                                <form action="<c:url value="/auth/office/${office.ID}/delete" />" method="POST" class="form-inline" style="display: inline-block;">
+                                    <button type="submit" name="delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove" /></button>
+                                </form>                            
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
         </div>
         <custom:delete-dialog key="office"></custom:delete-dialog>
-        
+
         <custom:modal-dialog dialogId="managerDetails" dialogTitleKey="managerDetails.title">
             <div class="form-horizontal">
-            
-            <div class="form-group">
-                <label class="control-label col-sm-4"><fmt:message key="manager.firstName"/>:</label>
-                <div class="col-sm-8">
-                    <p name="firstName" class="form-control-static"></p>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-4"><fmt:message key="manager.firstName"/>:</label>
+                    <div class="col-sm-8">
+                        <p name="firstName" class="form-control-static"></p>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-4"><fmt:message key="manager.lastName"/>:</label>
-                <div class="col-sm-8">
-                    <p name="lastName" class="form-control-static"></p>
-                </div>
-            </div>    
-              
+                <div class="form-group">
+                    <label class="control-label col-sm-4"><fmt:message key="manager.lastName"/>:</label>
+                    <div class="col-sm-8">
+                        <p name="lastName" class="form-control-static"></p>
+                    </div>
+                </div>    
+
             </div>
         </custom:modal-dialog>  
     </jsp:attribute>        

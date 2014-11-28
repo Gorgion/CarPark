@@ -35,15 +35,15 @@
             <c:set var="addressError"><form:errors path="address" /></c:set> 
             <c:if test="${not empty addressError}"><c:set var="addressStyle" value="has-error has-feedback" /></c:if>             
             <div class="form-group ${addressStyle}">
-                <form:label path="address" cssClass="control-label col-sm-2"><fmt:message key="office.address" />:</form:label>
-                <div class="col-sm-6">
+                <form:label path="address" cssClass="col-sm-2 control-label"><fmt:message key="office.address" />:</form:label>
+                <div class="col-sm-5">
                     <form:input path="address" cssClass="form-control"/>
                     <c:if test="${not empty addressError}">
                         <p class="text-danger"><fmt:message key="office.address" />&nbsp;<form:errors path="address" /></p>
                     </c:if>
                 </div>
             </div>
-            <div class="pull-right col-sm-6 ">                
+            <div class="col-sm-offset-2 col-sm-10">                
                 <button type="submit" class="btn btn-success"><fmt:message key="office.add" /></button>
                 <button type="button" class="btn btn-default" onclick="window.location.href='/pa165/auth/office'"><fmt:message key="btn.cancel" /></button>
             </div>

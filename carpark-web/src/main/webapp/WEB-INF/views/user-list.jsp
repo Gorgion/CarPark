@@ -61,9 +61,10 @@
                             <td>${user.lastName}</td>
                             <td>${user.birthNumber}</td>
                             <td>${user.address}</td>
-                            <td><a href="<c:url value="/auth/user/${user.id}/edit" />" class="btn btn-default"><fmt:message key="edit" /></a></td>
-                            <td><form action="<c:url value="/auth/user/${user.id}/delete" />" method="POST" class="form-inline" style="display: inline-block;">
-                                    <button type="submit" name="delete" class="btn btn-danger"><fmt:message key="delete" /></button>
+                            <td>
+                                <a href="<c:url value="/auth/user/${user.id}/edit" />" class="btn btn-info"><span class="glyphicon glyphicon-edit" /></a>
+                                <form action="<c:url value="/auth/user/${user.id}/delete" />" method="POST" class="form-inline" style="display: inline-block;">
+                                    <button type="submit" name="delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove" /></button>
                                 </form>                            
                             </td>
                         </tr>

@@ -41,15 +41,14 @@
             <c:set var="toErrors"><form:errors path="to"/></c:set>
 
                 <div class="${not empty fromErrors ? 'has-error' : ''} form-group"> 
-                <form:label path="from" cssClass="col-sm-2 control-label"><fmt:message key="rental.fromDate" /></form:label>
+                <form:label path="from" cssClass="col-sm-2 control-label"><fmt:message key="rental.fromDate" />:</form:label>
                     <div class="col-sm-5">                    
                         <form:input type="date" path="from" cssClass="form-control" autofocus="true"/>
-                    
                 </div>
                 <div class="col-sm-5 help-block">${fromErrors}</div>                
             </div>
             <div class="${not empty toErrors ? 'has-error' : ''} form-group"> 
-                <form:label path="to" cssClass="col-sm-2 control-label"><fmt:message key="rental.toDate" /></form:label>
+                <form:label path="to" cssClass="col-sm-2 control-label"><fmt:message key="rental.toDate" />:</form:label>
                     <div class="col-sm-5">
                         <form:input type="date" path="to" cssClass="form-control"/>                    
                 </div>
