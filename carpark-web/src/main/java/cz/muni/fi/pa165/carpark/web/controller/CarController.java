@@ -152,14 +152,14 @@ public class CarController {
             model.addAttribute("errMsg","error.car.wrongform");
             return "car-form";
         }
-        
+        System.out.println("\n\n---\ncreate new car\n---\n\n");
         CarDto car = new CarDto(carForm.getBrand(),carForm.getType(),carForm.getEngine()
                 ,carForm.getLicencePlate(),carForm.getVIN(),false);
         
         try
         {
-        Long carId = carService.AddCar(car);
-        car.setID(carId);
+            Long carId = carService.AddCar(car);
+            car.setID(carId);System.out.println("\n\n---\nadd a car\n---\n\n");
         }
         catch(CarAlreadyExists ex)
         {
@@ -169,14 +169,14 @@ public class CarController {
             model.addAttribute("offices",officeService.getAllOffices());
             model.addAttribute("errMsg","error.car.alreadyexists");
             return "car-form";
-        }
+        }System.out.println("\n\n---\nget offices\n---\n\n");
         OfficeDto office = officeService.getOffice(carForm.getIdOffice());
         
         List<CarDto> cars = new ArrayList<>(office.getCars());
         cars.add(car);
         office.setCars(cars);
         officeService.editOffice(office);
-        
+        System.out.println("\n\n---\nedited office\n---\n\n");
         redirectAttributes.addFlashAttribute("msg", "msg.car.created");
         
         return "redirect:/auth/car";

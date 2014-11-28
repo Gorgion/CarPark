@@ -8,6 +8,7 @@ package cz.muni.fi.pa165.carpark.dao;
 import cz.muni.fi.pa165.carpark.entity.Car;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * CRUD operations on Car entity with additional getters
@@ -74,7 +75,7 @@ public interface CarDao
          * @param vin
          * @return id of car
          */
-        public String getIdByVin(String vin);
+        public List<Long> getIdByVin(String vin);
     
         /**
          * Return first found id by licencePlate.
@@ -82,5 +83,5 @@ public interface CarDao
          * @param licencePlate
          * @return id of car
          */
-        public String getIdByLicencePlate(String licencePlate);
+        public List<Long> getIdByLicencePlate(String licencePlate);
 }
