@@ -19,7 +19,7 @@
         <c:url var="editUrl" value="/auth/car/${id}/edit" />
         <form:form action="${editUrl}" method="POST" modelAttribute="carForm" class="form-horizontal">
             <div class="form-group">
-                <form:label class="control-label col-md-2" path="brand"><fmt:message key="car.brand"/>:</form:label>
+                <form:label class="control-label col-sm-2" path="brand"><fmt:message key="car.brand"/>:</form:label>
                 <div class="col-md-6">
                     <form:select path="brand" class="form-control" id="brand" >
                         <c:forEach items="${brands}" var="brand">    
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <form:label class="control-label col-md-2" path="type"><fmt:message key="car.type"/>:</form:label>
+                <form:label class="control-label col-sm-2" path="type"><fmt:message key="car.type"/>:</form:label>
                 <div class="col-md-6">
                     <form:select path="type" class="form-control" id="type" >
                         <c:forEach items="${types}" var="type">    
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <form:label class="control-label col-md-2" path="engine"><fmt:message key="car.engine"/>:</form:label>
+                <form:label class="control-label col-sm-2" path="engine"><fmt:message key="car.engine"/>:</form:label>
                 <div class="col-md-6">
                     <form:select path="engine" class="form-control" id="engine" >
                         <c:forEach items="${engines}" var="engine">    
@@ -49,13 +49,13 @@
                 </div>
             </div>
             <div class="${not empty fromErrors ? 'has-error' : ''} form-group">
-                <form:label class="control-label col-md-2" path="VIN"><fmt:message key="car.VIN"/>:</form:label>
+                <form:label class="control-label col-sm-2" path="VIN"><fmt:message key="car.VIN"/>:</form:label>
                 <div class="col-md-6">
                     <form:input path="VIN" class="form-control" value="${VIN}" id="VIN" />
                 </div>
             </div>
             <div class="${not empty fromErrors ? 'has-error' : ''} form-group">
-                <form:label class="control-label col-md-2" path="licencePlate"><fmt:message key="car.licencePlate"/>:</form:label>
+                <form:label class="control-label col-sm-2" path="licencePlate"><fmt:message key="car.licencePlate"/>:</form:label>
                 <div class="col-md-6">
                 <form:input path="licencePlate" class="form-control" value="${licencePlate}" id="licencePlate" />
                 </div>
