@@ -16,18 +16,18 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author Tomas Svoboda
  */
-@ControllerAdvice
+//@ControllerAdvice
 public class GeneralExceptionAdviser
 {
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(value = {DataAccessException.class})
-    public void serverErrorHandler(DataAccessException e)
-    {
-    }
-     
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(Exception.class)
-    public void generalExceptionHandler(Exception e)
-    {
-    }
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    @ExceptionHandler(value = {DataAccessException.class})
+//    public void serverErrorHandler(DataAccessException e)
+//    {
+//    }
+//     
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    @ExceptionHandler(Exception.class)
+//    public void generalExceptionHandler(Exception e)
+//    {
+//    }
 }
