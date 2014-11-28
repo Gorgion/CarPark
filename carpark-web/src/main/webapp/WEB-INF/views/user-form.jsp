@@ -66,7 +66,7 @@
                         <p class="text-danger"><fmt:message key="user.lastName" />&nbsp;<form:errors path="lastName" /></p>
                     </c:if>
                 </div>  
-                    
+
                 <c:if test="${not empty birthNumberError}">
                     <c:set var="birthNumberStyle" value="has-error has-feedback" />
                 </c:if>  
@@ -82,9 +82,24 @@
                     <form:label path="address"><fmt:message key="user.address" /></form:label>
                     <form:input path="address" cssClass="form-control input-md" required=""/>
                 </div>  
+                <div class="form-group">
+                    <form:label class="control-label" path="idOffice"><fmt:message key="office"/>:</form:label>
+                    <form:select path="idOffice" cssClass="form-control input-md">
+                        <c:forEach var="item" items="${offices}">
+                            <c:choose>
+                                <c:when test="${selectedOfficeId == item.ID}">
+                                    <form:option selected="true" value="${item.ID}" label="${item.address}"></form:option>
+                                </c:when>
+                                <c:otherwise>
+                                    <form:option value="${item.ID}" label="${item.address}"></form:option>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </form:select>
+                </div>   
                 <div class="form-group"> 
                     <button type="submit" class="btn btn-success"><fmt:message key="user.form.confirm" /></button>
-                    <button type="button" class="btn btn-danger" onclick="window.location.href='/pa165/auth/user'">
+                    <button type="button" class="btn btn-danger" onclick="window.location.href = '/pa165/auth/user'">
                         <fmt:message key="user.form.cancel" />
                     </button>
                 </div>

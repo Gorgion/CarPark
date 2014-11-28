@@ -228,7 +228,7 @@ public class OfficeServiceImplTest
         
         Mockito.doNothing().when(officeDaoMocked).addOffice(office);
         officeService.addOffice(officeDto);
-        Mockito.doNothing().when(userDaoMocked).add(Converter.getEntity(employeeDto));
+        Mockito.doReturn(1L).when(userDaoMocked).add(Converter.getEntity(employeeDto));
         officeService.addEmployeeToOffice(officeDto, employeeDto);
          
         Mockito.doReturn(office).when(officeDaoMocked).getOffice(1L);

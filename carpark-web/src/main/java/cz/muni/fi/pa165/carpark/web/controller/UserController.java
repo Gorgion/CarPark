@@ -1,9 +1,13 @@
 package cz.muni.fi.pa165.carpark.web.controller;
 
+import cz.muni.fi.pa165.carpark.dto.OfficeDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
+import cz.muni.fi.pa165.carpark.service.OfficeService;
 import cz.muni.fi.pa165.carpark.service.UserService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -33,6 +37,9 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private OfficeService officeService;
+
+    @Autowired
     private MessageSource messageSource;
 
     @RequestMapping(method = RequestMethod.GET)
@@ -48,6 +55,7 @@ public class UserController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addRequest(Model model) {
         model.addAttribute("userForm", new UserForm());
+        model.addAttribute("offices", officeService.getAllOffices());
         return "user-form";
     }
 
@@ -57,7 +65,16 @@ public class UserController {
             return "user-form";
         } else {
             UserDto user = getUserDto(userForm);
-            userService.add(user);
+            System.out.println("FUCK_YOU");
+            Long id = userService.add(user);
+            System.out.println("FUCK_YOU_BITCH");
+            user.setId(id);
+
+            OfficeDto office = officeService.getOffice(userForm.getIdOffice());
+            if (office != null) {
+                officeService.addEmployeeToOffice(office, user);
+            }
+
             redirectAttributes.addFlashAttribute("msg", "msg.user.created");
             return "redirect:/auth/user";
         }
@@ -70,6 +87,16 @@ public class UserController {
 
         model.addAttribute("userForm", userForm);
         model.addAttribute("action", "edit");
+        model.addAttribute("offices", officeService.getAllOffices());
+
+        Long officeId = null;
+        for (OfficeDto o : officeService.getAllOffices()) {
+            if (o.getEmployees().contains(user)) {
+                officeId = o.getID();
+                break;
+            }
+        }
+        model.addAttribute("selectedOfficeId", officeId);
 
         return "user-form";
     }
@@ -93,7 +120,22 @@ public class UserController {
 
             userService.edit(user);
 
-            redirectAttributes.addFlashAttribute("msg", "msg.user.edited");
+            OfficeDto office = officeService.getOffice(userForm.getIdOffice());
+            for (OfficeDto o : officeService.getAllOffices()) {
+                if (!o.equals(office)) {
+                    if (o.getEmployees().contains(user)) {
+                        List<UserDto> u = new ArrayList(o.getEmployees());
+                        u.remove(user);
+                        o.setEmployees(u);
+                        officeService.editOffice(o);
+                    }
+                }
+
+            }
+
+            redirectAttributes.addFlashAttribute(
+                    "msg", "msg.user.edited");
+
             return "redirect:/auth/user";
         }
 
@@ -140,6 +182,7 @@ public class UserController {
         userForm.setBirthNumber(user.getBirthNumber());
 
         return userForm;
+
     }
 
     public static class UserForm {
@@ -157,9 +200,15 @@ public class UserController {
 
         private String address;
 
-        @Override
-        public String toString() {
-            return "UserForm{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthNumber=" + birthNumber + ", address=" + address + '}';
+        //@NotNull
+        private Long idOffice;
+
+        public Long getIdOffice() {
+            return idOffice;
+        }
+
+        public void setIdOffice(Long idOffice) {
+            this.idOffice = idOffice;
         }
 
         public Long getId() {

@@ -18,8 +18,9 @@ public interface UserService {
      * Persist new user
      *
      * @param user user for persitance
+     * @return id
      */
-    void add(UserDto user);
+    Long add(UserDto user);
 
     /**
      * Get user by given id.

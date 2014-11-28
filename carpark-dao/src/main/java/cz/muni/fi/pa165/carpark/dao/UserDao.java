@@ -19,8 +19,9 @@ public interface UserDao
      * Persist new user
      *
      * @param user user for persitance
+     * @return id
      */
-    void add(User user);
+    Long add(User user);
 
     /**
      * Get user by given id.

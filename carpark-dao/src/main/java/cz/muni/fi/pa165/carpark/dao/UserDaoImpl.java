@@ -26,14 +26,16 @@ public class UserDaoImpl implements UserDao
     private EntityManager entityManager;
 
     @Override
-    public void add(User user)
+    public Long add(User user)
     {
         if (user == null)
         {
             throw new IllegalArgumentException("User can not be NULL");
         }
         
-        entityManager.persist(user);        
+        entityManager.persist(user);   
+        entityManager.flush();
+        return user.getId();
     }
 
     @Override

@@ -27,9 +27,9 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void add(UserDto userDto) {
+    public Long add(UserDto userDto) {
         User userEntity = Converter.getEntity(userDto);
-        userDao.add(userEntity);
+        return userDao.add(userEntity);
     }
 
     @Transactional
