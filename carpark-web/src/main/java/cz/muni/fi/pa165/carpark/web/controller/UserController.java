@@ -154,23 +154,24 @@ public class UserController
             {System.out.println("\n\n#3\n" + o);
                 if (o.getEmployees().contains(user))
                 {System.out.println("\n\n#4");
-                    List<UserDto> c = new ArrayList<>(o.getEmployees());
-                    c.remove(user);
-                    o.setEmployees(c);
-                    officeService.editOffice(o);
+                    //List<UserDto> c = new ArrayList<>(o.getEmployees());
+                    //c.remove(user);
+                    //o.setEmployees(c);
+                    //officeService.editOffice(o);
+                    officeService.deleteEmployeeFromOffice(o, user);
                 }
             }
             OfficeDto newOffice = officeService.getOffice(userForm.getIdOffice());
             if (newOffice != null)
             {
-                List<UserDto> users = new ArrayList<>(newOffice.getEmployees());
+                //List<UserDto> users = new ArrayList<>(newOffice.getEmployees());
 
-                users.add(user);
-                newOffice.setEmployees(users);
-                System.out.println("\n\n#8\n" + newOffice);
-                officeService.editOffice(newOffice);
-                System.out.println("\n\n#9");
-//                officeService.addEmployeeToOffice(office, user);
+                //users.add(user);
+                //newOffice.setEmployees(users);
+                //System.out.println("\n\n#8\n" + newOffice);
+                //officeService.editOffice(newOffice);
+                //System.out.println("\n\n#9");
+                officeService.addEmployeeToOffice(newOffice, user);
             }
         }
         System.out.println("\n\n#10");
@@ -196,6 +197,13 @@ System.out.println("\n\n#11");
             {
                 redirectAttributes.addFlashAttribute("error", "error.user.deleted");
                 return "redirect:/auth/user";
+            }
+            for(OfficeDto o : officeService.getAllOffices())
+            {
+                if(o.getCars().contains(user))
+                {
+                    officeService.deleteEmployeeFromOffice(o, user);
+                }
             }
             userService.delete(user);
         } catch (IllegalArgumentException | DataAccessException ex)

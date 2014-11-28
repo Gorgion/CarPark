@@ -74,8 +74,15 @@
                 <form:label class="control-label col-sm-2" path="idOffice"><fmt:message key="office"/>:</form:label>
                 <div class="col-sm-6">
                     <form:select path="idOffice" class="form-control" >
-                        <c:forEach items="${offices}" var="off">    
-                            <form:option path="idOffice" value="${off.ID}" label="${off.address}" />
+                        <c:forEach var="item" items="${offices}">
+                            <c:choose>
+                                <c:when test="${selectedOfficeId == item.ID}">
+                                    <form:option selected="true" value="${item.ID}"><c:out value="${item.address}" /></form:option>
+                                </c:when>
+                                <c:otherwise>
+                                    <form:option value="${item.ID}"><c:out value="${item.address}" /></form:option>
+                                </c:otherwise>
+                            </c:choose>
                         </c:forEach>
                     </form:select>
                 </div>

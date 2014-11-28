@@ -75,6 +75,14 @@ public class CarController {
             return "redirect:/auth/car";
         }
         model.addAttribute("offices",officeService.getAllOffices());
+        for (OfficeDto o : officeService.getAllOffices())
+        {
+            if (o.getCars().contains(car))
+            {
+                model.addAttribute("selectedOfficeId", o.getID());
+                break;
+            }
+        }
         return "car-edit-form";
     }
     
@@ -181,6 +189,13 @@ public class CarController {
                return "redirect:/auth/car";
             }
         
+            for(OfficeDto o : officeService.getAllOffices())
+            {
+                if(o.getCars().contains(car))
+                {
+                    officeService.deleteCarFromOffice(o, car);
+                }
+            }
             carService.DeleteCar(car);
         }
         catch(CarIsRented ex)
