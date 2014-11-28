@@ -112,19 +112,33 @@ public class OfficeController {
     }
     
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-    public String editOffice(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes)
+    public String editOffice(@PathVariable Long id, Model model)
     {
         OfficeDto office = officeService.getOffice(id);
         OfficeEditForm officeEditForm = new OfficeEditForm();
         
         if(office.getEmployees().isEmpty()) {
-            System.out.println("empty!");
             model.addAttribute("error","error.office.noemployees");
         }
         officeEditForm.setAddress(office.getAddress());
-        if(officeEditForm.getManagerId() != null){
-            officeEditForm.setManagerId(office.getManager().getId());
-        } 
+        
+        if(office.getManager()!= null)
+            officeEditForm.setManagerId(office.getManager().getId()); 
+            
+        
+        //System.out.println("3.0 ");
+            /*if(office.getManager().getId() != null){
+              System.out.println("isnotnull");
+              officeEditForm.setManagerId(office.getManager().getId());
+            }
+            else if (office.getManager().getId() == null){
+                System.out.println("isnotisnul");
+            }
+        }*/
+                
+        /*} 
+        else 
+            System.out.println("isisnull");*/
         
         model.addAttribute("officeEditForm", officeEditForm);
         model.addAttribute("managerId", officeService.getEmployees(office));
@@ -136,14 +150,24 @@ public class OfficeController {
     public String officeEdition(@PathVariable Long id, @Valid@ModelAttribute OfficeEditForm officeEditForm,final BindingResult result,Model model, RedirectAttributes redirectAttributes)
     {
         OfficeDto office = officeService.getOffice(id);
-        boolean hasAddress = false;
         
-        if (result.hasErrors()) {            
+        if (result.hasErrors()) {  
             redirectAttributes.addFlashAttribute("error","error.office.edit");
             model.addAttribute("officeEditForm", officeEditForm);
             model.addAttribute("managerId", officeService.getEmployees(office));
             return "office-edit-form";
         }
+        if(officeEditForm.getManagerId()==null) {
+            redirectAttributes.addFlashAttribute("error","error.office.edit");
+            model.addAttribute("officeEditForm", officeEditForm);
+            model.addAttribute("managerId", officeService.getEmployees(office));
+            return "office-edit-form";
+        }
+            
+        
+        System.out.println("no-error?");
+        System.out.println("1." + officeEditForm.getAddress());
+        System.out.println("2." + officeEditForm.getManagerId());
         /*
         for(OfficeDto o : officeService.getAllOffices()) {
             if(!o.equals(office)) {
@@ -163,19 +187,24 @@ public class OfficeController {
             return "office-edit-form";
         }*/
         
-        if(officeEditForm.getManagerId() != null){
-            office.setManager(userService.get(officeEditForm.getManagerId()));
-        }
+           office.setManager(userService.get(officeEditForm.getManagerId()));
+           
+           System.out.println("mmm "+office.getManager());
+           System.out.println("mmm "+office.getAddress());
+           System.out.println("mmm "+office.getEmployees());
+           System.out.println("mmm "+office.getCars());
+           
 
-        try {
+        /*try {*/
             officeService.editOffice(office);
-        }
+        /*}
         catch(Exception e) {
+            System.out.println("error while editing");
             redirectAttributes.addFlashAttribute("error","error.office.edit");
             model.addAttribute("officeEditForm", officeEditForm);
             model.addAttribute("managerId", officeService.getEmployees(office));
-            return "office-edit-form";
-        }
+            return "office-edit-form";*
+        }*/
         
         redirectAttributes.addFlashAttribute("msg", "msg.office.edit");
         return "redirect:/auth/office";

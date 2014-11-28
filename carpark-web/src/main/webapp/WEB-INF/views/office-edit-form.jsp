@@ -54,7 +54,10 @@
                 <form:select path="managerId" class="form-control" id="managerId" >
                         <form:option value="">&nbsp;</form:option>
                         <c:forEach items="${managerId}" var="man">    
-                            <form:option value="${man.id}" label="${man.firstName} ${man.lastName}, ID: ${man.id}"/>
+                           
+                                    <form:option value="${man.id}" label="${man.firstName} ${man.lastName}, ID: ${man.id}"/>
+                               
+
                         </c:forEach>
                     </form:select>
                     <div class="col-sm-5 help-block">${managerIdError}</div>     
