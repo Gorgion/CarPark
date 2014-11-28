@@ -52,14 +52,11 @@
                         <td>${office.ID}</td>
                         <td>${office.address}</td>
                         <td>${office.manager.firstName} ${office.manager.lastName}
-                            <!--<a href="#" class="btn btn-link" data-toggle="modal" data-target="#carDetails"
-                             <c:forEach items="${office.employees}" var="of" varStatus="status"> 
-
-                                    data-car-brand-${of.id}="${of.id}" 
- 
-                             </c:forEach>  
-                            >
-                            <fmt:message key="car.details"/></a>-->
+                            <!--
+                            <a href="#" class="btn btn-link" data-toggle="modal" data-target="#managerDetails"
+                                    data-manager-firstName="${office.manager.firstName}" 
+                                    data-manager-lastName="${office.manager.lastName}" 
+                            ><fmt:message key="manager.details"/></a>-->
                         </td>
                         <td>
                             <c:forEach items="${office.employees}" var="of" varStatus="status">
@@ -87,16 +84,23 @@
         </table>
         </div>
         <custom:delete-dialog key="office"></custom:delete-dialog>
-        <custom:modal-dialog dialogId="carDetails" dialogTitleKey="carDetails.title">
+        
+        <custom:modal-dialog dialogId="managerDetails" dialogTitleKey="managerDetails.title">
             <div class="form-horizontal">
-            <c:forEach items="${offices}" var="of" varStatus="status">
+            
             <div class="form-group">
-                <label class="control-label col-sm-4"><fmt:message key="car.brand-1"/>:</label>
+                <label class="control-label col-sm-4"><fmt:message key="manager.firstName"/>:</label>
                 <div class="col-sm-8">
-                    <p name="brand-1" class="form-control-static"></p>
+                    <p name="firstName" class="form-control-static"></p>
                 </div>
             </div>
-                </c:forEach>
+            <div class="form-group">
+                <label class="control-label col-sm-4"><fmt:message key="manager.lastName"/>:</label>
+                <div class="col-sm-8">
+                    <p name="lastName" class="form-control-static"></p>
+                </div>
+            </div>    
+              
             </div>
         </custom:modal-dialog>  
     </jsp:attribute>        

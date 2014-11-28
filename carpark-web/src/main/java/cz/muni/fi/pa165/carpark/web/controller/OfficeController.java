@@ -66,21 +66,29 @@ public class OfficeController {
     public String handleRequest(Model model)
     {
         model.addAttribute("officeForm", new OfficeForm());
-        //model.addAttribute("employees", userService.getAll());
         return "office-form";
     }
     
     @RequestMapping(value = "/add", method = {RequestMethod.POST,RequestMethod.PUT})
     public String processSubmit(@Valid@ModelAttribute("officeForm") OfficeForm officeForm,final BindingResult result, Model model, RedirectAttributes attributes){
-        if(result.hasErrors())
-        {
-            attributes.addFlashAttribute("msg","error.office.created");
+        if(result.hasErrors()) {
+            attributes.addFlashAttribute("error","error.office.created");
             return "office-form";
         }
+         
+        for(OfficeDto o : officeService.getAllOffices()) {
+                if(o.getAddress().equals(officeForm.getAddress())) {
+                    attributes.addFlashAttribute("error","error.office.created");
+                    return "office-form";
+                }
+        }
+
+        String address = officeForm.getAddress();
         UserDto manager = null;
         List<UserDto> employees = Collections.EMPTY_LIST;
         List<CarDto> cars = Collections.EMPTY_LIST;
-        OfficeDto office = new OfficeDto(officeForm.getAddress(), manager, employees, cars);
+        
+        OfficeDto office = new OfficeDto(address, manager, employees, cars);
         officeService.addOffice(office);
         attributes.addFlashAttribute("msg","msg.office.created");
 
@@ -92,8 +100,7 @@ public class OfficeController {
     {
         OfficeDto office = officeService.getOffice(id);
 
-        if (office == null)
-        {
+        if (office == null) {
             redirectAttributes.addFlashAttribute("error", "error.office.deleted");
         }
 
@@ -105,18 +112,22 @@ public class OfficeController {
     }
     
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-    public String editOffice(@PathVariable Long id, Model model)
+    public String editOffice(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes)
     {
         OfficeDto office = officeService.getOffice(id);
         OfficeEditForm officeEditForm = new OfficeEditForm();
         
+        if(office.getEmployees().isEmpty()) {
+            System.out.println("empty!");
+            model.addAttribute("error","error.office.noemployees");
+        }
         officeEditForm.setAddress(office.getAddress());
         if(officeEditForm.getManagerId() != null){
             officeEditForm.setManagerId(office.getManager().getId());
         } 
         
         model.addAttribute("officeEditForm", officeEditForm);
-        model.addAttribute("managerId", officeService.getEmployees(office));//userService.getAll());
+        model.addAttribute("managerId", officeService.getEmployees(office));
         
         return "office-edit-form";
     }
@@ -125,16 +136,32 @@ public class OfficeController {
     public String officeEdition(@PathVariable Long id, @Valid@ModelAttribute OfficeEditForm officeEditForm,final BindingResult result,Model model, RedirectAttributes redirectAttributes)
     {
         OfficeDto office = officeService.getOffice(id);
+        boolean hasAddress = false;
         
-        if (result.hasErrors())
-        {            
-            redirectAttributes.addFlashAttribute("msg","error.office.edit");
+        if (result.hasErrors()) {            
+            redirectAttributes.addFlashAttribute("error","error.office.edit");
             model.addAttribute("officeEditForm", officeEditForm);
             model.addAttribute("managerId", officeService.getEmployees(office));
             return "office-edit-form";
         }
-
-        office.setAddress(officeEditForm.getAddress());
+        /*
+        for(OfficeDto o : officeService.getAllOffices()) {
+            if(!o.equals(office)) {
+                if(o.getAddress().equals(officeEditForm.getAddress())) {
+                    hasAddress = true;
+                }
+            }
+        }
+        
+        if(!hasAddress) {*/
+            office.setAddress(officeEditForm.getAddress());
+        /*}
+        /*else {
+            redirectAttributes.addFlashAttribute("msg","error.office.edit");
+            model.addAttribute("officeEditForm", officeEditForm);
+            model.addAttribute("managerId", officeService.getEmployees(office));
+            return "office-edit-form";
+        }*/
         
         if(officeEditForm.getManagerId() != null){
             office.setManager(userService.get(officeEditForm.getManagerId()));
@@ -144,7 +171,7 @@ public class OfficeController {
             officeService.editOffice(office);
         }
         catch(Exception e) {
-            redirectAttributes.addFlashAttribute("msg","error.office.edit");
+            redirectAttributes.addFlashAttribute("error","error.office.edit");
             model.addAttribute("officeEditForm", officeEditForm);
             model.addAttribute("managerId", officeService.getEmployees(office));
             return "office-edit-form";
