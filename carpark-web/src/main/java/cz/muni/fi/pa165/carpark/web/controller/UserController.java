@@ -3,16 +3,13 @@ package cz.muni.fi.pa165.carpark.web.controller;
 import cz.muni.fi.pa165.carpark.dto.OfficeDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.service.OfficeService;
+import cz.muni.fi.pa165.carpark.service.RentalService;
 import cz.muni.fi.pa165.carpark.service.UserService;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.Objects;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * User controller.
@@ -40,15 +36,18 @@ public class UserController {
     private OfficeService officeService;
 
     @Autowired
-    private MessageSource messageSource;
+    private RentalService rentalService;
 
+    private Long lastOfficeId;
+    
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model) {
         List<UserDto> users = userService.getAll();
 
         model.addAttribute("users", users);
         model.addAttribute("userForm", new UserForm());
-
+        lastOfficeId = null;
+        
         return "user-list";
     }
 
@@ -65,9 +64,7 @@ public class UserController {
             return "user-form";
         } else {
             UserDto user = getUserDto(userForm);
-            System.out.println("FUCK_YOU");
             Long id = userService.add(user);
-            System.out.println("FUCK_YOU_BITCH");
             user.setId(id);
 
             OfficeDto office = officeService.getOffice(userForm.getIdOffice());
@@ -89,14 +86,14 @@ public class UserController {
         model.addAttribute("action", "edit");
         model.addAttribute("offices", officeService.getAllOffices());
 
-        Long officeId = null;
+        lastOfficeId = null;
         for (OfficeDto o : officeService.getAllOffices()) {
             if (o.getEmployees().contains(user)) {
-                officeId = o.getID();
+                lastOfficeId = o.getID();
                 break;
             }
         }
-        model.addAttribute("selectedOfficeId", officeId);
+        model.addAttribute("selectedOfficeId", lastOfficeId);
 
         return "user-form";
     }
@@ -120,19 +117,12 @@ public class UserController {
 
             userService.edit(user);
 
-            OfficeDto office = officeService.getOffice(userForm.getIdOffice());
-            for (OfficeDto o : officeService.getAllOffices()) {
-                if (!o.equals(office)) {
-                    if (o.getEmployees().contains(user)) {
-                        List<UserDto> u = new ArrayList(o.getEmployees());
-                        u.remove(user);
-                        o.setEmployees(u);
-                        officeService.editOffice(o);
-                    }
-                }
-
+            if (!Objects.equals(lastOfficeId, userForm.idOffice)){
+            OfficeDto prevOffice = officeService.getOffice(lastOfficeId);
+            officeService.deleteEmployeeFromOffice(prevOffice, user);
+            OfficeDto newOffice = officeService.getOffice(userForm.getIdOffice());
+            officeService.addEmployeeToOffice(newOffice, user);    
             }
-
             redirectAttributes.addFlashAttribute(
                     "msg", "msg.user.edited");
 
