@@ -57,7 +57,7 @@
                                data-car-licencePlate="${rental.car.licencePlate}"><fmt:message key="car.details"/></a>
                         </td>
                         <td>
-                            <a href='<c:url value="/auth/user/${userId}/rental/${rental.id}/edit" />' class="btn btn-success"><fmt:message key="edit" /></a>
+                            <a href='<c:url value="/auth/user/${userId}/rental/${rental.id}/edit" />' class="btn btn-default"><fmt:message key="edit" /></a>
                         </td>
                         <td>
                             <form action="<c:url value='/auth/user/${userId}/rental/${rental.id}/delete' />" method="POST" class="form-inline">
