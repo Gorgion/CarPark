@@ -46,7 +46,8 @@
                         <th><fmt:message key="user.lastName" /></th>
                         <th><fmt:message key="user.birthNumber" /></th>
                         <th><fmt:message key="user.address" /></th>
-                        <th><fmt:message key="user.action" /></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,15 +55,15 @@
                         <tr>                  
                             <td>${user.id}</td>
                             <td>
-                                <a href="<c:url value="/auth/user/${user.id}/rental" />" class="btn-link"><fmt:message key="edit"/></a>
+                                <a href="<c:url value="/auth/user/${user.id}/rental" />" class="btn-link"><fmt:message key="show"/></a>
                             </td>
                             <td>${user.firstName}</td>
                             <td>${user.lastName}</td>
                             <td>${user.birthNumber}</td>
                             <td>${user.address}</td>
-                            <td><a href="<c:url value="/auth/user/${user.id}/edit" />" class="btn btn-info"><span class="glyphicon glyphicon-edit" /></a>
-                                <form action="<c:url value="/auth/user/${user.id}/delete" />" method="POST" class="form-inline" style="display: inline-block;">
-                                    <button type="submit" name="delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove" /></button>
+                            <td><a href="<c:url value="/auth/user/${user.id}/edit" />" class="btn btn-default"><fmt:message key="edit" /></a></td>
+                            <td><form action="<c:url value="/auth/user/${user.id}/delete" />" method="POST" class="form-inline" style="display: inline-block;">
+                                    <button type="submit" name="delete" class="btn btn-danger"><fmt:message key="delete" /></button>
                                 </form>                            
                             </td>
                         </tr>
