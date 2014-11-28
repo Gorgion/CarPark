@@ -73,30 +73,36 @@
         <custom:delete-dialog key="rental"></custom:delete-dialog>
         <custom:modal-dialog dialogId="carDetails" dialogTitleKey="carDetails.title">
             <div class="form-horizontal">
-            <div class="form-group">
-                <label class="control-label col-sm-4"><fmt:message key="car.brand"/>:</label>
-                <div class="col-sm-8">
-                    <p name="brand" class="form-control-static"></p>
+                <div class="form-group">
+                    <label class="control-label col-sm-4"><fmt:message key="car.id"/>:</label>
+                    <div class="col-sm-8">
+                        <a name="id" href="<c:url value="/auth/car#"/>" class="btn btn-link"></a>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-4"><fmt:message key="car.type"/>:</label>
-                <div class="col-sm-8">
-                    <p name="type" class="form-control-static"></p>
+                <div class="form-group">
+                    <label class="control-label col-sm-4"><fmt:message key="car.brand"/>:</label>
+                    <div class="col-sm-8">
+                        <p name="brand" class="form-control-static"></p>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-4"><fmt:message key="car.engine"/>:</label>
-                <div class="col-sm-8">
-                    <p name="engine" class="form-control-static"></p>
+                <div class="form-group">
+                    <label class="control-label col-sm-4"><fmt:message key="car.type"/>:</label>
+                    <div class="col-sm-8">
+                        <p name="type" class="form-control-static"></p>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-4"><fmt:message key="car.licencePlate"/>:</label>
-                <div class="col-sm-8">                    
-                    <p name="licencePlate" class="form-control-static"></p>
+                <div class="form-group">
+                    <label class="control-label col-sm-4"><fmt:message key="car.engine"/>:</label>
+                    <div class="col-sm-8">
+                        <p name="engine" class="form-control-static"></p>
+                    </div>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4"><fmt:message key="car.licencePlate"/>:</label>
+                    <div class="col-sm-8">                    
+                        <p name="licencePlate" class="form-control-static"></p>
+                    </div>
+                </div>
             </div>
         </custom:modal-dialog>        
     </jsp:attribute>        

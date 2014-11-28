@@ -198,6 +198,13 @@ public class RentalController
             redirectAttributes.addFlashAttribute("error", "error.rental.deleted");
         }
 
+        CarDto car = rental.getCar();
+
+        if (car != null)
+        {
+            car.setRented(false);
+            carService.EditCar(car);
+        }
         rentalService.delete(rental);
 
         redirectAttributes.addFlashAttribute("msg", "msg.rental.deleted");
