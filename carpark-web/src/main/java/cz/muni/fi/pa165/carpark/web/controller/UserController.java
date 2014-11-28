@@ -200,7 +200,7 @@ System.out.println("\n\n#11");
             }
             for(OfficeDto o : officeService.getAllOffices())
             {
-                if(o.getCars().contains(user))
+                if(o.getEmployees().contains(user))
                 {
                     officeService.deleteEmployeeFromOffice(o, user);
                 }
