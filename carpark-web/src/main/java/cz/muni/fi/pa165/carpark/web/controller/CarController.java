@@ -52,7 +52,7 @@ public class CarController {
     }
     
     @RequestMapping(value = "/{id}/edit", method = {RequestMethod.GET})
-    public String changeCar(@PathVariable Long id, Model model) {
+    public String changeCar(@PathVariable Long id, Model model,RedirectAttributes redirectAttributes) {
         CarDto car;
         
         car = carService.getCar(id);
@@ -69,6 +69,11 @@ public class CarController {
         model.addAttribute("brands",CarDto.mBrand.values());
         model.addAttribute("types",CarDto.mType.values());
         model.addAttribute("engines",CarDto.mEngine.values());
+        if(officeService.getAllOffices().isEmpty())
+        {
+            redirectAttributes.addFlashAttribute("errMsg","error.car.add.nooffices");
+            return "redirect:/auth/car";
+        }
         model.addAttribute("offices",officeService.getAllOffices());
         return "car-edit-form";
     }
@@ -94,20 +99,7 @@ public class CarController {
         car.setLicencePlate(carForm.getLicencePlate());
         car.setVIN(carForm.getVIN());
         
-        try
-        {
-            carService.EditCar(car);
-        }
-        catch(CarAlreadyExists ex)
-        {
-            model.addAttribute("carForm",new CarForm());
-            model.addAttribute("brands",CarDto.mBrand.values());
-            model.addAttribute("types",CarDto.mType.values());
-            model.addAttribute("engines",CarDto.mEngine.values());
-            model.addAttribute("offices",officeService.getAllOffices());
-            model.addAttribute("errMsg","error.car.alreadyexists");
-            return "car-edit-form";
-        }
+        carService.EditCar(car);
         
         OfficeDto office = officeService.getOffice(carForm.getIdOffice());
         List<CarDto> cars = new ArrayList<>(office.getCars());
@@ -135,11 +127,16 @@ public class CarController {
     }
     
     @RequestMapping(value = "/add", method = {RequestMethod.GET})
-    public String createNewCar(@ModelAttribute("carForm") CarForm carForm, Model model) {
+    public String createNewCar(@ModelAttribute("carForm") CarForm carForm, Model model,RedirectAttributes redirectAttributes) {
         model.addAttribute("carForm",new CarForm());
         model.addAttribute("brands",CarDto.mBrand.values());
         model.addAttribute("types",CarDto.mType.values());
         model.addAttribute("engines",CarDto.mEngine.values());
+        if(officeService.getAllOffices().isEmpty())
+        {
+            redirectAttributes.addFlashAttribute("errMsg", "error.car.add.noofices");
+            return "redirect:/auth/car";
+        }
         model.addAttribute("offices",officeService.getAllOffices());
         return "car-form";
     }
@@ -152,8 +149,8 @@ public class CarController {
             model.addAttribute("types",CarDto.mType.values());
             model.addAttribute("engines",CarDto.mEngine.values());
             model.addAttribute("offices",officeService.getAllOffices());
-            model.addAttribute("errorMsg","error.car.wrongform");
-            return "car-form";//"redirect:/auth/car/add";
+            model.addAttribute("errMsg","error.car.wrongform");
+            return "car-form";
         }
         
         CarDto car = new CarDto(carForm.getBrand(),carForm.getType(),carForm.getEngine()
@@ -166,7 +163,6 @@ public class CarController {
         }
         catch(CarAlreadyExists ex)
         {
-            model.addAttribute("carForm",new CarForm());
             model.addAttribute("brands",CarDto.mBrand.values());
             model.addAttribute("types",CarDto.mType.values());
             model.addAttribute("engines",CarDto.mEngine.values());

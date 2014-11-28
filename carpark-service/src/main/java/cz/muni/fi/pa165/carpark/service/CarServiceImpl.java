@@ -63,9 +63,6 @@ public class CarServiceImpl implements CarService
     {
         Car carEntity = Converter.getEntity(car);
         
-        if(carDao.getIdByLicencePlate(carEntity.getLicencePlate()) != null || carDao.getIdByVin(carEntity.getVIN()) != null)
-            throw new CarAlreadyExists("Car already exists!");
-        
         carDao.EditCar(carEntity);
     }
 

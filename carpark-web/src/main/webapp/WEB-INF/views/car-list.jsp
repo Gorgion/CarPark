@@ -53,7 +53,7 @@
             </thead>
             <tbody>
                <c:forEach items="${cars}" var="car">
-                    <tr>
+                    <tr id="${car.ID}">
                         <td>${car.ID}</td>
                         <td><fmt:message key="car.brand.${car.brand}" /></td>
                         <td><fmt:message key="car.type.${car.type}" /></td>
