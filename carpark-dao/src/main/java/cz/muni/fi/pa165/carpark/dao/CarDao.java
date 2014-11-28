@@ -68,4 +68,19 @@ public interface CarDao
          */
 	public Collection getFreeCars(Date from, Date to);
 
+        /**
+         * Return first found id by vin.
+         * 
+         * @param vin
+         * @return id of car
+         */
+        public String getIdByVin(String vin);
+    
+        /**
+         * Return first found id by licencePlate.
+         * 
+         * @param licencePlate
+         * @return id of car
+         */
+        public String getIdByLicencePlate(String licencePlate);
 }

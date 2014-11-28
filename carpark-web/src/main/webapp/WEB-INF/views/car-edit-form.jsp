@@ -15,15 +15,25 @@
 
 <custom:layout title="${title}">
     <jsp:attribute name="content">
-               
+        <c:if test="${not empty errMsg}" >
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    &times;
+                </button>
+                <fmt:message key="${errMsg}" />
+            </div>
+        </c:if>        
         <c:url var="editUrl" value="/auth/car/${id}/edit" />
         <form:form action="${editUrl}" method="POST" modelAttribute="carForm" class="form-horizontal">
+            <c:set var="vinErrors"><form:errors path="VIN"/></c:set>
+            <c:set var="licencePlateErrors"><form:errors path="licencePlate"/></c:set>
+            
             <div class="form-group">
                 <form:label class="control-label col-sm-2" path="brand"><fmt:message key="car.brand"/>:</form:label>
                 <div class="col-md-6">
                     <form:select path="brand" class="form-control" id="brand" >
                         <c:forEach items="${brands}" var="brand">    
-                            <form:option value="${brand}"><fmt:message key="car.brand.${brand}"/></form:option>
+                            <form:option value="${brand}" ><fmt:message key="car.brand.${brand}"/></form:option>
                         </c:forEach>
                     </form:select>
                 </div>
@@ -48,13 +58,13 @@
                     </form:select>
                 </div>
             </div>
-            <div class="${not empty fromErrors ? 'has-error' : ''} form-group">
+            <div class="${not empty vinErrors ? 'has-error' : ''} form-group">
                 <form:label class="control-label col-sm-2" path="VIN"><fmt:message key="car.VIN"/>:</form:label>
                 <div class="col-md-6">
                     <form:input path="VIN" class="form-control" value="${VIN}" id="VIN" />
                 </div>
             </div>
-            <div class="${not empty fromErrors ? 'has-error' : ''} form-group">
+            <div class="${not empty licencePlateErrors ? 'has-error' : ''} form-group">
                 <form:label class="control-label col-sm-2" path="licencePlate"><fmt:message key="car.licencePlate"/>:</form:label>
                 <div class="col-md-6">
                 <form:input path="licencePlate" class="form-control" value="${licencePlate}" id="licencePlate" />

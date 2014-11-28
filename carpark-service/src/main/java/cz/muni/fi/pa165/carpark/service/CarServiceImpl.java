@@ -8,6 +8,8 @@ package cz.muni.fi.pa165.carpark.service;
 import cz.muni.fi.pa165.carpark.dao.CarDao;
 import cz.muni.fi.pa165.carpark.dto.CarDto;
 import cz.muni.fi.pa165.carpark.entity.Car;
+import cz.muni.fi.pa165.carpark.exception.CarAlreadyExists;
+import cz.muni.fi.pa165.carpark.exception.CarIsRented;
 import cz.muni.fi.pa165.carpark.util.Converter;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,7 +18,9 @@ import java.util.Date;
 import java.util.List;
 import javax.transaction.Transactional;
 import javax.inject.Inject;
+import static org.aspectj.apache.bcel.Repository.instanceOf;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -34,7 +38,14 @@ public class CarServiceImpl implements CarService
     @Override
     public Long AddCar(CarDto car)
     {
+        if(car == null)
+            throw new IllegalArgumentException("Car is null");
+        
         Car carEntity = Converter.getEntity(car);
+        
+        if(carDao.getIdByLicencePlate(carEntity.getLicencePlate()) != null || carDao.getIdByVin(carEntity.getVIN()) != null)
+            throw new CarAlreadyExists("Car already exists!");
+        
         return carDao.AddCar(carEntity);
     }
 
@@ -51,6 +62,10 @@ public class CarServiceImpl implements CarService
     public void EditCar(CarDto car)
     {
         Car carEntity = Converter.getEntity(car);
+        
+        if(carDao.getIdByLicencePlate(carEntity.getLicencePlate()) != null || carDao.getIdByVin(carEntity.getVIN()) != null)
+            throw new CarAlreadyExists("Car already exists!");
+        
         carDao.EditCar(carEntity);
     }
 
@@ -59,6 +74,8 @@ public class CarServiceImpl implements CarService
     public void DeleteCar(CarDto car)
     {
         Car carEntity = Converter.getEntity(car);
+        if(carEntity.getRented())
+            throw new CarIsRented("Car cannot be deleted when is rented");
         carDao.DeleteCar(carEntity);
     }
 

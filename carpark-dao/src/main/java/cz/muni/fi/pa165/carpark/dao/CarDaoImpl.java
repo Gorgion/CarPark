@@ -110,4 +110,18 @@ public class CarDaoImpl implements CarDao
         
         return Collections.unmodifiableCollection(freeCars);
     }
+    
+    public String getIdByVin(String VIN)
+    {
+        Query query = em.createQuery("FROM Car WHERE VIN =:VIN").setParameter("VIN", VIN);
+        
+        return query.getSingleResult().toString();
+    }
+    
+    public String getIdByLicencePlate(String licencePlate)
+    {
+        Query query = em.createQuery("FROM Car WHERE licencePlate =:licencePlate").setParameter("licencePlate", licencePlate);
+        
+        return query.getSingleResult().toString();
+    }
 }

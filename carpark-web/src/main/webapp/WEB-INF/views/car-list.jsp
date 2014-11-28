@@ -48,6 +48,7 @@
                     <th><fmt:message key="car.licencePlate" /></th>
                     <th><fmt:message key="car.VIN" /></th>
                     <th><fmt:message key="car.rented" /></th>
+                    <th></th><th></th>
                 </tr>
             </thead>
             <tbody>

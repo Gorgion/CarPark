@@ -8,6 +8,8 @@ package cz.muni.fi.pa165.carpark.web.controller;
 
 import cz.muni.fi.pa165.carpark.dto.CarDto;
 import cz.muni.fi.pa165.carpark.dto.OfficeDto;
+import cz.muni.fi.pa165.carpark.exception.CarAlreadyExists;
+import cz.muni.fi.pa165.carpark.exception.CarIsRented;
 import cz.muni.fi.pa165.carpark.service.CarService;
 import cz.muni.fi.pa165.carpark.service.OfficeService;
 import java.util.ArrayList;
@@ -72,10 +74,15 @@ public class CarController {
     }
     
     @RequestMapping(value = "/{id}/edit", method = {RequestMethod.POST,RequestMethod.PUT})
-    public String editCar(@PathVariable Long id,@Valid@ModelAttribute("carForm") CarForm carForm, BindingResult result,Model model,RedirectAttributes redirectAttributes) {
+    public String editCar(@PathVariable Long id,@Valid@ModelAttribute("carForm") CarForm carForm, BindingResult result,Model model,RedirectAttributes redirectAttributes) 
+    {
         if (result.hasErrors())
         {
-            redirectAttributes.addFlashAttribute("error", "error.car.wrongform");
+            model.addAttribute("brands",CarDto.mBrand.values());
+            model.addAttribute("types",CarDto.mType.values());
+            model.addAttribute("engines",CarDto.mEngine.values());
+            model.addAttribute("offices",officeService.getAllOffices());
+            model.addAttribute("errMsg", "error.car.wrongform");
             return "car-edit-form";
         }
         
@@ -87,7 +94,20 @@ public class CarController {
         car.setLicencePlate(carForm.getLicencePlate());
         car.setVIN(carForm.getVIN());
         
-        carService.EditCar(car);
+        try
+        {
+            carService.EditCar(car);
+        }
+        catch(CarAlreadyExists ex)
+        {
+            model.addAttribute("carForm",new CarForm());
+            model.addAttribute("brands",CarDto.mBrand.values());
+            model.addAttribute("types",CarDto.mType.values());
+            model.addAttribute("engines",CarDto.mEngine.values());
+            model.addAttribute("offices",officeService.getAllOffices());
+            model.addAttribute("errMsg","error.car.alreadyexists");
+            return "car-edit-form";
+        }
         
         OfficeDto office = officeService.getOffice(carForm.getIdOffice());
         List<CarDto> cars = new ArrayList<>(office.getCars());
@@ -127,18 +147,35 @@ public class CarController {
     @RequestMapping(value = "/add", method = {RequestMethod.POST})
     public String addNewCar(@Valid @ModelAttribute("carForm") CarForm carForm, BindingResult result,Model model,RedirectAttributes redirectAttributes) {
         if (result.hasErrors())
-        {            
-            redirectAttributes.addFlashAttribute("errMsg", "error.car.wrongform");
-            return "redirect:/auth/car/add";
+        {     
+            model.addAttribute("brands",CarDto.mBrand.values());
+            model.addAttribute("types",CarDto.mType.values());
+            model.addAttribute("engines",CarDto.mEngine.values());
+            model.addAttribute("offices",officeService.getAllOffices());
+            model.addAttribute("errorMsg","error.car.wrongform");
+            return "car-form";//"redirect:/auth/car/add";
         }
         
         CarDto car = new CarDto(carForm.getBrand(),carForm.getType(),carForm.getEngine()
                 ,carForm.getLicencePlate(),carForm.getVIN(),false);
         
+        try
+        {
         Long carId = carService.AddCar(car);
         car.setID(carId);
-    
+        }
+        catch(CarAlreadyExists ex)
+        {
+            model.addAttribute("carForm",new CarForm());
+            model.addAttribute("brands",CarDto.mBrand.values());
+            model.addAttribute("types",CarDto.mType.values());
+            model.addAttribute("engines",CarDto.mEngine.values());
+            model.addAttribute("offices",officeService.getAllOffices());
+            model.addAttribute("errMsg","error.car.alreadyexists");
+            return "car-form";
+        }
         OfficeDto office = officeService.getOffice(carForm.getIdOffice());
+        
         List<CarDto> cars = new ArrayList<>(office.getCars());
         cars.add(car);
         office.setCars(cars);
@@ -164,6 +201,11 @@ public class CarController {
             }
         
             carService.DeleteCar(car);
+        }
+        catch(CarIsRented ex)
+        {
+            redirectAttributes.addFlashAttribute("errMsg", "error.car.rentednotdeleted");
+           return "redirect:/auth/car";
         }
         catch(IllegalArgumentException | DataAccessException ex)
         {

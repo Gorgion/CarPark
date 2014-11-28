@@ -9,6 +9,7 @@ import cz.muni.fi.pa165.carpark.TestUtils;
 import cz.muni.fi.pa165.carpark.dao.CarDao;
 import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.dto.CarDto;
+import cz.muni.fi.pa165.carpark.exception.CarAlreadyExists;
 import cz.muni.fi.pa165.carpark.util.Converter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,6 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import java.util.Arrays;
 import java.util.Date;
+import org.junit.Ignore;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -64,12 +66,12 @@ public class CarServiceImplTest {
         Assert.assertEquals(carDto.getVIN(), actualDto.getVIN());
     }
 
-    @Test(expected = DataAccessException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void addCarWithNullTest() {
-        Mockito.doThrow(new DataAccessException("") {}).when(carDM).AddCar(null);
+        Mockito.doThrow(new IllegalArgumentException("Car is null") {}).when(carDM).AddCar(null);
         carService.AddCar(null);
     }
-
+    
     @Test(expected = DataAccessException.class)
     public void getCarWithWrongIdTest(){
         Mockito.doThrow(new DataAccessException("") {}).when(carDM).getCar(Long.MIN_VALUE);

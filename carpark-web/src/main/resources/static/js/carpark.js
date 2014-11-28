@@ -33,4 +33,4 @@ window.setTimeout(function() {
     $(".alert-dismissable").fadeTo(500, 0).slideUp(500, function(){
         $(".alert-dismissable").alert('close');
     });
-},5000);
+},30000);
