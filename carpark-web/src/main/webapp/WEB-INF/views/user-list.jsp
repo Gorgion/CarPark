@@ -41,7 +41,7 @@
                 <thead>
                     <tr>
                         <th><fmt:message key="user.id" /></th>
-                        <th><fmt:message key="user.rental" /></th>
+                        <th><fmt:message key="rentals" /></th>
                         <th><fmt:message key="user.firstName" /></th>
                         <th><fmt:message key="user.lastName" /></th>
                         <th><fmt:message key="user.birthNumber" /></th>
@@ -54,10 +54,7 @@
                         <tr>                  
                             <td>${user.id}</td>
                             <td>
-                                <c:choose>
-                                    <c:when test="${rentalSet.contains(user.id)}"><a href="<c:url value="/auth/user/${user.id}/rental" />" class="btn btn-info"><span class="glyphicon glyphicon-bell" /></a></c:when>
-                                    <c:otherwise> - </c:otherwise>
-                                </c:choose>
+                                <a href="<c:url value="/auth/user/${user.id}/rental" />" class="btn-link"><fmt:message key="edit"/></a>
                             </td>
                             <td>${user.firstName}</td>
                             <td>${user.lastName}</td>

@@ -46,17 +46,9 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model) {
         List<UserDto> users = userService.getAll();
-        
-        Set rentalSet = new HashSet();
-        for (UserDto user : users) {
-            Collection rentals = rentalService.getAllByUser(user);
-            if (!rentals.isEmpty()){
-                rentalSet.add(user.getId());
-            }
-        }
+      
         model.addAttribute("users", users);
         model.addAttribute("userForm", new UserForm());
-        model.addAttribute("rentalSet", rentalSet);
         lastOfficeId = null;
         
         return "user-list";
