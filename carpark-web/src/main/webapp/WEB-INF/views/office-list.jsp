@@ -51,23 +51,27 @@
                     <tr>
                         <td>${office.ID}</td>
                         <td>${office.address}</td>
-                        <td>${office.manager.firstName} ${office.manager.lastName}</td>
-                        <!--<td>
-                            <a href="#" class="btn btn-link" data-toggle="modal" data-target="#showManager"
-                               data-employee-id="${office.manager.id}" 
-                               data-employee-name="${office.manager.firstName}" 
-                               data-employee-lastName="${office.manager.lastName}" 
-                               data-employee-address="${office.manager.address}">
-                                <fmt:message key="office.manager.show"/>
-                            </a>
-                        </td>-->
+                        <td>${office.manager.firstName} ${office.manager.lastName}
+                            <!--<a href="#" class="btn btn-link" data-toggle="modal" data-target="#carDetails"
+                            <c:forEach items="${office.cars}" var="car" varStatus="status">   
+                               data-car-id="${car.ID}" 
+                               data-car-type="${car.type}"
+                               data-car-brand="${car.brand}"
+                               data-car-engine="${car.engine}" 
+                               data-car-licencePlate="${car.licencePlate}">
+                            </c:forEach>
+                            <fmt:message key="car.details"/></a>-->
+                        </td>
                         <td>
                             <c:forEach items="${office.employees}" var="of" varStatus="status">
                                <p>${of.firstName} ${of.lastName}  </p>
                             </c:forEach>
                         </td>
-                        <td>
                             
+                        <td>
+                            <c:forEach items="${office.cars}" var="of" varStatus="status">
+                               <fmt:message key="car.brand.${of.brand}"/><br/>
+                            </c:forEach>
                         </td>
                         <td>
                             <a href='<c:url value="/auth/office/${office.ID}/edit" />' class="btn btn-default"><fmt:message key="edit" /></a>
@@ -83,23 +87,34 @@
             </tbody>
         </table>
         </div>
-        <custom:modal-dialog dialogId="showManager" dialogTitleKey="office.employee.show">
-            <div class="row">
-                <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th><fmt:message key="user" /></th>
-                </tr>
-            </thead>
-            <tbody>
-                
-                    <tr>
-                        <td>${office.employees}</td>
-                    </tr>
-                
-            </tbody>
-        </table>
+        <custom:delete-dialog key="office"></custom:delete-dialog>
+        <custom:modal-dialog dialogId="carDetails" dialogTitleKey="carDetails.title">
+            <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-4"><fmt:message key="car.brand"/>:</label>
+                <div class="col-sm-8">
+                    <p name="brand" class="form-control-static"></p>
+                </div>
             </div>
-        </custom:modal-dialog>
+            <div class="form-group">
+                <label class="control-label col-sm-4"><fmt:message key="car.type"/>:</label>
+                <div class="col-sm-8">
+                    <p name="type" class="form-control-static"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4"><fmt:message key="car.engine"/>:</label>
+                <div class="col-sm-8">
+                    <p name="engine" class="form-control-static"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4"><fmt:message key="car.licencePlate"/>:</label>
+                <div class="col-sm-8">                    
+                    <p name="licencePlate" class="form-control-static"></p>
+                </div>
+            </div>
+            </div>
+        </custom:modal-dialog>  
     </jsp:attribute>        
 </custom:layout>
