@@ -35,7 +35,7 @@ public class CarDaoImpl implements CarDao
         }
         
         em.persist(car);
-        em.flush();
+        //em.flush();
         return car.getID();
     }
 
@@ -101,12 +101,6 @@ public class CarDaoImpl implements CarDao
                 + "(:from >= r.fromDate AND :from <= r.toDate))"
                 , Car.class).setParameter("from", from).setParameter("to", to);
         List<Car> freeCars = query.getResultList();
-        
-        System.out.println("");
-        System.out.println("");
-        System.out.println(freeCars);
-        System.out.println("");
-        System.out.println("");
         
         return Collections.unmodifiableCollection(freeCars);
     }

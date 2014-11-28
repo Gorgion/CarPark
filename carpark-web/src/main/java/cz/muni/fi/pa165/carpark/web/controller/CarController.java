@@ -104,18 +104,12 @@ public class CarController {
         {
             if(o.getCars().contains(car))
             {
-                List<CarDto> c = new ArrayList<>(o.getCars());
-                c.remove(car);
-                o.setCars(c);
-                officeService.editOffice(o);
+                officeService.deleteCarFromOffice(o, car);
             }
         }
         
         OfficeDto office = officeService.getOffice(carForm.getIdOffice());
-        List<CarDto> cars = new ArrayList<>(office.getCars());
-        cars.add(car);
-        office.setCars(cars);
-        officeService.editOffice(office);
+        officeService.addCarToOffice(office, car);
         
         redirectAttributes.addFlashAttribute("msg", "msg.car.edited");
         
@@ -150,10 +144,11 @@ public class CarController {
         }
         CarDto car = new CarDto(carForm.getBrand(),carForm.getType(),carForm.getEngine()
                 ,carForm.getLicencePlate(),carForm.getVIN(),false);
-        
+        Long carId;
         try
         {
-            carService.AddCar(car);
+            carId = carService.AddCar(car);
+            car.setID(carId);
         }
         catch(CarAlreadyExists ex)
         {
@@ -166,11 +161,7 @@ public class CarController {
         }
         OfficeDto office = officeService.getOffice(carForm.getIdOffice());
         
-        List<CarDto> cars = new ArrayList<>(office.getCars());
-        cars.add(car);
-        office.setCars(cars);
-        officeService.editOffice(office);
-        
+        officeService.addCarToOffice(office, car);
         redirectAttributes.addFlashAttribute("msg", "msg.car.created");
         
         return "redirect:/auth/car";
