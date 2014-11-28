@@ -16,30 +16,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class GeneralExceptionHandlerController
 {
+    
     @RequestMapping("/500")
-    public String handle500error(Model model)
-    {
-        model.addAttribute("error.code", "500");
-        model.addAttribute("error.msg", "error.500.body");
-        
-        return "error";
+    public String handle500error()
+    {        
+        return "500";
     }
     
     @RequestMapping("/400")
-    public String handle400error(Model model)
-    {
-        model.addAttribute("error.code", "400");
-        model.addAttribute("error.msg", "error.400.body");
-        
-        return "error";
+    public String handle400error()
+    {     
+        return "400";
     }
+    
     
     @RequestMapping("/404")
     public String handle404error(Model model)
-    {
-        model.addAttribute("error.code", "404");
-        model.addAttribute("error.msg", "error.404.body");
-        
-        return "error";
+    {        
+        return "404";
     }
 }

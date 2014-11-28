@@ -24,9 +24,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />      
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/style.css"/>
-        
+
         <jsp:invoke fragment="head"/>
-                
+
     </head>
     <body>
         <div class="navbar navbar-default navbar-static-top" role="navigation">
@@ -50,7 +50,7 @@
                         <li><a id="info" href="#"><fmt:message key="info" /></a></li>
                     </ul>
                 </div>
-                <div class="page-header">
+                <div class="page-header visible-lg visible-md">
                 </div>
             </div>
         </div>
@@ -77,18 +77,52 @@
         <script>
             var url = window.location.toString();
 
-        if(url.indexOf("office") > -1) {
-            $("li #office").addClass("active");
-        }
-            
-        if(url.indexOf("car") > -1) 
-            $("li #car").addClass("active");
-          
-        if(url.indexOf("rental") > -1) 
-            $("li #rental").addClass("active");
-            
-        if(url.indexOf("user") > -1 && !(url.indexOf("rental") > -1)) 
-            $("li #user").addClass("active");
+            if (url.indexOf("office") > -1) {
+                $("li #office").addClass("active");
+            }
+
+            if (url.indexOf("car") > -1)
+                $("li #car").addClass("active");
+
+            if (url.indexOf("rental") > -1)
+                $("li #rental").addClass("active");
+
+            if (url.indexOf("user") > -1 && !(url.indexOf("rental") > -1))
+                $("li #user").addClass("active");
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                $('.page-header').removeClass('visible-md');
+                $('.page-header').removeClass('visible-lg');
+
+                var hidden = false;
+
+                $(window).on('load', function ()
+                {
+                    if ($(window).width() <= 992)
+                    {
+                        hidden = true;
+                    }
+                });
+
+                $(window).on('load resize', function ()
+                {
+                    var width = $(window).width();
+
+                    var div = $('.page-header');
+
+                    if (width <= 992 && !hidden) {
+                        div.slideUp('slow');
+                        div.addClass('.visible-lg .visible-md');
+                    } else {
+                        div.slideDown('slow');
+                        div.removeClass('.visible-lg .visible-md');
+                        hidden = false;
+                    }
+
+                });
+            });
         </script>
     </body>
 </html>
