@@ -9,6 +9,7 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <fmt:message var="title" key="user.list.title"/>
 <custom:layout title="${title}">    
@@ -40,6 +41,7 @@
                 <thead>
                     <tr>
                         <th><fmt:message key="user.id" /></th>
+                        <th><fmt:message key="user.rental" /></th>
                         <th><fmt:message key="user.firstName" /></th>
                         <th><fmt:message key="user.lastName" /></th>
                         <th><fmt:message key="user.birthNumber" /></th>
@@ -51,6 +53,12 @@
                     <c:forEach items="${users}" var="user">
                         <tr>                  
                             <td>${user.id}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${rentalSet.contains(user.id)}"><a href="<c:url value="/auth/user/${user.id}/rental" />" class="btn btn-info"><span class="glyphicon glyphicon-bell" /></a></c:when>
+                                    <c:otherwise> - </c:otherwise>
+                                </c:choose>
+                            </td>
                             <td>${user.firstName}</td>
                             <td>${user.lastName}</td>
                             <td>${user.birthNumber}</td>

@@ -5,8 +5,11 @@ import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.service.OfficeService;
 import cz.muni.fi.pa165.carpark.service.RentalService;
 import cz.muni.fi.pa165.carpark.service.UserService;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.validation.Valid;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +46,17 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model) {
         List<UserDto> users = userService.getAll();
-
+        
+        Set rentalSet = new HashSet();
+        for (UserDto user : users) {
+            Collection rentals = rentalService.getAllByUser(user);
+            if (!rentals.isEmpty()){
+                rentalSet.add(user.getId());
+            }
+        }
         model.addAttribute("users", users);
         model.addAttribute("userForm", new UserForm());
+        model.addAttribute("rentalSet", rentalSet);
         lastOfficeId = null;
         
         return "user-list";
