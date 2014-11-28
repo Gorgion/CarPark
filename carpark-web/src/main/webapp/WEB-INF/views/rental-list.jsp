@@ -41,6 +41,8 @@
                     <th><fmt:message key="rental.fromDate" /></th>
                     <th><fmt:message key="rental.toDate" /></th>
                     <th><fmt:message key="rental.car" /></th>
+                    <th/>
+                    <th/>
                 </tr>
             </thead>
             <tbody>
