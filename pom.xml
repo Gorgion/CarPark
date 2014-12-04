@@ -13,7 +13,8 @@
         <module>carpark-service</module>
         <module>carpark-web</module>
         <module>carpark-api</module>
-    </modules>
+    <module>carpark-webclient</module>
+  </modules>
     
    
     <properties>
