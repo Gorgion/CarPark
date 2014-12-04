@@ -8,7 +8,6 @@ package cz.muni.fi.pa165.carpark.config;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-//import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * Web core configuration.
@@ -16,7 +15,6 @@ import org.springframework.context.annotation.Import;
  * @author Tomas Svoboda
  */
 @Configuration
-//@EnableAsync
 @ComponentScan("cz.muni.fi.pa165.carpark")
 @Import(ServiceCoreConfig.class)
 public class CoreConfig

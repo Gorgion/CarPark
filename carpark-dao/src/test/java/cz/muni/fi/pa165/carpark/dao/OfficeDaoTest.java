@@ -16,15 +16,10 @@ import cz.muni.fi.pa165.carpark.entity.User;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.transaction.Transactional;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.model.MultipleFailureException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -52,7 +47,6 @@ public class OfficeDaoTest
     }
        
     @Test(expected = DataAccessException.class)
-    //@Ignore
     public void addGetOfficeTest()
     {
         String address = "Adresa 123";
@@ -73,7 +67,6 @@ public class OfficeDaoTest
     }
     
     @Test
-//    @Ignore
     public void getOfficeCars()
     {
         String address = "Adresa 123";
@@ -100,7 +93,6 @@ public class OfficeDaoTest
     }
     
     @Test
-//    @Ignore
     public void getOfficeEmployees()
     {
         User manager = TestUtils.createUser("Jiří", "Dočkal", "Někde daleko", "901212/1234");
@@ -123,7 +115,6 @@ public class OfficeDaoTest
     }
     
     @Test
-//    @Ignore
     public void getAllOfficesTest()
     {
         Office office1 = TestUtils.createOffice("Adresa 1", null, null, null);
@@ -143,7 +134,6 @@ public class OfficeDaoTest
     }
     
     @Test(expected = DataAccessException.class)
-    //@Ignore
     public void deleteOfficeTest()
     {
         
@@ -161,7 +151,6 @@ public class OfficeDaoTest
     }
     
     @Test
-    //@Ignore
     public void editOfficeTest()
     {
         Car car1 = TestUtils.createCar(mBrand.SKODA_FABIA, mType.COMBI, mEngine.PETROL, "TRB1962", "VIN123", false);
@@ -228,7 +217,6 @@ public class OfficeDaoTest
     }
     
     @Test
-//    @Ignore
     public void addEmployeeToOfficeTest()
     {
         String address = "Adresa 123";
@@ -256,7 +244,6 @@ public class OfficeDaoTest
     }
     
     @Test
-    //@Ignore
     public void addCarToOfficeTest()
     {
         String address = "Adresa 123";
@@ -284,7 +271,6 @@ public class OfficeDaoTest
     }
     
     @Test
-    //@Ignore
     public void deleteEmployeeFromOfficeTest()
     {
         String address = "Adresa 123";
@@ -312,7 +298,6 @@ public class OfficeDaoTest
     }
     
     @Test
-    //@Ignore
     public void deleteCarFromOfficeTest()
     {
         String address = "Adresa 123";

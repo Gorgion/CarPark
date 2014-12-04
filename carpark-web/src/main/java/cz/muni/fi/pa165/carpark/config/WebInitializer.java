@@ -29,7 +29,6 @@ public class WebInitializer implements WebApplicationInitializer
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
         ctx.register(CoreConfig.class);
         ctx.register(WebApplicationConfig.class);
-//        ctx.register(SecurityConfig.class);
 
         ServletRegistration.Dynamic dispatcher = container.addServlet("dispatcher", new DispatcherServlet(ctx));
         dispatcher.setLoadOnStartup(1);

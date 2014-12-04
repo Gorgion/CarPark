@@ -215,8 +215,6 @@ public class Converter
         
         UserCredentials entity = new UserCredentials(credentials.getUsername(),credentials.getPassword(),credentials.isEnabled(),userEntity,rolesEntity);
         entity.setUserId(credentials.getUserId());
-        //TODO rest
-        
         
         return entity;
     }
@@ -228,7 +226,6 @@ public class Converter
             return null;
         }
         
-        //TODO
         UserDto userDto = getTransferObject(credentials.getUser());
         Set<cz.muni.fi.pa165.carpark.dto.UserRoleDto> rolesDto = new HashSet<>();
         
@@ -238,9 +235,7 @@ public class Converter
         }
         
         cz.muni.fi.pa165.carpark.dto.UserCredentialsDto dto = new cz.muni.fi.pa165.carpark.dto.UserCredentialsDto(credentials.getUsername(),credentials.getPassword(),credentials.isEnabled(),userDto,rolesDto);
-        dto.setUserId(credentials.getUserId());        
-        //TODO rest
-        
+        dto.setUserId(credentials.getUserId());                
         
         return dto;
     }

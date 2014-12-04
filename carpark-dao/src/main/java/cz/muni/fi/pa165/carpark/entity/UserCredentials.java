@@ -6,8 +6,6 @@
 package cz.muni.fi.pa165.carpark.entity;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;

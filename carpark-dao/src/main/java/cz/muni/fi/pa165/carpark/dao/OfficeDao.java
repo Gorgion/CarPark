@@ -9,7 +9,6 @@ import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Office;
 import cz.muni.fi.pa165.carpark.entity.User;
 import java.util.List;
-import javax.persistence.EntityManagerFactory;
 
 /**
  * Office entity with operations add, get, edit, delete.

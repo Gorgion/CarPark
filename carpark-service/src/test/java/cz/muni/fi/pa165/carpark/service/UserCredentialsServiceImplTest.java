@@ -5,16 +5,12 @@
  */
 package cz.muni.fi.pa165.carpark.service;
 
-import cz.muni.fi.pa165.carpark.dao.OfficeDao;
 import cz.muni.fi.pa165.carpark.dao.UserCredentialsDao;
 import cz.muni.fi.pa165.carpark.dto.UserCredentialsDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.dto.UserRoleDto;
-import cz.muni.fi.pa165.carpark.entity.User;
 import cz.muni.fi.pa165.carpark.entity.UserCredentials;
-import cz.muni.fi.pa165.carpark.entity.UserRole;
 import cz.muni.fi.pa165.carpark.util.Converter;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.Assert;
@@ -23,7 +19,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.internal.util.collections.Sets;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
@@ -105,14 +100,6 @@ public class UserCredentialsServiceImplTest {
         Assert.assertEquals(userCredentialsDto.getRoles(), actualUserCredentialsDto.getRoles());
     }
     
-    /*
-    @Test
-    public void testGetByUsername()
-    {    
-        //tested in testCreateAndGet()
-    }
-    */
-
     private UserCredentialsDto getSampleUserCredentialsDto(String username)
     {
         UserDto userDto = new UserDto();
@@ -132,11 +119,9 @@ public class UserCredentialsServiceImplTest {
 
         UserRoleDto role1 = new UserRoleDto();
         role1.setRoleName(UserRoleDto.RoleType.ADMIN.toString());
-        //role1.setUserCredentials(userCredentialsDto); -> StackOverflow
 
         UserRoleDto role2 = new UserRoleDto();
         role2.setRoleName(UserRoleDto.RoleType.USER.toString());
-        //role2.setUserCredentials(userCredentialsDto); -> StackOverflow
 
         roles.add(role1);
         roles.add(role2);

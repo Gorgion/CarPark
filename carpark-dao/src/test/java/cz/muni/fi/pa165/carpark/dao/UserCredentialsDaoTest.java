@@ -71,13 +71,13 @@ public class UserCredentialsDaoTest
         Assert.assertEquals(expectedUC.isEnabled(), actualUC.isEnabled());
     }
 
-    @Test(expected = DataAccessException.class)//IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void testCreateUserCredentialsWithNullArg()
     {
         userCredentialsDao.create(null);
     }
 
-    @Test(expected = DataAccessException.class)//IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void testCreateUserCredentialsWithNullUsername()
     {
         UserCredentials expectedUC = getSampleUserCredentials(null);
@@ -85,7 +85,7 @@ public class UserCredentialsDaoTest
         userCredentialsDao.create(expectedUC);
     }
 
-    @Test(expected = DataAccessException.class)//IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void testCreateUserCredentialsWithNullPassword()
     {
         UserCredentials expectedUC = getSampleUserCredentials("root");
@@ -95,7 +95,7 @@ public class UserCredentialsDaoTest
         userCredentialsDao.create(expectedUC);
     }
 
-    @Test(expected = DataAccessException.class)//IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void testCreateUserCredentialsWithNullUser()
     {
         UserCredentials expectedUC = getSampleUserCredentials("root");
@@ -105,7 +105,7 @@ public class UserCredentialsDaoTest
         userCredentialsDao.create(expectedUC);
     }
 
-    @Test(expected = DataAccessException.class)//IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void testCreateUserCredentialsWithNullRoles()
     {
         UserCredentials expectedUC = getSampleUserCredentials("root");
@@ -155,13 +155,13 @@ public class UserCredentialsDaoTest
         Assert.assertEquals(expectedUC.isEnabled(), actualUC.isEnabled());
     }
 
-    @Test(expected = DataAccessException.class)//IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void testUpdateUserCredentialsWithNullArg()
     {
         userCredentialsDao.update(null);
     }
 
-    @Test(expected = DataAccessException.class)//IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void testUpdateUserCredentialsWithNullUsername()
     {
         UserCredentials expectedUC = getSampleUserCredentials(null);
@@ -169,7 +169,7 @@ public class UserCredentialsDaoTest
         userCredentialsDao.update(expectedUC);
     }
 
-    @Test(expected = DataAccessException.class)//IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void testUpdateUserCredentialsWithNullPassword()
     {
         UserCredentials expectedUC = getSampleUserCredentials("root");
@@ -179,7 +179,7 @@ public class UserCredentialsDaoTest
         userCredentialsDao.update(expectedUC);
     }
 
-    @Test(expected = DataAccessException.class)//IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void testUpdateUserCredentialsWithNullUser()
     {
         UserCredentials expectedUC = getSampleUserCredentials("root");
@@ -189,7 +189,7 @@ public class UserCredentialsDaoTest
         userCredentialsDao.update(expectedUC);
     }
 
-    @Test(expected = DataAccessException.class)//IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void testUpdateUserCredentialsWithNullRoles()
     {
         UserCredentials expectedUC = getSampleUserCredentials("root");
@@ -212,13 +212,13 @@ public class UserCredentialsDaoTest
         Assert.assertNull("user credentials should be null", userCredentialsDao.getByUsername(expectedUC.getUsername()));
     }
 
-    @Test(expected = DataAccessException.class)//IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void testDeleteUserCredentialsWithNullArg()
     {
         userCredentialsDao.delete(null);
     }
 
-    @Test(expected = DataAccessException.class)//IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void testDeleteUserCredentialsWithNullUsername()
     {
         UserCredentials expectedUC = getSampleUserCredentials(null);
@@ -226,7 +226,7 @@ public class UserCredentialsDaoTest
         userCredentialsDao.delete(expectedUC);
     }
 
-    @Test(expected = DataAccessException.class)//IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void testDeleteUserCredentialsWithNullPassword()
     {
         UserCredentials expectedUC = getSampleUserCredentials("root");
@@ -236,7 +236,7 @@ public class UserCredentialsDaoTest
         userCredentialsDao.delete(expectedUC);
     }
 
-    @Test(expected = DataAccessException.class)//IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void testDeleteUserCredentialsWithNullUser()
     {
         UserCredentials expectedUC = getSampleUserCredentials("root");
@@ -246,7 +246,7 @@ public class UserCredentialsDaoTest
         userCredentialsDao.delete(expectedUC);
     }
 
-    @Test(expected = DataAccessException.class)//IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void testDeleteUserCredentialsWithNullRoles()
     {
         UserCredentials expectedUC = getSampleUserCredentials("root");

@@ -95,8 +95,6 @@ public class UserDaoImpl implements UserDao
     {
         Query query = entityManager.createQuery(
                 "SELECT u FROM User u WHERE u.id IN (SELECT DISTINCT r.user FROM Rental r)", User.class);
-        //"SELECT u FROM User u WHERE u.id IN (SELECT r.user, r.rentalState from Rental r WHERE r.rentalState := state", User.class);
-        //query.setParameter("state", State.APPROVED);
         List<User> users = query.getResultList();
 
         return users;
@@ -105,12 +103,8 @@ public class UserDaoImpl implements UserDao
     @Override
     public List<User> getAllWithoutRent()
     {
-
-        //TODO edit naive version
         Query query = entityManager.createQuery(
                 "SELECT u FROM User u WHERE u.id NOT IN (SELECT DISTINCT r.user FROM Rental r)", User.class);
-        //"SELECT u FROM User u WHERE u.id NOT IN (SELECT r.user, r.rentalState from Rental r WHERE r.rentalState := state", User.class);
-        //query.setParameter("state", State.APPROVED);
         List<User> users = query.getResultList();
 
         return users;

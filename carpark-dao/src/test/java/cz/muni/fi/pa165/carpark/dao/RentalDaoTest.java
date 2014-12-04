@@ -13,19 +13,11 @@ import cz.muni.fi.pa165.carpark.entity.Rental;
 import cz.muni.fi.pa165.carpark.entity.Rental.State;
 import cz.muni.fi.pa165.carpark.entity.User;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.inject.Inject;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.transaction.Transactional;
-import org.junit.After;
 import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.dao.DataAccessException;
@@ -82,12 +74,10 @@ public class RentalDaoTest
         assertEquals(rental.getToDate(), to);
         assertEquals(rental.getRentalState(), rentalState);
 
-        //create rental again - with id
         try {
             rentalDao.create(rental);
             fail("Exception expected - rental is already created");
         } catch (DataAccessException ex) {
-            //assertEquals(ex.getClass(), IllegalArgumentException.class);
         }
     }
 
@@ -111,8 +101,6 @@ public class RentalDaoTest
         Office office = TestUtils.createSampleOffice();       
         persistSampleOffice(office);    
        
-        //TODO set car and address instead null 
-//        Set<Rental> setOfRentals = new HashSet<Rental>();
         List<Rental> expectedRentals = new ArrayList<>();
         expectedRentals.add(TestUtils.createRental(
                 office.getCars().get(0), State.FINISHED, office.getEmployees().get(0),
@@ -198,10 +186,6 @@ public class RentalDaoTest
         
         List<Rental> actualRentals = rentalDao.getAllByUser(user);
         assertNotNull(actualRentals);
-        
-        //List<Rental> expectedRentals = new ArrayList<>(rentals);
-        //expectedRentals.remove(notExpectedRental);
-        //assertEquals(actualRentals, expectedRentals);
         
         rentals.removeAll(actualRentals);
         assertTrue(rentals.contains(notExpectedRental));

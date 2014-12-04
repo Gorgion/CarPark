@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -49,7 +48,6 @@ public class OfficeServiceImplTest
 
       
     @Test(expected = DataAccessException.class)
-    //@Ignore
     public void wrongAddOfficeTest()
     {
         Mockito.doThrow(new DataAccessException(""){}).when(officeDaoMocked).addOffice(null);
@@ -57,7 +55,6 @@ public class OfficeServiceImplTest
     }
        
     @Test
-    //@Ignore
     public void addGetOfficeTest()
     {
         
@@ -85,7 +82,6 @@ public class OfficeServiceImplTest
     
     
     @Test
-    //@Ignore
     public void getOfficeEmployeesTest()
     {
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
@@ -107,7 +103,6 @@ public class OfficeServiceImplTest
     }
     
     @Test
-    //@Ignore
     public void getOfficeCarsTest()
     {
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
@@ -129,7 +124,6 @@ public class OfficeServiceImplTest
     }
     
     @Test
-    //@Ignore
     public void getAllOfficesTest()
     {
         OfficeDto office1 = TestUtils.createSampleDtoOffice();
@@ -152,7 +146,6 @@ public class OfficeServiceImplTest
     }
     
     @Test
-    //@Ignore
     public void deleteOfficeTest()
     {
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
@@ -170,7 +163,6 @@ public class OfficeServiceImplTest
     }
     
     @Test
-    //@Ignore
     public void editOfficeTest()
     {
         CarDto car1 = TestUtils.createSampleDtoCar();
@@ -213,7 +205,6 @@ public class OfficeServiceImplTest
     }
     
     @Test
-    //@Ignore
     public void addEmployeeToOfficeTest()
     {
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
@@ -240,7 +231,6 @@ public class OfficeServiceImplTest
     }
     
     @Test
-    //@Ignore
     public void addCarToOfficeTest()
     {
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
@@ -267,7 +257,6 @@ public class OfficeServiceImplTest
     }
     
     @Test
-    //@Ignore
     public void deleteEmployeeFromOfficeTest()
     {
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
@@ -296,7 +285,6 @@ public class OfficeServiceImplTest
     }
     
     @Test
-    //@Ignore
     public void deleteCarFromOfficeTest()
     {
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();

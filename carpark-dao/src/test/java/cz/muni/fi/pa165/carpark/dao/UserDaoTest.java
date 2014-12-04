@@ -59,7 +59,7 @@ public class UserDaoTest
         Assert.assertEquals(user, foundUser);
     }
 
-    @Test(expected = DataAccessException.class)//NullPointerException.class)
+    @Test(expected = DataAccessException.class)
     public void testCreateUserWithNullArg()
     {
         daoImpl.add(null);
@@ -82,13 +82,13 @@ public class UserDaoTest
         Assert.assertEquals(user, foundUser);
     }
 
-    @Test(expected = DataAccessException.class)//NullPointerException.class)
+    @Test(expected = DataAccessException.class)
     public void testGetNulllId()
     {
         daoImpl.get(null);
     }
 
-    @Test(expected = DataAccessException.class)//IllegalArgumentException.class)
+    @Test(expected = DataAccessException.class)
     public void testGetNegativeId()
     {
         daoImpl.get(Long.MIN_VALUE);
@@ -241,7 +241,7 @@ public class UserDaoTest
         Assert.assertEquals(updatedUser.getLastName(), foundUser.getLastName());
     }
 
-    @Test(expected = DataAccessException.class)//NullPointerException.class)
+    @Test(expected = DataAccessException.class)
     public void testEditWithNullArg()
     {
         daoImpl.edit(null);
@@ -267,7 +267,7 @@ public class UserDaoTest
         Assert.assertTrue("User found after deletion.", foundUsers.isEmpty());
     }
 
-    @Test(expected = DataAccessException.class)//NullPointerException.class)
+    @Test(expected = DataAccessException.class)
     public void testDeleteWithNullArg()
     {
         daoImpl.delete(null);

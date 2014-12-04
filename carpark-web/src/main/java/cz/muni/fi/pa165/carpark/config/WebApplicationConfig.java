@@ -5,7 +5,6 @@
  */
 package cz.muni.fi.pa165.carpark.config;
 
-//import javax.validation.Validator;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +31,6 @@ public class WebApplicationConfig extends WebMvcConfigurerAdapter
     public void addResourceHandlers(ResourceHandlerRegistry registry)
     {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-//        registry.addResourceHandler("/images/**").addResourceLocations("classpath:/images/");
     }    
 
     @Bean

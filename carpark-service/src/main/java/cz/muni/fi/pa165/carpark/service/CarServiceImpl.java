@@ -17,10 +17,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.transaction.Transactional;
-import javax.inject.Inject;
-import static org.aspectj.apache.bcel.Repository.instanceOf;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 /**
