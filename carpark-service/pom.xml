@@ -40,7 +40,7 @@
         <spring.orm>4.1.1.RELEASE</spring.orm>
         <spring.test>4.1.1.RELEASE</spring.test>
         
-        <log4j.version>1.2.16</log4j.version>        
+        <logback.version>1.1.2</logback.version>        
         
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
     </properties>
@@ -80,7 +80,7 @@
 
         
         <!-- ORM, JPA, HIBERNATE, DB-->
-        <dependency>
+<!--        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate-entitymanager.version}</version>
@@ -89,8 +89,8 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${spring.orm}</version>
-        </dependency>
-        <dependency>
+        </dependency>-->
+<!--        <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derbyclient</artifactId>
             <version>${derbyclient.version}</version>
@@ -99,19 +99,24 @@
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
             <version>${derby.version}</version>
-        </dependency>       
+        </dependency>       -->
         
         <!-- LOGGING -->
-        <dependency>
+        <!--        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.api.version}</version>
+        </dependency>-->
+<!--        <dependency>                                    
+            <groupId>org.slf4j</groupId>                
+            <artifactId>jcl-over-slf4j</artifactId>     
+            <version>${slf4j.api.version}</version>  
         </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
+        <dependency>  
+            <groupId>ch.qos.logback</groupId>  
+            <artifactId>logback-classic</artifactId>  
+            <version>${logback.version}</version>  
+        </dependency>  -->
 
         <!-- SPRING -->
         <dependency>
@@ -123,6 +128,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>${spring.context}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions> 
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
