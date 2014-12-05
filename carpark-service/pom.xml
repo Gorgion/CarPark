@@ -30,7 +30,7 @@
         
         <javaee.web.api.version>7.0</javaee.web.api.version>
         
-        <slf4j.api.version>1.7.7</slf4j.api.version>
+        
         
         <spring.core>4.1.1.RELEASE</spring.core>
         <spring.security.web>3.2.5.RELEASE</spring.security.web>
@@ -40,7 +40,7 @@
         <spring.orm>4.1.1.RELEASE</spring.orm>
         <spring.test>4.1.1.RELEASE</spring.test>
         
-        <logback.version>1.1.2</logback.version>        
+                
         
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
     </properties>
