@@ -176,6 +176,7 @@ public class Converter
         entity.setLastName(userDto.getLastName());
         entity.setAddress(userDto.getAddress());
         entity.setBirthNumber(userDto.getBirthNumber());
+        entity.setOffice(getEntity(userDto.getOfficeDto()));
         
         return entity;
     }
@@ -194,6 +195,7 @@ public class Converter
         dto.setLastName(entity.getLastName());
         dto.setAddress(entity.getAddress());
         dto.setBirthNumber(entity.getBirthNumber());
+        dto.setOfficeDto(getTransferObject(entity.getOffice()));
         
         return dto;
     }
@@ -286,6 +288,7 @@ public class Converter
         entity.setLicencePlate(car.getLicencePlate());
         entity.setRented(car.isRented());
         entity.setVIN(car.getVIN());
+        entity.setOffice(getEntity(car.getOfficeDto()));
         
         return entity;
     }
