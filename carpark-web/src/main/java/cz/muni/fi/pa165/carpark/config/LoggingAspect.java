@@ -48,15 +48,15 @@ public class LoggingAspect
         LOGGER.debug("BEFORE: " + joinPoint.toLongString());//logMsg.toString());
     }
     
-    @AfterReturning("inWebLayer() || inServiceLayer() || inDaoLayer()")
+    @AfterReturning(pointcut = "inWebLayer() || inServiceLayer() || inDaoLayer()", returning = "retValue")
     public void logAfterExecution(JoinPoint joinPoint)
     {
         LOGGER.debug("AFTER: " + joinPoint.toLongString());
     }
     
-    @AfterThrowing("inWebLayer() || inServiceLayer() || inDaoLayer()")
-    public void logAfterThrowing(JoinPoint joinPoint, Throwable throwable)
+    @AfterThrowing(pointcut = "inWebLayer() || inServiceLayer() || inDaoLayer()", throwing = "error")
+    public void logAfterThrowing(JoinPoint joinPoint, Throwable error)
     {
-        LOGGER.error("AFTER: " + joinPoint.toLongString() + ", THROWN: " + throwable);
+        LOGGER.error("AFTER: " + joinPoint.toLongString() + ", THROWN: " + error);
     }
 }

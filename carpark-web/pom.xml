@@ -26,12 +26,14 @@
        
         <spring.security.web>3.2.5.RELEASE</spring.security.web>
         <spring.security.web.config>3.2.5.RELEASE</spring.security.web.config>
-        <spring.webmvc>4.1.1.RELEASE</spring.webmvc>
+        <!--        <spring.webmvc>4.1.1.RELEASE</spring.webmvc>
         <spring.core>4.1.1.RELEASE</spring.core>
         <spring.context>4.1.1.RELEASE</spring.context>
         <spring.jdbc>4.1.1.RELEASE</spring.jdbc>
-        <spring.tx>4.1.1.RELEASE</spring.tx>
-        <spring.orm>4.1.1.RELEASE</spring.orm>
+        <spring.tx>4.1.1.RELEASE</spring.tx>-->
+        <spring.version>4.1.1.RELEASE</spring.version>
+        
+        <aspectj.version>1.7.4</aspectj.version>  
         
         <logback.version>1.1.2</logback.version>
         <slf4j.api.version>1.7.7</slf4j.api.version>
@@ -61,6 +63,11 @@
             <artifactId>logback-classic</artifactId>  
             <version>${logback.version}</version>  
         </dependency>
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+            <version>2.7.6</version>
+        </dependency>
         
         <dependency>
             <groupId>javax</groupId>
@@ -72,12 +79,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>${spring.core}</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${spring.context}</version>
+            <version>${spring.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -88,7 +95,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>${spring.webmvc}</version>
+            <version>${spring.version}</version>
         </dependency>
                 
         <dependency>
@@ -125,6 +132,25 @@
             <artifactId>tomcat-servlet-api</artifactId>
             <version>7.0.42</version>               
             <scope>provided</scope>
+        </dependency>
+        
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>  
+        
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
         </dependency>
     </dependencies>
 
