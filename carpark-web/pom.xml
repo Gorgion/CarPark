@@ -26,11 +26,6 @@
        
         <spring.security.web>3.2.5.RELEASE</spring.security.web>
         <spring.security.web.config>3.2.5.RELEASE</spring.security.web.config>
-        <!--        <spring.webmvc>4.1.1.RELEASE</spring.webmvc>
-        <spring.core>4.1.1.RELEASE</spring.core>
-        <spring.context>4.1.1.RELEASE</spring.context>
-        <spring.jdbc>4.1.1.RELEASE</spring.jdbc>
-        <spring.tx>4.1.1.RELEASE</spring.tx>-->
         <spring.version>4.1.1.RELEASE</spring.version>
         
         <aspectj.version>1.7.4</aspectj.version>  

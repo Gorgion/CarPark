@@ -10,22 +10,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
+ * General exception handler.
  *
  * @author Tomas Svoboda
  */
 @ControllerAdvice
 public class GeneralExceptionAdviser
 {
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(value = {DataAccessException.class})
+
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Data access exception occured")
+    @ExceptionHandler(value =
+    {
+        DataAccessException.class
+    })
     public void serverErrorHandler(DataAccessException e)
     {
     }
-     
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Global exception occured")
     @ExceptionHandler(Exception.class)
     public void generalExceptionHandler(Exception e)
     {

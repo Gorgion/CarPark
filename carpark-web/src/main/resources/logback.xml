@@ -8,7 +8,6 @@
                     <fileNamePattern>${catalina.base}/logs/${CONTEXT_NAME}.log.%d{yyyy-MM-dd}</fileNamePattern>
                 </rollingPolicy>
                 <encoder>
-                    <!-- http://logback.qos.ch/manual/layouts.html#conversionWord -->
                     <pattern>%d [%thread] %-5level %logger{36} - %msg%n</pattern>
                 </encoder>
             </appender>
@@ -20,13 +19,7 @@
                 </encoder>
             </appender>
         </else>
-    </if>
-    
-<!--    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%d %5p | %t | %-55logger{55} | %m %n</pattern>
-        </encoder>
-    </appender>-->
+    </if>    
     
     <root>
         <level value="info" />

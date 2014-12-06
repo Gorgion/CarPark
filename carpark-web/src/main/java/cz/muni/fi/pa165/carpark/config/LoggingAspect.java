@@ -6,7 +6,6 @@
 package cz.muni.fi.pa165.carpark.config;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -45,7 +44,7 @@ public class LoggingAspect
     @Before("inWebLayer() || inServiceLayer() || inDaoLayer()")
     public void logBeforeExecution(JoinPoint joinPoint)
     {
-        LOGGER.debug("BEFORE: " + joinPoint.toLongString());//logMsg.toString());
+        LOGGER.debug("BEFORE: " + joinPoint.toLongString());
     }
     
     @AfterReturning(pointcut = "inWebLayer() || inServiceLayer() || inDaoLayer()", returning = "retValue")
