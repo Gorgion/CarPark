@@ -13,6 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -42,6 +43,8 @@ public class User implements Serializable {
     
     private String address;    
    
+    @ManyToOne
+    private Office office;
 
     @Override
     public String toString() {
@@ -113,5 +116,19 @@ public class User implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    /**
+     * @return the office
+     */
+    public Office getOffice() {
+        return office;
+    }
+
+    /**
+     * @param office the office to set
+     */
+    public void setOffice(Office office) {
+        this.office = office;
     }
 }

@@ -73,7 +73,7 @@ public class CarDaoImpl implements CarDao
     }
 
     @Override
-    public Collection getAllCars()
+    public Collection<Car> getAllCars()
     {
         Query query = em.createQuery("FROM Car");
         List<Car> cars = query.getResultList();
@@ -82,7 +82,7 @@ public class CarDaoImpl implements CarDao
     }
 
     @Override
-    public Collection getRentedCars()
+    public Collection<Car> getRentedCars()
     {
         Query query = em.createQuery("FROM Car WHERE Rented =:rented").setParameter("rented", true);
         List<Car> rentedCars = query.getResultList();
@@ -91,7 +91,7 @@ public class CarDaoImpl implements CarDao
     }
 
     @Override
-    public Collection getFreeCars(Date from, Date to)
+    public Collection<Car> getFreeCars(Date from, Date to)
     {
         if(from.after(to))
             throw new IllegalArgumentException("From date is after to date!");

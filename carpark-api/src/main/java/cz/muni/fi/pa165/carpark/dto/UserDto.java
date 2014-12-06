@@ -18,7 +18,8 @@ public class UserDto {
     private String lastName;        
     private String birthNumber;
     private String address;    
-
+    private OfficeDto officeDto;
+    
     public Long getId() {
         return Id;
     }
@@ -58,6 +59,20 @@ public class UserDto {
     public void setAddress(String address) {
         this.address = address;
     }
+    
+        /**
+     * @return the officeDto
+     */
+    public OfficeDto getOfficeDto() {
+        return officeDto;
+    }
+
+    /**
+     * @param officeDto the officeDto to set
+     */
+    public void setOfficeDto(OfficeDto officeDto) {
+        this.officeDto = officeDto;
+    }
 
     @Override
     public int hashCode() {
@@ -86,4 +101,6 @@ public class UserDto {
     public String toString() {
         return "UserDto{" + "Id=" + Id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthNumber=" + birthNumber + ", address=" + address + '}';
     }
+
+
 }

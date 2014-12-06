@@ -67,20 +67,16 @@ public class CarController {
         model.addAttribute("brands",CarDto.mBrand.values());
         model.addAttribute("types",CarDto.mType.values());
         model.addAttribute("engines",CarDto.mEngine.values());
-        if(officeService.getAllOffices().isEmpty())
+                
+        if(officeService.getAllOffices().isEmpty() || car.getOfficeDto() == null)
         {
             redirectAttributes.addFlashAttribute("errMsg","error.car.add.nooffices");
             return "redirect:/auth/car";
         }
+        
         model.addAttribute("offices",officeService.getAllOffices());
-        for (OfficeDto o : officeService.getAllOffices())
-        {
-            if (o.getCars().contains(car))
-            {
-                model.addAttribute("selectedOfficeId", o.getID());
-                break;
-            }
-        }
+        model.addAttribute("selectedOfficeId", car.getOfficeDto().getID());
+        
         return "car-edit-form";
     }
     
@@ -104,19 +100,21 @@ public class CarController {
         car.setEngine(carForm.getEngine());
         car.setLicencePlate(carForm.getLicencePlate());
         car.setVIN(carForm.getVIN());
-        carService.EditCar(car);
         
-        for(OfficeDto o : officeService.getAllOffices())
+        OfficeDto officeDto = officeService.getOffice(carForm.getIdOffice());
+        if(officeDto == null)
         {
-            if(o.getCars().contains(car))
-            {
-                officeService.deleteCarFromOffice(o, car);
-            }
+            model.addAttribute("brands",CarDto.mBrand.values());
+            model.addAttribute("types",CarDto.mType.values());
+            model.addAttribute("engines",CarDto.mEngine.values());
+            model.addAttribute("offices",officeService.getAllOffices());
+            model.addAttribute("errMsg", "error.car.add.nooffices");
+            return "car-edit-form";
         }
+        car.setOfficeDto(officeDto);
         
-        OfficeDto office = officeService.getOffice(carForm.getIdOffice());
-        officeService.addCarToOffice(office, car);
-        
+        carService.EditCar(car);
+          
         redirectAttributes.addFlashAttribute("msg", "msg.car.edited");
         
         return "redirect:/auth/car";
@@ -128,12 +126,14 @@ public class CarController {
         model.addAttribute("brands",CarDto.mBrand.values());
         model.addAttribute("types",CarDto.mType.values());
         model.addAttribute("engines",CarDto.mEngine.values());
-        if(officeService.getAllOffices().isEmpty())
+        
+        List<OfficeDto> offices = officeService.getAllOffices();
+        if(offices.isEmpty())
         {
-            redirectAttributes.addFlashAttribute("errMsg", "error.car.add.noofices");
+            redirectAttributes.addFlashAttribute("errMsg", "error.car.add.nooffices");
             return "redirect:/auth/car";
         }
-        model.addAttribute("offices",officeService.getAllOffices());
+        model.addAttribute("offices",offices);
         return "car-form";
     }
     
@@ -148,8 +148,20 @@ public class CarController {
             model.addAttribute("errMsg","error.car.wrongform");
             return "car-form";
         }
+        
+        OfficeDto officeDto = officeService.getOffice(carForm.getIdOffice());
+        if(officeDto == null)
+        {
+            model.addAttribute("brands",CarDto.mBrand.values());
+            model.addAttribute("types",CarDto.mType.values());
+            model.addAttribute("engines",CarDto.mEngine.values());
+            model.addAttribute("offices",officeService.getAllOffices());
+            model.addAttribute("errMsg","error.car.add.nooffices");
+            return "car-form";
+        }
+        
         CarDto car = new CarDto(carForm.getBrand(),carForm.getType(),carForm.getEngine()
-                ,carForm.getLicencePlate(),carForm.getVIN(),false);
+                ,carForm.getLicencePlate(),carForm.getVIN(),false, officeDto);
         Long carId;
         try
         {
@@ -165,9 +177,7 @@ public class CarController {
             model.addAttribute("errMsg","error.car.alreadyexists");
             return "car-form";
         }
-        OfficeDto office = officeService.getOffice(carForm.getIdOffice());
         
-        officeService.addCarToOffice(office, car);
         redirectAttributes.addFlashAttribute("msg", "msg.car.created");
         
         return "redirect:/auth/car";

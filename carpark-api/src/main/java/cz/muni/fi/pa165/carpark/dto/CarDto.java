@@ -22,10 +22,11 @@ public class CarDto implements Serializable
     private String licencePlate;
     private String VIN;
     private boolean rented;
+    private OfficeDto officeDto;
     
     public CarDto(){}
     
-    public CarDto(mBrand brand, mType type, mEngine engine, String licencePlate, String VIN, boolean rented)
+    public CarDto(mBrand brand, mType type, mEngine engine, String licencePlate, String VIN, boolean rented, OfficeDto officeDto)
     {
         this.brand = brand;
         this.type = type;
@@ -33,6 +34,7 @@ public class CarDto implements Serializable
         this.licencePlate = licencePlate;
         this.VIN = VIN;
         this.rented = rented;
+        this.officeDto = officeDto;
     }
     
     public mBrand getBrand()
@@ -95,15 +97,32 @@ public class CarDto implements Serializable
         this.VIN = VIN;
     }
 
-    public Boolean getRented()
-    {
-        return rented;
-    }
-
     public void setRented(Boolean rented)
     {
         this.rented = rented;
     }
+    
+        /**
+     * @return the rented
+     */
+    public boolean isRented() {
+        return rented;
+    }
+
+    /**
+     * @return the officeDto
+     */
+    public OfficeDto getOfficeDto() {
+        return officeDto;
+    }
+
+    /**
+     * @param officeDto the officeDto to set
+     */
+    public void setOfficeDto(OfficeDto officeDto) {
+        this.officeDto = officeDto;
+    }
+    
 
     @Override
     public int hashCode()
@@ -131,9 +150,10 @@ public class CarDto implements Serializable
     @Override
     public String toString()
     {
-        return "Car: id=" + id + ", brand:" + brand + ", type:" + type + ", engine:" + engine + ", VIN:" + VIN + ", isRented:" + rented + "\n";
+        return "Car: id=" + id + ", brand:" + brand + ", type:" + type + ", engine:" + engine + ", VIN:" + VIN + ", isRented:" + isRented() + "\n";
     }
-    
+
+
     public static enum mEngine
     {
 

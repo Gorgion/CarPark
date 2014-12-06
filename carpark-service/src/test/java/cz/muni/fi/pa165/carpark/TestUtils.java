@@ -131,7 +131,7 @@ public class TestUtils {
     
     public static CarDto createSampleDtoCar()
     {
-        return new CarDto(CarDto.mBrand.SKODA_OCTAVIA, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "LP1", "VIN1", false);
+        return new CarDto(CarDto.mBrand.SKODA_OCTAVIA, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "LP1", "VIN1", false, null);
     }
     
     public static Date dateNow(Long more) {

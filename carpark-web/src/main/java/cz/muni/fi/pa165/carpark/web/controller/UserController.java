@@ -36,9 +36,6 @@ public class UserController {
     @Autowired
     private OfficeService officeService;
 
-    @Autowired
-    private RentalService rentalService;
-
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model) {
         List<UserDto> users = userService.getAll();
@@ -60,29 +57,12 @@ public class UserController {
     public String addedUser(@Valid @ModelAttribute UserForm userForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
 
-            model.addAttribute("offices", officeService.getAllOffices());
+            model.addAttribute("offices", officeService.getAllOffices());  // TODO TRY-CATCH WHEN NO OFFICES
             return "user-form";
         } else {
             UserDto user = getUserDto(userForm);
-            System.out.println("\nADD>>");
-            Long id = userService.add(user);
-            System.out.println("\nok");
-            user.setId(id);
-
-            OfficeDto office = officeService.getOffice(userForm.getIdOffice());
-
-            System.out.println("\n\n>>>\n" + office);
-
-            if (office != null) {
-                List<UserDto> users = new ArrayList<>(office.getEmployees());
-                System.out.println("\n1\n" + users);
-                users.add(user);
-                System.out.println("\n1\n" + users);
-                office.setEmployees(users);
-
-                officeService.editOffice(office);
-            }
-
+            userService.add(user);
+            
             redirectAttributes.addFlashAttribute("msg", "msg.user.created");
             return "redirect:/auth/user";
         }
@@ -96,14 +76,8 @@ public class UserController {
         model.addAttribute("userForm", userForm);
         model.addAttribute("action", "edit");
         model.addAttribute("offices", officeService.getAllOffices());
-
-        for (OfficeDto o : officeService.getAllOffices()) {
-            if (o.getEmployees().contains(user)) {
-                model.addAttribute("selectedOfficeId", o.getID());
-                break;
-            }
-        }
-
+        model.addAttribute("selectedOfficeId",userForm.getIdOffice());
+        
         return "user-form";
     }
 
@@ -111,7 +85,7 @@ public class UserController {
     public String editedUser(@Valid @ModelAttribute UserForm userForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("action", "edit");
-            model.addAttribute("offices", officeService.getAllOffices());
+            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
             return "user-form";
         } else {
             UserDto user = userService.get(userForm.getId());
@@ -124,25 +98,11 @@ public class UserController {
             user.setBirthNumber(userForm.getBirthNumber());
             user.setFirstName(userForm.getFirstName());
             user.setLastName(userForm.getLastName());
-
+            user.setOfficeDto(officeService.getOffice(userForm.getIdOffice())); // TODO TRY-CATCH WHEN NO OFFICE
+            
             userService.edit(user);
-
-            for (OfficeDto o : officeService.getAllOffices()) {
-                System.out.println("\n\n#3\n" + o);
-                if (o.getEmployees().contains(user)) {
-                    System.out.println("\n\n#4");
-                    officeService.deleteEmployeeFromOffice(o, user);
-                }
-            }
-            OfficeDto newOffice = officeService.getOffice(userForm.getIdOffice());
-            if (newOffice != null) {
-                officeService.addEmployeeToOffice(newOffice, user);
-            }
         }
-        System.out.println("\n\n#10");
-        redirectAttributes.addFlashAttribute(
-                "msg", "msg.user.edited");
-        System.out.println("\n\n#11");
+        redirectAttributes.addFlashAttribute("msg", "msg.user.edited");
         return "redirect:/auth/user";
 
     }
@@ -158,11 +118,6 @@ public class UserController {
             if (user == null) {
                 redirectAttributes.addFlashAttribute("error", "error.user.deleted");
                 return "redirect:/auth/user";
-            }
-            for (OfficeDto o : officeService.getAllOffices()) {
-                if (o.getEmployees().contains(user)) {
-                    officeService.deleteEmployeeFromOffice(o, user);
-                }
             }
             userService.delete(user);
         } catch (IllegalArgumentException | DataAccessException ex) {
@@ -182,6 +137,7 @@ public class UserController {
         user.setBirthNumber(userForm.getBirthNumber());
         user.setFirstName(userForm.getFirstName());
         user.setLastName(userForm.getLastName());
+        user.setOfficeDto(officeService.getOffice(userForm.getIdOffice()));  // TODO TRY-CATCH WHEN NO OFFICES
 
         return user;
     }
@@ -194,7 +150,8 @@ public class UserController {
         userForm.setLastName(user.getLastName());
         userForm.setAddress(user.getAddress());
         userForm.setBirthNumber(user.getBirthNumber());
-
+        userForm.setIdOffice(user.getOfficeDto().getID());  // TODO TRY-CATCH WHEN NO OFFICES
+        
         return userForm;
 
     }

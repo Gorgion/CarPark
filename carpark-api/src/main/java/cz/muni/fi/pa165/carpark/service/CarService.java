@@ -24,9 +24,9 @@ public interface CarService
 
 	public void DeleteCar(CarDto car);
 
-	public Collection getAllCars();
+	public Collection<CarDto> getAllCars();
 
-	public Collection getRentedCars();
+	public Collection<CarDto> getRentedCars();
 
-	public Collection getFreeCars(Date from, Date to);
+	public Collection<CarDto> getFreeCars(Date from, Date to);
 }

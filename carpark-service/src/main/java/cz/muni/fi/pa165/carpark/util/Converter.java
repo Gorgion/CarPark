@@ -284,7 +284,7 @@ public class Converter
         entity.setType(getEntity(car.getType()));
         entity.setEngine(getEntity(car.getEngine()));
         entity.setLicencePlate(car.getLicencePlate());
-        entity.setRented(car.getRented());
+        entity.setRented(car.isRented());
         entity.setVIN(car.getVIN());
         
         return entity;
@@ -298,7 +298,7 @@ public class Converter
         }
         
         CarDto dto = new CarDto(getTransferObject(car.getBrand()), getTransferObject(car.getType()), 
-                getTransferObject(car.getEngine()), car.getLicencePlate(), car.getVIN(), car.getRented());
+                getTransferObject(car.getEngine()), car.getLicencePlate(), car.getVIN(), car.isRented(), getTransferObject(car.getOffice()));
      
         dto.setID(car.getID());
         

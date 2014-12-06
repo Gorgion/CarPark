@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.ManyToOne;
 
 //import javax.persistence.Entity;
 /**
@@ -46,6 +47,9 @@ public class Car implements Serializable
     
     @Column(nullable = false)
     private boolean rented;
+    
+    @ManyToOne
+    private Office office;
     
     public mBrand getBrand()
     {
@@ -107,13 +111,15 @@ public class Car implements Serializable
         this.VIN = VIN;
     }
 
-    public Boolean getRented()
+    public Boolean isRented()
     {
         return rented;
     }
 
-    public void setRented(Boolean rented)
-    {
+    /**
+     * @param rented the rented to set
+     */
+    public void setRented(boolean rented) {
         this.rented = rented;
     }
 
@@ -143,8 +149,24 @@ public class Car implements Serializable
     @Override
     public String toString()
     {
-        return "Car: id=" + id + ", brand:" + brand + ", type:" + type + ", engine:" + engine + ", VIN:" + VIN + ", isRented:" + rented + "\n";
+        return "Car: id=" + id + ", brand:" + brand + ", type:" + type + ", engine:" + engine + ", VIN:" + VIN + ", isRented:" + isRented() + "\n";
     }
+
+    /**
+     * @return the office
+     */
+    public Office getOffice() {
+        return office;
+    }
+
+    /**
+     * @param office the office to set
+     */
+    public void setOffice(Office office) {
+        this.office = office;
+    }
+
+    
 
     public static enum mEngine
     {

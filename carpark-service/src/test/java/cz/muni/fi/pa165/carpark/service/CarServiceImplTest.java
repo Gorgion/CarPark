@@ -42,7 +42,7 @@ public class CarServiceImplTest {
 
     @Test
     public void addNewCarTest() { 
-        CarDto carDto = new CarDto(CarDto.mBrand.SKODA_FABIA, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "LP", "VIN", false);
+        CarDto carDto = new CarDto(CarDto.mBrand.SKODA_FABIA, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "LP", "VIN", false, null);
         carDto.setID(1L);
         
         Car car = Converter.getEntity(carDto);
@@ -78,7 +78,7 @@ public class CarServiceImplTest {
     
     @Test
     public void editCarTest(){
-        CarDto carDto = new CarDto(CarDto.mBrand.FORD_MONDEO, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "LP", "VIN", false);
+        CarDto carDto = new CarDto(CarDto.mBrand.FORD_MONDEO, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "LP", "VIN", false, null);
         carDto.setID(1L);
         
         Car car = Converter.getEntity(carDto);
@@ -108,7 +108,7 @@ public class CarServiceImplTest {
     }
     @Test
     public void deleteCarTest(){
-        CarDto carDto = new CarDto(CarDto.mBrand.SKODA_OCTAVIA, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "LP", "VIN", false);
+        CarDto carDto = new CarDto(CarDto.mBrand.SKODA_OCTAVIA, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "LP", "VIN", false, null);
         carDto.setID(1L);
         
         Car car = Converter.getEntity(carDto);             
@@ -128,9 +128,9 @@ public class CarServiceImplTest {
     
     @Test
     public void getAllCarsTest(){
-        CarDto carDto1 = new CarDto(CarDto.mBrand.SKODA_FABIA, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "LP", "VIN", false);
-        CarDto carDto2 = new CarDto(CarDto.mBrand.FORD_MONDEO, CarDto.mType.HATCHBACK, CarDto.mEngine.DIESEL, "LP2", "VIN2", false);
-        CarDto carDto3 = new CarDto(CarDto.mBrand.SKODA_OCTAVIA, CarDto.mType.COMBI, CarDto.mEngine.DIESEL, "LP3", "VIN3", false);
+        CarDto carDto1 = new CarDto(CarDto.mBrand.SKODA_FABIA, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "LP", "VIN", false, null);
+        CarDto carDto2 = new CarDto(CarDto.mBrand.FORD_MONDEO, CarDto.mType.HATCHBACK, CarDto.mEngine.DIESEL, "LP2", "VIN2", false, null);
+        CarDto carDto3 = new CarDto(CarDto.mBrand.SKODA_OCTAVIA, CarDto.mType.COMBI, CarDto.mEngine.DIESEL, "LP3", "VIN3", false, null);
         carDto1.setID(1L);
         carDto2.setID(2L);
         carDto3.setID(3L);
@@ -153,9 +153,9 @@ public class CarServiceImplTest {
     
     @Test
     public void getRentedCarsTest(){
-        CarDto carDto1 = new CarDto(CarDto.mBrand.FORD_FOCUS, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "LP", "VIN", true);
-        CarDto carDto2 = new CarDto(CarDto.mBrand.SKODA_OCTAVIA, CarDto.mType.HATCHBACK, CarDto.mEngine.DIESEL, "LP2", "VIN2", false);
-        CarDto carDto3 = new CarDto(CarDto.mBrand.SKODA_SUPERB, CarDto.mType.COMBI, CarDto.mEngine.DIESEL, "LP3", "VIN3", true);
+        CarDto carDto1 = new CarDto(CarDto.mBrand.FORD_FOCUS, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "LP", "VIN", true, null);
+        CarDto carDto2 = new CarDto(CarDto.mBrand.SKODA_OCTAVIA, CarDto.mType.HATCHBACK, CarDto.mEngine.DIESEL, "LP2", "VIN2", false, null);
+        CarDto carDto3 = new CarDto(CarDto.mBrand.SKODA_SUPERB, CarDto.mType.COMBI, CarDto.mEngine.DIESEL, "LP3", "VIN3", true, null);
         carDto1.setID(1L);
         carDto2.setID(2L);
         carDto3.setID(3L);

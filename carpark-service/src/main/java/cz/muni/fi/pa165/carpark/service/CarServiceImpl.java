@@ -68,7 +68,7 @@ public class CarServiceImpl implements CarService
     public void DeleteCar(CarDto car)
     {
         Car carEntity = Converter.getEntity(car);
-        if(carEntity.getRented())
+        if(carEntity.isRented())
             throw new CarIsRented("Car cannot be deleted when is rented");
         carDao.DeleteCar(carEntity);
     }
