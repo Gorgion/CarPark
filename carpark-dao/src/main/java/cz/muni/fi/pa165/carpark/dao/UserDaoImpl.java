@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
 public class UserDaoImpl implements UserDao
 {
 
-    @PersistenceContext//(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override
@@ -31,7 +31,7 @@ public class UserDaoImpl implements UserDao
         if (user == null)
         {
             throw new IllegalArgumentException("User can not be NULL");
-        }
+        }        
         
         entityManager.persist(user);   
         entityManager.flush();
