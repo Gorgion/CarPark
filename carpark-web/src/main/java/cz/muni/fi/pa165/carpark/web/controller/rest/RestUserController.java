@@ -52,7 +52,7 @@ public class RestUserController
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public ResponseEntity<UserForm> addedUser(@Valid @RequestBody UserForm userForm)
     {
 //        if (bindingResult.hasErrors()) {
@@ -79,7 +79,7 @@ public class RestUserController
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{id}/edit", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public ResponseEntity<UserForm> editedUser(@PathVariable Long id, @Valid @ModelAttribute UserForm userForm, BindingResult bindingResult)
     {
 //        if (bindingResult.hasErrors())
@@ -118,7 +118,7 @@ public class RestUserController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable long id)
     {
         UserDto user;

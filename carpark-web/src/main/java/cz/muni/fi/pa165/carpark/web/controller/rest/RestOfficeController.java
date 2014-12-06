@@ -52,7 +52,7 @@ public class RestOfficeController
         return new ResponseEntity<>(offices, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public ResponseEntity<OfficeForm> processSubmit(@Valid @RequestBody OfficeForm officeForm)
     {
 
@@ -75,7 +75,7 @@ public class RestOfficeController
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{id}/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> officeDeletion(@PathVariable Long id)
     {
         OfficeDto office = officeService.getOffice(id);
@@ -90,7 +90,7 @@ public class RestOfficeController
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value = "/{id}/edit", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public ResponseEntity<OfficeEditForm> officeEdition(@PathVariable Long id, @Valid @RequestBody OfficeEditForm officeEditForm)
     {
         OfficeDto office = officeService.getOffice(id);
