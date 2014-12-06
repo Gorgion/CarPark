@@ -83,11 +83,16 @@ public class OfficeDaoTest
         
         Office office = TestUtils.createOffice(address, null, cars, null);
         
+        dao.addOffice(office);
+        
+        car1.setOffice(office);
+        car2.setOffice(office);
+        car3.setOffice(office);
+        
         carDao.AddCar(car1);
         carDao.AddCar(car2);
         carDao.AddCar(car3);
         
-        dao.addOffice(office);
         
         Assert.assertEquals(dao.getOfficeCars(office),cars);
     }
@@ -106,10 +111,13 @@ public class OfficeDaoTest
         
         Office office = TestUtils.createOffice(address, manager, null, employees);
         
-        userDao.add(manager);
-        userDao.add(employee);
+        manager.setOffice(office);
+        employee.setOffice(office);
         
         dao.addOffice(office);
+        
+        userDao.add(manager);
+        userDao.add(employee);        
         
         Assert.assertEquals(dao.getEmployees(office),employees);
     }
