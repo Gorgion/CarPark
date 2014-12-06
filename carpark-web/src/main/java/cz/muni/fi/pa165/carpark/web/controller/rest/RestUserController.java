@@ -55,11 +55,6 @@ public class RestUserController
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public ResponseEntity<UserForm> addedUser(@Valid @RequestBody UserForm userForm)
     {
-//        if (bindingResult.hasErrors()) {
-//
-//            model.addAttribute("offices", officeService.getAllOffices());
-//            return "user-form";
-//        } else {
         UserDto user = getUserDto(userForm);
         Long id = userService.add(user);
         user.setId(id);
@@ -80,15 +75,8 @@ public class RestUserController
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public ResponseEntity<UserForm> editedUser(@PathVariable Long id, @Valid @ModelAttribute UserForm userForm, BindingResult bindingResult)
+    public ResponseEntity<UserForm> editedUser(@PathVariable Long id, @Valid @RequestBody UserForm userForm)
     {
-//        if (bindingResult.hasErrors())
-//        {
-//            model.addAttribute("action", "edit");
-//            model.addAttribute("offices", officeService.getAllOffices());
-//            return "user-form";
-//        } else
-//        {
         UserDto user = userService.get(userForm.getId());
 
         if (user == null)
@@ -157,20 +145,6 @@ public class RestUserController
         user.setLastName(userForm.getLastName());
 
         return user;
-    }
-
-    private UserForm getUserForm(UserDto user)
-    {
-        UserForm userForm = new UserForm();
-
-        userForm.setId(user.getId());
-        userForm.setFirstName(user.getFirstName());
-        userForm.setLastName(user.getLastName());
-        userForm.setAddress(user.getAddress());
-        userForm.setBirthNumber(user.getBirthNumber());
-
-        return userForm;
-
     }
 
     public static class UserForm

@@ -55,7 +55,6 @@ public class RestOfficeController
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public ResponseEntity<OfficeForm> processSubmit(@Valid @RequestBody OfficeForm officeForm)
     {
-
         for (OfficeDto o : officeService.getAllOffices())
         {
             if (o.getAddress().equals(officeForm.getAddress()))
