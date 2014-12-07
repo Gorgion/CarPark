@@ -56,20 +56,26 @@ public class RestUserController
     public ResponseEntity<UserForm> addedUser(@Valid @RequestBody UserForm userForm)
     {
         UserDto user = getUserDto(userForm);
-        Long id = userService.add(user);
-        user.setId(id);
-
-        OfficeDto office = officeService.getOffice(userForm.getIdOffice());
-
-        if (office == null)
+        
+        if (user.getOfficeDto() == null)
         {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        List<UserDto> users = new ArrayList<>(office.getEmployees());
-        users.add(user);
-        office.setEmployees(users);
+        
+        Long id = userService.add(user);
+        user.setId(id);
 
-        officeService.editOffice(office);
+//        OfficeDto office = officeService.getOffice(userForm.getIdOffice());
+//
+//        if (office == null)
+//        {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//        List<UserDto> users = new ArrayList<>(office.getEmployees());
+//        users.add(user);
+//        office.setEmployees(users);
+//
+//        officeService.editOffice(office);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -87,21 +93,29 @@ public class RestUserController
         user.setBirthNumber(userForm.getBirthNumber());
         user.setFirstName(userForm.getFirstName());
         user.setLastName(userForm.getLastName());
-
+        
+        OfficeDto office = officeService.getOffice(userForm.getIdOffice());
+        if(office == null)
+        {
+            return new ResponseEntity<>(userForm, HttpStatus.BAD_REQUEST);
+        }
+        
+        user.setOfficeDto(office);
+        
         userService.edit(user);
 
-        for (OfficeDto o : officeService.getAllOffices())
-        {
-            if (o.getEmployees().contains(user))
-            {
-                officeService.deleteEmployeeFromOffice(o, user);
-            }
-        }
-        OfficeDto newOffice = officeService.getOffice(userForm.getIdOffice());
-        if (newOffice != null)
-        {
-            officeService.addEmployeeToOffice(newOffice, user);
-        }
+//        for (OfficeDto o : officeService.getAllOffices())
+//        {
+//            if (o.getEmployees().contains(user))
+//            {
+//                officeService.deleteEmployeeFromOffice(o, user);
+//            }
+//        }
+//        OfficeDto newOffice = officeService.getOffice(userForm.getIdOffice());
+//        if (newOffice != null)
+//        {
+//            officeService.addEmployeeToOffice(newOffice, user);
+//        }
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -118,13 +132,13 @@ public class RestUserController
 
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            for (OfficeDto o : officeService.getAllOffices())
-            {
-                if (o.getEmployees().contains(user))
-                {
-                    officeService.deleteEmployeeFromOffice(o, user);
-                }
-            }
+//            for (OfficeDto o : officeService.getAllOffices())
+//            {
+//                if (o.getEmployees().contains(user))
+//                {
+//                    officeService.deleteEmployeeFromOffice(o, user);
+//                }
+//            }
             userService.delete(user);
         } catch (IllegalArgumentException | DataAccessException ex)
         {
@@ -144,6 +158,9 @@ public class RestUserController
         user.setFirstName(userForm.getFirstName());
         user.setLastName(userForm.getLastName());
 
+        OfficeDto office = officeService.getOffice(userForm.getIdOffice());               
+        user.setOfficeDto(office);
+        
         return user;
     }
 
