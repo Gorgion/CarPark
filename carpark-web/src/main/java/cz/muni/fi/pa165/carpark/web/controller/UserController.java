@@ -1,15 +1,11 @@
 package cz.muni.fi.pa165.carpark.web.controller;
 
-import cz.muni.fi.pa165.carpark.dto.OfficeDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.service.OfficeService;
-import cz.muni.fi.pa165.carpark.service.RentalService;
 import cz.muni.fi.pa165.carpark.service.UserService;
-import java.util.ArrayList;
+import cz.muni.fi.pa165.carpark.web.dto.UserForm;
 import java.util.List;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -156,71 +152,4 @@ public class UserController {
 
     }
 
-    public static class UserForm {
-
-        private Long id;
-
-        @NotEmpty
-        private String firstName;
-
-        @NotEmpty
-        private String lastName;
-
-        @NotEmpty
-        private String birthNumber;
-
-        private String address;
-
-        @NotNull
-        private Long idOffice;
-
-        public Long getIdOffice() {
-            return idOffice;
-        }
-
-        public void setIdOffice(Long idOffice) {
-            this.idOffice = idOffice;
-        }
-
-        public Long getId() {
-            return id;
-        }
-
-        public void setId(Long id) {
-            this.id = id;
-        }
-
-        public String getFirstName() {
-            return firstName;
-        }
-
-        public void setFirstName(String firstName) {
-            this.firstName = firstName;
-        }
-
-        public String getLastName() {
-            return lastName;
-        }
-
-        public void setLastName(String lastName) {
-            this.lastName = lastName;
-        }
-
-        public String getBirthNumber() {
-            return birthNumber;
-        }
-
-        public void setBirthNumber(String birthNumber) {
-            this.birthNumber = birthNumber;
-        }
-
-        public String getAddress() {
-            return address;
-        }
-
-        public void setAddress(String address) {
-            this.address = address;
-        }
-
-    }
 }

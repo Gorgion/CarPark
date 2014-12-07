@@ -11,6 +11,8 @@ import cz.muni.fi.pa165.carpark.dto.UserDto;
 
 import cz.muni.fi.pa165.carpark.service.OfficeService;
 import cz.muni.fi.pa165.carpark.service.UserService;
+import cz.muni.fi.pa165.carpark.web.dto.OfficeEditForm;
+import cz.muni.fi.pa165.carpark.web.dto.OfficeForm;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -106,51 +108,5 @@ public class RestOfficeController
         officeService.editOffice(office);
 
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    public static class OfficeForm
-    {
-
-        @NotBlank
-        private String address;
-
-        public String getAddress()
-        {
-            return address;
-        }
-
-        public void setAddress(String address)
-        {
-            this.address = address;
-        }
-    }
-
-    public static class OfficeEditForm
-    {
-
-        @NotBlank
-        private String address;
-        @NotNull
-        private Long managerId;
-
-        public String getAddress()
-        {
-            return address;
-        }
-
-        public void setAddress(String address)
-        {
-            this.address = address;
-        }
-
-        public Long getManagerId()
-        {
-            return managerId;
-        }
-
-        public void setManagerId(Long managerId)
-        {
-            this.managerId = managerId;
-        }
     }
 }

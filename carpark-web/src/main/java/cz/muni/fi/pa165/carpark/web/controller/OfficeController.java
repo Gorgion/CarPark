@@ -12,6 +12,8 @@ import cz.muni.fi.pa165.carpark.service.CarService;
 
 import cz.muni.fi.pa165.carpark.service.OfficeService;
 import cz.muni.fi.pa165.carpark.service.UserService;
+import cz.muni.fi.pa165.carpark.web.dto.OfficeEditForm;
+import cz.muni.fi.pa165.carpark.web.dto.OfficeForm;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -142,64 +144,14 @@ public class OfficeController {
             model.addAttribute("managerId", officeService.getEmployees(office));
             return "office-edit-form";
         }
-
-        System.out.println("no-error?");
-        System.out.println("1." + officeEditForm.getAddress());
-        System.out.println("2." + officeEditForm.getManagerId());
-
+        
         office.setAddress(officeEditForm.getAddress());
 
         office.setManager(userService.get(officeEditForm.getManagerId()));
-
-        System.out.println("mmm " + office.getManager());
-        System.out.println("mmm " + office.getAddress());
-        System.out.println("mmm " + office.getEmployees());
-        System.out.println("mmm " + office.getCars());
 
         officeService.editOffice(office);
 
         redirectAttributes.addFlashAttribute("msg", "msg.office.edit");
         return "redirect:/auth/office";
-    }
-
-    public static class OfficeForm {
-
-        @NotNull
-        @NotBlank
-        private String address;
-
-        public String getAddress() {
-            return address;
-        }
-
-        public void setAddress(String address) {
-            this.address = address;
-        }
-    }
-
-    public static class OfficeEditForm {
-
-        @NotNull
-        @NotBlank
-        @Valid
-        private String address;
-        @NotNull
-        private Long managerId;
-
-        public String getAddress() {
-            return address;
-        }
-
-        public void setAddress(String address) {
-            this.address = address;
-        }
-
-        public Long getManagerId() {
-            return managerId;
-        }
-
-        public void setManagerId(Long managerId) {
-            this.managerId = managerId;
-        }
     }
 }

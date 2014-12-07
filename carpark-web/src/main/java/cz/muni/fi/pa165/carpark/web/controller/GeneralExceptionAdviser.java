@@ -29,10 +29,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class GeneralExceptionAdviser
 {
-
-    @Autowired
-    private MessageSource messageSource;
-
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Data access exception occured")
     @ExceptionHandler(value =
     {
@@ -66,27 +62,11 @@ public class GeneralExceptionAdviser
 
         for (FieldError fieldError : fieldErrors)
         {
-            String localizedErrorMessage = resolveLocalizedErrorMessage(fieldError);
+            String localizedErrorMessage = fieldError.getDefaultMessage();
             dto.addFieldError(fieldError.getField(), localizedErrorMessage);
         }
 
         return dto;
-    }
-
-    private String resolveLocalizedErrorMessage(FieldError fieldError)
-    {
-        Locale currentLocale = LocaleContextHolder.getLocale();
-        String localizedErrorMessage = messageSource.getMessage(fieldError, currentLocale);
-
-        //If the message was not found, return the most accurate field error code instead.
-        //You can remove this check if you prefer to get the default error message.
-        if (localizedErrorMessage.equals(fieldError.getDefaultMessage()))
-        {
-            String[] fieldErrorCodes = fieldError.getCodes();
-            localizedErrorMessage = fieldErrorCodes[0];
-        }
-
-        return localizedErrorMessage;
     }
 
     public static class ValidationErrorDTO
