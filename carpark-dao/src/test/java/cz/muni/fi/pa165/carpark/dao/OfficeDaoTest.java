@@ -93,8 +93,13 @@ public class OfficeDaoTest
         carDao.AddCar(car2);
         carDao.AddCar(car3);
         
+        List<Car> resultCars = new ArrayList(dao.getOfficeCars(office));
         
-        Assert.assertEquals(dao.getOfficeCars(office),cars);
+        Assert.assertTrue(resultCars.containsAll(cars));
+        
+        resultCars.removeAll(cars);
+        
+        Assert.assertTrue(resultCars.isEmpty());
     }
     
     @Test
@@ -119,7 +124,13 @@ public class OfficeDaoTest
         userDao.add(manager);
         userDao.add(employee);        
         
-        Assert.assertEquals(dao.getEmployees(office),employees);
+        List<User> resultEmployees = new ArrayList(dao.getEmployees(office));
+        
+        Assert.assertTrue(resultEmployees.containsAll(employees));
+        
+        resultEmployees.removeAll(employees);
+        
+        Assert.assertTrue(resultEmployees.isEmpty());
     }
     
     @Test
@@ -219,9 +230,17 @@ public class OfficeDaoTest
         Assert.assertNotSame(officeExp, officeUpdated);
 
         Assert.assertEquals(officeExp.getAddress(), officeUpdated.getAddress());
-        Assert.assertEquals(officeExp.getCars(), officeUpdated.getCars());
-        Assert.assertEquals(officeExp.getEmployees(), officeUpdated.getEmployees());
         
+        List<Car> resultCars = new ArrayList(officeUpdated.getCars());
+        List<User> resultEmployees = new ArrayList(officeUpdated.getEmployees());
+        
+        Assert.assertTrue(resultCars.containsAll(officeExp.getCars()));
+        resultCars.removeAll(officeExp.getCars());
+        Assert.assertTrue(resultCars.isEmpty());
+        
+        Assert.assertTrue(resultEmployees.containsAll(officeExp.getEmployees()));
+        resultEmployees.removeAll(officeExp.getEmployees());
+        Assert.assertTrue(resultEmployees.isEmpty());
     }
     
     @Test
@@ -248,7 +267,11 @@ public class OfficeDaoTest
         
         Office gotOffice = dao.getOffice(office.getID());
         
-        Assert.assertEquals(employees, gotOffice.getEmployees());
+        List<User> resultEmployees = new ArrayList(gotOffice.getEmployees());
+        
+        Assert.assertTrue(resultEmployees.containsAll(office.getEmployees()));
+        resultEmployees.removeAll(office.getEmployees());
+        Assert.assertTrue(resultEmployees.isEmpty());
     }
     
     @Test
@@ -275,7 +298,11 @@ public class OfficeDaoTest
         
         Office gotOffice = dao.getOffice(office.getID());
         
-        Assert.assertEquals(cars, gotOffice.getCars());
+        List<Car> resultCars = new ArrayList(gotOffice.getCars());
+        
+        Assert.assertTrue(resultCars.containsAll(office.getCars()));
+        resultCars.removeAll(office.getCars());
+        Assert.assertTrue(resultCars.isEmpty());
     }
     
     @Test
@@ -302,7 +329,11 @@ public class OfficeDaoTest
         dao.deleteEmployeeFromOffice(office, employee);
         Office gotOffice = dao.getOffice(office.getID());
         
-        Assert.assertEquals(employees, gotOffice.getEmployees());
+        List<User> resultEmployees = new ArrayList(gotOffice.getEmployees());
+        
+        Assert.assertTrue(resultEmployees.containsAll(office.getEmployees()));
+        resultEmployees.removeAll(office.getEmployees());
+        Assert.assertTrue(resultEmployees.isEmpty());
     }
     
     @Test
@@ -330,6 +361,10 @@ public class OfficeDaoTest
         
         Office gotOffice = dao.getOffice(office.getID());
         
-        Assert.assertEquals(cars, gotOffice.getCars());
+        List<Car> resultCars = new ArrayList(gotOffice.getCars());
+        
+        Assert.assertTrue(resultCars.containsAll(office.getCars()));
+        resultCars.removeAll(office.getCars());
+        Assert.assertTrue(resultCars.isEmpty());
     }
 }
