@@ -6,7 +6,7 @@
 package cz.muni.fi.pa165.carpark.web.dto;
 
 import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * UserForm dto.
@@ -15,67 +15,80 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class UserForm
 {
+
     private Long id;
 
-        @NotEmpty
-        private String firstName;
+    @NotBlank
+    private String firstName;
 
-        @NotEmpty
-        private String lastName;
+    @NotBlank
+    private String lastName;
 
-        @NotEmpty
-        private String birthNumber;
+    @NotBlank
+    private String birthNumber;
 
-        private String address;
+    private String address;
 
-        @NotNull
-        private Long idOffice;
+    @NotNull
+    private Long idOffice;
 
-        public Long getIdOffice() {
-            return idOffice;
-        }
+    public Long getIdOffice()
+    {
+        return idOffice;
+    }
 
-        public void setIdOffice(Long idOffice) {
-            this.idOffice = idOffice;
-        }
+    public void setIdOffice(Long idOffice)
+    {
+        this.idOffice = idOffice;
+    }
 
-        public Long getId() {
-            return id;
-        }
+    public Long getId()
+    {
+        return id;
+    }
 
-        public void setId(Long id) {
-            this.id = id;
-        }
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
 
-        public String getFirstName() {
-            return firstName;
-        }
+    public String getFirstName()
+    {
+        return firstName;
+    }
 
-        public void setFirstName(String firstName) {
-            this.firstName = firstName;
-        }
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
 
-        public String getLastName() {
-            return lastName;
-        }
+    public String getLastName()
+    {
+        return lastName;
+    }
 
-        public void setLastName(String lastName) {
-            this.lastName = lastName;
-        }
+    public void setLastName(String lastName)
+    {
+        this.lastName = lastName;
+    }
 
-        public String getBirthNumber() {
-            return birthNumber;
-        }
+    public String getBirthNumber()
+    {
+        return birthNumber;
+    }
 
-        public void setBirthNumber(String birthNumber) {
-            this.birthNumber = birthNumber;
-        }
+    public void setBirthNumber(String birthNumber)
+    {
+        this.birthNumber = birthNumber;
+    }
 
-        public String getAddress() {
-            return address;
-        }
+    public String getAddress()
+    {
+        return address;
+    }
 
-        public void setAddress(String address) {
-            this.address = address;
-        }
+    public void setAddress(String address)
+    {
+        this.address = address;
+    }
 }

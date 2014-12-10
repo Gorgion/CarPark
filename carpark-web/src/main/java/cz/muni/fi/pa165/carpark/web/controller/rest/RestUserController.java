@@ -1,10 +1,15 @@
 package cz.muni.fi.pa165.carpark.web.controller.rest;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import cz.muni.fi.pa165.carpark.dto.OfficeDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.service.OfficeService;
 import cz.muni.fi.pa165.carpark.service.UserService;
+import cz.muni.fi.pa165.carpark.web.dto.RestOfficeDto;
+import cz.muni.fi.pa165.carpark.web.dto.RestUserDto;
 import cz.muni.fi.pa165.carpark.web.dto.UserForm;
+import cz.muni.fi.pa165.carpark.web.rest.JsonViews;
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import javax.ws.rs.core.MediaType;
@@ -24,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Tomas Svoboda
  */
 @RestController
-@RequestMapping("/auth/rest/users")
+@RequestMapping("/rest/users")
 public class RestUserController
 {
 
@@ -34,10 +39,20 @@ public class RestUserController
     @Autowired
     private OfficeService officeService;
 
+    @JsonView(JsonViews.Users.class)
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
-    public ResponseEntity<List<UserDto>> list()
+    public ResponseEntity<List<RestUserDto>> list()
     {
-        List<UserDto> users = userService.getAll();
+        List<RestUserDto> users = new ArrayList<>();
+        for(UserDto userDto : userService.getAll())
+        {
+            RestUserDto restUser = new RestUserDto(userDto.getId(), userDto.getFirstName(), userDto.getLastName(), userDto.getBirthNumber(), userDto.getAddress());
+            RestOfficeDto restOffice = new RestOfficeDto(userDto.getOfficeDto().getID(), userDto.getOfficeDto().getAddress());
+            
+            restUser.setOffice(restOffice);
+            
+            users.add(restUser);
+        }
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }

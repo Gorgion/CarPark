@@ -5,6 +5,8 @@
  */
 package cz.muni.fi.pa165.carpark.web.controller.rest;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.muni.fi.pa165.carpark.dto.CarDto;
 import cz.muni.fi.pa165.carpark.dto.OfficeDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
@@ -13,15 +15,14 @@ import cz.muni.fi.pa165.carpark.service.OfficeService;
 import cz.muni.fi.pa165.carpark.service.UserService;
 import cz.muni.fi.pa165.carpark.web.dto.OfficeEditForm;
 import cz.muni.fi.pa165.carpark.web.dto.OfficeForm;
+import cz.muni.fi.pa165.carpark.web.dto.RestOfficeDto;
+import cz.muni.fi.pa165.carpark.web.dto.RestUserDto;
+import cz.muni.fi.pa165.carpark.web.rest.JsonViews;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import java.util.List;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.ws.rs.core.MediaType;
-import org.hibernate.validator.constraints.NotBlank;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,11 +33,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * Rest controller for office service.
  *
  * @author Tomas Svoboda
  */
 @RestController
-@RequestMapping("/auth/rest/offices")
+@RequestMapping("/rest/offices")
 public class RestOfficeController
 {
 
@@ -46,16 +48,55 @@ public class RestOfficeController
     @Autowired
     private UserService userService;
 
+    @JsonView(JsonViews.Offices.class)
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
-    public ResponseEntity<List<OfficeDto>> list()
+    public ResponseEntity<List<RestOfficeDto>> list() throws JsonProcessingException
     {
-        List<OfficeDto> offices = new ArrayList<>(officeService.getAllOffices());
+        List<RestOfficeDto> offices = new ArrayList<>();
+
+        for (OfficeDto office : officeService.getAllOffices())
+        {
+            RestOfficeDto restOffice = new RestOfficeDto(office.getID(), office.getAddress());
+            List<RestUserDto> restUsers = new ArrayList<>();
+
+            if (office.getManager() != null)
+            {
+                RestUserDto manager = new RestUserDto();
+
+                manager.setId(office.getManager().getId());
+                manager.setAddress(office.getManager().getAddress());
+                manager.setBirthNumber(office.getManager().getBirthNumber());
+                manager.setFirstName(office.getManager().getFirstName());
+                manager.setLastName(office.getManager().getLastName());
+                manager.setOffice(restOffice);
+
+                restOffice.setManager(manager);
+            }
+
+            for (UserDto emp : office.getEmployees())
+            {
+                RestUserDto rud = new RestUserDto();
+
+                rud.setId(emp.getId());
+                rud.setAddress(emp.getAddress());
+                rud.setBirthNumber(emp.getBirthNumber());
+                rud.setFirstName(emp.getFirstName());
+                rud.setLastName(emp.getLastName());
+                rud.setOffice(restOffice);
+
+                restUsers.add(rud);
+            }
+
+            restOffice.setEmployees(restUsers);
+
+            offices.add(restOffice);
+        }
 
         return new ResponseEntity<>(offices, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public ResponseEntity<OfficeForm> processSubmit(@Valid @RequestBody OfficeForm officeForm)
+    public ResponseEntity<OfficeForm> createOffice(@Valid @RequestBody OfficeForm officeForm)
     {
         for (OfficeDto o : officeService.getAllOffices())
         {

@@ -6,10 +6,10 @@
 package cz.muni.fi.pa165.carpark.web.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
+ * Exception handler controller.
  *
  * @author Tomas Svoboda
  */
@@ -31,7 +31,7 @@ public class GeneralExceptionHandlerController
     
     
     @RequestMapping("/404")
-    public String handle404error(Model model)
+    public String handle404error()
     {        
         return "404";
     }

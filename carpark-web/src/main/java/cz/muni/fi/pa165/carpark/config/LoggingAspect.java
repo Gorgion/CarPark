@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
+ * Logging aspect for several modules.
  *
  * @author Tomas Svoboda
  */
@@ -56,6 +57,6 @@ public class LoggingAspect
     @AfterThrowing(pointcut = "inWebLayer() || inServiceLayer() || inDaoLayer()", throwing = "error")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable error)
     {
-        LOGGER.error("AFTER: " + joinPoint.toLongString() + ", THROWN: " + error);
+        LOGGER.error("AFTER: " + joinPoint.toLongString() + ", THROWN: with msg [" + error.getMessage() + "], cause: " + error);
     }
 }
