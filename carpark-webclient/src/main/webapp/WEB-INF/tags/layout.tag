@@ -12,6 +12,8 @@
 <%@attribute name="title" required="true" %>
 <%@attribute name="head" fragment="true" %>
 <%@attribute name="content" fragment="true" required="true" %>
+<%@attribute name="ajaxGetter" fragment="true" required="true" %>
+
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -123,5 +125,6 @@
                 });
             });
         </script>
+        <jsp:invoke fragment="ajaxGetter"/>
     </body>
 </html>

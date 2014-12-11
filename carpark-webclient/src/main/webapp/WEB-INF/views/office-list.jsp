@@ -9,19 +9,6 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<script type="text/javascript">
-    $(document).ready(function(){
-        $.ajax({
-            type: "GET",
-            url: "localhost:8080/pa165/rest/office",
-            success: function(data)){
-                alert(data);
-            }
-        });
-    });
-    
-</script>
-
 <title>Offices</title>
 <custom:layout title="${title}">    
     <jsp:attribute name="content">
@@ -111,5 +98,19 @@
 
             </div>
         </custom:modal-dialog>  
-    </jsp:attribute>        
+    </jsp:attribute>
+    <jsp:attribute name="ajaxGetter">
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $.ajax({
+                    type: "GET",
+                    url: "localhost:8080/pa165/rest/office",
+                    success: function(data)){
+                        alert(data);
+                    }
+                });
+            });
+
+        </script>
+    </jsp:attribute>
 </custom:layout>
