@@ -29,18 +29,7 @@ public class WebApplicationConfig extends WebMvcConfigurerAdapter
     public void addResourceHandlers(ResourceHandlerRegistry registry)
     {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-    }    
-
-    @Bean
-    public MessageSource messageSource()
-    {
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasenames("classpath:i18n/labels", "classpath:i18n/messages", "classpath:i18n/CustomValidationMessages", "classpath:i18n/ValidationMessages");
-        messageSource.setUseCodeAsDefaultMessage(true);
-        messageSource.setDefaultEncoding("UTF-8");
-        messageSource.setCacheSeconds(5);
-        return messageSource;
-    }        
+    }           
 
     @Bean
     public ViewResolver viewResolver()
