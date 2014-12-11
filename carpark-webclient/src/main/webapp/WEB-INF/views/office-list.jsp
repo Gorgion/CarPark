@@ -104,10 +104,14 @@
             $(document).ready(function(){
                 $.ajax({
                     type: "GET",
-                    url: "localhost:8080/pa165/rest/office",
-                    success: function(data)){
+                    dataType: 'jsonp',
+                    url: "http://localhost:8080/pa165/rest/offices",
+                    success: function(data){
                         alert(data);
-                    }
+                    },
+                    error: function(data){
+                        alert(data);
+                    } 
                 });
             });
 
