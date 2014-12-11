@@ -45,10 +45,10 @@
 
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a id="office" href="/pa165/auth/office"><fmt:message key="offices" /></a></li>
-                        <li><a id="car" href="/pa165/auth/car"><fmt:message key="cars" /></a></li>
-                        <li><a id="user" href="/pa165/auth/user"><fmt:message key="users" /></a></li>
-                        <li><a id="about-us" href="/pa165/auth/about-us"><fmt:message key="about-us" /></a></li>
+                        <li><a id="office" href="/pa165/office">Offices</a></li>
+                        <li><a id="car" href="/pa165/car">Cars</a></li>
+                        <li><a id="user" href="/pa165/user">Users</a></li>
+                        <li><a id="about-us" href="/pa165/about-us">About us</a></li>
                     </ul>
                 </div>
                 <div class="page-header visible-lg visible-md">
