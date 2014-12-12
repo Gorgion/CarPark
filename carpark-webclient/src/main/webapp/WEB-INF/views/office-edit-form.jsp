@@ -24,7 +24,7 @@
                 <input id="address" class="form-control"/>
             </div>
         </div>
-        
+        <br />
         <div class="form-group"> 
             <label class="control-label col-sm-2">Manager:</label>
             <div class="col-sm-6">
