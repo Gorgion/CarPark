@@ -27,7 +27,7 @@ public class LoggingAspect
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggingAspect.class);
 
-    @Pointcut("within(cz.muni.fi.pa165.carpark.web..*)")
+    @Pointcut("within(cz.muni.fi.pa165.carpark.web.client..*)")
     public void inWebLayer()
     {
     }
