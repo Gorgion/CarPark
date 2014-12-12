@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 public class OfficeDto {
     
-    private Long iD;
+    private Long id;
     private String address;
     private UserDto manager;
     private List<UserDto> employees;
@@ -32,15 +32,15 @@ public class OfficeDto {
     /**
      * @return the iD
      */
-    public Long getID() {
-        return iD;
+    public Long getId() {
+        return id;
     }
 
     /**
      * @param iD the iD to set
      */
-    public void setID(Long iD) {
-        this.iD = iD;
+    public void setId(Long iD) {
+        this.id = iD;
     }
 
     /**
@@ -102,7 +102,7 @@ public class OfficeDto {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 17 * hash + Objects.hashCode(this.iD);
+        hash = 17 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -115,11 +115,11 @@ public class OfficeDto {
             return false;
         }
         final OfficeDto other = (OfficeDto) obj;
-        return Objects.equals(this.iD, other.iD);
+        return Objects.equals(this.id, other.id);
     }
 
     @Override
     public String toString() {
-        return "OfficeDto{" + "iD=" + iD + ", address=" + address + ", manager=" + manager + ", employees=" + employees + ", cars=" + cars + '}';
+        return "OfficeDto{" + "iD=" + id + ", address=" + address + ", manager=" + manager + ", employees=" + employees + ", cars=" + cars + '}';
     }
 }

@@ -16,13 +16,13 @@ import java.util.Date;
  */
 public interface CarService
 {
-    public Long AddCar(CarDto car);
+    public Long addCar(CarDto car);
 
 	public CarDto getCar(Long id);
 
-	public void EditCar(CarDto car);
+	public void editCar(CarDto car);
 
-	public void DeleteCar(CarDto car);
+	public void deleteCar(CarDto car);
 
 	public Collection<CarDto> getAllCars();
 

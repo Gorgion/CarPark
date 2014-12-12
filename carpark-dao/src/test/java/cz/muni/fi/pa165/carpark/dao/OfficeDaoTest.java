@@ -57,7 +57,7 @@ public class OfficeDaoTest
                
         Assert.assertNotNull(dao.getAllOffices());
         
-        Assert.assertEquals(office, dao.getOffice(office.getID()));
+        Assert.assertEquals(office, dao.getOffice(office.getId()));
         Assert.assertEquals(office.getAddress(), address);
                 
         
@@ -89,9 +89,9 @@ public class OfficeDaoTest
         car2.setOffice(office);
         car3.setOffice(office);
         
-        carDao.AddCar(car1);
-        carDao.AddCar(car2);
-        carDao.AddCar(car3);
+        carDao.addCar(car1);
+        carDao.addCar(car2);
+        carDao.addCar(car3);
         
         List<Car> resultCars = new ArrayList(dao.getOfficeCars(office));
         
@@ -165,7 +165,7 @@ public class OfficeDaoTest
         dao.addOffice(office);
         dao.deleteOffice(office);
        
-        Assert.assertNull(dao.getOffice(office.getID()));
+        Assert.assertNull(dao.getOffice(office.getId()));
               
     }
     
@@ -176,9 +176,9 @@ public class OfficeDaoTest
         Car car2 = TestUtils.createCar(mBrand.SKODA_SUPERB, mType.SEDAN, mEngine.PETROL, "1B21234", "VIN321", false);
         Car car3 = TestUtils.createCar(mBrand.FORD_MONDEO, mType.HATCHBACK, mEngine.DIESEL, "1A11111", "VIN222", false);
         
-        carDao.AddCar(car1);
-        carDao.AddCar(car2);
-        carDao.AddCar(car3);
+        carDao.addCar(car1);
+        carDao.addCar(car2);
+        carDao.addCar(car3);
         
         List<Car> cars = new ArrayList<Car>();       
         cars.add(car3);
@@ -218,11 +218,11 @@ public class OfficeDaoTest
                       
         Office officeExp = TestUtils.createOffice(address2, manager2, cars, employees2);
 
-        officeExp.setID(office.getID());
+        officeExp.setId(office.getId());
         
         dao.editOffice(officeExp);
         
-        Office officeUpdated = dao.getOffice(office.getID());
+        Office officeUpdated = dao.getOffice(office.getId());
         
         Assert.assertNotNull(officeUpdated);
         
@@ -265,7 +265,7 @@ public class OfficeDaoTest
         dao.addEmployeeToOffice(office, manager);
         dao.addEmployeeToOffice(office, employee);
         
-        Office gotOffice = dao.getOffice(office.getID());
+        Office gotOffice = dao.getOffice(office.getId());
         
         List<User> resultEmployees = new ArrayList(gotOffice.getEmployees());
         
@@ -288,15 +288,15 @@ public class OfficeDaoTest
         cars.add(car1);
         cars.add(car2);
         
-        carDao.AddCar(car1);
-        carDao.AddCar(car2);
+        carDao.addCar(car1);
+        carDao.addCar(car2);
         
         dao.addOffice(office);
         
         dao.addCarToOffice(office, car1);
         dao.addCarToOffice(office, car2);
         
-        Office gotOffice = dao.getOffice(office.getID());
+        Office gotOffice = dao.getOffice(office.getId());
         
         List<Car> resultCars = new ArrayList(gotOffice.getCars());
         
@@ -327,7 +327,7 @@ public class OfficeDaoTest
         dao.addEmployeeToOffice(office, employee);
         
         dao.deleteEmployeeFromOffice(office, employee);
-        Office gotOffice = dao.getOffice(office.getID());
+        Office gotOffice = dao.getOffice(office.getId());
         
         List<User> resultEmployees = new ArrayList(gotOffice.getEmployees());
         
@@ -345,8 +345,8 @@ public class OfficeDaoTest
         Car car1 = TestUtils.createCar(mBrand.SKODA_OCTAVIA, mType.COMBI, mEngine.PETROL, "TRB1962", "VIN123", false);
         Car car2 = TestUtils.createCar(mBrand.SKODA_SUPERB, mType.SEDAN, mEngine.PETROL, "1B21234", "VIN321", false);
 
-        carDao.AddCar(car1);
-        carDao.AddCar(car2);
+        carDao.addCar(car1);
+        carDao.addCar(car2);
         
         List<Car> cars = new ArrayList<Car>();
         
@@ -359,7 +359,7 @@ public class OfficeDaoTest
         
         dao.deleteCarFromOffice(office, car2);
         
-        Office gotOffice = dao.getOffice(office.getID());
+        Office gotOffice = dao.getOffice(office.getId());
         
         List<Car> resultCars = new ArrayList(gotOffice.getCars());
         

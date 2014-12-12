@@ -75,7 +75,7 @@ public class CarController {
         }
         
         model.addAttribute("offices",officeService.getAllOffices());
-        model.addAttribute("selectedOfficeId", car.getOfficeDto().getID());
+        model.addAttribute("selectedOfficeId", car.getOfficeDto().getId());
         
         return "car-edit-form";
     }
@@ -113,7 +113,7 @@ public class CarController {
         }
         car.setOfficeDto(officeDto);
         
-        carService.EditCar(car);
+        carService.editCar(car);
           
         redirectAttributes.addFlashAttribute("msg", "msg.car.edited");
         
@@ -165,7 +165,7 @@ public class CarController {
         Long carId;
         try
         {
-            carId = carService.AddCar(car);
+            carId = carService.addCar(car);
             car.setID(carId);
         }
         catch(CarAlreadyExists ex)
@@ -204,7 +204,7 @@ public class CarController {
                     officeService.deleteCarFromOffice(o, car);
                 }
             }
-            carService.DeleteCar(car);
+            carService.deleteCar(car);
         }
         catch(CarIsRented ex)
         {

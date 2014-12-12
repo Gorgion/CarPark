@@ -317,7 +317,7 @@ public class Converter
         }
 
         Car entity = new Car();
-        entity.setID(car.getID());
+        entity.setID(car.getId());
         entity.setBrand(getEntity(car.getBrand()));
         entity.setType(getEntity(car.getType()));
         entity.setEngine(getEntity(car.getEngine()));
@@ -353,7 +353,7 @@ public class Converter
 
         Office officeEntity = new Office();
 
-        officeEntity.setID(office.getID());
+        officeEntity.setId(office.getId());
         officeEntity.setAddress(office.getAddress());
         officeEntity.setManager(null);
 
@@ -391,7 +391,7 @@ public class Converter
         for (CarDto car : office.getCars())
         {
             Car entity = new Car();
-            entity.setID(car.getID());
+            entity.setID(car.getId());
             entity.setBrand(getEntity(car.getBrand()));
             entity.setType(getEntity(car.getType()));
             entity.setEngine(getEntity(car.getEngine()));
@@ -460,7 +460,7 @@ public class Converter
         }
         officeDto.setCars(carsDto);
 
-        officeDto.setID(office.getID());
+        officeDto.setId(office.getId());
 
         return officeDto;
     }

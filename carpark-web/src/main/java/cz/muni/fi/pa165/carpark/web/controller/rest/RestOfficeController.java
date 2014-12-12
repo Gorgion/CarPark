@@ -56,7 +56,7 @@ public class RestOfficeController
 
         for (OfficeDto office : officeService.getAllOffices())
         {
-            RestOfficeDto restOffice = new RestOfficeDto(office.getID(), office.getAddress());
+            RestOfficeDto restOffice = new RestOfficeDto(office.getId(), office.getAddress());
             List<RestUserDto> restUsers = new ArrayList<>();
 
             if (office.getManager() != null)
@@ -100,7 +100,7 @@ public class RestOfficeController
     public ResponseEntity<RestOfficeDto> getEntity(@PathVariable Long id) throws JsonProcessingException
     {
         OfficeDto office = officeService.getOffice(id);
-        RestOfficeDto restOffice = new RestOfficeDto(office.getID(), office.getAddress());
+        RestOfficeDto restOffice = new RestOfficeDto(office.getId(), office.getAddress());
         List<RestUserDto> restUsers = new ArrayList<>();
 
         if (office.getManager() != null)

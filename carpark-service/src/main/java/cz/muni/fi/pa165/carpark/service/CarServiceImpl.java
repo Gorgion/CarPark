@@ -33,7 +33,7 @@ public class CarServiceImpl implements CarService
     
     @Transactional
     @Override
-    public Long AddCar(CarDto car)
+    public Long addCar(CarDto car)
     {
         if(car == null)
             throw new IllegalArgumentException("Car is null");
@@ -43,7 +43,7 @@ public class CarServiceImpl implements CarService
         if(!carDao.getIdByLicencePlate(carEntity.getLicencePlate()).isEmpty() || !carDao.getIdByVin(carEntity.getVIN()).isEmpty())
             throw new CarAlreadyExists("Car already exists!");
 
-        return carDao.AddCar(carEntity);
+        return carDao.addCar(carEntity);
     }
 
     @Transactional
@@ -56,21 +56,21 @@ public class CarServiceImpl implements CarService
 
     @Transactional
     @Override
-    public void EditCar(CarDto car)
+    public void editCar(CarDto car)
     {
         Car carEntity = Converter.getEntity(car);
         
-        carDao.EditCar(carEntity);
+        carDao.editCar(carEntity);
     }
 
     @Transactional
     @Override
-    public void DeleteCar(CarDto car)
+    public void deleteCar(CarDto car)
     {
         Car carEntity = Converter.getEntity(car);
         if(carEntity.isRented())
             throw new CarIsRented("Car cannot be deleted when is rented");
-        carDao.DeleteCar(carEntity);
+        carDao.deleteCar(carEntity);
     }
 
     @Transactional

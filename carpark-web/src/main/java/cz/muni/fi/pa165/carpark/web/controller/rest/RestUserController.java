@@ -47,7 +47,7 @@ public class RestUserController
         for (UserDto userDto : userService.getAll())
         {
             RestUserDto restUser = new RestUserDto(userDto.getId(), userDto.getFirstName(), userDto.getLastName(), userDto.getBirthNumber(), userDto.getAddress());
-            RestOfficeDto restOffice = new RestOfficeDto(userDto.getOfficeDto().getID(), userDto.getOfficeDto().getAddress());
+            RestOfficeDto restOffice = new RestOfficeDto(userDto.getOfficeDto().getId(), userDto.getOfficeDto().getAddress());
 
             restUser.setOffice(restOffice);
 
@@ -63,7 +63,7 @@ public class RestUserController
     {
         UserDto userDto = userService.get(id);
         RestUserDto restUser = new RestUserDto(userDto.getId(), userDto.getFirstName(), userDto.getLastName(), userDto.getBirthNumber(), userDto.getAddress());
-        RestOfficeDto restOffice = new RestOfficeDto(userDto.getOfficeDto().getID(), userDto.getOfficeDto().getAddress());
+        RestOfficeDto restOffice = new RestOfficeDto(userDto.getOfficeDto().getId(), userDto.getOfficeDto().getAddress());
 
         restUser.setOffice(restOffice);
 

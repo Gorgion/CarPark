@@ -146,7 +146,7 @@ public class UserController {
         userForm.setLastName(user.getLastName());
         userForm.setAddress(user.getAddress());
         userForm.setBirthNumber(user.getBirthNumber());
-        userForm.setIdOffice(user.getOfficeDto().getID());  // TODO TRY-CATCH WHEN NO OFFICES
+        userForm.setIdOffice(user.getOfficeDto().getId());  // TODO TRY-CATCH WHEN NO OFFICES
         
         return userForm;
 

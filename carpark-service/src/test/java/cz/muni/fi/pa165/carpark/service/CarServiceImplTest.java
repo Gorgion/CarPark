@@ -47,27 +47,27 @@ public class CarServiceImplTest {
         
         Car car = Converter.getEntity(carDto);
         
-        Mockito.doReturn(1L).when(carDM).AddCar(car);
+        Mockito.doReturn(1L).when(carDM).addCar(car);
 
-        carService.AddCar(carDto);
+        carService.addCar(carDto);
 
         carDto.setID(car.getID());
 
-        Mockito.doReturn(car).when(carDM).getCar(carDto.getID());
+        Mockito.doReturn(car).when(carDM).getCar(carDto.getId());
 
         CarDto actualDto = carService.getCar(car.getID());
         
         Assert.assertNotNull(actualDto);
         Assert.assertEquals(carDto, actualDto);
-        Assert.assertEquals(carDto.getID(), actualDto.getID());
+        Assert.assertEquals(carDto.getId(), actualDto.getId());
         Assert.assertEquals(carDto.getLicencePlate(), actualDto.getLicencePlate());
         Assert.assertEquals(carDto.getVIN(), actualDto.getVIN());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void addCarWithNullTest() {
-        Mockito.doThrow(new IllegalArgumentException("Car is null") {}).when(carDM).AddCar(null);
-        carService.AddCar(null);
+        Mockito.doThrow(new IllegalArgumentException("Car is null") {}).when(carDM).addCar(null);
+        carService.addCar(null);
     }
     
     @Test(expected = DataAccessException.class)
@@ -83,9 +83,9 @@ public class CarServiceImplTest {
         
         Car car = Converter.getEntity(carDto);
         
-        Mockito.doNothing().when(carDM).EditCar(car);
+        Mockito.doNothing().when(carDM).editCar(car);
 
-        carService.EditCar(carDto);
+        carService.editCar(carDto);
 
         carDto.setID(car.getID());
 
@@ -95,16 +95,16 @@ public class CarServiceImplTest {
 
         Assert.assertNotNull(actualDto);
         Assert.assertEquals(carDto, actualDto);
-        Assert.assertEquals(carDto.getID(), actualDto.getID());
-        Assert.assertEquals(carDto.getID(), actualDto.getID());
+        Assert.assertEquals(carDto.getId(), actualDto.getId());
+        Assert.assertEquals(carDto.getId(), actualDto.getId());
         Assert.assertEquals(carDto.getLicencePlate(), actualDto.getLicencePlate());
         Assert.assertEquals(carDto.getVIN(), actualDto.getVIN());
     }
     
     @Test(expected = DataAccessException.class)
     public void editCarWithNullTest(){
-        Mockito.doThrow(new DataAccessException("") {}).when(carDM).EditCar(null);
-        carDM.EditCar(null);
+        Mockito.doThrow(new DataAccessException("") {}).when(carDM).editCar(null);
+        carDM.editCar(null);
     }
     @Test
     public void deleteCarTest(){
@@ -112,18 +112,18 @@ public class CarServiceImplTest {
         carDto.setID(1L);
         
         Car car = Converter.getEntity(carDto);             
-        carService.AddCar(carDto);         
-        carService.DeleteCar(carDto);     
+        carService.addCar(carDto);         
+        carService.deleteCar(carDto);     
         
-        Mockito.verify(carDM, Mockito.times(1)).DeleteCar(car);   
+        Mockito.verify(carDM, Mockito.times(1)).deleteCar(car);   
         
         Assert.assertNull(carDM.getCar(1L));
     }
     
     @Test(expected = DataAccessException.class)
     public void deleteCarWithNullTest(){
-        Mockito.doThrow(new DataAccessException("") {}).when(carDM).DeleteCar(null);
-        carDM.DeleteCar(null);
+        Mockito.doThrow(new DataAccessException("") {}).when(carDM).deleteCar(null);
+        carDM.deleteCar(null);
     }
     
     @Test

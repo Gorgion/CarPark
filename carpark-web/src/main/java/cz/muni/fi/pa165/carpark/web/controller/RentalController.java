@@ -170,14 +170,14 @@ public class RentalController
         {
             CarDto car = originalRental.getCar();
             car.setRented(true);
-            carService.EditCar(car);
+            carService.editCar(car);
         }
 
         if (rentalState.getState() == RentalDto.State.FINISHED)
         {
             CarDto car = originalRental.getCar();
             car.setRented(false);
-            carService.EditCar(car);
+            carService.editCar(car);
         }
 
         redirectAttributes.addFlashAttribute("msg", "msg.rental.edited");
@@ -203,7 +203,7 @@ public class RentalController
         if (car != null)
         {
             car.setRented(false);
-            carService.EditCar(car);
+            carService.editCar(car);
         }
         rentalService.delete(rental);
 

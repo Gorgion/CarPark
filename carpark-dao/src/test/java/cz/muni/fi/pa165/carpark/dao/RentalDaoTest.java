@@ -83,7 +83,7 @@ public class RentalDaoTest
 
     private void persistSampleOffice(Office office) {
         for (Car car : office.getCars()) {
-            carDao.AddCar(car);
+            carDao.addCar(car);
         }
         for (User user : office.getEmployees()) {
             userDao.add(user);

@@ -59,7 +59,7 @@ public class OfficeServiceImplTest
     {
         
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
-        officeDto.setID(1L);
+        officeDto.setId(1L);
         
         Office office = Converter.getEntity(officeDto);
           
@@ -67,13 +67,13 @@ public class OfficeServiceImplTest
         
         Mockito.verify(officeDaoMocked,Mockito.times(1)).addOffice(office);
         
-        Mockito.doReturn(office).when(officeDaoMocked).getOffice(office.getID());
+        Mockito.doReturn(office).when(officeDaoMocked).getOffice(office.getId());
         
         OfficeDto result = officeService.getOffice(1L);
         
         Assert.assertNotNull(result);
         Assert.assertEquals(officeDto, result);
-        Assert.assertEquals(officeDto.getID(), result.getID());
+        Assert.assertEquals(officeDto.getId(), result.getId());
         Assert.assertEquals(officeDto.getAddress(),result.getAddress());
         Assert.assertEquals(officeDto.getCars(),result.getCars());
         Assert.assertEquals(officeDto.getEmployees(),result.getEmployees());
@@ -85,7 +85,7 @@ public class OfficeServiceImplTest
     public void getOfficeEmployeesTest()
     {
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
-        officeDto.setID(1L);
+        officeDto.setId(1L);
         
         officeService.addOffice(officeDto);
         
@@ -106,7 +106,7 @@ public class OfficeServiceImplTest
     public void getOfficeCarsTest()
     {
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
-        officeDto.setID(1L);
+        officeDto.setId(1L);
         
         officeService.addOffice(officeDto);
         
@@ -127,11 +127,11 @@ public class OfficeServiceImplTest
     public void getAllOfficesTest()
     {
         OfficeDto office1 = TestUtils.createSampleDtoOffice();
-        office1.setID(1L);
+        office1.setId(1L);
         OfficeDto office2 = TestUtils.createSampleDtoOffice();
-        office1.setID(2L);
+        office1.setId(2L);
         OfficeDto office3 = TestUtils.createSampleDtoOffice();
-        office1.setID(3L);
+        office1.setId(3L);
         
         List<OfficeDto> offices = new ArrayList<>();
         offices.add(office1);
@@ -149,7 +149,7 @@ public class OfficeServiceImplTest
     public void deleteOfficeTest()
     {
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
-        officeDto.setID(1L);
+        officeDto.setId(1L);
         
         Office office = Converter.getEntity(officeDto);
         
@@ -176,7 +176,7 @@ public class OfficeServiceImplTest
         newCars.add(car2);
         
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
-        officeDto.setID(1L);
+        officeDto.setId(1L);
         Office office = Converter.getEntity(officeDto);
         
         Mockito.doNothing().when(officeDaoMocked).addOffice(office);
@@ -208,7 +208,7 @@ public class OfficeServiceImplTest
     public void addEmployeeToOfficeTest()
     {
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
-        officeDto.setID(1L);
+        officeDto.setId(1L);
         
         Office office = Converter.getEntity(officeDto);
         UserDto employeeDto = TestUtils.createSampleDtoUser();
@@ -234,7 +234,7 @@ public class OfficeServiceImplTest
     public void addCarToOfficeTest()
     {
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
-        officeDto.setID(1L);
+        officeDto.setId(1L);
         
         Office office = Converter.getEntity(officeDto);
         CarDto carDto = TestUtils.createSampleDtoCar();
@@ -245,7 +245,7 @@ public class OfficeServiceImplTest
         
         Mockito.doNothing().when(officeDaoMocked).addOffice(office);
         officeService.addOffice(officeDto);
-        Mockito.doReturn(1L).when(carDaoMocked).AddCar(Converter.getEntity(carDto));
+        Mockito.doReturn(1L).when(carDaoMocked).addCar(Converter.getEntity(carDto));
         officeService.addCarToOffice(officeDto, carDto);
          
         Mockito.doReturn(office).when(officeDaoMocked).getOffice(1L);
@@ -260,7 +260,7 @@ public class OfficeServiceImplTest
     public void deleteEmployeeFromOfficeTest()
     {
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
-        officeDto.setID(1L);
+        officeDto.setId(1L);
         
         Office office = Converter.getEntity(officeDto);
         
@@ -288,7 +288,7 @@ public class OfficeServiceImplTest
     public void deleteCarFromOfficeTest()
     {
         OfficeDto officeDto = TestUtils.createSampleDtoOffice();
-        officeDto.setID(1L);
+        officeDto.setId(1L);
         
         Office office = Converter.getEntity(officeDto);
         

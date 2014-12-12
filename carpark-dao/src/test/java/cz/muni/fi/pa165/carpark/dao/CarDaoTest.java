@@ -55,7 +55,7 @@ public class CarDaoTest {
         car.setType(Car.mType.COMBI);
         car.setVIN("SomeVIN");
         
-        carDao.AddCar(car);
+        carDao.addCar(car);
 
         Car secondCar = carDao.getCar(car.getID());
 
@@ -65,7 +65,7 @@ public class CarDaoTest {
     
     @Test(expected = DataAccessException.class)
     public void addCarWithNullTest(){
-        carDao.AddCar(null);
+        carDao.addCar(null);
     }
     
     @Test(expected = DataAccessException.class)
@@ -85,7 +85,7 @@ public class CarDaoTest {
         car.setType(Car.mType.HATCHBACK);
         car.setVIN("SomeVIN");
         
-        carDao.AddCar(car);
+        carDao.addCar(car);
         
         Car carForEditation = new Car();
         carForEditation.setBrand(Car.mBrand.SKODA_SUPERB);
@@ -96,7 +96,7 @@ public class CarDaoTest {
         car.setRented(Boolean.FALSE);
         carForEditation.setVIN("SomeOtherVIN");
         
-        carDao.EditCar(carForEditation);
+        carDao.editCar(carForEditation);
         
         Car carForCheck = new Car(); 
         carForCheck.setID(car.getID());
@@ -108,7 +108,7 @@ public class CarDaoTest {
     
     @Test(expected = DataAccessException.class)
     public void editCarWithNullTest(){
-        carDao.EditCar(null);
+        carDao.editCar(null);
     }
     
     @Test
@@ -122,9 +122,9 @@ public class CarDaoTest {
         car.setType(Car.mType.COMBI);
         car.setVIN("SomeVIN");
         
-        carDao.AddCar(car);
+        carDao.addCar(car);
         
-        carDao.DeleteCar(car);
+        carDao.deleteCar(car);
         
         Collection cars = carDao.getAllCars();
         
@@ -134,7 +134,7 @@ public class CarDaoTest {
     
     @Test(expected = DataAccessException.class)
     public void deleteCarWithNullTest(){
-        carDao.DeleteCar(null);
+        carDao.deleteCar(null);
     }
     
     @Test
@@ -158,9 +158,9 @@ public class CarDaoTest {
         car3.setRented(Boolean.FALSE);
         car3.setVIN("SomeVIN3");
         
-        carDao.AddCar(car1);
-        carDao.AddCar(car2);
-        carDao.AddCar(car3);
+        carDao.addCar(car1);
+        carDao.addCar(car2);
+        carDao.addCar(car3);
 
         Collection cars = carDao.getAllCars();
         
@@ -198,9 +198,9 @@ public class CarDaoTest {
         car3.setRented(Boolean.TRUE);
         car3.setVIN("SomeVIN3");
         
-        carDao.AddCar(car1);
-        carDao.AddCar(car2);
-        carDao.AddCar(car3);
+        carDao.addCar(car1);
+        carDao.addCar(car2);
+        carDao.addCar(car3);
         
         Collection cars = carDao.getRentedCars();
         
@@ -228,7 +228,7 @@ public class CarDaoTest {
         
         Car car = TestUtils.createCar(Car.mBrand.FORD_FOCUS, Car.mType.COMBI, Car.mEngine.PETROL, "4G5-PA161", "SomeVIN1", true);
         
-        carDao.AddCar(car);
+        carDao.addCar(car);
         
         User user1 = TestUtils.createUser("John", "User", "Somewhere", "432516/7894");
         
@@ -252,7 +252,7 @@ public class CarDaoTest {
         
         Car car = TestUtils.createCar(Car.mBrand.FORD_MONDEO, Car.mType.HATCHBACK, Car.mEngine.PETROL, "4G5-PA161", "SomeVIN1", true);
         
-        carDao.AddCar(car);
+        carDao.addCar(car);
         
         User user1 = TestUtils.createUser("John", "User", "Somewhere", "432516/7894");
         

@@ -151,7 +151,7 @@ public class UserDaoTest
         daoImpl.add(user3);
         daoImpl.add(user4);
 
-        carDao.AddCar(car);
+        carDao.addCar(car);
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR, 2);
@@ -187,7 +187,7 @@ public class UserDaoTest
         daoImpl.add(user3);
         daoImpl.add(user4);
 
-        carDao.AddCar(car);
+        carDao.addCar(car);
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR, 2);

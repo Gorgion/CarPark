@@ -35,7 +35,7 @@ public class OfficeServiceImpl implements OfficeService {
     public void addOffice(OfficeDto office) {
             Office officeEntity = Converter.getEntity(office);
             officeDao.addOffice(officeEntity);
-            office.setID(officeEntity.getID());
+            office.setId(officeEntity.getId());
     }
 
     @Transactional
@@ -74,7 +74,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public List<CarDto> getOfficeCars(OfficeDto office) {
             List<CarDto> officeCarsDto = new ArrayList<>();
-            List<Car> cars = new ArrayList<>(officeDao.getOfficeCars(officeDao.getOffice(office.getID())));
+            List<Car> cars = new ArrayList<>(officeDao.getOfficeCars(officeDao.getOffice(office.getId())));
             for (Car car : cars) {
                 officeCarsDto.add(Converter.getTransferObject(car));
             }          
@@ -101,7 +101,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public List<UserDto> getEmployees(OfficeDto office) {
             List<UserDto> officeEmployeesDto = new ArrayList<>();
-            List<User> employees = new ArrayList<>(officeDao.getEmployees(officeDao.getOffice(office.getID())));
+            List<User> employees = new ArrayList<>(officeDao.getEmployees(officeDao.getOffice(office.getId())));
             for (User employee : employees) {
                 officeEmployeesDto.add(Converter.getTransferObject(employee));
             }       

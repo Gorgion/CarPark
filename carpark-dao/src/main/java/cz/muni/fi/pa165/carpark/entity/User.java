@@ -30,7 +30,7 @@ public class User implements Serializable {
     
     @Id    
     @GeneratedValue
-    private Long Id;
+    private Long id;
     
     @Column(nullable = false)
     private String firstName;
@@ -48,13 +48,13 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" + "Id=" + Id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthNumber=" + birthNumber + ", address=" + address + '}';
+        return "User{" + "Id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthNumber=" + birthNumber + ", address=" + address + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 29 * hash + Objects.hashCode(this.Id);
+        hash = 29 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -70,7 +70,7 @@ public class User implements Serializable {
             return false;
         }
         final User other = (User) obj;
-        if (!Objects.equals(this.Id, other.Id))
+        if (!Objects.equals(this.id, other.id))
         {
             return false;
         }
@@ -79,11 +79,11 @@ public class User implements Serializable {
     
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long Id) {
-        this.Id = Id;
+        this.id = Id;
     }
 
     public String getFirstName() {

@@ -27,7 +27,7 @@ public class Office implements Serializable {
     
     @Id
     @GeneratedValue
-    private Long iD;
+    private Long id;
     
     @Column(nullable = false)
     private String address;
@@ -44,15 +44,15 @@ public class Office implements Serializable {
     /**
      * @return the id
      */
-    public Long getID() {
-	return this.iD;
+    public Long getId() {
+	return this.id;
     }
 
     /**
      * @param iD the id to set
      */
-    public void setID(Long iD) {
-	this.iD = iD;
+    public void setId(Long iD) {
+	this.id = iD;
     }
 
     /**
@@ -120,19 +120,19 @@ public class Office implements Serializable {
             return false;
         }
         final Office office = (Office) obj;
-        return Objects.equals(this.iD, office.iD);
+        return Objects.equals(this.id, office.id);
     }
 
     @Override
     public int hashCode(){
         int hash = 5;
-        hash = 79 * hash + Objects.hashCode(this.iD);        
+        hash = 79 * hash + Objects.hashCode(this.id);        
         return hash;
     }
 
     @Override
     public String toString(){
-        String string = "Addresss of office with id " + iD + " is: " + address + ". ";
+        String string = "Addresss of office with id " + id + " is: " + address + ". ";
         string = string.concat("Manager is " + manager + ". ");
         string = string.concat("Office cars are: " + cars + ", office employess are: " + employees);
         return string;

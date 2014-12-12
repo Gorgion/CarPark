@@ -22,7 +22,7 @@ public interface CarDao
          * 
          * @param car 
          */
-        public Long AddCar(Car car);
+        public Long addCar(Car car);
 
         /**
          * Return Car entity by given id.
@@ -37,14 +37,14 @@ public interface CarDao
          * 
          * @param car 
          */
-	public void EditCar(Car car);
+	public void editCar(Car car);
 
         /**
          * Delete car by given car entity.
          * 
          * @param car 
          */
-	public void DeleteCar(Car car);
+	public void deleteCar(Car car);
 
         /**
          * Return all Car entities.

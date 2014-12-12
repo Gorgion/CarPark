@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 public class UserDto {
 
-    private Long Id;
+    private Long id;
     private String firstName;
     private String lastName;        
     private String birthNumber;
@@ -21,11 +21,11 @@ public class UserDto {
     private OfficeDto officeDto;
     
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long Id) {
-        this.Id = Id;
+        this.id = Id;
     }
 
     public String getFirstName() {
@@ -77,7 +77,7 @@ public class UserDto {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 37 * hash + Objects.hashCode(this.Id);
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -90,7 +90,7 @@ public class UserDto {
             return false;
         }
         final UserDto other = (UserDto) obj;
-        if (!Objects.equals(this.Id, other.Id))
+        if (!Objects.equals(this.id, other.id))
         {
             return false;
         }
@@ -99,7 +99,7 @@ public class UserDto {
 
     @Override
     public String toString() {
-        return "UserDto{" + "Id=" + Id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthNumber=" + birthNumber + ", address=" + address + '}';
+        return "UserDto{" + "Id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthNumber=" + birthNumber + ", address=" + address + '}';
     }
 
 

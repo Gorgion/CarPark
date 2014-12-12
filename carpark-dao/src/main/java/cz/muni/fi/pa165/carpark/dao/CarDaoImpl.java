@@ -27,7 +27,7 @@ public class CarDaoImpl implements CarDao
     private EntityManager em;
 
     @Override
-    public Long AddCar(Car car)
+    public Long addCar(Car car)
     {
         if(car == null)
         {
@@ -55,7 +55,7 @@ public class CarDaoImpl implements CarDao
     }
 
     @Override
-    public void EditCar(Car car)
+    public void editCar(Car car)
     {
         if(car == null)
             throw new IllegalArgumentException("Car cannot be null!");
@@ -64,7 +64,7 @@ public class CarDaoImpl implements CarDao
     }
 
     @Override
-    public void DeleteCar(Car car)
+    public void deleteCar(Car car)
     {
         if(car == null)
             throw new IllegalArgumentException("Car cannot be null!");
