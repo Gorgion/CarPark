@@ -44,17 +44,30 @@ public class RestUserController
     public ResponseEntity<List<RestUserDto>> list()
     {
         List<RestUserDto> users = new ArrayList<>();
-        for(UserDto userDto : userService.getAll())
+        for (UserDto userDto : userService.getAll())
         {
             RestUserDto restUser = new RestUserDto(userDto.getId(), userDto.getFirstName(), userDto.getLastName(), userDto.getBirthNumber(), userDto.getAddress());
             RestOfficeDto restOffice = new RestOfficeDto(userDto.getOfficeDto().getID(), userDto.getOfficeDto().getAddress());
-            
+
             restUser.setOffice(restOffice);
-            
+
             users.add(restUser);
         }
 
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @JsonView(JsonViews.Users.class)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+    public ResponseEntity<RestUserDto> getEntity(@PathVariable Long id)
+    {
+        UserDto userDto = userService.get(id);
+        RestUserDto restUser = new RestUserDto(userDto.getId(), userDto.getFirstName(), userDto.getLastName(), userDto.getBirthNumber(), userDto.getAddress());
+        RestOfficeDto restOffice = new RestOfficeDto(userDto.getOfficeDto().getID(), userDto.getOfficeDto().getAddress());
+
+        restUser.setOffice(restOffice);
+
+        return new ResponseEntity<>(restUser, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)

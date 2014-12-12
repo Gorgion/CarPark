@@ -95,6 +95,47 @@ public class RestOfficeController
         return new ResponseEntity<>(offices, HttpStatus.OK);
     }
 
+    @JsonView(JsonViews.Offices.class)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+    public ResponseEntity<RestOfficeDto> getEntity(@PathVariable Long id) throws JsonProcessingException
+    {
+        OfficeDto office = officeService.getOffice(id);
+        RestOfficeDto restOffice = new RestOfficeDto(office.getID(), office.getAddress());
+        List<RestUserDto> restUsers = new ArrayList<>();
+
+        if (office.getManager() != null)
+        {
+            RestUserDto manager = new RestUserDto();
+
+            manager.setId(office.getManager().getId());
+            manager.setAddress(office.getManager().getAddress());
+            manager.setBirthNumber(office.getManager().getBirthNumber());
+            manager.setFirstName(office.getManager().getFirstName());
+            manager.setLastName(office.getManager().getLastName());
+            manager.setOffice(restOffice);
+
+            restOffice.setManager(manager);
+        }
+
+        for (UserDto emp : office.getEmployees())
+        {
+            RestUserDto rud = new RestUserDto();
+
+            rud.setId(emp.getId());
+            rud.setAddress(emp.getAddress());
+            rud.setBirthNumber(emp.getBirthNumber());
+            rud.setFirstName(emp.getFirstName());
+            rud.setLastName(emp.getLastName());
+            rud.setOffice(restOffice);
+
+            restUsers.add(rud);
+        }
+
+        restOffice.setEmployees(restUsers);
+
+        return new ResponseEntity<>(restOffice, HttpStatus.OK);
+    }
+
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public ResponseEntity<OfficeForm> createOffice(@Valid @RequestBody OfficeForm officeForm)
     {
