@@ -92,7 +92,7 @@
                                 "<form action='http://localhost:8085/pa165/client/office/delete' method='GET' class='form-inline' style='display: inline-block;'>"+
                                 "    <button type='submit' onclick='deleteOffice("+office.id+")' name='delete' class='btn btn-danger'><span class='glyphicon glyphicon-remove' /></button>"+
                                 "</form>"     
-                            ));//.appendTo(actRow);
+                            ));
                         });
                         
                         table.append("</tbody></table>");

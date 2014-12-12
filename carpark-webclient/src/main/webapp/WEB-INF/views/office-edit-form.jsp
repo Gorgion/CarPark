@@ -1,7 +1,7 @@
 <%-- 
     Document   : office-form
-    Created on : 24.11.2014, 11:57:34
-    Author     : Karolina Burska
+    Created on : 12.12.2014
+    Author     : Jiri Dockal
 --%>
 
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" session="false"%>
@@ -10,64 +10,103 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-
-<title>Edit Office</title>
-<custom:layout title="${title}">    
+<custom:layout title="Edit Office">    
     <jsp:attribute name="content">
-        <c:if test="${not empty msg}">
-            <div class="alert alert-success alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    &times;
-                </button>
-                ${msg}
-            </div>
-        </c:if>
-        <c:if test="${not empty error}">
-            <div class="alert alert-danger alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    &times;
-                </button>
-                ${error}
-            </div>
-        </c:if>
-        <c:url var="editOfficeUrl" value="/auth/office/${id}/edit" />
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                &times;
+            </button>
+        </div>
         
-        <form:form action="${editOfficeUrl}" method="POST" modelAttribute="officeEditForm" class="form-horizontal">
-            <c:set var="addressError"><form:errors path="address" /></c:set>
-            <c:set var="managerIdError"><form:errors path="managerId"/></c:set>
-            <c:if test="${not empty addressError}">
-                    <c:set var="addressStyle" value="has-error has-feedback" />
-                </c:if> 
-            <div class="form-group ${addressStyle}"> 
-                <form:label path="address" cssClass="control-label col-sm-2">Address</form:label>
-               <div class="col-sm-6">
-                <form:input path="address" cssClass="form-control"/>
-                <c:if test="${not empty addressError}">
-                    <p class="text-danger">Address&nbsp;<form:errors path="address" /></p>
-                </c:if>
-               </div>
+        <div class="form-group"> 
+            <label class="control-label col-sm-2">Address:</label>
+            <div class="col-sm-6">
+                <input id="address" class="form-control"/>
             </div>
+        </div>
+        
+        <div class="form-group"> 
+            <label class="control-label col-sm-2">Manager:</label>
+            <div class="col-sm-6">
+                <select class="form-control" id="managerId" ></select>
+            </div>    
+        </div>
+        <div class="col-sm-offset-2 col-sm-10">      
+            <button type="button" class="btn btn-success" onclick="editOffice()">Edit</button>
+            <button type="button" class="btn btn-default" onclick="window.location.href='/pa165/client/office'">Cancel</button>
+        </div>
+    </jsp:attribute>  
+    <jsp:attribute name="ajaxScript">
+        <script type="text/javascript">
+            url = document.URL;
+            urlId = url.substring(0,url.lastIndexOf("/edit"));
+            var ID = urlId.substring(urlId.lastIndexOf("/")+1);
             
-            <div class="form-group ${not empty managerIdError ? 'has-error' : ''}"> 
-                <form:label path="managerId" cssClass="control-label col-sm-2">Manager</form:label>
-                    <div class="col-sm-6">
-                <form:select path="managerId" class="form-control" id="managerId" >
-                        <form:option value="">&nbsp;</form:option>
-                        <c:forEach items="${managerId}" var="man">    
-                           
-                                    <form:option value="${man.id}" label="${man.firstName} ${man.lastName}, ID: ${man.id}"/>
-                               
-
-                        </c:forEach>
-                    </form:select>
-                    <div class="col-sm-5 help-block">${managerIdError}</div>     
-                </div>    
-            </div>
-            <div class="pull-right col-sm-6 ">      
-                <button type="submit" class="btn btn-success">Edit</button>
-                <button type="button" class="btn btn-default" onclick="window.location.href='/pa165/auth/office'">Cancel</button>
-            </div>
-        </form:form>
-     </jsp:attribute>        
+            //var ID = document.URL.split("/")[6];
+            $(document).ready(function(){
+                $(".alert-danger").hide();
+                var spinner = getSpinner();
+                $.ajax({
+                    type: "GET",
+                    dataType:"json",
+                    url: "http://localhost:8080/pa165/rest/offices/"+ID,
+                    success: function(data){
+                        $("#address").val(data.address);
+                        
+                        var sel = $("#managerId");
+                        $.each(data.employees,function(i,employee)
+                        {   
+                            var opt = document.createElement('option');
+                            opt.innerHTML = employee.firstName + " " + employee.lastName;
+                            opt.value = employee.Id;
+                            sel.append(opt);
+                        });
+                        spinner.remove()
+                    },
+                    error: function(xhr,textStatus,errorThrown){
+                        spinner.remove();                       
+                        alert("fail\n"+errorThrown);
+                    }
+                });
+            });
+            
+            
+            function editOffice(){
+                var spinner = getSpinner();
+                
+                var address = $("#address").val();
+                $.ajax({
+                    type: "PUT",
+                    data: JSON.stringify({"address": address}),
+                    //dataType: 'json',
+                    contentType: "application/json",
+                    url: "http://localhost:8080/pa165/rest/offices/"+ID,
+                    success: function(){
+                        window.location.href='/pa165/client/office';
+                    },
+                    error: function(xhr){
+                        if (xhr.status == 400)
+                        {
+                            $.each(xhr.responseJSON.fieldErrors,function(i,field)
+                            {
+                                $("#"+field.field.toString()).parent().parent().addClass("has-error");
+                            });
+                            $(".alert-danger").show().append("Can't be blank!");
+                        }
+                        if (xhr.status == 500)
+                            window.location.href='/pa165/client/500';
+                    },
+                    fail: function(xhr,textStatus,errorThrown){
+                        $(".alert-danger").show().append("Office couldn't be created because of:\n."+errorThrown);
+                    },   
+                    complete: function(){
+                        spinner.remove();
+                    }
+                    
+                });
+            };
+            
+        </script>
+    </jsp:attribute>
 </custom:layout>           
 

@@ -31,9 +31,12 @@ $('#carDetails').on('show.bs.modal', function (event) {
 });
 
 window.setTimeout(function() {
-    $(".alert-dismissable").fadeTo(500, 0).slideUp(500, function(){
-        $(".alert-dismissable").alert('close');
-    });
+    if($(".alert-dismissable").css("display") != "none")
+    {
+        $(".alert-dismissable").fadeTo(500, 0).slideUp(500, function(){
+            $(".alert-dismissable").alert('close');
+        });
+    }
 },30000);
 
 function ajaxLoader (el, options) {
