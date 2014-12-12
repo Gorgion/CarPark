@@ -9,31 +9,25 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:set var="req" value="${pageContext.request}" />
-
 <custom:layout title="Offices">    
     <jsp:attribute name="content">
         <div id="tableContent" class="row">
-            <a href="<c:url value="/office/add" />" class="btn btn-success">Add</a>
+            <a href="http://localhost:8085/pa165/client/office/add" class="btn btn-success">Add</a>
             <hr class="divider" />
-            <c:if test="${not empty error}" >
-                <div class="alert alert-danger alert-dismissable">
+            
+                <div class="alert alert-danger alert-dismissable" style="display:none;">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                         &times;
                     </button>
-                    ${error}
                 </div>
-            </c:if>
+            
 
 
-            <c:if test="${not empty msg}" >
-                <div class="alert alert-success alert-dismissable">
+            <div class="alert alert-success alert-dismissable" style="display:none;">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                         &times;
                     </button>
-                    ${msg}
-                </div>
-            </c:if>
+            </div>
             
         </div>
         <custom:delete-dialog key="office"></custom:delete-dialog>
@@ -57,7 +51,7 @@
             </div>
         </custom:modal-dialog>  
     </jsp:attribute>
-    <jsp:attribute name="ajaxGetter">
+    <jsp:attribute name="ajaxScript">
         <script type="text/javascript">
             $(document).ready(function(){
                 var spinner = getSpinner();
@@ -86,14 +80,17 @@
                             .append($('<td/>').text(office.address))
                             .append($('<td/>').text(office.manager !== null ? office.manager.lastName : ""));
                             
+                            textInTd = "";
                             $.each(office.employees,function(j,employee){
-                                $('<td/>').text(employee.lastName).appendTo(actRow);
+                                textInTd += employee.lastName+"\n";
                             });
                             
+                            $('<td/>').text(textInTd).appendTo(actRow);
+                    
                             actRow.append($('<td/>').append(
-                                "<a href="+"http://localhost:8085/pa165/client"+"/office/"+office.id+"/edit"+" class='btn btn-info'><span class='glyphicon glyphicon-edit' /></a>"+
-                                "<form action="+"http://localhost:8085/pa165/client"+"/office/"+office.id+"/delete"+" method='POST' class='form-inline' style='display: inline-block;'>"+
-                                "    <button type='submit' name='delete' class='btn btn-danger'><span class='glyphicon glyphicon-remove' /></button>"+
+                                "<a href="+"http://localhost:8085/pa165/client/office/"+office.id+"/edit"+" class='btn btn-info'><span class='glyphicon glyphicon-edit' /></a>"+
+                                "<form action='http://localhost:8085/pa165/client/office/delete' method='GET' class='form-inline' style='display: inline-block;'>"+
+                                "    <button type='submit' onclick='deleteOffice("+office.id+")' name='delete' class='btn btn-danger'><span class='glyphicon glyphicon-remove' /></button>"+
                                 "</form>"     
                             ));//.appendTo(actRow);
                         });
@@ -107,6 +104,25 @@
                     }
                 });
             });
+            
+            function deleteOffice(id)
+            {
+                var spinner = getSpinner();
+                $.ajax({
+                    type: "DELETE",
+                    dataType:"json",
+                    url: "http://localhost:8080/pa165/rest/offices/"+id,
+                    success: function(){
+                        $(".alert-success").show().append("Office with id "+id+" was deleted.");
+                        spinner.remove();
+                    },  
+                    error: function(xhr,textStatus,errorThrown){
+                        spinner.remove();
+                        $(".alert-danger").show().append("Office with id "+id+" couldn't be deleted because of:\n."+errorThrown);
+                    }
+                    
+                });
+            };
 
         </script>
     </jsp:attribute>

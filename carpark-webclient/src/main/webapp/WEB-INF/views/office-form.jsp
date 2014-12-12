@@ -1,7 +1,7 @@
 <%-- 
     Document   : office-form
-    Created on : 24.11.2014, 11:57:34
-    Author     : Karolina Burska
+    Created on : 12.12.2014
+    Author     : Jiri Dockal
 --%>
 
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" session="false"%>
@@ -11,43 +11,42 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
-<title>Add office</title>
-<custom:layout title="${title}">    
+<custom:layout title="Add office">    
     <jsp:attribute name="content">
-        <c:url var="addOfficeUrl" value="/auth/office/add" />
-        <c:if test="${not empty msg}">
-            <div class="alert alert-success alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    &times;
-                </button>
-                ${msg}
+        <div class="alert alert-danger alert-dismissable" style="display:none;">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                &times;
+            </button>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Address:</label>
+            <div class="col-sm-5">
+                <input type="text" name="address" cssClass="form-control"/>
+                    <p class="help-block">Address&nbsp;</p>
+
             </div>
-        </c:if>
-        <c:if test="${not empty error}">
-            <div class="alert alert-danger alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    &times;
-                </button>
-                ${error}
-            </div>
-        </c:if>
-        <form:form action="${addOfficeUrl}" method="POST" modelAttribute="officeForm" class="form-horizontal">
-            <c:set var="addressError"><form:errors path="address" /></c:set> 
-            <c:if test="${not empty addressError}"><c:set var="addressStyle" value="has-error has-feedback" /></c:if>             
-            <div class="form-group ${addressStyle}">
-                <form:label path="address" cssClass="col-sm-2 control-label">Address:</form:label>
-                <div class="col-sm-5">
-                    <form:input path="address" cssClass="form-control"/>
-                    <c:if test="${not empty addressError}">
-                        <p class="text-danger">Address&nbsp;<form:errors path="address" /></p>
-                    </c:if>
-                </div>
-            </div>
-            <div class="col-sm-offset-2 col-sm-10">                
-                <button type="submit" class="btn btn-success">Add</button>
-                <button type="button" class="btn btn-default" onclick="window.location.href='/pa165/auth/office'">Cancel</button>
-            </div>
-            </form:form>
-     </jsp:attribute>        
+        </div>
+        <div class="col-sm-offset-2 col-sm-10">                
+            <button onclick="addOffice()" type="button" class="btn btn-success">Add</button>
+            <button type="button" class="btn btn-default" onclick="window.location.href='/pa165/client/office'">Cancel</button>
+        </div>
+     </jsp:attribute>
+    <jsp:attribute name="ajaxScript">
+        <script type="text/javascript">
+            function addOffice(){
+                /*var spinner = getSpinner();
+                $.ajax({
+                    type: "POST",
+                    dataType:"json",
+                    url: "http://localhost:8080/pa165/rest/offices"+,
+                    success: function(data){
+                        spinner.remove();
+                    }
+                });*/
+                alert("add ");
+            };
+            
+        </script>
+    </jsp:attribute>
 </custom:layout>           
 

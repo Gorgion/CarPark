@@ -12,7 +12,7 @@
 <%@attribute name="title" required="true" %>
 <%@attribute name="head" fragment="true" %>
 <%@attribute name="content" fragment="true" required="true" %>
-<%@attribute name="ajaxGetter" fragment="true" required="true" %>
+<%@attribute name="ajaxScript" fragment="true" required="true" %>
 
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -125,6 +125,6 @@
                 });
             });
         </script>
-        <jsp:invoke fragment="ajaxGetter"/>
+        <jsp:invoke fragment="ajaxScript"/>
     </body>
 </html>

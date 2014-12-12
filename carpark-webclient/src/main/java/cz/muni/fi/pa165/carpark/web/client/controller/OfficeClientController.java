@@ -32,97 +32,19 @@ public class OfficeClientController {
         return "office-list";
     }
 
-//    @RequestMapping(value = "/add", method = RequestMethod.GET)
-//    public String handleRequest(Model model) {
-//        model.addAttribute("officeForm", new OfficeForm());
-//        return "office-form";
-//    }
-//
-//    @RequestMapping(value = "/add", method = {RequestMethod.POST, RequestMethod.PUT})
-//    public String processSubmit(@Valid @ModelAttribute("officeForm") OfficeForm officeForm, final BindingResult result, Model model, RedirectAttributes attributes) {
-//        if (result.hasErrors()) {
-//            attributes.addFlashAttribute("error", "error.office.created");
-//            return "office-form";
-//        }
-//
-//        for (OfficeDto o : officeService.getAllOffices()) {
-//            if (o.getAddress().equals(officeForm.getAddress())) {
-//                attributes.addFlashAttribute("error", "error.office.created");
-//                return "office-form";
-//            }
-//        }
-//
-//        String address = officeForm.getAddress();
-//        UserDto manager = null;
-//        List<UserDto> employees = Collections.EMPTY_LIST;
-//        List<CarDto> cars = Collections.EMPTY_LIST;
-//
-//        OfficeDto office = new OfficeDto(address, manager, employees, cars);
-//        officeService.addOffice(office);
-//        attributes.addFlashAttribute("msg", "msg.office.created");
-//
-//        return "redirect:/auth/office";
-//    }
-//
-//    @RequestMapping(value = "/{id}/delete", method = {RequestMethod.POST, RequestMethod.DELETE})
-//    public String officeDeletion(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-//        OfficeDto office = officeService.getOffice(id);
-//
-//        if (office == null) {
-//            redirectAttributes.addFlashAttribute("error", "error.office.deleted");
-//        }
-//
-//        officeService.deleteOffice(office);
-//
-//        redirectAttributes.addFlashAttribute("msg", "msg.office.deleted");
-//
-//        return "redirect:/auth/office";
-//    }
-//
-//    @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-//    public String editOffice(@PathVariable Long id, Model model) {
-//        OfficeDto office = officeService.getOffice(id);
-//        OfficeEditForm officeEditForm = new OfficeEditForm();
-//
-//        if (office.getEmployees().isEmpty()) {
-//            model.addAttribute("error", "error.office.noemployees");
-//        }
-//        officeEditForm.setAddress(office.getAddress());
-//
-//        if (office.getManager() != null) {
-//            officeEditForm.setManagerId(office.getManager().getId());
-//        }
-//
-//        model.addAttribute("officeEditForm", officeEditForm);
-//        model.addAttribute("managerId", officeService.getEmployees(office));
-//
-//        return "office-edit-form";
-//    }
-//
-//    @RequestMapping(value = "/{id}/edit", method = {RequestMethod.POST, RequestMethod.PUT})
-//    public String officeEdition(@PathVariable Long id, @Valid @ModelAttribute OfficeEditForm officeEditForm, final BindingResult result, Model model, RedirectAttributes redirectAttributes) {
-//        OfficeDto office = officeService.getOffice(id);
-//
-//        if (result.hasErrors()) {
-//            redirectAttributes.addFlashAttribute("error", "error.office.edit");
-//            model.addAttribute("officeEditForm", officeEditForm);
-//            model.addAttribute("managerId", officeService.getEmployees(office));
-//            return "office-edit-form";
-//        }
-//        if (officeEditForm.getManagerId() == null) {
-//            redirectAttributes.addFlashAttribute("error", "error.office.edit");
-//            model.addAttribute("officeEditForm", officeEditForm);
-//            model.addAttribute("managerId", officeService.getEmployees(office));
-//            return "office-edit-form";
-//        }
-//        
-//        office.setAddress(officeEditForm.getAddress());
-//
-//        office.setManager(userService.get(officeEditForm.getManagerId()));
-//
-//        officeService.editOffice(office);
-//
-//        redirectAttributes.addFlashAttribute("msg", "msg.office.edit");
-//        return "redirect:/auth/office";
-//    }
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String handleRequest() {
+        return "office-form";
+    }
+
+    @RequestMapping(value = "/delete", method = {RequestMethod.GET})//, RequestMethod.DELETE})
+    public String officeDeletion() {
+        return "redirect:/office";
+    }
+
+    @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
+    public String editOffice(@PathVariable Long id, Model model) {
+        return "office-edit-form";
+    }
+
 }
