@@ -91,12 +91,12 @@ public class Car implements Serializable
         this.engine = engine;
     }
 
-    public Long getID()
+    public Long getId()
     {
         return id;
     }
 
-    public void setID(Long id)
+    public void setId(Long id)
     {
         this.id = id;
     }

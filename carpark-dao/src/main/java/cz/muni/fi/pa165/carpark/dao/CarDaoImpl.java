@@ -36,7 +36,7 @@ public class CarDaoImpl implements CarDao
         
         em.persist(car);
         //em.flush();
-        return car.getID();
+        return car.getId();
     }
 
     @Override
@@ -69,7 +69,7 @@ public class CarDaoImpl implements CarDao
         if(car == null)
             throw new IllegalArgumentException("Car cannot be null!");
         
-        em.remove(em.find(Car.class, car.getID()));
+        em.remove(em.find(Car.class, car.getId()));
     }
 
     @Override

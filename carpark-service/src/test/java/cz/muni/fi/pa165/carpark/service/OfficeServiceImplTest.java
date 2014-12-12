@@ -166,9 +166,9 @@ public class OfficeServiceImplTest
     public void editOfficeTest()
     {
         CarDto car1 = TestUtils.createSampleDtoCar();
-        car1.setID(5L);
+        car1.setId(5L);
         CarDto car2 = TestUtils.createSampleDtoCar();
-        car1.setID(55L);
+        car1.setId(55L);
         
         
         List<CarDto> newCars = new ArrayList<>();       

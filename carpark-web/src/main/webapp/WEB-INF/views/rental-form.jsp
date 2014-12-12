@@ -86,7 +86,7 @@
                             <form:hidden path="from"  />
                             <form:hidden path="to" />
 
-                            <form:hidden path="carId" value="${car.ID}"/>
+                            <form:hidden path="carId" value="${car.id}"/>
                             <button type="submit" class="btn btn-success"><fmt:message key="btn.rentCar" /></button>
                         </form:form>
                     </div>

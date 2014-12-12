@@ -166,7 +166,7 @@ public class CarController {
         try
         {
             carId = carService.addCar(car);
-            car.setID(carId);
+            car.setId(carId);
         }
         catch(CarAlreadyExists ex)
         {

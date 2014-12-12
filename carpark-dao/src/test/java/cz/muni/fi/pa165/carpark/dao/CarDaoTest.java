@@ -57,7 +57,7 @@ public class CarDaoTest {
         
         carDao.addCar(car);
 
-        Car secondCar = carDao.getCar(car.getID());
+        Car secondCar = carDao.getCar(car.getId());
 
         Assert.assertNotNull(secondCar);
         Assert.assertEquals(car, secondCar);
@@ -91,7 +91,7 @@ public class CarDaoTest {
         carForEditation.setBrand(Car.mBrand.SKODA_SUPERB);
         carForEditation.setEngine(Car.mEngine.DIESEL);
         carForEditation.setType(Car.mType.SEDAN);
-        carForEditation.setID(car.getID());
+        carForEditation.setId(car.getId());
         carForEditation.setLicencePlate("differentLicencePlate");
         car.setRented(Boolean.FALSE);
         carForEditation.setVIN("SomeOtherVIN");
@@ -99,7 +99,7 @@ public class CarDaoTest {
         carDao.editCar(carForEditation);
         
         Car carForCheck = new Car(); 
-        carForCheck.setID(car.getID());
+        carForCheck.setId(car.getId());
         
         Assert.assertNotNull(carForCheck);
         Assert.assertEquals(carForCheck, carForEditation);

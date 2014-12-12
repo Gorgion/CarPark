@@ -76,7 +76,7 @@
                 <div class="col-sm-5">
                     <form:select path="idOffice" class="form-control" >
                         <c:forEach items="${offices}" var="off">    
-                            <form:option path="idOffice" value="${off.ID}" label="${off.address}" />
+                            <form:option path="idOffice" value="${off.id}" label="${off.address}" />
                         </c:forEach>
                     </form:select>
                 </div>

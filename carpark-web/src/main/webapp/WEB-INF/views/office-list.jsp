@@ -48,7 +48,7 @@
                 <tbody>
                     <c:forEach items="${offices}" var="office" varStatus="status">
                         <tr>
-                            <td>${office.ID}</td>
+                            <td>${office.id}</td>
                             <td>${office.address}</td>
                             <td>${office.manager.firstName} ${office.manager.lastName}
                                 <!--
@@ -69,8 +69,8 @@
                                 </c:forEach>
                             </td>
                             <td>
-                                <a href='<c:url value="/auth/office/${office.ID}/edit" />' class="btn btn-info"><span class="glyphicon glyphicon-edit" /></a>
-                                <form action="<c:url value="/auth/office/${office.ID}/delete" />" method="POST" class="form-inline" style="display: inline-block;">
+                                <a href='<c:url value="/auth/office/${office.id}/edit" />' class="btn btn-info"><span class="glyphicon glyphicon-edit" /></a>
+                                <form action="<c:url value="/auth/office/${office.id}/delete" />" method="POST" class="form-inline" style="display: inline-block;">
                                     <button type="submit" name="delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove" /></button>
                                 </form>                            
                             </td>

@@ -34,7 +34,7 @@ public class OfficeDaoImpl implements OfficeDao {
         if (office == null) {
             throw new IllegalArgumentException("Office is null.");
         }
-        if (office.getID() != null) {
+        if (office.getId() != null) {
             throw new IllegalArgumentException("Office is already added.");
         }
 
@@ -44,10 +44,10 @@ public class OfficeDaoImpl implements OfficeDao {
     @Override
     public Office getOffice(Long id) {
         if (id == null) {
-            throw new IllegalArgumentException("ID is null.");
+            throw new IllegalArgumentException("Id is null.");
         }
         if (id <= 0) {
-            throw new IllegalArgumentException("ID is less than 0.");
+            throw new IllegalArgumentException("Id is less than 0.");
         }
 
         Office office = em.find(Office.class, id);
@@ -70,7 +70,7 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new IllegalArgumentException("Office is null.");
         }
 
-        Office toDelete = em.find(Office.class, office.getID());
+        Office toDelete = em.find(Office.class, office.getId());
         em.remove(toDelete);
     }
 
@@ -88,8 +88,8 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new IllegalArgumentException("Office is null.");
         }
         
-        List<Car> cars = em.createQuery("SELECT o.cars FROM Office o WHERE o.iD = :officeid")
-                    .setParameter("officeid", office.getID())
+        List<Car> cars = em.createQuery("SELECT o.cars FROM Office o WHERE o.id = :officeid")
+                    .setParameter("officeid", office.getId())
                     .getResultList();
         
         
@@ -105,9 +105,9 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new IllegalArgumentException("Car is null.");
         }
 
-        car = em.find(Car.class, car.getID());//merge(car);
+        car = em.find(Car.class, car.getId());//merge(car);
 
-        List<Car> actualCars = getOffice(office.getID()).getCars();
+        List<Car> actualCars = getOffice(office.getId()).getCars();
         if(actualCars == null)
             actualCars = new ArrayList<Car>();
         actualCars.add(car);
@@ -125,7 +125,7 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new IllegalArgumentException("Car is null.");
         }
 
-        List<Car> actualCars = getOffice(office.getID()).getCars();
+        List<Car> actualCars = getOffice(office.getId()).getCars();
         actualCars.remove(car);
         office.setCars(actualCars);
 
@@ -139,7 +139,7 @@ public class OfficeDaoImpl implements OfficeDao {
         }
 
         List<User> users = em.createQuery("SELECT o.employees FROM Office o WHERE o.id =:officeId")
-                    .setParameter("officeId", office.getID())
+                    .setParameter("officeId", office.getId())
                     .getResultList();
 
         return Collections.unmodifiableList(users);
@@ -156,7 +156,7 @@ public class OfficeDaoImpl implements OfficeDao {
 
         user = em.find(User.class,user.getId());
 
-        List<User> actualEmployees = getOffice(office.getID()).getEmployees();
+        List<User> actualEmployees = getOffice(office.getId()).getEmployees();
         if (actualEmployees == null)
             actualEmployees = new ArrayList<User>();
         
@@ -176,7 +176,7 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new IllegalArgumentException("User is null.");
         }
 
-        List<User> employees = getOffice(office.getID()).getEmployees();
+        List<User> employees = getOffice(office.getId()).getEmployees();
         employees.remove(user);
         office.setEmployees(employees);
 

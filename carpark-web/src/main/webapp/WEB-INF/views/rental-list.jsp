@@ -52,7 +52,7 @@
                             <td><fmt:formatDate value="${rental.toDate}" type="DATE"/></td>
                             <td>
                                 <a href="#" class="btn-link" data-toggle="modal" data-target="#carDetails"
-                                   data-car-id="${rental.car.ID}" data-car-brand="<fmt:message key="car.brand.${rental.car.brand}"/>" data-car-type="<fmt:message key="car.type.${rental.car.type}" />"
+                                   data-car-id="${rental.car.id}" data-car-brand="<fmt:message key="car.brand.${rental.car.brand}"/>" data-car-type="<fmt:message key="car.type.${rental.car.type}" />"
                                    data-car-engine="<fmt:message key="car.engine.${rental.car.engine}" />" 
                                    data-car-licencePlate="${rental.car.licencePlate}"><fmt:message key="car.details"/></a>
                             </td>

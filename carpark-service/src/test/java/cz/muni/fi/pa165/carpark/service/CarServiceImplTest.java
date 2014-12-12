@@ -43,7 +43,7 @@ public class CarServiceImplTest {
     @Test
     public void addNewCarTest() { 
         CarDto carDto = new CarDto(CarDto.mBrand.SKODA_FABIA, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "LP", "VIN", false, null);
-        carDto.setID(1L);
+        carDto.setId(1L);
         
         Car car = Converter.getEntity(carDto);
         
@@ -51,11 +51,11 @@ public class CarServiceImplTest {
 
         carService.addCar(carDto);
 
-        carDto.setID(car.getID());
+        carDto.setId(car.getId());
 
         Mockito.doReturn(car).when(carDM).getCar(carDto.getId());
 
-        CarDto actualDto = carService.getCar(car.getID());
+        CarDto actualDto = carService.getCar(car.getId());
         
         Assert.assertNotNull(actualDto);
         Assert.assertEquals(carDto, actualDto);
@@ -79,7 +79,7 @@ public class CarServiceImplTest {
     @Test
     public void editCarTest(){
         CarDto carDto = new CarDto(CarDto.mBrand.FORD_MONDEO, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "LP", "VIN", false, null);
-        carDto.setID(1L);
+        carDto.setId(1L);
         
         Car car = Converter.getEntity(carDto);
         
@@ -87,11 +87,11 @@ public class CarServiceImplTest {
 
         carService.editCar(carDto);
 
-        carDto.setID(car.getID());
+        carDto.setId(car.getId());
 
-        Mockito.doReturn(car).when(carDM).getCar(car.getID());
+        Mockito.doReturn(car).when(carDM).getCar(car.getId());
 
-        CarDto actualDto = carService.getCar(car.getID());
+        CarDto actualDto = carService.getCar(car.getId());
 
         Assert.assertNotNull(actualDto);
         Assert.assertEquals(carDto, actualDto);
@@ -109,7 +109,7 @@ public class CarServiceImplTest {
     @Test
     public void deleteCarTest(){
         CarDto carDto = new CarDto(CarDto.mBrand.SKODA_OCTAVIA, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "LP", "VIN", false, null);
-        carDto.setID(1L);
+        carDto.setId(1L);
         
         Car car = Converter.getEntity(carDto);             
         carService.addCar(carDto);         
@@ -131,9 +131,9 @@ public class CarServiceImplTest {
         CarDto carDto1 = new CarDto(CarDto.mBrand.SKODA_FABIA, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "LP", "VIN", false, null);
         CarDto carDto2 = new CarDto(CarDto.mBrand.FORD_MONDEO, CarDto.mType.HATCHBACK, CarDto.mEngine.DIESEL, "LP2", "VIN2", false, null);
         CarDto carDto3 = new CarDto(CarDto.mBrand.SKODA_OCTAVIA, CarDto.mType.COMBI, CarDto.mEngine.DIESEL, "LP3", "VIN3", false, null);
-        carDto1.setID(1L);
-        carDto2.setID(2L);
-        carDto3.setID(3L);
+        carDto1.setId(1L);
+        carDto2.setId(2L);
+        carDto3.setId(3L);
         
         Mockito.doReturn(Arrays.asList(Converter.getEntity(carDto1), Converter.getEntity(carDto2), Converter.getEntity(carDto3))).when(carDM).getAllCars();
 
@@ -156,9 +156,9 @@ public class CarServiceImplTest {
         CarDto carDto1 = new CarDto(CarDto.mBrand.FORD_FOCUS, CarDto.mType.COMBI, CarDto.mEngine.PETROL, "LP", "VIN", true, null);
         CarDto carDto2 = new CarDto(CarDto.mBrand.SKODA_OCTAVIA, CarDto.mType.HATCHBACK, CarDto.mEngine.DIESEL, "LP2", "VIN2", false, null);
         CarDto carDto3 = new CarDto(CarDto.mBrand.SKODA_SUPERB, CarDto.mType.COMBI, CarDto.mEngine.DIESEL, "LP3", "VIN3", true, null);
-        carDto1.setID(1L);
-        carDto2.setID(2L);
-        carDto3.setID(3L);
+        carDto1.setId(1L);
+        carDto2.setId(2L);
+        carDto3.setId(3L);
         
         Mockito.doReturn(Arrays.asList(Converter.getEntity(carDto1), Converter.getEntity(carDto3))).when(carDM).getRentedCars();
         
@@ -187,7 +187,7 @@ public class CarServiceImplTest {
         Date to2 = sdf.parse("10-09-2014 10:20:30"); 
         
         CarDto carDto = TestUtils.createSampleDtoCar();
-        carDto.setID(1L);
+        carDto.setId(1L);
 
         Mockito.doReturn(Arrays.asList(Converter.getEntity(carDto))).when(carDM).getFreeCars(from2, to2);
         
@@ -204,7 +204,7 @@ public class CarServiceImplTest {
         Date to = sdf.parse("31-08-2014 10:20:30"); 
         
         CarDto carDto = TestUtils.createSampleDtoCar();
-        carDto.setID(1L);
+        carDto.setId(1L);
         
         Car car = Converter.getEntity(carDto);
         

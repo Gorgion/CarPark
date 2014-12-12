@@ -76,11 +76,11 @@
                     <form:select path="idOffice" class="form-control" >
                         <c:forEach var="item" items="${offices}">
                             <c:choose>
-                                <c:when test="${selectedOfficeId == item.ID}">
-                                    <form:option selected="true" value="${item.ID}"><c:out value="${item.address}" /></form:option>
+                                <c:when test="${selectedOfficeId == item.id}">
+                                    <form:option selected="true" value="${item.id}"><c:out value="${item.address}" /></form:option>
                                 </c:when>
                                 <c:otherwise>
-                                    <form:option value="${item.ID}"><c:out value="${item.address}" /></form:option>
+                                    <form:option value="${item.id}"><c:out value="${item.address}" /></form:option>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
