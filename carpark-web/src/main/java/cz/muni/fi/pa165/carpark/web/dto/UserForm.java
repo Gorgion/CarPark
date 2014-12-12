@@ -28,9 +28,35 @@ public class UserForm
     private String birthNumber;
 
     private String address;
+    
+    @NotBlank
+    private String username;
+    
+    @NotBlank
+    private String password;
 
     @NotNull
     private Long idOffice;
+
+    public String getUsername()
+    {
+        return username;
+    }
+
+    public void setUsername(String username)
+    {
+        this.username = username;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
 
     public Long getIdOffice()
     {

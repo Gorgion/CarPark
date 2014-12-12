@@ -47,6 +47,7 @@
                         <li><a id="car" href="/pa165/auth/car"><fmt:message key="cars" /></a></li>
                         <li><a id="user" href="/pa165/auth/user"><fmt:message key="users" /></a></li>
                         <li><a id="about-us" href="/pa165/auth/about-us"><fmt:message key="about-us" /></a></li>
+                        <li><form id="logout" action="${pageContext.request.contextPath}/logout" method="post"><button type="submit"><fmt:message key="signout" /></button></form></li>
                     </ul>
                 </div>
                 <div class="page-header visible-lg visible-md">

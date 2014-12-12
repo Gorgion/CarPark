@@ -1,13 +1,22 @@
 package cz.muni.fi.pa165.carpark.web.controller;
 
+import cz.muni.fi.pa165.carpark.dto.UserCredentialsDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
+import cz.muni.fi.pa165.carpark.dto.UserRoleDto;
 import cz.muni.fi.pa165.carpark.service.OfficeService;
+import cz.muni.fi.pa165.carpark.service.UserCredentialsService;
 import cz.muni.fi.pa165.carpark.service.UserService;
+import cz.muni.fi.pa165.carpark.servicefacade.UserAccountServiceFacade;
 import cz.muni.fi.pa165.carpark.web.dto.UserForm;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +38,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserCredentialsService credentialsService;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private UserAccountServiceFacade userAccountServiceFacade;
+    
     @Autowired
     private OfficeService officeService;
 
@@ -57,7 +75,26 @@ public class UserController {
             return "user-form";
         } else {
             UserDto user = getUserDto(userForm);
-            userService.add(user);
+
+            if(credentialsService.getByUsername(userForm.getUsername()) != null)
+            {
+                model.addAttribute("offices", officeService.getAllOffices());  // TODO TRY-CATCH WHEN NO OFFICES
+                model.addAttribute("error","user.usernameAlreadyExist");
+                return "user-form";
+            }
+            
+            Set<UserRoleDto> roles = new HashSet<>();                         
+            
+            UserCredentialsDto credentialsDto = new UserCredentialsDto(userForm.getUsername(), passwordEncoder.encode(userForm.getPassword()), Boolean.TRUE, user, roles);
+                        
+            //TEMP
+            UserRoleDto role1 = new UserRoleDto();
+            role1.setRoleName(UserRoleDto.RoleType.ADMIN.name());
+            role1.setUserCredentials(credentialsDto);
+                        
+            roles.add(role1);
+            
+            userAccountServiceFacade.registerUser(credentialsDto);
             
             redirectAttributes.addFlashAttribute("msg", "msg.user.created");
             return "redirect:/auth/user";
