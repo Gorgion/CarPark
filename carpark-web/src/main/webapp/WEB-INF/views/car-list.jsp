@@ -9,15 +9,17 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <fmt:message var="title" key="car.list.title"/>
 
 <custom:layout title="${title}">
     <jsp:attribute name="content">
         <div class="row">
-            <a href="<c:url value="/auth/car/add" />" class="btn btn-success"><fmt:message key="car.add"/></a>
-            <hr class="divider" />
-
+            <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
+                <a href="<c:url value="/auth/car/add" />" class="btn btn-success"><fmt:message key="car.add"/></a>
+                <hr class="divider" />
+            </sec:authorize>
             <c:if test="${not empty errMsg}" >
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -47,7 +49,9 @@
                         <th><fmt:message key="car.licencePlate" /></th>
                         <th><fmt:message key="car.VIN" /></th>
                         <th><fmt:message key="car.rented" /></th>
-                        <th></th>
+                        <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
+                            <th></th>
+                        </sec:authorize>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,12 +64,14 @@
                             <td>${car.licencePlate}</td>
                             <td>${car.VIN}</td>
                             <td><fmt:message key="${car.rented}" /></td>
-                            <td>
-                                <a href="<c:url value="/auth/car/${car.id}/edit" />" class="btn btn-info"><span class="glyphicon glyphicon-edit" /></a>
-                                <form action="<c:url value="/auth/car/${car.id}/delete" />" method="POST" class="form-inline" style="display: inline-block;">
-                                    <button type="submit" name="delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove" /></button>
-                                </form>                            
-                            </td>
+                            <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
+                                <td>
+                                    <a href="<c:url value="/auth/car/${car.id}/edit" />" class="btn btn-info"><span class="glyphicon glyphicon-edit" /></a>
+                                    <form action="<c:url value="/auth/car/${car.id}/delete" />" method="POST" class="form-inline" style="display: inline-block;">
+                                        <button type="submit" name="delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove" /></button>
+                                    </form>                            
+                                </td>
+                            </sec:authorize>
                         </tr>
                     </c:forEach>
                 </tbody>

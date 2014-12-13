@@ -9,13 +9,16 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <fmt:message var="title" key="office.list.title"/>
 <custom:layout title="${title}">    
     <jsp:attribute name="content">
-        <div class="row">
-            <a href="<c:url value="/auth/office/add" />" class="btn btn-success"><fmt:message key="office.add"/></a>
-            <hr class="divider" />
+        <div class="row">            
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <a href="<c:url value="/auth/office/add" />" class="btn btn-success"><fmt:message key="office.add"/></a>
+                <hr class="divider" />
+            </sec:authorize>
             <c:if test="${not empty error}" >
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -42,7 +45,9 @@
                         <th><fmt:message key="office.manager" /></th>
                         <th><fmt:message key="office.employees" /></th>
                         <th><fmt:message key="office.cars" /></th>
-                        <th></th>
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <th></th>
+                            </sec:authorize>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,12 +73,14 @@
                                     <p><fmt:message key="car.brand.${of.brand}"/> <fmt:message key="car.type.${of.type}"/></p>
                                 </c:forEach>
                             </td>
-                            <td>
-                                <a href='<c:url value="/auth/office/${office.id}/edit" />' class="btn btn-info"><span class="glyphicon glyphicon-edit" /></a>
-                                <form action="<c:url value="/auth/office/${office.id}/delete" />" method="POST" class="form-inline" style="display: inline-block;">
-                                    <button type="submit" name="delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove" /></button>
-                                </form>                            
-                            </td>
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                <td>
+                                    <a href='<c:url value="/auth/office/${office.id}/edit" />' class="btn btn-info"><span class="glyphicon glyphicon-edit" /></a>
+                                    <form action="<c:url value="/auth/office/${office.id}/delete" />" method="POST" class="form-inline" style="display: inline-block;">
+                                        <button type="submit" name="delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove" /></button>
+                                    </form>                            
+                                </td>
+                            </sec:authorize>
                         </tr>
                     </c:forEach>
                 </tbody>

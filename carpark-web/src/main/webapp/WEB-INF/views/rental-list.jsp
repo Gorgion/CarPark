@@ -43,9 +43,9 @@
                     <th><fmt:message key="rental.fromDate" /></th>
                     <th><fmt:message key="rental.toDate" /></th>
                     <th><fmt:message key="rental.car" /></th>
-                        <!--<sec:authorize access="hasAnyRole('admin', 'manager')">-->
+                        <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
                         <th/>
-                    <!--</sec:authorize>-->
+                    </sec:authorize>
                 </tr>
             </thead>
             <tbody>
@@ -61,7 +61,7 @@
                                data-car-engine="<fmt:message key="car.engine.${rental.car.engine}" />" 
                                data-car-licencePlate="${rental.car.licencePlate}"><fmt:message key="car.details"/></a>
                         </td>
-                        <!--<sec:authorize access="hasAnyRole('admin', 'manager')">-->
+                        <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
                             <td>
                                 <a href="<c:url value="/auth/user/${userId}/rental/${rental.id}/edit" />" class="btn btn-info"><span class="glyphicon glyphicon-edit" /></a>
                              
@@ -69,7 +69,7 @@
                                     <button type="submit" name="delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove" /></button>
                                 </form>                            
                             </td>
-                        <!--</sec:authorize>-->
+                        </sec:authorize>
                     </tr>
                 </c:forEach>
             </tbody>
