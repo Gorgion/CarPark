@@ -19,34 +19,28 @@ import org.springframework.stereotype.Repository;
  * @author Tomáš Vašíček
  */
 @Repository
-public class UserDaoImpl implements UserDao
-{
+public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public Long add(User user)
-    {
-        if (user == null)
-        {
+    public Long add(User user) {
+        if (user == null) {
             throw new IllegalArgumentException("User can not be NULL");
-        }        
-        
-        entityManager.persist(user);   
+        }
+
+        entityManager.persist(user);
         entityManager.flush();
         return user.getId();
     }
 
     @Override
-    public User get(Long id)
-    {
-        if (id == null)
-        {
+    public User get(Long id) {
+        if (id == null) {
             throw new IllegalArgumentException("ID can not be NULL");
         }
-        if (id < 0)
-        {
+        if (id < 0) {
             throw new IllegalArgumentException("ID is less than 0");
         }
 
@@ -56,10 +50,8 @@ public class UserDaoImpl implements UserDao
     }
 
     @Override
-    public void edit(User user)
-    {
-        if (user == null)
-        {
+    public void edit(User user) {
+        if (user == null) {
             throw new IllegalArgumentException("User can not be NULL");
         }
 
@@ -67,10 +59,8 @@ public class UserDaoImpl implements UserDao
     }
 
     @Override
-    public void delete(User user)
-    {
-        if (user == null)
-        {
+    public void delete(User user) {
+        if (user == null) {
             throw new IllegalArgumentException("User can not be NULL");
         }
 
@@ -80,8 +70,7 @@ public class UserDaoImpl implements UserDao
     }
 
     @Override
-    public List<User> getAll()
-    {
+    public List<User> getAll() {
 
         Query query = entityManager.createQuery(
                 "SELECT u FROM User u", User.class);
@@ -91,8 +80,7 @@ public class UserDaoImpl implements UserDao
     }
 
     @Override
-    public List<User> getAllWithRent()
-    {
+    public List<User> getAllWithRent() {
         Query query = entityManager.createQuery(
                 "SELECT u FROM User u WHERE u.id IN (SELECT DISTINCT r.user FROM Rental r)", User.class);
         List<User> users = query.getResultList();
@@ -101,13 +89,23 @@ public class UserDaoImpl implements UserDao
     }
 
     @Override
-    public List<User> getAllWithoutRent()
-    {
+    public List<User> getAllWithoutRent() {
         Query query = entityManager.createQuery(
                 "SELECT u FROM User u WHERE u.id NOT IN (SELECT DISTINCT r.user FROM Rental r)", User.class);
         List<User> users = query.getResultList();
 
         return users;
+    }
+
+    @Override
+    public Long getIdByBirthNumber(String birthNumber) {
+        Query query = entityManager.createQuery("SELECT u.id FROM User u WHERE u.birthNumber = :birthNumber", Long.class).setParameter("birthNumber", birthNumber);
+        query.setMaxResults(1);
+        List<Long> list = query.getResultList();
+        if (list == null || list.isEmpty()) {
+            return Long.MIN_VALUE;
+        }
+        return list.get(0);
     }
 
 }

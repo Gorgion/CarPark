@@ -16,12 +16,8 @@ import cz.muni.fi.pa165.carpark.web.dto.OfficeEditForm;
 import cz.muni.fi.pa165.carpark.web.dto.OfficeForm;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import java.util.List;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotBlank;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

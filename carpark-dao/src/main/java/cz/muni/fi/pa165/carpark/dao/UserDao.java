@@ -13,8 +13,8 @@ import java.util.List;
  *
  * @author Tomáš Vašíček
  */
-public interface UserDao
-{
+public interface UserDao {
+
     /**
      * Persist new user
      *
@@ -65,4 +65,12 @@ public interface UserDao
      * @return List<User> of users
      */
     List<User> getAllWithoutRent();
+
+    /**
+     * Return user id if birthNumber in db exist or negative value if not exist.
+     *
+     * @param birthNumber
+     * @return id of user
+     */
+    Long getIdByBirthNumber(String birthNumber);
 }

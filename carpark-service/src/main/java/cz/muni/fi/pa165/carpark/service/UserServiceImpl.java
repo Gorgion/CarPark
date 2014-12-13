@@ -8,6 +8,7 @@ package cz.muni.fi.pa165.carpark.service;
 import cz.muni.fi.pa165.carpark.dao.UserDao;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.entity.User;
+import cz.muni.fi.pa165.carpark.exception.UserAlreadyExists;
 import cz.muni.fi.pa165.carpark.util.Converter;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,24 +28,43 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public Long add(UserDto userDto) {               
+    public Long add(UserDto userDto) {
+        if (userDto == null) {
+            throw new IllegalArgumentException("User is null");
+        }
         User userEntity = Converter.getEntity(userDto);
+        throwExceptionIfBirthNumberExists(userEntity.getBirthNumber());
         return userDao.add(userEntity);
     }
 
     @Transactional
     @Override
     public UserDto get(Long id) {
-        User userEntity = null;
-        userEntity = userDao.get(id);
+        User userEntity = userDao.get(id);
         return Converter.getTransferObject(userEntity);
+    }
+
+    private void throwExceptionIfBirthNumberExists(String birthNumber) throws UserAlreadyExists {
+        Long id = userDao.getIdByBirthNumber(birthNumber);
+        if (id > 0) {
+            throw new UserAlreadyExists("User already exists!");
+        }
     }
 
     @Transactional
     @Override
     public void edit(UserDto userDto) {
+        if (userDto == null) {
+            throw new IllegalArgumentException("User is null");
+        }
         User userEntity = Converter.getEntity(userDto);
-        userDao.edit(userEntity);
+        UserDto persistedUser = get(userDto.getId());
+        if (userDto.getBirthNumber().equals(persistedUser.getBirthNumber())) {
+            userDao.edit(userEntity);
+        } else {
+            throwExceptionIfBirthNumberExists(userEntity.getBirthNumber());
+            userDao.edit(userEntity);
+        }
     }
 
     @Transactional
@@ -83,5 +103,4 @@ public class UserServiceImpl implements UserService {
         }
         return userDtoList;
     }
-
 }

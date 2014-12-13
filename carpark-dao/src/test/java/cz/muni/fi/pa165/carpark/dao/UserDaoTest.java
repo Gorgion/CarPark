@@ -272,4 +272,23 @@ public class UserDaoTest
     {
         daoImpl.delete(null);
     }
+    
+    @Test
+    public void testGetIdByBirthNumber()
+    {
+        User user = new User();
+        user.setFirstName("Name");
+        user.setLastName("Lastname");
+        user.setBirthNumber("999999/9547");
+        user.setAddress("NY 401/20");
+
+        daoImpl.add(user);
+
+        User addedUser = daoImpl.get(user.getId());   
+        Assert.assertNotNull(addedUser);
+        
+        Long id = daoImpl.getIdByBirthNumber(addedUser.getBirthNumber());
+        Assert.assertEquals(id, addedUser.getId());
+    }
+
 }

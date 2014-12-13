@@ -89,7 +89,7 @@ public class RestUserController
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public ResponseEntity<UserForm> editedUser(@PathVariable Long id, @Valid @RequestBody UserForm userForm)
     {
-        UserDto user = userService.get(userForm.getId());
+        UserDto user = userService.get(id);
 
         if (user == null)
         {
@@ -138,8 +138,7 @@ public class RestUserController
     private UserDto getUserDto(UserForm userForm)
     {
         UserDto user = new UserDto();
-
-        user.setId(userForm.getId());
+        
         user.setAddress(userForm.getAddress());
         user.setBirthNumber(userForm.getBirthNumber());
         user.setFirstName(userForm.getFirstName());

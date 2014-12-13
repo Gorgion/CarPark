@@ -8,6 +8,7 @@ package cz.muni.fi.pa165.carpark.service;
 import cz.muni.fi.pa165.carpark.dao.UserDao;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.entity.User;
+import cz.muni.fi.pa165.carpark.exception.UserAlreadyExists;
 import cz.muni.fi.pa165.carpark.util.Converter;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -61,21 +62,36 @@ public class UserServiceImplTest
         Assert.assertEquals(userDto.getBirthNumber(), actualDto.getBirthNumber());
     }
 
-    @Test(expected = DataAccessException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testCreateWithNullArg()
     {
         Mockito.doThrow(new DataAccessException("") {}).when(mockedUserDao).add(null);
 
         userService.add(null);
     }
+    
+    @Test(expected = UserAlreadyExists.class)
+    public void testCreateWithExistedBirthNumber()
+    {
+        UserDto userDto = createUserDto();
+        User user = Converter.getEntity(userDto);
+        
+        Mockito.doReturn(Long.MIN_VALUE).when(mockedUserDao).getIdByBirthNumber(user.getBirthNumber());
+        Mockito.doReturn(1L).when(mockedUserDao).add(user);
+        
+        Mockito.doReturn(1L).when(mockedUserDao).getIdByBirthNumber(user.getBirthNumber());
+        Mockito.doThrow(new UserAlreadyExists("User already exists!") {}).when(mockedUserDao).add(user);
+        userService.add(userDto);
+    }
 
     @Test
     public void testUpdate()
     {
         UserDto userDto = createUserDto();
+        userDto.setId(1L);
         User user = Converter.getEntity(userDto);
-        user.setId(1L);
 
+        Mockito.doReturn(user).when(mockedUserDao).get(user.getId());
         Mockito.doNothing().when(mockedUserDao).edit(user);
 
         userService.edit(userDto);
@@ -95,13 +111,38 @@ public class UserServiceImplTest
         Assert.assertEquals(userDto.getBirthNumber(), actualDto.getBirthNumber());
     }
 
-    @Test(expected = DataAccessException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testEditWithNullArg()
     {
-        Mockito.doThrow(new DataAccessException("") {}).when(mockedUserDao).edit(null);
+        Mockito.doThrow(new IllegalArgumentException("") {}).when(mockedUserDao).edit(null);
 
         userService.edit(null);
     }
+    
+        @Test(expected = UserAlreadyExists.class)
+    public void testEditWithExistedBirthNumber()
+    {
+        UserDto userDto = createUserDto();
+        userDto.setId(1L);
+        User user = Converter.getEntity(userDto);
+        user.setBirthNumber("In");
+        
+        Mockito.doReturn(Long.MIN_VALUE).when(mockedUserDao).getIdByBirthNumber(user.getBirthNumber());
+        Mockito.doReturn(1L).when(mockedUserDao).add(user);
+        
+        userDto.setBirthNumber("Out");
+        userDto.setId(2L);
+        user = Converter.getEntity(userDto);
+        
+        Mockito.doReturn(Long.MIN_VALUE).when(mockedUserDao).getIdByBirthNumber(user.getBirthNumber());
+        Mockito.doReturn(2L).when(mockedUserDao).add(user);
+        
+        Mockito.doReturn(1L).when(mockedUserDao).getIdByBirthNumber(user.getBirthNumber());
+        Mockito.doReturn(user).when(mockedUserDao).get(user.getId());
+        Mockito.doThrow(new UserAlreadyExists("User already exists!") {}).when(mockedUserDao).edit(user);
+        userService.edit(userDto);
+    }
+
 
     @Test(expected = DataAccessException.class)
     public void testGetNegativeId()
@@ -111,10 +152,10 @@ public class UserServiceImplTest
         userService.get(Long.MIN_VALUE);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testGetMaxId()
     {
-        Mockito.doReturn(null).when(mockedUserDao).get(Long.MAX_VALUE);
+        Mockito.doThrow(new IllegalArgumentException("") {}).when(mockedUserDao).get(Long.MAX_VALUE);
 
         Assert.assertNull(userService.get(Long.MAX_VALUE));
     }
