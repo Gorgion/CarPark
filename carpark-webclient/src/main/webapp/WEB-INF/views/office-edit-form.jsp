@@ -18,23 +18,25 @@
             </button>
         </div>
         
-        <div class="form-group"> 
-            <label class="control-label col-sm-2">Address:</label>
-            <div class="col-sm-6">
-                <input id="address" class="form-control"/>
+        <form class="form-horizontal">
+            <div class="form-group"> 
+                <label class="control-label col-sm-2">Address:</label>
+                <div class="col-sm-6">
+                    <input id="address" class="form-control"/>
+                </div>
             </div>
-        </div>
-        <br />
-        <div class="form-group"> 
-            <label class="control-label col-sm-2">Manager:</label>
-            <div class="col-sm-6">
-                <select class="form-control" id="managerId" ></select>
-            </div>    
-        </div>
-        <div class="col-sm-offset-2 col-sm-10">      
-            <button type="button" class="btn btn-success" onclick="editOffice()">Edit</button>
-            <button type="button" class="btn btn-default" onclick="window.location.href='/pa165/client/office'">Cancel</button>
-        </div>
+            <br />
+            <div class="form-group"> 
+                <label class="control-label col-sm-2">Manager:</label>
+                <div class="col-sm-6">
+                    <select class="form-control" id="managerId" ></select>
+                </div>    
+            </div>
+            <div class="col-sm-offset-2 col-sm-10">      
+                <button type="button" class="btn btn-success" onclick="editOffice()">Edit</button>
+                <button type="button" class="btn btn-default" onclick="window.location.href='/pa165/client/office'">Cancel</button>
+            </div>
+        </form>
     </jsp:attribute>  
     <jsp:attribute name="ajaxScript">
         <script type="text/javascript">

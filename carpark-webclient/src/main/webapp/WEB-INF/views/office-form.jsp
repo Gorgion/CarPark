@@ -18,18 +18,20 @@
                 &times;
             </button>
         </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Address:</label>
-            <div class="col-sm-5">
-                <input id="addressInput" type="text" name="address" class="form-control"/>
-                    <div class="help-block">Address&nbsp;</div>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Address:</label>
+                <div class="col-sm-5">
+                    <input id="addressInput" type="text" name="address" class="form-control"/>
+                        <div class="help-block">Address&nbsp;</div>
 
+                </div>
             </div>
-        </div>
-        <div class="col-sm-offset-2 col-sm-10">                
-            <button onclick="addOffice()" type="button" class="btn btn-success">Add</button>
-            <button type="button" class="btn btn-default" onclick="window.location.href='/pa165/client/office'">Cancel</button>
-        </div>
+            <div class="col-sm-offset-2 col-sm-10">                
+                <button onclick="addOffice()" type="button" class="btn btn-success">Add</button>
+                <button type="button" class="btn btn-default" onclick="window.location.href='/pa165/client/office'">Cancel</button>
+            </div>
+        </form>
      </jsp:attribute>
     <jsp:attribute name="ajaxScript">
         <script type="text/javascript">

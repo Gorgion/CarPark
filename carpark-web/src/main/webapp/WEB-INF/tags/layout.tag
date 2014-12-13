@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%--<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>--%>
 <%@tag description="master page layout" pageEncoding="UTF-8"%>
 
 <%-- The list of normal or fragment attributes can be specified here: --%>
@@ -29,6 +30,7 @@
 
     </head>
     <body>
+        <form id="logoutForm" action="${pageContext.request.contextPath}/logout" method="post"></form>
         <div class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="head-container">
                 <div class="navbar-header">
@@ -46,12 +48,13 @@
                         <li><a id="office" href="/pa165/auth/office"><fmt:message key="offices" /></a></li>
                         <li><a id="car" href="/pa165/auth/car"><fmt:message key="cars" /></a></li>
                         <li><a id="user" href="/pa165/auth/user"><fmt:message key="users" /></a></li>
-                        <li><a id="about-us" href="/pa165/auth/about-us"><fmt:message key="about-us" /></a></li>
-                        <li><form id="logout" action="${pageContext.request.contextPath}/logout" method="post"><button type="submit"><fmt:message key="signout" /></button></form></li>
+                        <li><a id="about-us" href="/pa165/auth/about-us"><fmt:message key="about-us" /></a></li>                        
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="javascript:logout()"><fmt:message key="signout" /></a></li>
                     </ul>
                 </div>
-                <div class="page-header visible-lg visible-md">
-                </div>
+                <div class="page-header visible-lg visible-md"></div>
             </div>
         </div>
 
@@ -86,11 +89,16 @@
 
             if (url.indexOf("user") > -1)
                 $("li #user").addClass("active");
-            
+
             if (url.indexOf("about-us") > -1)
                 $("li #about-us").addClass("active");
         </script>
-
+        <script type="text/javascript" charset="utf-8">
+            function logout() {
+                document.getElementById("logoutForm").submit();
+            }
+            ;
+        </script>
         <script>
             $(document).ready(function () {
                 $('.page-header').removeClass('visible-md');

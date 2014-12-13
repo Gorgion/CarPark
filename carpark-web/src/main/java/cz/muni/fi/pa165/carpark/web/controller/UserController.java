@@ -79,7 +79,8 @@ public class UserController {
             if(credentialsService.getByUsername(userForm.getUsername()) != null)
             {
                 model.addAttribute("offices", officeService.getAllOffices());  // TODO TRY-CATCH WHEN NO OFFICES
-                model.addAttribute("error","user.usernameAlreadyExist");
+                bindingResult.reject("username", "user.usernameAlreadyExist");
+
                 return "user-form";
             }
             
