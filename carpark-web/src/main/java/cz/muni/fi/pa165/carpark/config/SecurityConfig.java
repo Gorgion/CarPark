@@ -37,14 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .antMatchers("/assets/**").permitAll()
             .and()
                 .formLogin()
-//                .loginPage("/login")
-//                .failureUrl("/login?error")
+                .loginPage("/login")
+                .failureUrl("/login?error")
             .and()
                 .logout()
                 .logoutUrl("/logout")
-//                .logoutSuccessUrl("/login?logout")
-//                .invalidateHttpSession(true)
-//                .deleteCookies("JSESSIONID")            
+                .logoutSuccessUrl("/login?logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")            
             .and()
                 .csrf().disable();
     }    
@@ -58,6 +58,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
     {
-        auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder()).and().inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+        auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder()).and().inMemoryAuthentication().withUser("admin").password("admin").roles("BUILT_IN_ADMIN");
    }
 }
