@@ -10,6 +10,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <fmt:message var="title" key="rental.form.title"/>
 
@@ -18,7 +19,8 @@
 
 <custom:layout title="${title}">
     <jsp:attribute name="content">
-        <c:if test="${not empty msg}">
+        <sec:authorize access="!hasRole(ROLE_BUILT_IN_ADMIN)">
+            <c:if test="${not empty msg}">
             <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     &times;
@@ -96,5 +98,6 @@
                 </c:if>
             </c:forEach>
         </c:if>
+        </sec:authorize>                    
     </jsp:attribute>
 </custom:layout>

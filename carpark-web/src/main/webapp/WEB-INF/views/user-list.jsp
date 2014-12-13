@@ -14,7 +14,7 @@
 
 <fmt:message var="title" key="user.list.title"/>
 <custom:layout title="${title}">    
-    <jsp:attribute name="content">
+    <jsp:attribute name="content">        
         <div class="row">
             <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')">
                 <a href="<c:url value="/auth/user/add" />" class="btn btn-success"><fmt:message key="user.add"/></a>

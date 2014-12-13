@@ -9,12 +9,12 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%--<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>--%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <fmt:message var="title" key="rental.list.title"/>
 <custom:layout title="${title}">    
     <jsp:attribute name="content">
-
+        <sec:authorize access="!hasRole(ROLE_BUILT_IN_ADMIN)">
             <a href="<c:url value="/auth/user/${userId}/rental/add" />" class="btn btn-success"><fmt:message key="rental.add"/></a>
 
             <hr class="divider" />
@@ -107,7 +107,8 @@
                         <p name="licencePlate" class="form-control-static"></p>
                     </div>
                 </div>
-            </div>
+            </div>                    
         </custom:modal-dialog>        
+        </sec:authorize>
     </jsp:attribute>        
 </custom:layout>

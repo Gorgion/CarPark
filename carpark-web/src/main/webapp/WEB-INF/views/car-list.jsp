@@ -15,69 +15,71 @@
 
 <custom:layout title="${title}">
     <jsp:attribute name="content">
-        <div class="row">
-            <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
-                <a href="<c:url value="/auth/car/add" />" class="btn btn-success"><fmt:message key="car.add"/></a>
-                <hr class="divider" />
-            </sec:authorize>
-            <c:if test="${not empty errMsg}" >
-                <div class="alert alert-danger alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                        &times;
-                    </button>
-                    <fmt:message key="${errMsg}" />
-                </div>
-            </c:if>
+        <sec:authorize access="!hasRole(ROLE_BUILT_IN_ADMIN)">
+            <div class="row">
+                <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
+                    <a href="<c:url value="/auth/car/add" />" class="btn btn-success"><fmt:message key="car.add"/></a>
+                    <hr class="divider" />
+                </sec:authorize>
+                <c:if test="${not empty errMsg}" >
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                            &times;
+                        </button>
+                        <fmt:message key="${errMsg}" />
+                    </div>
+                </c:if>
 
 
-            <c:if test="${not empty msg}" >
-                <div class="alert alert-success alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                        &times;
-                    </button>
-                    <fmt:message key="${msg}" />
-                </div>
-            </c:if>
+                <c:if test="${not empty msg}" >
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                            &times;
+                        </button>
+                        <fmt:message key="${msg}" />
+                    </div>
+                </c:if>
 
-            <table class="table table-hover table-responsive">
-                <thead>
-                    <tr>
-                        <th><fmt:message key="car.id" /></th>
-                        <th><fmt:message key="car.brand" /></th>
-                        <th><fmt:message key="car.type" /></th>
-                        <th><fmt:message key="car.engine" /></th>
-                        <th><fmt:message key="car.licencePlate" /></th>
-                        <th><fmt:message key="car.VIN" /></th>
-                        <th><fmt:message key="car.rented" /></th>
-                        <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
-                            <th></th>
-                        </sec:authorize>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach items="${cars}" var="car">
-                        <tr id="${car.id}">
-                            <td>${car.id}</td>
-                            <td><fmt:message key="car.brand.${car.brand}" /></td>
-                            <td><fmt:message key="car.type.${car.type}" /></td>
-                            <td><fmt:message key="car.engine.${car.engine}" /></td>
-                            <td>${car.licencePlate}</td>
-                            <td>${car.VIN}</td>
-                            <td><fmt:message key="${car.rented}" /></td>
-                            <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
-                                <td>
-                                    <a href="<c:url value="/auth/car/${car.id}/edit" />" class="btn btn-info"><span class="glyphicon glyphicon-edit" /></a>
-                                    <form action="<c:url value="/auth/car/${car.id}/delete" />" method="POST" class="form-inline" style="display: inline-block;">
-                                        <button type="submit" name="delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove" /></button>
-                                    </form>                            
-                                </td>
-                            </sec:authorize>
+                <table class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th><fmt:message key="car.id" /></th>
+                            <th><fmt:message key="car.brand" /></th>
+                            <th><fmt:message key="car.type" /></th>
+                            <th><fmt:message key="car.engine" /></th>
+                            <th><fmt:message key="car.licencePlate" /></th>
+                            <th><fmt:message key="car.VIN" /></th>
+                            <th><fmt:message key="car.rented" /></th>
+                                <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
+                                <th></th>
+                                </sec:authorize>
                         </tr>
-                    </c:forEach>
-                </tbody>
-            </table>  
-        </div>
-        <custom:delete-dialog key="car"></custom:delete-dialog>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${cars}" var="car">
+                            <tr id="${car.id}">
+                                <td>${car.id}</td>
+                                <td><fmt:message key="car.brand.${car.brand}" /></td>
+                                <td><fmt:message key="car.type.${car.type}" /></td>
+                                <td><fmt:message key="car.engine.${car.engine}" /></td>
+                                <td>${car.licencePlate}</td>
+                                <td>${car.VIN}</td>
+                                <td><fmt:message key="${car.rented}" /></td>
+                                <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
+                                    <td>
+                                        <a href="<c:url value="/auth/car/${car.id}/edit" />" class="btn btn-info"><span class="glyphicon glyphicon-edit" /></a>
+                                        <form action="<c:url value="/auth/car/${car.id}/delete" />" method="POST" class="form-inline" style="display: inline-block;">
+                                            <button type="submit" name="delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove" /></button>
+                                        </form>                            
+                                    </td>
+                                </sec:authorize>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>  
+            </div>
+            <custom:delete-dialog key="car"></custom:delete-dialog>
+        </sec:authorize>
     </jsp:attribute>
 </custom:layout>
 
