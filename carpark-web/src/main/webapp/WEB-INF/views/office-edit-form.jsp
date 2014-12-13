@@ -15,7 +15,7 @@
 <fmt:message var="title" key="office.edit.title"/>
 <custom:layout title="${title}">    
     <jsp:attribute name="content">
-        <sec:authorize access="!hasRole(ROLE_BUILT_IN_ADMIN)">
+        <sec:authorize access="!hasRole('ROLE_BUILT_IN_ADMIN')">
             <c:if test="${not empty msg}">
                 <div class="alert alert-success alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">

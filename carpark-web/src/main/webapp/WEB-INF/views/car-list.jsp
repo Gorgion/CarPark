@@ -15,7 +15,7 @@
 
 <custom:layout title="${title}">
     <jsp:attribute name="content">
-        <sec:authorize access="!hasRole(ROLE_BUILT_IN_ADMIN)">
+        <sec:authorize access="!hasRole('ROLE_BUILT_IN_ADMIN')">
             <div class="row">
                 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
                     <a href="<c:url value="/auth/car/add" />" class="btn btn-success"><fmt:message key="car.add"/></a>

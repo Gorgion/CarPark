@@ -16,6 +16,7 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%-- any content can be specified here e.g.: --%>
 <!DOCTYPE html>
@@ -45,14 +46,26 @@
 
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
+                        <sec:authorize access="!hasRole('ROLE_BUILT_IN_ADMIN')">
                         <li><a id="office" href="/pa165/auth/office"><fmt:message key="offices" /></a></li>
                         <li><a id="car" href="/pa165/auth/car"><fmt:message key="cars" /></a></li>
+                        </sec:authorize>
                         <li><a id="user" href="/pa165/auth/user"><fmt:message key="users" /></a></li>
                         <li><a id="about-us" href="/pa165/auth/about-us"><fmt:message key="about-us" /></a></li>                        
                     </ul>
+                    <sec:authorize access="isAuthenticated()" var="isAuth" />
+                    <c:if test="${isAuth}">
                     <ul class="nav navbar-nav navbar-right">
+                        <li><span class="btn"><sec:authentication property="principal.username"/></span></li>
+                        <li class="divider"></li>
                         <li><a href="javascript:logout()"><fmt:message key="signout" /></a></li>
                     </ul>
+                    </c:if>
+                    <c:if test="${!isAuth}">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/login"><fmt:message key="signin" /></a></li>
+                    </ul>
+                    </c:if>
                 </div>
                 <div class="page-header visible-lg visible-md"></div>
             </div>

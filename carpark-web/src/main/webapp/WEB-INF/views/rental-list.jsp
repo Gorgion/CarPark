@@ -14,7 +14,7 @@
 <fmt:message var="title" key="rental.list.title"/>
 <custom:layout title="${title}">    
     <jsp:attribute name="content">
-        <sec:authorize access="!hasRole(ROLE_BUILT_IN_ADMIN)">
+        <sec:authorize access="!hasRole('ROLE_BUILT_IN_ADMIN')">
             <a href="<c:url value="/auth/user/${userId}/rental/add" />" class="btn btn-success"><fmt:message key="rental.add"/></a>
 
             <hr class="divider" />

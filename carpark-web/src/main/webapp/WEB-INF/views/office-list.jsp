@@ -14,7 +14,7 @@
 <fmt:message var="title" key="office.list.title"/>
 <custom:layout title="${title}">    
     <jsp:attribute name="content">
-        <sec:authorize access="!hasRole(ROLE_BUILT_IN_ADMIN)">
+        <sec:authorize access="!hasRole('ROLE_BUILT_IN_ADMIN')">
             <div class="row">            
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <a href="<c:url value="/auth/office/add" />" class="btn btn-success"><fmt:message key="office.add"/></a>
