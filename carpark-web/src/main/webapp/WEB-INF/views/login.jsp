@@ -11,7 +11,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <fmt:message var="title" key="login.title"/>
-<custom:layout title="${title}">    
+<custom:login title="${title}">    
     <jsp:attribute name="content">
         <c:if test="${not empty error}" >
             <div class="alert alert-danger alert-dismissable">
@@ -31,14 +31,16 @@
         </c:if>
 
         <form name='loginForm' action="<c:url value="/login"/>" method='POST' role="form" class="form-horizontal">
-            <div class="form-group">   
+            <div class="form-group has-feedback">   
                 <div class="">                                
-                    <input type='test' id='username' name='username' class="form-control" autofocus="true" />
+                    <input type='test' id='username' name='username' class="form-control" autofocus="true" placeholder="Username"/>
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
                 <div class="">
-                    <input type='password' id='password' name='password' class="form-control" />
+                    <input type='password' id='password' name='password' class="form-control" placeholder="********"/>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
             </div>            
             <div class="form-group">
@@ -48,4 +50,4 @@
             </div>                        
         </form>
     </jsp:attribute>
-</custom:layout>
+</custom:login>
