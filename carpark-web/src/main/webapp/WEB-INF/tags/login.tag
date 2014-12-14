@@ -31,11 +31,9 @@
     
     <body class="login-body">
         <form id="logoutForm" action="${pageContext.request.contextPath}/logout" method="post"></form>
-        <div class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar navbar-default navbar-static-top text-center" role="navigation">
             <div class="head-container">
-                <div class="navbar-header">
-                    <a href="/pa165" class="navbar-brand">Car Park</a>
-                </div>
+                <p class="text-center">Car Park Administration</p>
                 <div class="collapse navbar-collapse"></div>  
             </div>
         </div>
@@ -55,40 +53,7 @@
         <script type="text/javascript" charset="utf-8">
             function logout() {
                 document.getElementById("logoutForm").submit();
-            }
-            ;
-        
-            $(document).ready(function () {
-                $('.page-header').removeClass('visible-md');
-                $('.page-header').removeClass('visible-lg');
-
-                var hidden = false;
-
-                $(window).on('load', function ()
-                {
-                    if ($(window).width() <= 992)
-                    {
-                        hidden = true;
-                    }
-                });
-
-                $(window).on('load resize', function ()
-                {
-                    var width = $(window).width();
-
-                    var div = $('.page-header');
-
-                    if (width <= 992 && !hidden) {
-                        div.slideUp('slow');
-                        div.addClass('.visible-lg .visible-md');
-                    } else {
-                        div.slideDown('slow');
-                        div.removeClass('.visible-lg .visible-md');
-                        hidden = false;
-                    }
-
-                });
-            });
+            };
         </script>
     </body>
 </html>

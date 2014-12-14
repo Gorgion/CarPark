@@ -152,3 +152,8 @@ margin-right: 0px;
 .form-horizontal .has-feedback .form-control-feedback {
     right: 0px; 
 }
+
+.head-container p {
+    margin: 10px;
+    font-size: 20px;
+}
