@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.carpark.web.controller;
 
+import cz.muni.fi.pa165.carpark.dto.OfficeDto;
 import cz.muni.fi.pa165.carpark.dto.UserCredentialsDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
+import cz.muni.fi.pa165.carpark.dto.UserRoleDto;
 import cz.muni.fi.pa165.carpark.exception.UserAlreadyExists;
 import cz.muni.fi.pa165.carpark.service.OfficeService;
 import cz.muni.fi.pa165.carpark.service.UserCredentialsService;
@@ -40,13 +42,13 @@ public class UserController {
 
     @Autowired
     private UserCredentialsService credentialsService;
-    
+
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
+
     @Autowired
     private UserAccountServiceFacade userAccountServiceFacade;
-    
+
     @Autowired
     private OfficeService officeService;
 
@@ -82,32 +84,30 @@ public class UserController {
         } else {
             UserDto user = getUserDto(userForm);
 
-            if(credentialsService.getByUsername(userForm.getUsername()) != null)
-            {
+            if (credentialsService.getByUsername(userForm.getUsername()) != null) {
                 model.addAttribute("offices", officeService.getAllOffices());  // TODO TRY-CATCH WHEN NO OFFICES
                 bindingResult.reject("username", "user.usernameAlreadyExist");
 
                 return "user-form";
             }
-            
-            Set<UserRoleDto> roles = new HashSet<>();                         
-            
+
+            Set<UserRoleDto> roles = new HashSet<>();
+
             UserCredentialsDto credentialsDto = new UserCredentialsDto(userForm.getUsername(), passwordEncoder.encode(userForm.getPassword()), Boolean.TRUE, user, roles);
-                        
+
             //TEMP
             UserRoleDto role1 = new UserRoleDto();
             role1.setRoleName(UserRoleDto.RoleType.ADMIN.name());
             role1.setUserCredentials(credentialsDto);
-                        
+
             roles.add(role1);
             try {
-            userAccountServiceFacade.registerUser(credentialsDto);
+                userAccountServiceFacade.registerUser(credentialsDto);
+            } catch (UserAlreadyExists ex) {
+                model.addAttribute("offices", officeService.getAllOffices());
+                model.addAttribute("error", "error.user.useralreadyexists");
+                return "user-form";
             }
-} catch (UserAlreadyExists ex) {
-            model.addAttribute("offices", officeService.getAllOffices());
-            model.addAttribute("error", "error.user.useralreadyexists");
-            return "user-form";
-}
 
             redirectAttributes.addFlashAttribute("msg", "msg.user.created");
             return "redirect:/auth/user";
@@ -183,6 +183,7 @@ public class UserController {
                 return "redirect:/auth/user";
             }
             userService.delete(user);
+            //userAccountServiceFacade.removeUserAccount(...);
         } catch (IllegalArgumentException | DataAccessException ex) {
             redirectAttributes.addFlashAttribute("error", "error.user.deleted" + ex);
             return "redirect:/auth/user";
