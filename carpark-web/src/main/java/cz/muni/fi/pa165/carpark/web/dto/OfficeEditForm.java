@@ -5,7 +5,6 @@
  */
 package cz.muni.fi.pa165.carpark.web.dto;
 
-import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -18,7 +17,7 @@ public class OfficeEditForm
 
     @NotBlank
     private String address;
-    @NotNull
+    
     private Long managerId;
 
     public String getAddress()

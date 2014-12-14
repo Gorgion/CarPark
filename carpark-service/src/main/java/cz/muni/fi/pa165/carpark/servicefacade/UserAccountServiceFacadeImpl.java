@@ -12,18 +12,20 @@ import cz.muni.fi.pa165.carpark.service.UserService;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Tomas Svoboda
  */
-@Named
+@Service
 public class UserAccountServiceFacadeImpl implements UserAccountServiceFacade
 {
-    @Inject
+    @Autowired
     private UserService userService;
     
-    @Inject
+    @Autowired
     private UserCredentialsService credentialsService;
     
     
@@ -33,7 +35,8 @@ public class UserAccountServiceFacadeImpl implements UserAccountServiceFacade
     {
         UserDto userDto = credentials.getUser();
         
-        userService.add(userDto);
+        Long userId =  userService.add(userDto);
+        userDto.setId(userId);
         
         credentialsService.create(credentials);
     }

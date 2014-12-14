@@ -116,3 +116,7 @@ footer a:focus{
 form-horizontal {
     margin: 10px 0px;
 }
+
+.navbar-nav.navbar-right:last-child {
+margin-right: 0px;
+}

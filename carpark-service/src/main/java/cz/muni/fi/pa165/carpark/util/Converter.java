@@ -9,6 +9,7 @@ import cz.muni.fi.pa165.carpark.dto.CarDto;
 import cz.muni.fi.pa165.carpark.dto.OfficeDto;
 import cz.muni.fi.pa165.carpark.dto.RentalDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
+import cz.muni.fi.pa165.carpark.dto.UserRoleDto;
 import cz.muni.fi.pa165.carpark.entity.Car;
 import cz.muni.fi.pa165.carpark.entity.Office;
 import cz.muni.fi.pa165.carpark.entity.Rental;
@@ -246,15 +247,20 @@ public class Converter
         User userEntity = getEntity(credentials.getUser());
         Set<UserRole> rolesEntity = new HashSet<>();
 
+        UserCredentials credentialsEntity = new UserCredentials(credentials.getUsername(), credentials.getPassword(), credentials.isEnabled(), userEntity, rolesEntity);
+        credentialsEntity.setUserId(credentials.getUserId());
+        
         for (cz.muni.fi.pa165.carpark.dto.UserRoleDto role : credentials.getRoles())
         {
-            rolesEntity.add(getEntity(role));
+            UserRole roleEntity = new UserRole();
+            roleEntity.setId(role.getId());
+            roleEntity.setRoleName(role.getRoleName());
+            roleEntity.setUserCredentials(credentialsEntity);
+            
+            rolesEntity.add(roleEntity);
         }
 
-        UserCredentials entity = new UserCredentials(credentials.getUsername(), credentials.getPassword(), credentials.isEnabled(), userEntity, rolesEntity);
-        entity.setUserId(credentials.getUserId());
-
-        return entity;
+        return credentialsEntity;
     }
 
     public static cz.muni.fi.pa165.carpark.dto.UserCredentialsDto getTransferObject(UserCredentials credentials)
@@ -267,13 +273,19 @@ public class Converter
         UserDto userDto = getTransferObject(credentials.getUser());
         Set<cz.muni.fi.pa165.carpark.dto.UserRoleDto> rolesDto = new HashSet<>();
 
-        for (UserRole role : credentials.getRoles())
-        {
-            rolesDto.add(getTransferObject(role));
-        }
-
         cz.muni.fi.pa165.carpark.dto.UserCredentialsDto dto = new cz.muni.fi.pa165.carpark.dto.UserCredentialsDto(credentials.getUsername(), credentials.getPassword(), credentials.isEnabled(), userDto, rolesDto);
         dto.setUserId(credentials.getUserId());
+        
+        for (UserRole role : credentials.getRoles())
+        {
+            UserRoleDto roleDto = new UserRoleDto();
+
+            roleDto.setId(role.getId());
+            roleDto.setRoleName(role.getRoleName());
+            roleDto.setUserCredentials(dto);
+        
+            rolesDto.add(roleDto);
+        }
 
         return dto;
     }

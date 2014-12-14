@@ -10,14 +10,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <fmt:message var="title" key="user.list.title"/>
 <custom:layout title="${title}">    
-    <jsp:attribute name="content">
+    <jsp:attribute name="content">        
         <div class="row">
-            <a href="<c:url value="/auth/user/add" />" class="btn btn-success"><fmt:message key="user.add"/></a>
-            <hr class="divider" />
-
+            <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')">
+                <a href="<c:url value="/auth/user/add" />" class="btn btn-success"><fmt:message key="user.add"/></a>
+                <hr class="divider" />
+            </sec:authorize>
             <c:if test="${not empty error}" >
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -46,8 +48,9 @@
                         <th><fmt:message key="user.lastName" /></th>
                         <th><fmt:message key="user.birthNumber" /></th>
                         <th><fmt:message key="user.address" /></th>
-                        <th></th>
-                        <th></th>
+                            <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')">
+                            <th></th>
+                            </sec:authorize>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,12 +64,14 @@
                             <td>${user.lastName}</td>
                             <td>${user.birthNumber}</td>
                             <td>${user.address}</td>
-                            <td>
-                                <a href="<c:url value="/auth/user/${user.id}/edit" />" class="btn btn-info"><span class="glyphicon glyphicon-edit" /></a>
-                                <form action="<c:url value="/auth/user/${user.id}/delete" />" method="POST" class="form-inline" style="display: inline-block;">
-                                    <button type="submit" name="delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove" /></button>
-                                </form>                            
-                            </td>
+                            <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')">
+                                <td>
+                                    <a href="<c:url value="/auth/user/${user.id}/edit" />" class="btn btn-info"><span class="glyphicon glyphicon-edit" /></a>
+                                    <form action="<c:url value="/auth/user/${user.id}/delete" />" method="POST" class="form-inline" style="display: inline-block;">
+                                        <button type="submit" name="delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove" /></button>
+                                    </form>                            
+                                </td>
+                            </sec:authorize>
                         </tr>
                     </c:forEach>
                 </tbody>

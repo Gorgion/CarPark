@@ -10,10 +10,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <fmt:message var="title" key="office.form.title"/>
 <custom:layout title="${title}">    
     <jsp:attribute name="content">
+        <sec:authorize access="!hasRole('ROLE_BUILT_IN_ADMIN')">
         <c:url var="addOfficeUrl" value="/auth/office/add" />
         <c:if test="${not empty msg}">
             <div class="alert alert-success alert-dismissable">
@@ -48,6 +50,7 @@
                 <button type="button" class="btn btn-default" onclick="window.location.href='/pa165/auth/office'"><fmt:message key="btn.cancel" /></button>
             </div>
             </form:form>
+        </sec:authorize>
      </jsp:attribute>        
 </custom:layout>           
 
