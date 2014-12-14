@@ -10,9 +10,7 @@ import cz.muni.fi.pa165.carpark.service.UserCredentialsService;
 import cz.muni.fi.pa165.carpark.service.UserService;
 import cz.muni.fi.pa165.carpark.servicefacade.UserAccountServiceFacade;
 import cz.muni.fi.pa165.carpark.web.dto.UserForm;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import javax.validation.Valid;
@@ -86,7 +84,8 @@ public class UserController {
 
             if (credentialsService.getByUsername(userForm.getUsername()) != null) {
                 model.addAttribute("offices", officeService.getAllOffices());  // TODO TRY-CATCH WHEN NO OFFICES
-                bindingResult.reject("username", "user.usernameAlreadyExist");
+                //bindingResult.reject("username", "user.usernameAlreadyExist");
+                model.addAttribute("error", "user.usernameAlreadyExist");
 
                 return "user-form";
             }
