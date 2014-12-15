@@ -70,6 +70,24 @@
                 });
             });
             
+            function deleteUser(id)
+            {
+                var spinner = getSpinner();
+                $.ajax({
+                    type: "DELETE",
+                    dataType:"json",
+                    url: "http://localhost:8080/pa165/rest/users/"+id,
+                    success: function(){
+                        $(".alert-success").show().append("User with id "+id+" was deleted.");
+                        spinner.remove();
+                    },  
+                    error: function(errorThrown){
+                        spinner.remove();
+                        $(".alert-danger").show().append("User with id "+id+" couldn't be deleted. "+errorThrown);
+                    }
+                    
+                });
+            };
         </script>
     </jsp:attribute>
 </custom:layout>

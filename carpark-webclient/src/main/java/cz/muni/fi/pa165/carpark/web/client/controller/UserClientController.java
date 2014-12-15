@@ -36,6 +36,6 @@ public class UserClientController {
     
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
     public String editUser(@PathVariable Long id, Model model) {
-        return "user-form";
+        return "user-edit-form";
     }
 }

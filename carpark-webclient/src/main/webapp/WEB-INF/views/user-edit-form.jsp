@@ -61,7 +61,7 @@
                 </div>    
             </div>
             <div class="col-sm-offset-2 col-sm-10">                
-                <button onclick="editUser()" type="button" class="btn btn-success">Add user</button>
+                <button onclick="editUser()" type="button" class="btn btn-success">Edit user</button>
                 <button type="button" class="btn btn-default" onclick="window.location.href='/pa165/client/user'">Cancel</button>
             </div>
         </form>
@@ -77,13 +77,10 @@
                 $.ajax({
                     type: "GET",
                     dataType:"json",
-                    url: "http://localhost:8080/pa165/rest/users/"+ID,
-                    success: function(data){
-                        $("#firstNameInput").val(data.firstName);
-                        
+                    url: "http://localhost:8080/pa165/rest/offices",
+                    success: function(data){//alert(JSON.stringify(data));
                         var sel = $("#officeIdInput");
-                        $.each(data,function(i,data)
-                        {   
+                        $.each(data,function(i,data) {   
                             var opt = document.createElement('option');
                             opt.innerHTML = data.address;
                             opt.value = data.id;
@@ -91,7 +88,34 @@
                         });
                         spinner.remove();
                     },
-                    error: function(errorThrown){
+                    error: function(errorThrown) {
+                        alert(JSON.stringify(errorThrown));
+                        spinner.remove();                       
+                    }
+                });
+                
+                $.ajax({
+                    type: "GET",
+                    dataType:"json",
+                    url: "http://localhost:8080/pa165/rest/users/"+ID,
+                    success: function(data){//alert(JSON.stringify(data));
+                        $("#firstNameInput").val(data.firstName);
+                        $("#lastNameInput").val(data.lastName);
+                        $("#birthNumberInput").val(data.birthNumber);
+                        $("#addressInput").val(data.address);
+                        $("#officeIdInput").val(data.office.id);
+                        /*
+                        var sel = $("#officeIdInput");
+                        $.each(data.office,function(i,office) {   
+                            var opt = document.createElement('option');
+                            opt.innerHTML = office;
+                            opt.value = office;
+                            sel.append(opt);
+                        });*/
+                        spinner.remove();
+                    },
+                    error: function(errorThrown) {
+                        alert(JSON.stringify(errorThrown));
                         spinner.remove();                       
                     }
                 });
