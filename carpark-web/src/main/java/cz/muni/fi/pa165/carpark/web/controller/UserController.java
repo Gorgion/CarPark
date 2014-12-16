@@ -39,9 +39,6 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private UserCredentialsService credentialsService;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -49,6 +46,12 @@ public class UserController {
 
     @Autowired
     private OfficeService officeService;
+    
+    @ModelAttribute(value = "userRoles")
+    public UserRoleDto.RoleType[] userRoles()
+    {
+        return UserRoleDto.RoleType.values();
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model) {
@@ -80,25 +83,16 @@ public class UserController {
             model.addAttribute("offices", officeService.getAllOffices());  // TODO TRY-CATCH WHEN NO OFFICES - OK by CAR
             return "user-form";
         } else {
-            UserDto user = getUserDto(userForm);
-
-            if (credentialsService.getByUsername(userForm.getUsername()) != null) {
-                model.addAttribute("offices", officeService.getAllOffices());  // TODO TRY-CATCH WHEN NO OFFICES
-                //bindingResult.reject("username", "user.usernameAlreadyExist");
-                model.addAttribute("error", "user.usernameAlreadyExist");
-
-                return "user-form";
-            }
+            UserDto user = getUserDto(userForm);            
 
             Set<UserRoleDto> roles = new HashSet<>();
 
             UserCredentialsDto credentialsDto = new UserCredentialsDto(userForm.getUsername(), passwordEncoder.encode(userForm.getPassword()), Boolean.TRUE, user, roles);
 
-            //TEMP
             UserRoleDto role1 = new UserRoleDto();
-            role1.setRoleName(UserRoleDto.RoleType.ADMIN.name());
+            role1.setRoleName(userForm.getRole().toString());
             role1.setUserCredentials(credentialsDto);
-
+            
             roles.add(role1);
             try {
                 userAccountServiceFacade.registerUser(credentialsDto);

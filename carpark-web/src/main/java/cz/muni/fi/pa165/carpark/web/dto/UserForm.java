@@ -5,6 +5,7 @@
  */
 package cz.muni.fi.pa165.carpark.web.dto;
 
+import cz.muni.fi.pa165.carpark.dto.UserRoleDto;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -31,9 +32,22 @@ public class UserForm
     
     @NotBlank
     private String password;
+    
+    @NotNull
+    private UserRoleDto.RoleType role;
 
     @NotNull
     private Long idOffice;
+
+    public UserRoleDto.RoleType getRole()
+    {
+        return role;
+    }
+
+    public void setRole(UserRoleDto.RoleType role)
+    {
+        this.role = role;
+    }
 
     public String getUsername()
     {

@@ -36,42 +36,53 @@
                 <fmt:message key="${error}"/>
             </div>
         </c:if>
-
         
-            <form:form action="${actionUrl}" method="POST" modelAttribute="userForm" class="form-horizontal">
-                <c:set var="firstNameError"><form:errors path="firstName" /></c:set>
-                <c:set var="lastNameError"><form:errors path="lastName" /></c:set>
-                <c:set var="addressError"><form:errors path="address" /></c:set>
-                <c:set var="birthNumberError"><form:errors path="birthNumber" /></c:set>
-                <c:set var="passwordError"><form:errors path="password" /></c:set>
-                <c:set var="usernameError"><form:errors path="username" /></c:set>
+        <form:form action="${actionUrl}" validate="true" method="POST" modelAttribute="userForm" class="form-horizontal">
+            <c:set var="firstNameError"><form:errors path="firstName" /></c:set>
+            <c:set var="lastNameError"><form:errors path="lastName" /></c:set>
+            <c:set var="addressError"><form:errors path="address" /></c:set>
+            <c:set var="birthNumberError"><form:errors path="birthNumber" /></c:set>
+            <c:set var="passwordError"><form:errors path="password" /></c:set>
+            <c:set var="usernameError"><form:errors path="username" /></c:set>
+            <c:set var="roleError"><form:errors path="role" /></c:set>
 
-                <div class="form-group ${usernameStyle}">
-                    <form:label class="col-sm-2 control-label" path="username"><fmt:message key="user.username" />:</form:label>
+                <div class="form-group ${not empty usernameError ? 'has-error' : ''}">
+                <form:label class="col-sm-2 control-label" path="username"><fmt:message key="username" />:</form:label>
                     <div class="col-sm-5">
-                    <form:input path="username" cssClass="form-control" required=""/>
-                    <c:set var="usernameError"><form:errors path="username" /></c:set>
+                    <form:input path="username" cssClass="form-control" required="true"/>                    
                     <c:if test="${not empty usernameError}">
                         <p class="text-danger"><fmt:message key="user.username" />&nbsp;<form:errors path="username" /></p>
                     </c:if>
-                    </div> 
-                </div>
-                    <div class="form-group ${passwordStyle}">
-                    <form:label class="col-sm-2 control-label" path="password"><fmt:message key="user.password" />:</form:label>
+                </div> 
+            </div>
+            <div class="form-group ${not empty passwordError ? 'has-error' : ''}">
+                <form:label class="col-sm-2 control-label" path="password"><fmt:message key="password" />:</form:label>
                     <div class="col-sm-5">
-                    <form:input path="password" cssClass="form-control" required=""/>
-                    <c:set var="passwordError"><form:errors path="password" /></c:set>
+                    <form:input path="password" cssClass="form-control" required="true"/>                    
                     <c:if test="${not empty passwordError}">
                         <p class="text-danger"><fmt:message key="user.password" />&nbsp;<form:errors path="password" /></p>
                     </c:if>
-                    </div> 
-                </div>
-                
-                <c:if test="${not empty firstNameError}">
-                    <c:set var="firstNameStyle" value="has-error has-feedback" />
-                </c:if>             
-                <div class="form-group ${firstNameStyle}">
-                    <form:label class="col-sm-2 control-label" path="firstName"><fmt:message key="user.firstName" />:</form:label>
+                </div> 
+            </div>
+            <div class="form-group ${not empty roleError ? 'has-error' : ''}">
+                <form:label class="col-sm-2 control-label" path="role"><fmt:message key="user.role" />:</form:label>
+                    <div class="col-sm-5">
+                    <form:select path="role" cssClass="form-control" required="true">
+                        <c:forEach items="${userRoles}" var="role">    
+                            <form:option value="${role}"><fmt:message key="user.role.${role}"/></form:option>
+                        </c:forEach>
+                    </form:select>                    
+                    <c:if test="${not empty roleError}">
+                        <p class="text-danger"><fmt:message key="user.role" />&nbsp;<form:errors path="role" /></p>
+                    </c:if>
+                </div> 
+            </div>
+
+            <c:if test="${not empty firstNameError}">
+                <c:set var="firstNameStyle" value="has-error has-feedback" />
+            </c:if>             
+            <div class="form-group ${firstNameStyle}">
+                <form:label class="col-sm-2 control-label" path="firstName"><fmt:message key="user.firstName" />:</form:label>
                     <div class="col-sm-5">
                     <form:input path="firstName" cssClass="form-control" required=""/>
                     <c:if test="${not empty firstNameError}">
@@ -99,7 +110,6 @@
                 <form:label class="col-sm-2 control-label" path="birthNumber"><fmt:message key="user.birthNumber" />:</form:label>
                     <div class="col-sm-5">
                     <form:input path="birthNumber" cssClass="form-control" required=""/>
-                    <c:set var="birthNumberError"><form:errors path="birthNumber" /></c:set>
                     <c:if test="${not empty birthNumberError}">
                         <p class="text-danger"><fmt:message key="user.birthNumber" />&nbsp;<form:errors path="birthNumber" /></p>
                     </c:if>
