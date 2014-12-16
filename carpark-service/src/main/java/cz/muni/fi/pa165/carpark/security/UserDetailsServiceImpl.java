@@ -49,7 +49,7 @@ public class UserDetailsServiceImpl implements UserDetailsService
         }
     }
 
-    private static UserDetails buildUserDetails(UserCredentialsDto credentials)
+    private static UserDetails buildUserDetails(final UserCredentialsDto credentials)
     {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
@@ -58,8 +58,38 @@ public class UserDetailsServiceImpl implements UserDetailsService
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         }
 
-        UserDetails details = new User(credentials.getUsername(), credentials.getPassword(), authorities);
+        UserDetails details = new CustomUser(credentials.getUsername(), credentials.getPassword(), authorities, credentials.getUserId());        
 
         return details;
     }
+    
+    private static class CustomUser extends User
+    {
+        private Long id;
+        
+        private CustomUser(String username, String password, Collection<SimpleGrantedAuthority> authorities, Long userId)
+        {
+            super(username, password, authorities);
+            
+            this.id = id;
+        }
+
+        public Long getId()
+        {
+            return id;
+        }
+
+        public void setId(Long id)
+        {
+            this.id = id;
+        }
+
+        @Override
+        public String toString()
+        {
+            return "CustomUser{" + "id=" + id + '}';
+        }
+        
+    }
+            
 }
