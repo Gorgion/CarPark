@@ -72,6 +72,19 @@ public class UserController
         return "user-list";
     }
 
+    @RequestMapping(value = "/{id}/account", method = RequestMethod.GET)
+    public String getAccount(@PathVariable Long id, Model model)
+    {
+
+        UserDto user = userService.get(id);
+        UserEditForm userForm = getUserEditForm(user);
+
+        model.addAttribute("userForm", userForm);
+        model.addAttribute("passwordForm", new CredentialsPasswordForm());
+
+        return "user-profile-form";
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addUserRequest(Model model, RedirectAttributes redirectAttributes)
     {
@@ -233,7 +246,7 @@ public class UserController
 
             UserRoleDto role1 = new UserRoleDto();
             role1.setRoleName(credentialsForm.getRole().toString());
-            
+
             credentialsService.update(credentialsDto);
 
         } catch (UserAlreadyExists ex)
@@ -325,7 +338,7 @@ public class UserController
                 redirectAttributes.addFlashAttribute("error", "error.user.deleted");
                 return "redirect:/auth/user";
             }
-            
+
             userAccountServiceFacade.removeUserAccount(userCredentials);
         } catch (IllegalArgumentException | DataAccessException ex)
         {
