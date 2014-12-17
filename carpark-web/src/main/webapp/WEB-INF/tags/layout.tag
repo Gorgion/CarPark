@@ -67,7 +67,7 @@
                                 </sec:authorize>
                                 <sec:authorize access="!hasRole('ROLE_BUILT_IN_ADMIN')">
                                     <sec:authentication property="principal.id" var="principalId" />
-                                <li><a href="<c:url value="/auth/user/${principalId}/account"/>"><sec:authentication property="principal.username"/></a></li>
+                                <li><a href="<c:url value="/auth/user/${principalId}/account"/>"><sec:authentication property="principal.username"/> <span class="caret"></span></a></li>
                                 </sec:authorize>
                             <li><a href="javascript:logout()"><fmt:message key="signout" /></a></li>
                         </ul>
