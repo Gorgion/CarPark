@@ -14,9 +14,8 @@
 <fmt:message var="title" key="office.list.title"/>
 <custom:layout title="${title}">    
     <jsp:attribute name="content">
-        <sec:authorize access="!hasRole('ROLE_BUILT_IN_ADMIN')">
             <div class="row">            
-                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <sec:authorize access="hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN')">
                     <a href="<c:url value="/auth/office/add" />" class="btn btn-success"><fmt:message key="office.add"/></a>
                     <hr class="divider" />
                 </sec:authorize>
@@ -74,7 +73,7 @@
                                         <p><fmt:message key="car.brand.${of.brand}"/> <fmt:message key="car.type.${of.type}"/></p>
                                     </c:forEach>
                                 </td>
-                                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                <sec:authorize access="hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN')">
                                     <td>
                                         <a href='<c:url value="/auth/office/${office.id}/edit" />' class="btn btn-info"><span class="glyphicon glyphicon-edit" /></a>
                                         <form action="<c:url value="/auth/office/${office.id}/delete" />" method="POST" class="form-inline" style="display: inline-block;">
@@ -107,6 +106,5 @@
 
                 </div>
             </custom:modal-dialog>  
-        </sec:authorize>
     </jsp:attribute>        
 </custom:layout>

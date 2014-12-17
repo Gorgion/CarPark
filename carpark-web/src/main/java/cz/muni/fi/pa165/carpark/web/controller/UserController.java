@@ -9,7 +9,11 @@ import cz.muni.fi.pa165.carpark.service.OfficeService;
 import cz.muni.fi.pa165.carpark.service.UserCredentialsService;
 import cz.muni.fi.pa165.carpark.service.UserService;
 import cz.muni.fi.pa165.carpark.servicefacade.UserAccountServiceFacade;
-import cz.muni.fi.pa165.carpark.web.dto.UserForm;
+import cz.muni.fi.pa165.carpark.web.dto.CredentialsForm;
+import cz.muni.fi.pa165.carpark.web.dto.CredentialsPasswordForm;
+import cz.muni.fi.pa165.carpark.web.dto.UserAddForm;
+import cz.muni.fi.pa165.carpark.web.dto.UserEditForm;
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,7 +37,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @Controller
 @RequestMapping("/auth/user")
-public class UserController {
+public class UserController
+{
 
     @Autowired
     private UserService userService;
@@ -42,11 +47,14 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
+    private UserCredentialsService credentialsService;
+
+    @Autowired
     private UserAccountServiceFacade userAccountServiceFacade;
 
     @Autowired
     private OfficeService officeService;
-    
+
     @ModelAttribute(value = "userRoles")
     public UserRoleDto.RoleType[] userRoles()
     {
@@ -54,21 +62,24 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String list(Model model) {
+    public String list(Model model)
+    {
         List<UserDto> users = userService.getAll();
 
         model.addAttribute("users", users);
-        model.addAttribute("userForm", new UserForm());
+        model.addAttribute("userForm", new UserAddForm());
 
         return "user-list";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String addUserRequest(Model model, RedirectAttributes redirectAttributes) {
-        model.addAttribute("userForm", new UserForm());
+    public String addUserRequest(Model model, RedirectAttributes redirectAttributes)
+    {
+        model.addAttribute("userForm", new UserAddForm());
 
         List<OfficeDto> offices = officeService.getAllOffices();
-        if (offices.isEmpty()) {
+        if (offices.isEmpty())
+        {
             redirectAttributes.addFlashAttribute("error", "error.user.nooffices");
             return "redirect:/auth/user";
         }
@@ -78,25 +89,26 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(@Valid @ModelAttribute UserForm userForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
+    public String addUser(@Valid @ModelAttribute UserAddForm userForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes)
+    {
+        if (bindingResult.hasErrors())
+        {
             model.addAttribute("offices", officeService.getAllOffices());  // TODO TRY-CATCH WHEN NO OFFICES - OK by CAR
             return "user-form";
-        } else {
-            UserDto user = getUserDto(userForm);            
+        } else
+        {
+            UserDto user = getUserDto(userForm);
 
-            Set<UserRoleDto> roles = new HashSet<>();
+            UserRoleDto role = new UserRoleDto();
+            role.setRoleName(userForm.getRole().toString());
 
-            UserCredentialsDto credentialsDto = new UserCredentialsDto(userForm.getUsername(), passwordEncoder.encode(userForm.getPassword()), Boolean.TRUE, user, roles);
+            UserCredentialsDto credentialsDto = new UserCredentialsDto(userForm.getUsername(), passwordEncoder.encode(userForm.getPassword()), Boolean.TRUE, user, role);
 
-            UserRoleDto role1 = new UserRoleDto();
-            role1.setRoleName(userForm.getRole().toString());
-            role1.setUserCredentials(credentialsDto);
-            
-            roles.add(role1);
-            try {
+            try
+            {
                 userAccountServiceFacade.registerUser(credentialsDto);
-            } catch (UserAlreadyExists ex) {
+            } catch (UserAlreadyExists ex)
+            {
                 model.addAttribute("offices", officeService.getAllOffices());
                 model.addAttribute("error", "error.user.useralreadyexists");
                 return "user-form";
@@ -108,14 +120,24 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-    public String editUserRequest(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
+    public String editUserRequest(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes)
+    {
         UserDto user = userService.get(id);
-        UserForm userForm = getUserForm(user);
+        UserEditForm userForm = getUserEditForm(user);
+
+        UserCredentialsDto credentialsDto = credentialsService.get(id);
+        CredentialsForm credentialsForm = new CredentialsForm();
+        credentialsForm.setUsername(credentialsDto.getUsername());
+        credentialsForm.setRole(getRoleType(credentialsDto));
 
         model.addAttribute("userForm", userForm);
+        model.addAttribute("credentialsForm", credentialsForm);
+        model.addAttribute("passwordForm", new CredentialsPasswordForm());
+
         model.addAttribute("action", "edit");
 
-        if (officeService.getAllOffices().isEmpty() || user.getOfficeDto() == null) {
+        if (officeService.getAllOffices().isEmpty() || user.getOfficeDto() == null)
+        {
             redirectAttributes.addFlashAttribute("error", "error.user.nooffices");
             return "redirect:/auth/user";
         }
@@ -126,16 +148,30 @@ public class UserController {
         return "user-form";
     }
 
-    @RequestMapping(value = "/{id}/edit", method = {RequestMethod.POST, RequestMethod.PUT})
-    public String editUser(@PathVariable Long id, @Valid @ModelAttribute UserForm userForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
-        if (bindingResult.hasErrors()) {
+    @RequestMapping(value = "/{id}/edit", method =
+    {
+        RequestMethod.POST, RequestMethod.PUT
+    })
+    public String editUser(@PathVariable Long id, @Valid @ModelAttribute UserEditForm userForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model)
+    {
+        if (bindingResult.hasErrors())
+        {
             model.addAttribute("action", "edit");
+
+            UserCredentialsDto credentialsDto = credentialsService.get(id);
+            CredentialsForm credentialsForm = new CredentialsForm();
+            credentialsForm.setUsername(credentialsDto.getUsername());
+            credentialsForm.setRole(getRoleType(credentialsDto));
+
+            model.addAttribute("credentialsForm", credentialsForm);
+            model.addAttribute("passwordForm", new CredentialsPasswordForm());
             model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
             return "user-form";
         }
 
         UserDto user = userService.get(id);
-        if (user == null) {
+        if (user == null)
+        {
             redirectAttributes.addFlashAttribute("error", "error.user.edited");
             return "redirect:/auth/user";
         }
@@ -145,16 +181,68 @@ public class UserController {
         user.setLastName(userForm.getLastName());
 
         OfficeDto officeDto = officeService.getOffice(userForm.getIdOffice());
-        if (officeDto == null) {
+        if (officeDto == null)
+        {
             model.addAttribute("action", "edit");
             model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
             model.addAttribute("error", "error.user.nooffices");
+
+            UserCredentialsDto credentialsDto = credentialsService.get(id);
+            CredentialsForm credentialsForm = new CredentialsForm();
+            credentialsForm.setUsername(credentialsDto.getUsername());
+            credentialsForm.setRole(getRoleType(credentialsDto));
+
+            model.addAttribute("credentialsForm", credentialsForm);
+            model.addAttribute("passwordForm", new CredentialsPasswordForm());
+
             return "user-form";
         }
-        try {
-            userService.edit(user);
-        } catch (UserAlreadyExists ex) {
 
+        userService.edit(user);
+
+        redirectAttributes.addFlashAttribute("msg", "msg.user.edited");
+        return "redirect:/auth/user";
+
+    }
+
+    @RequestMapping(value = "/{id}/credentials/edit", method =
+    {
+        RequestMethod.POST, RequestMethod.PUT
+    })
+    public String editUserCredentials(@PathVariable Long id, @Valid @ModelAttribute CredentialsForm credentialsForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model)
+    {
+        if (bindingResult.hasErrors())
+        {
+            UserDto user = userService.get(id);
+            UserEditForm userEditForm = getUserEditForm(user);
+            model.addAttribute("userForm", userEditForm);
+
+            model.addAttribute("passwordForm", new CredentialsPasswordForm());
+            model.addAttribute("action", "edit");
+            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            return "user-form";
+        }
+
+        try
+        {
+            UserRoleDto role = new UserRoleDto();
+            role.setRoleName(credentialsForm.getRole().toString());
+
+            UserCredentialsDto credentialsDto = credentialsService.get(id);
+            credentialsDto.setRole(role);
+
+            UserRoleDto role1 = new UserRoleDto();
+            role1.setRoleName(credentialsForm.getRole().toString());
+            
+            credentialsService.update(credentialsDto);
+
+        } catch (UserAlreadyExists ex)
+        {
+            UserDto user = userService.get(id);
+            UserEditForm userEditForm = getUserEditForm(user);
+            model.addAttribute("userForm", userEditForm);
+
+            model.addAttribute("passwordForm", new CredentialsPasswordForm());
             model.addAttribute("action", "edit");
             model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
             model.addAttribute("error", "error.user.useralreadyexists");
@@ -166,18 +254,81 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/{id}/delete", method = {RequestMethod.POST, RequestMethod.DELETE})
-    public String delete(@PathVariable long id, RedirectAttributes redirectAttributes) {
-        UserDto user;
-        try {
-            user = userService.get(id);
-            if (user == null) {
+    @RequestMapping(value = "/{id}/credentials/password/edit", method =
+    {
+        RequestMethod.POST, RequestMethod.PUT
+    })
+    public String editUserPassword(@PathVariable Long id, @Valid @ModelAttribute CredentialsPasswordForm passwordForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model)
+    {
+        if (bindingResult.hasErrors())
+        {
+            UserDto user = userService.get(id);
+            UserEditForm userEditForm = getUserEditForm(user);
+            model.addAttribute("userForm", userEditForm);
+
+            UserCredentialsDto credentialsDto = credentialsService.get(id);
+            CredentialsForm credentialsForm = new CredentialsForm();
+            credentialsForm.setUsername(credentialsDto.getUsername());
+            credentialsForm.setRole(getRoleType(credentialsDto));
+
+            model.addAttribute("credentialsForm", credentialsForm);
+
+            model.addAttribute("action", "edit");
+            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            return "user-form";
+        }
+
+        try
+        {
+
+            UserCredentialsDto credentialsDto = credentialsService.get(id);
+            credentialsDto.setPassword(passwordEncoder.encode(passwordForm.getPassword()));
+
+            credentialsService.update(credentialsDto);
+
+        } catch (UserAlreadyExists ex)
+        {
+            UserDto user = userService.get(id);
+            UserEditForm userEditForm = getUserEditForm(user);
+            model.addAttribute("userForm", userEditForm);
+
+            UserCredentialsDto credentialsDto = credentialsService.get(id);
+            CredentialsForm credentialsForm = new CredentialsForm();
+            credentialsForm.setUsername(credentialsDto.getUsername());
+            credentialsForm.setRole(getRoleType(credentialsDto));
+
+            model.addAttribute("credentialsForm", credentialsForm);
+            model.addAttribute("passwordForm", new CredentialsPasswordForm());
+            model.addAttribute("action", "edit");
+            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            model.addAttribute("error", "error.user.useralreadyexists");
+            return "user-form";
+        }
+
+        redirectAttributes.addFlashAttribute("msg", "msg.user.edited");
+        return "redirect:/auth/user";
+
+    }
+
+    @RequestMapping(value = "/{id}/delete", method =
+    {
+        RequestMethod.POST, RequestMethod.DELETE
+    })
+    public String delete(@PathVariable long id, RedirectAttributes redirectAttributes)
+    {
+        UserCredentialsDto userCredentials;
+        try
+        {
+            userCredentials = credentialsService.get(id);
+            if (userCredentials == null)
+            {
                 redirectAttributes.addFlashAttribute("error", "error.user.deleted");
                 return "redirect:/auth/user";
             }
-            userService.delete(user);
-            //userAccountServiceFacade.removeUserAccount(...);
-        } catch (IllegalArgumentException | DataAccessException ex) {
+            
+            userAccountServiceFacade.removeUserAccount(userCredentials);
+        } catch (IllegalArgumentException | DataAccessException ex)
+        {
             redirectAttributes.addFlashAttribute("error", "error.user.deleted" + ex);
             return "redirect:/auth/user";
         }
@@ -186,7 +337,8 @@ public class UserController {
         return "redirect:/auth/user";
     }
 
-    private UserDto getUserDto(UserForm userForm) {
+    private UserDto getUserDto(UserAddForm userForm)
+    {
         UserDto user = new UserDto();
 
         user.setAddress(userForm.getAddress());
@@ -198,8 +350,9 @@ public class UserController {
         return user;
     }
 
-    private UserForm getUserForm(UserDto user) {
-        UserForm userForm = new UserForm();
+    private UserAddForm getUserAddForm(UserDto user)
+    {
+        UserAddForm userForm = new UserAddForm();
 
         userForm.setFirstName(user.getFirstName());
         userForm.setLastName(user.getLastName());
@@ -211,4 +364,30 @@ public class UserController {
 
     }
 
+    private UserEditForm getUserEditForm(UserDto user)
+    {
+        UserEditForm userForm = new UserEditForm();
+
+        userForm.setFirstName(user.getFirstName());
+        userForm.setLastName(user.getLastName());
+        userForm.setAddress(user.getAddress());
+        userForm.setBirthNumber(user.getBirthNumber());
+        userForm.setIdOffice(user.getOfficeDto().getId());  // TODO TRY-CATCH WHEN NO OFFICES
+
+        return userForm;
+
+    }
+
+    private UserRoleDto.RoleType getRoleType(UserCredentialsDto credentialsDto)
+    {
+        switch (credentialsDto.getRole().getRoleName())
+        {
+            case "ROLE_ADMIN":
+                return UserRoleDto.RoleType.ADMIN;
+            case "ROLE_MANAGER":
+                return UserRoleDto.RoleType.MANAGER;
+            default:
+                return UserRoleDto.RoleType.USER;
+        }
+    }
 }

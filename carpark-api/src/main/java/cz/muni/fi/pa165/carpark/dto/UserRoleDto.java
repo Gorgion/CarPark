@@ -16,19 +16,7 @@ import java.util.Objects;
 
 public class UserRoleDto implements Serializable
 {
-    private Long id;
     private String roleName;
-    private UserCredentialsDto userCredentials;
-
-    public Long getId()
-    {
-        return id;
-    }
-
-    public void setId(Long id)
-    {
-        this.id = id;
-    }
 
     public String getRoleName()
     {
@@ -38,49 +26,6 @@ public class UserRoleDto implements Serializable
     public void setRoleName(String roleName)
     {
         this.roleName = roleName;
-    }
-
-    public UserCredentialsDto getUserCredentials()
-    {
-        return userCredentials;
-    }
-
-    public void setUserCredentials(UserCredentialsDto userCredentials)
-    {
-        this.userCredentials = userCredentials;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int hash = 3;
-        hash = 67 * hash + Objects.hashCode(this.id);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
-        final UserRoleDto other = (UserRoleDto) obj;
-        if (!Objects.equals(this.id, other.id))
-        {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "Role{" + "id=" + id + ", roleName=" + roleName + ", user=" + userCredentials + '}';
     }
 
     public static enum RoleType

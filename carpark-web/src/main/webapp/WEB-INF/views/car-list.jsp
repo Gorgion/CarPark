@@ -14,10 +14,9 @@
 <fmt:message var="title" key="car.list.title"/>
 
 <custom:layout title="${title}">
-    <jsp:attribute name="content">
-        <sec:authorize access="!hasRole('ROLE_BUILT_IN_ADMIN')">
+    <jsp:attribute name="content">        
             <div class="row">
-                <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
+                <sec:authorize access="hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER')">
                     <a href="<c:url value="/auth/car/add" />" class="btn btn-success"><fmt:message key="car.add"/></a>
                     <hr class="divider" />
                 </sec:authorize>
@@ -50,7 +49,7 @@
                             <th><fmt:message key="car.licencePlate" /></th>
                             <th><fmt:message key="car.VIN" /></th>
                             <th><fmt:message key="car.rented" /></th>
-                                <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
+                                <sec:authorize access="hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER')">
                                 <th></th>
                                 </sec:authorize>
                         </tr>
@@ -65,7 +64,7 @@
                                 <td>${car.licencePlate}</td>
                                 <td>${car.VIN}</td>
                                 <td><fmt:message key="${car.rented}" /></td>
-                                <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
+                                <sec:authorize access="hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER')">
                                     <td>
                                         <a href="<c:url value="/auth/car/${car.id}/edit" />" class="btn btn-info"><span class="glyphicon glyphicon-edit" /></a>
                                         <form action="<c:url value="/auth/car/${car.id}/delete" />" method="POST" class="form-inline" style="display: inline-block;">
@@ -79,7 +78,6 @@
                 </table>  
             </div>
             <custom:delete-dialog key="car"></custom:delete-dialog>
-        </sec:authorize>
     </jsp:attribute>
 </custom:layout>
 

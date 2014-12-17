@@ -2,12 +2,18 @@ package cz.muni.fi.pa165.carpark.web.controller.rest;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import cz.muni.fi.pa165.carpark.dto.OfficeDto;
+import cz.muni.fi.pa165.carpark.dto.UserCredentialsDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
+import cz.muni.fi.pa165.carpark.dto.UserRoleDto;
+import cz.muni.fi.pa165.carpark.exception.UserAlreadyExists;
 import cz.muni.fi.pa165.carpark.service.OfficeService;
+import cz.muni.fi.pa165.carpark.service.UserCredentialsService;
 import cz.muni.fi.pa165.carpark.service.UserService;
+import cz.muni.fi.pa165.carpark.servicefacade.UserAccountServiceFacade;
 import cz.muni.fi.pa165.carpark.web.dto.RestOfficeDto;
 import cz.muni.fi.pa165.carpark.web.dto.RestUserDto;
-import cz.muni.fi.pa165.carpark.web.dto.UserForm;
+import cz.muni.fi.pa165.carpark.web.dto.UserAddForm;
+import cz.muni.fi.pa165.carpark.web.dto.UserEditForm;
 import cz.muni.fi.pa165.carpark.web.rest.JsonViews;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +44,13 @@ public class RestUserController
     private UserService userService;
 
     @Autowired
+    private UserAccountServiceFacade userAccountServiceFacade;
+
+    @Autowired
     private OfficeService officeService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @JsonView(JsonViews.Users.class)
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
@@ -71,7 +84,7 @@ public class RestUserController
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public ResponseEntity<UserForm> addedUser(@Valid @RequestBody UserForm userForm)
+    public ResponseEntity<UserAddForm> addedUser(@Valid @RequestBody UserAddForm userForm)
     {
         UserDto user = getUserDto(userForm);
 
@@ -80,14 +93,24 @@ public class RestUserController
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        Long id = userService.add(user);
-        user.setId(id);
+        UserRoleDto role = new UserRoleDto();
+        role.setRoleName(userForm.getRole().toString());
+
+        UserCredentialsDto credentialsDto = new UserCredentialsDto(userForm.getUsername(), passwordEncoder.encode(userForm.getPassword()), Boolean.TRUE, user, role);
+
+        try
+        {
+            userAccountServiceFacade.registerUser(credentialsDto);
+        } catch (UserAlreadyExists ex)
+        {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public ResponseEntity<UserForm> editedUser(@PathVariable Long id, @Valid @RequestBody UserForm userForm)
+    public ResponseEntity<UserEditForm> editedUser(@PathVariable Long id, @Valid @RequestBody UserEditForm userForm)
     {
         UserDto user = userService.get(id);
 
@@ -135,17 +158,15 @@ public class RestUserController
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    private UserDto getUserDto(UserForm userForm)
+    private UserDto getUserDto(UserAddForm userForm)
     {
         UserDto user = new UserDto();
-        
+
         user.setAddress(userForm.getAddress());
         user.setBirthNumber(userForm.getBirthNumber());
         user.setFirstName(userForm.getFirstName());
         user.setLastName(userForm.getLastName());
-
-        OfficeDto office = officeService.getOffice(userForm.getIdOffice());
-        user.setOfficeDto(office);
+        user.setOfficeDto(officeService.getOffice(userForm.getIdOffice()));
 
         return user;
     }

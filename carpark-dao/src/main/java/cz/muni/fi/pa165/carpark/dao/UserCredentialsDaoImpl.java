@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserCredentialsDaoImpl implements UserCredentialsDao
 {
-    @PersistenceContext//(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     private EntityManager em;
 
     @Override
@@ -45,7 +45,7 @@ public class UserCredentialsDaoImpl implements UserCredentialsDao
         {
             throw new IllegalArgumentException("user id is null");
         }
-
+        
         em.merge(uc);
     }
 
@@ -83,6 +83,28 @@ public class UserCredentialsDaoImpl implements UserCredentialsDao
 
         return credentials;
     }
+    
+    @Override
+    public UserCredentials get(Long id)
+    {
+        if (id == null)
+        {
+            throw new IllegalArgumentException("id is null");
+        }
+
+        Query query = em.createQuery("SELECT uc FROM UserCredentials uc WHERE uc.userId = :id", UserCredentials.class).setParameter("id", id);
+
+        UserCredentials credentials = null;
+        try
+        {
+            credentials = (UserCredentials) query.getSingleResult();
+        } catch (NoResultException e)
+        {
+
+        }
+
+        return credentials;
+    }
 
     private void validateUserCredentials(UserCredentials uc)
     {
@@ -106,7 +128,7 @@ public class UserCredentialsDaoImpl implements UserCredentialsDao
             throw new IllegalArgumentException("password is null or empty");
         }
 
-        if (uc.getRoles() == null)
+        if (uc.getRole() == null)
         {
             throw new IllegalArgumentException("roles are null");
         }

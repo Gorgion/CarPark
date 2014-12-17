@@ -58,4 +58,17 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
 
         return credentials;
     }
+    
+    @Transactional
+    @Override
+    public UserCredentialsDto get(Long id)
+    {
+        cz.muni.fi.pa165.carpark.entity.UserCredentials credentialsEntity;
+
+        credentialsEntity = credentialsDao.get(id);
+
+        UserCredentialsDto credentials = Converter.getTransferObject(credentialsEntity);
+
+        return credentials;
+    }
 }

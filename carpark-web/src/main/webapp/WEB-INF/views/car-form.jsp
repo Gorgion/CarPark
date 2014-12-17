@@ -15,8 +15,7 @@
 <fmt:message var="title" key="car.form.title"/>
 
 <custom:layout title="${title}">
-    <jsp:attribute name="content">
-        <sec:authorize access="!hasRole('ROLE_BUILT_IN_ADMIN')">
+    <jsp:attribute name="content">        
             <c:if test="${not empty errMsg}" >
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -88,7 +87,6 @@
                     <button type="button" class="btn btn-default" onclick="window.location.href = '/pa165/auth/car'"><fmt:message key="btn.cancel" /></button>
                 </div>
             </form:form>
-        </sec:authorize>
     </jsp:attribute>
 </custom:layout>
 

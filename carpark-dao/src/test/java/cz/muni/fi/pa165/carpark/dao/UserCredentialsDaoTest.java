@@ -32,6 +32,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @Transactional
 public class UserCredentialsDaoTest
 {
+
     @Inject
     private UserCredentialsDao userCredentialsDao;
 
@@ -53,21 +54,7 @@ public class UserCredentialsDaoTest
         Assert.assertEquals(expectedUC.getPassword(), actualUC.getPassword());
         Assert.assertEquals(expectedUC.getUser(), actualUC.getUser());
 
-        List<UserRole> expectedRoles = new ArrayList<>(expectedUC.getRoles());
-
-        Assert.assertNotNull(actualUC.getRoles());
-        Assert.assertTrue("Expected roles are not present.", expectedRoles.containsAll(actualUC.getRoles()));
-
-        for (UserRole role : actualUC.getRoles())
-        {
-            expectedRoles.remove(role);
-        }
-
-        Assert.assertTrue("Unexpected roles are present.", expectedRoles.isEmpty());
-
-        Assert.assertEquals(expectedUC.isAccountNonExpired(), actualUC.isAccountNonExpired());
-        Assert.assertEquals(expectedUC.isAccountNonLocked(), actualUC.isAccountNonLocked());
-        Assert.assertEquals(expectedUC.isCredentialsNonExpired(), actualUC.isCredentialsNonExpired());
+        Assert.assertEquals(expectedUC.getRole(), actualUC.getRole());
         Assert.assertEquals(expectedUC.isEnabled(), actualUC.isEnabled());
     }
 
@@ -110,7 +97,7 @@ public class UserCredentialsDaoTest
     {
         UserCredentials expectedUC = getSampleUserCredentials("root");
 
-        expectedUC.setRoles(null);
+        expectedUC.setRole(null);
 
         userCredentialsDao.create(expectedUC);
     }
@@ -124,7 +111,6 @@ public class UserCredentialsDaoTest
 
         expectedUC.setPassword("noPassword");
         expectedUC.setEnabled(false);
-        expectedUC.setAccountNonLocked(false);
 
         userCredentialsDao.update(expectedUC);
 
@@ -136,22 +122,8 @@ public class UserCredentialsDaoTest
         Assert.assertEquals(expectedUC.getUsername(), actualUC.getUsername());
         Assert.assertEquals(expectedUC.getPassword(), actualUC.getPassword());
         Assert.assertEquals(expectedUC.getUser(), actualUC.getUser());
-        
-        List<UserRole> expectedRoles = new ArrayList<>(expectedUC.getRoles());
+        Assert.assertEquals(expectedUC.getRole(), actualUC.getRole());
 
-        Assert.assertNotNull(actualUC.getRoles());
-        Assert.assertTrue("Expected roles are not present.", expectedRoles.containsAll(actualUC.getRoles()));
-
-        for (UserRole role : actualUC.getRoles())
-        {
-            expectedRoles.remove(role);
-        }
-
-        Assert.assertTrue("Unexpected roles are present.", expectedRoles.isEmpty());
-        
-        Assert.assertEquals(expectedUC.isAccountNonExpired(), actualUC.isAccountNonExpired());
-        Assert.assertEquals(expectedUC.isAccountNonLocked(), actualUC.isAccountNonLocked());
-        Assert.assertEquals(expectedUC.isCredentialsNonExpired(), actualUC.isCredentialsNonExpired());
         Assert.assertEquals(expectedUC.isEnabled(), actualUC.isEnabled());
     }
 
@@ -194,7 +166,7 @@ public class UserCredentialsDaoTest
     {
         UserCredentials expectedUC = getSampleUserCredentials("root");
 
-        expectedUC.setRoles(null);
+        expectedUC.setRole(null);
 
         userCredentialsDao.update(expectedUC);
     }
@@ -251,7 +223,7 @@ public class UserCredentialsDaoTest
     {
         UserCredentials expectedUC = getSampleUserCredentials("root");
 
-        expectedUC.setRoles(null);
+        expectedUC.setRole(null);
 
         userCredentialsDao.delete(expectedUC);
     }
@@ -266,20 +238,9 @@ public class UserCredentialsDaoTest
 
         userDao.add(user);
 
-        Set<UserRole> roles = new HashSet<>();
-
-        UserCredentials userCredentials = new UserCredentials(username, "passwd", true, user, roles);
-
         UserRole role1 = new UserRole();
         role1.setRoleName(UserRole.RoleType.ADMIN.toString());
-        role1.setUserCredentials(userCredentials);
-
-        UserRole role2 = new UserRole();
-        role2.setRoleName(UserRole.RoleType.USER.toString());
-        role2.setUserCredentials(userCredentials);
-
-        roles.add(role1);
-        roles.add(role2);
+        UserCredentials userCredentials = new UserCredentials(username, "passwd", true, user, role1);
 
         return userCredentials;
     }

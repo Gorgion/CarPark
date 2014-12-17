@@ -245,20 +245,14 @@ public class Converter
         }
 
         User userEntity = getEntity(credentials.getUser());
-        Set<UserRole> rolesEntity = new HashSet<>();
 
-        UserCredentials credentialsEntity = new UserCredentials(credentials.getUsername(), credentials.getPassword(), credentials.isEnabled(), userEntity, rolesEntity);
+        UserCredentials credentialsEntity = new UserCredentials(credentials.getUsername(), credentials.getPassword(), credentials.isEnabled(), userEntity, null);
         credentialsEntity.setUserId(credentials.getUserId());
-        
-        for (cz.muni.fi.pa165.carpark.dto.UserRoleDto role : credentials.getRoles())
-        {
-            UserRole roleEntity = new UserRole();
-            roleEntity.setId(role.getId());
-            roleEntity.setRoleName(role.getRoleName());
-            roleEntity.setUserCredentials(credentialsEntity);
-            
-            rolesEntity.add(roleEntity);
-        }
+
+        UserRole roleEntity = new UserRole();
+        roleEntity.setRoleName(credentials.getRole().getRoleName());
+
+        credentialsEntity.setRole(roleEntity);
 
         return credentialsEntity;
     }
@@ -271,21 +265,11 @@ public class Converter
         }
 
         UserDto userDto = getTransferObject(credentials.getUser());
-        Set<cz.muni.fi.pa165.carpark.dto.UserRoleDto> rolesDto = new HashSet<>();
+        UserRoleDto roleDto = new UserRoleDto();
+        roleDto.setRoleName(credentials.getRole().getRoleName());
 
-        cz.muni.fi.pa165.carpark.dto.UserCredentialsDto dto = new cz.muni.fi.pa165.carpark.dto.UserCredentialsDto(credentials.getUsername(), credentials.getPassword(), credentials.isEnabled(), userDto, rolesDto);
+        cz.muni.fi.pa165.carpark.dto.UserCredentialsDto dto = new cz.muni.fi.pa165.carpark.dto.UserCredentialsDto(credentials.getUsername(), credentials.getPassword(), credentials.isEnabled(), userDto, roleDto);
         dto.setUserId(credentials.getUserId());
-        
-        for (UserRole role : credentials.getRoles())
-        {
-            UserRoleDto roleDto = new UserRoleDto();
-
-            roleDto.setId(role.getId());
-            roleDto.setRoleName(role.getRoleName());
-            roleDto.setUserCredentials(dto);
-        
-            rolesDto.add(roleDto);
-        }
 
         return dto;
     }
@@ -298,9 +282,7 @@ public class Converter
         }
 
         UserRole entity = new UserRole();
-        entity.setId(role.getId());
         entity.setRoleName(role.getRoleName());
-        entity.setUserCredentials(getEntity(role.getUserCredentials()));
 
         return entity;
     }
@@ -314,9 +296,7 @@ public class Converter
 
         cz.muni.fi.pa165.carpark.dto.UserRoleDto dto = new cz.muni.fi.pa165.carpark.dto.UserRoleDto();
 
-        dto.setId(role.getId());
         dto.setRoleName(role.getRoleName());
-        dto.setUserCredentials(getTransferObject(role.getUserCredentials()));
 
         return dto;
     }

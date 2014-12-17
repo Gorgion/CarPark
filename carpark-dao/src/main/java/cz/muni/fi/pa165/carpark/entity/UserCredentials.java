@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -43,56 +44,29 @@ public class UserCredentials implements Serializable
     @Column(nullable = false)
     private Boolean enabled;
 
-    @Column(nullable = false)
-    private Boolean accountNonExpired;
-
-    @Column(nullable = false)
-    private Boolean accountNonLocked;
-
-    @Column(nullable = false)
-    private Boolean credentialsNonExpired;
-
     @OneToOne
     @PrimaryKeyJoinColumn
     private User user;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userCredentials", cascade =
-    {
-        CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE
-    })
-    private Set<UserRole> roles;
+    @Embedded
+    private UserRole role;
 
     public UserCredentials()
     {
     }
 
-    public UserCredentials(String username, String password, Boolean enabled, User user, Set<UserRole> roles)
+    public UserCredentials(String username, String password, Boolean enabled, User user, UserRole role)
     {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
         this.user = user;
-        this.roles = roles;
+        this.role = role;
     }
 
     @PrePersist
     public void prePersist()
-    {
-        if (isAccountNonExpired() == null)
-        {
-            setAccountNonExpired(true);
-        }
-
-        if (isAccountNonLocked() == null)
-        {
-            setAccountNonLocked(true);
-        }
-
-        if (isCredentialsNonExpired() == null)
-        {
-            setCredentialsNonExpired(true);
-        }
-
+    {       
         if (isEnabled() == null)
         {
             setEnabled(true);
@@ -139,36 +113,6 @@ public class UserCredentials implements Serializable
         this.enabled = enabled;
     }
 
-    public Boolean isAccountNonExpired()
-    {
-        return accountNonExpired;
-    }
-
-    public void setAccountNonExpired(Boolean accountNonExpired)
-    {
-        this.accountNonExpired = accountNonExpired;
-    }
-
-    public Boolean isAccountNonLocked()
-    {
-        return accountNonLocked;
-    }
-
-    public void setAccountNonLocked(Boolean accountNonLocked)
-    {
-        this.accountNonLocked = accountNonLocked;
-    }
-
-    public Boolean isCredentialsNonExpired()
-    {
-        return credentialsNonExpired;
-    }
-
-    public void setCredentialsNonExpired(Boolean credentialsNonExpired)
-    {
-        this.credentialsNonExpired = credentialsNonExpired;
-    }
-
     public User getUser()
     {
         return user;
@@ -179,14 +123,14 @@ public class UserCredentials implements Serializable
         this.user = user;
     }
 
-    public Set<UserRole> getRoles()
+    public UserRole getRole()
     {
-        return roles;
+        return role;
     }
 
-    public void setRoles(Set<UserRole> roles)
+    public void setRole(UserRole role)
     {
-        this.roles = roles;
+        this.role = role;
     }
 
     @Override
@@ -215,11 +159,4 @@ public class UserCredentials implements Serializable
         }
         return true;
     }
-
-    @Override
-    public String toString()
-    {
-        return "UserCredentials{" + "userId=" + userId + ", username=" + username + ", password=" + password + ", enabled=" + enabled + ", accountNonExpired=" + accountNonExpired + ", accountNonLocked=" + accountNonLocked + ", credentialsNonExpired=" + credentialsNonExpired + ", user=" + user + ", roles=" + roles + '}';
-    }
-
 }

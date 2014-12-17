@@ -27,6 +27,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 @Named
 public class UserDetailsServiceImpl implements UserDetailsService
 {
+
     @Inject
     private UserCredentialsService userCredentialsService;
 
@@ -53,25 +54,23 @@ public class UserDetailsServiceImpl implements UserDetailsService
     {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
-        for (UserRoleDto role : credentials.getRoles())
-        {
-            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
-        }
+        authorities.add(new SimpleGrantedAuthority(credentials.getRole().getRoleName()));
 
-        UserDetails details = new CustomUser(credentials.getUsername(), credentials.getPassword(), authorities, credentials.getUserId());        
+        UserDetails details = new CustomUser(credentials.getUsername(), credentials.getPassword(), authorities, credentials.getUserId());
 
         return details;
     }
-    
+
     private static class CustomUser extends User
     {
+
         private Long id;
-        
+
         private CustomUser(String username, String password, Collection<SimpleGrantedAuthority> authorities, Long userId)
         {
             super(username, password, authorities);
-            
-            this.id = id;
+
+            this.id = userId;
         }
 
         public Long getId()
@@ -87,9 +86,9 @@ public class UserDetailsServiceImpl implements UserDetailsService
         @Override
         public String toString()
         {
-            return "CustomUser{" + "id=" + id + '}';
+            return super.toString() + "\n CustomUser{" + "id=" + id + '}';
         }
-        
+
     }
-            
+
 }

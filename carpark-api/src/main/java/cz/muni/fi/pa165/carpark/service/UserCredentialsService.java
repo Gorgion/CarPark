@@ -38,6 +38,14 @@ public interface UserCredentialsService
     UserCredentialsDto getByUsername(String username);
 
     /**
+     * Retrieve user credentials for given id.
+     *
+     * @param id id we want to search user credentials for
+     * @return user credentials
+     */
+    UserCredentialsDto get(Long id);
+    
+    /**
      * Update user credentials object.
      *
      * @param credentials user credentials

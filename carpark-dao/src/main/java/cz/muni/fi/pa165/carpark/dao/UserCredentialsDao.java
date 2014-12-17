@@ -36,6 +36,14 @@ public interface UserCredentialsDao
      * @return found user credentials
      */
     UserCredentials getByUsername(String username);
+    
+    /**
+     * Retrieve user credentials.
+     *
+     * @param id user credentials for given id.
+     * @return found user credentials
+     */
+    UserCredentials get(Long id);
 
     /**
      * Update user credentials.

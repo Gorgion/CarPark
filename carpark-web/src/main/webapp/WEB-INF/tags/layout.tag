@@ -45,11 +45,9 @@
                 </div>
 
                 <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <sec:authorize access="!hasRole('ROLE_BUILT_IN_ADMIN')">
+                    <ul class="nav navbar-nav">                        
                         <li><a id="office" href="/pa165/auth/office"><fmt:message key="offices" /></a></li>
-                        <li><a id="car" href="/pa165/auth/car"><fmt:message key="cars" /></a></li>
-                        </sec:authorize>
+                        <li><a id="car" href="/pa165/auth/car"><fmt:message key="cars" /></a></li>                        
                         <li><a id="user" href="/pa165/auth/user"><fmt:message key="users" /></a></li>
                         <li><a id="about-us" href="/pa165/auth/about-us"><fmt:message key="about-us" /></a></li>                        
                     </ul>

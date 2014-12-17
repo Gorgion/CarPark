@@ -7,7 +7,6 @@ package cz.muni.fi.pa165.carpark.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Represents user credentails.
@@ -24,27 +23,21 @@ public class UserCredentialsDto implements Serializable
 
     private Boolean enabled;
 
-    private Boolean accountNonExpired;
-
-    private Boolean accountNonLocked;
-
-    private Boolean credentialsNonExpired;
-
     private UserDto user;
 
-    private Set<UserRoleDto> roles;
+    private UserRoleDto role;
 
     public UserCredentialsDto()
     {
     }
 
-    public UserCredentialsDto(String username, String password, Boolean enabled, UserDto user, Set<UserRoleDto> roles)
+    public UserCredentialsDto(String username, String password, Boolean enabled, UserDto user, UserRoleDto role)
     {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
         this.user = user;
-        this.roles = roles;
+        this.role = role;
     }
 
     public Long getUserId()
@@ -87,35 +80,6 @@ public class UserCredentialsDto implements Serializable
         this.enabled = enabled;
     }
 
-    public Boolean isAccountNonExpired()
-    {
-        return accountNonExpired;
-    }
-
-    public void setAccountNonExpired(Boolean accountNonExpired)
-    {
-        this.accountNonExpired = accountNonExpired;
-    }
-
-    public Boolean isAccountNonLocked()
-    {
-        return accountNonLocked;
-    }
-
-    public void setAccountNonLocked(Boolean accountNonLocked)
-    {
-        this.accountNonLocked = accountNonLocked;
-    }
-
-    public Boolean isCredentialsNonExpired()
-    {
-        return credentialsNonExpired;
-    }
-
-    public void setCredentialsNonExpired(Boolean credentialsNonExpired)
-    {
-        this.credentialsNonExpired = credentialsNonExpired;
-    }
 
     public UserDto getUser()
     {
@@ -127,14 +91,14 @@ public class UserCredentialsDto implements Serializable
         this.user = user;
     }
 
-    public Set<UserRoleDto> getRoles()
+    public UserRoleDto getRole()
     {
-        return roles;
+        return role;
     }
 
-    public void setRoles(Set<UserRoleDto> roles)
+    public void setRole(UserRoleDto role)
     {
-        this.roles = roles;
+        this.role = role;
     }
 
     @Override
@@ -167,7 +131,7 @@ public class UserCredentialsDto implements Serializable
     @Override
     public String toString()
     {
-        return "UserCredentials{" + "userId=" + userId + ", username=" + username + ", password=" + password + ", enabled=" + enabled + ", accountNonExpired=" + accountNonExpired + ", accountNonLocked=" + accountNonLocked + ", credentialsNonExpired=" + credentialsNonExpired + ", user=" + user + ", roles=" + roles + '}';
+        return "UserCredentials{" + "userId=" + userId + ", username=" + username + ", password=" + password + ", enabled=" + enabled +  ", user=" + user + ", role=" + role + '}';
     }
 
 }

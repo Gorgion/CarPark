@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.NotBlank;
  *
  * @author Tomas Svoboda
  */
-public class UserForm
+public class UserEditForm
 {
     @NotBlank
     private String firstName;
@@ -25,49 +25,10 @@ public class UserForm
     @NotBlank
     private String birthNumber;
 
-    private String address;
+    private String address;    
     
-    @NotBlank
-    private String username;
-    
-    @NotBlank
-    private String password;
-    
-    @NotNull
-    private UserRoleDto.RoleType role;
-
     @NotNull
     private Long idOffice;
-
-    public UserRoleDto.RoleType getRole()
-    {
-        return role;
-    }
-
-    public void setRole(UserRoleDto.RoleType role)
-    {
-        this.role = role;
-    }
-
-    public String getUsername()
-    {
-        return username;
-    }
-
-    public void setUsername(String username)
-    {
-        this.username = username;
-    }
-
-    public String getPassword()
-    {
-        return password;
-    }
-
-    public void setPassword(String password)
-    {
-        this.password = password;
-    }
 
     public Long getIdOffice()
     {
