@@ -14,14 +14,13 @@
 <fmt:message var="title" key="rental.list.title"/>
 <custom:layout title="${title}">    
     <jsp:attribute name="content">
-        <sec:authentication property="principal.id" var="principalId" />
-        <c:if test="${principalId == userId}">
-            <sec:authorize access="!hasRole('ROLE_BUILT_IN_ADMIN')">
+        <sec:authorize access="!hasRole('ROLE_BUILT_IN_ADMIN')">
+            <sec:authentication property="principal.id" var="principalId" />
+            <c:if test="${principalId == userId}">
                 <a href="<c:url value="/auth/user/${userId}/rental/add" />" class="btn btn-success"><fmt:message key="rental.add"/></a>
-
                 <hr class="divider" />
-            </sec:authorize>
-        </c:if>
+            </c:if>
+        </sec:authorize>
         <c:if test="${not empty msg}">
             <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">

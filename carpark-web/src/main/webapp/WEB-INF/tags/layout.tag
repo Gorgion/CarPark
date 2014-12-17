@@ -49,13 +49,19 @@
                         <li><a id="office" href="/pa165/auth/office"><fmt:message key="offices" /></a></li>
                         <li><a id="car" href="/pa165/auth/car"><fmt:message key="cars" /></a></li>                        
                         <li><a id="user" href="/pa165/auth/user"><fmt:message key="users" /></a></li>
+                        <sec:authorize access="!hasRole('ROLE_BUILT_IN_ADMIN')">
+                        <sec:authorize access="isAuthenticated()" var="isAuth" />
+                        <sec:authentication property="principal.id" var="principalId" />
+                        <c:if test="${isAuth}">
+                            <li><a id="myRentals" href="/pa165/auth/user/${principalId}/rental"><fmt:message key="myRentals" /></a></li>
+                        </c:if>
+                        </sec:authorize>
                         <li><a id="about-us" href="/pa165/auth/about-us"><fmt:message key="about-us" /></a></li>                        
                     </ul>
                     <sec:authorize access="isAuthenticated()" var="isAuth" />
                     <c:if test="${isAuth}">
                     <ul class="nav navbar-nav navbar-right">
                         <li><span class="btn"><sec:authentication property="principal.username"/></span></li>
-                        <li class="divider"></li>
                         <li><a href="javascript:logout()"><fmt:message key="signout" /></a></li>
                     </ul>
                     </c:if>
