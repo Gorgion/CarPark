@@ -18,7 +18,7 @@
             <a href="<c:url value="/auth/user/${userId}/rental/add" />" class="btn btn-success"><fmt:message key="rental.add"/></a>
 
             <hr class="divider" />
-
+        </sec:authorize>
         <c:if test="${not empty msg}">
             <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -43,7 +43,7 @@
                     <th><fmt:message key="rental.fromDate" /></th>
                     <th><fmt:message key="rental.toDate" /></th>
                     <th><fmt:message key="rental.car" /></th>
-                        <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
+                        <sec:authorize access="hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER')">
                         <th/>
                     </sec:authorize>
                 </tr>
@@ -61,10 +61,10 @@
                                data-car-engine="<fmt:message key="car.engine.${rental.car.engine}" />" 
                                data-car-licencePlate="${rental.car.licencePlate}"><fmt:message key="car.details"/></a>
                         </td>
-                        <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
+                        <sec:authorize access="hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER')">
                             <td>
                                 <a href="<c:url value="/auth/user/${userId}/rental/${rental.id}/edit" />" class="btn btn-info"><span class="glyphicon glyphicon-edit" /></a>
-                             
+
                                 <form action="<c:url value='/auth/user/${userId}/rental/${rental.id}/delete' />" method="POST" class="form-inline" style="display: inline-block;">
                                     <button type="submit" name="delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove" /></button>
                                 </form>                            
@@ -108,7 +108,6 @@
                     </div>
                 </div>
             </div>                    
-        </custom:modal-dialog>        
-        </sec:authorize>
+        </custom:modal-dialog>  
     </jsp:attribute>        
 </custom:layout>

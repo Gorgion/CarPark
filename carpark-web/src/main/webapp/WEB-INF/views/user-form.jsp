@@ -152,6 +152,7 @@
         </form:form>
 
         <c:if test="${action == 'edit'}">
+            <hr class="divider" />
             <c:url var="credentialsEditUrl" value="/auth/user/${id}/credentials/edit" />
             <form:form action="${credentialsEditUrl}" validate="true" method="POST" modelAttribute="credentialsForm" class="form-horizontal">
                 <c:set var="usernameError"><form:errors path="username" /></c:set>
@@ -193,6 +194,7 @@
                     </div>
                 </div>
             </form:form>
+            <hr class="divider" />
             <c:url var="passwordEditUrl" value="/auth/user/${id}/credentials/password/edit" />
             <form:form action="${passwordEditUrl}" validate="true" method="POST" modelAttribute="passwordForm" class="form-horizontal">
                 <c:set var="passwordError"><form:errors path="password" /></c:set>
