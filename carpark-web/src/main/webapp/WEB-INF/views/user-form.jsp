@@ -61,7 +61,7 @@
                 <div class="form-group ${not empty passwordError ? 'has-error' : ''}">
                     <form:label class="col-sm-2 control-label" path="password"><fmt:message key="password" />:</form:label>
                         <div class="col-sm-5">
-                        <form:input path="password" cssClass="form-control" required="true"/>                    
+                        <form:password path="password" cssClass="form-control" required="true"/>                    
                         <c:if test="${not empty passwordError}">
                             <p class="text-danger"><fmt:message key="user.password" />&nbsp;<form:errors path="password" /></p>
                         </c:if>
@@ -204,7 +204,7 @@
                 <div class="form-group ${not empty passwordError ? 'has-error' : ''}">
                     <form:label class="col-sm-2 control-label" path="password"><fmt:message key="password" />:</form:label>
                         <div class="col-sm-5">
-                        <form:input path="password" cssClass="form-control" required="true"/>                    
+                        <form:password path="password" cssClass="form-control" required="true"/>                    
                         <c:if test="${not empty passwordError}">
                             <p class="text-danger"><fmt:message key="user.password" />&nbsp;<form:errors path="password" /></p>
                         </c:if>

@@ -12,10 +12,9 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<c:url var="actionUrl" value="/auth/user/add" />
 
 <fmt:message var="title" key="user.form.title.edit"/>
-<c:url var="actionUrl" value="/auth/user/${id}/edit" /> 
+<c:url var="actionUrl" value="/auth/user/${id}/profile/edit" /> 
 
 <custom:layout title="${title}">
     <jsp:attribute name="content">
@@ -105,7 +104,7 @@
                 <div class="form-group ${not empty passwordError ? 'has-error' : ''}">
                 <form:label class="col-sm-2 control-label" path="password"><fmt:message key="password" />:</form:label>
                     <div class="col-sm-5">
-                    <form:input path="password" cssClass="form-control" required="true"/>                    
+                    <form:password path="password" cssClass="form-control" required="true"/>                    
                     <c:if test="${not empty passwordError}">
                         <p class="text-danger"><fmt:message key="user.password" />&nbsp;<form:errors path="password" /></p>
                     </c:if>

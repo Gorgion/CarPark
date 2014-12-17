@@ -218,6 +218,64 @@ public class UserController
 
     }
 
+    @RequestMapping(value = "/{id}/profile/edit", method =
+    {
+        RequestMethod.POST, RequestMethod.PUT
+    })
+    public String editUserProfile(@PathVariable Long id, @Valid @ModelAttribute UserEditForm userForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model)
+    {
+        if (bindingResult.hasErrors())
+        {
+            model.addAttribute("action", "edit");
+
+            UserCredentialsDto credentialsDto = credentialsService.get(id);
+            CredentialsForm credentialsForm = new CredentialsForm();
+            credentialsForm.setUsername(credentialsDto.getUsername());
+            credentialsForm.setRole(getRoleType(credentialsDto));
+
+            model.addAttribute("credentialsForm", credentialsForm);
+            model.addAttribute("passwordForm", new CredentialsPasswordForm());
+            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            return "user-profile-form";
+        }
+
+        UserDto user = userService.get(id);
+        if (user == null)
+        {
+            redirectAttributes.addFlashAttribute("error", "error.user.edited");
+            return "redirect:/auth/user";
+        }
+        user.setAddress(userForm.getAddress());
+        user.setBirthNumber(userForm.getBirthNumber());
+        user.setFirstName(userForm.getFirstName());
+        user.setLastName(userForm.getLastName());
+
+        OfficeDto officeDto = officeService.getOffice(userForm.getIdOffice());
+        if (officeDto == null)
+        {
+            model.addAttribute("action", "edit");
+            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            model.addAttribute("error", "error.user.nooffices");
+
+            UserCredentialsDto credentialsDto = credentialsService.get(id);
+            CredentialsForm credentialsForm = new CredentialsForm();
+            credentialsForm.setUsername(credentialsDto.getUsername());
+            credentialsForm.setRole(getRoleType(credentialsDto));
+
+            model.addAttribute("credentialsForm", credentialsForm);
+            model.addAttribute("passwordForm", new CredentialsPasswordForm());
+
+            return "user-profile-form";
+        }
+
+        userService.edit(user);
+
+        redirectAttributes.addFlashAttribute("msg", "msg.user.edited");
+        return "redirect:/auth/user";
+
+    }
+
+    
     @RequestMapping(value = "/{id}/credentials/edit", method =
     {
         RequestMethod.POST, RequestMethod.PUT
@@ -316,6 +374,62 @@ public class UserController
             model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
             model.addAttribute("error", "error.user.useralreadyexists");
             return "user-form";
+        }
+
+        redirectAttributes.addFlashAttribute("msg", "msg.user.edited");
+        return "redirect:/auth/user";
+
+    }
+    
+    @RequestMapping(value = "/{id}/profile/password/edit", method =
+    {
+        RequestMethod.POST, RequestMethod.PUT
+    })
+    public String editProfileUserPassword(@PathVariable Long id, @Valid @ModelAttribute CredentialsPasswordForm passwordForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model)
+    {
+        if (bindingResult.hasErrors())
+        {
+            UserDto user = userService.get(id);
+            UserEditForm userEditForm = getUserEditForm(user);
+            model.addAttribute("userForm", userEditForm);
+
+            UserCredentialsDto credentialsDto = credentialsService.get(id);
+            CredentialsForm credentialsForm = new CredentialsForm();
+            credentialsForm.setUsername(credentialsDto.getUsername());
+            credentialsForm.setRole(getRoleType(credentialsDto));
+
+            model.addAttribute("credentialsForm", credentialsForm);
+
+            model.addAttribute("action", "edit");
+            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            return "user-profile-form";
+        }
+
+        try
+        {
+
+            UserCredentialsDto credentialsDto = credentialsService.get(id);
+            credentialsDto.setPassword(passwordEncoder.encode(passwordForm.getPassword()));
+
+            credentialsService.update(credentialsDto);
+
+        } catch (UserAlreadyExists ex)
+        {
+            UserDto user = userService.get(id);
+            UserEditForm userEditForm = getUserEditForm(user);
+            model.addAttribute("userForm", userEditForm);
+
+            UserCredentialsDto credentialsDto = credentialsService.get(id);
+            CredentialsForm credentialsForm = new CredentialsForm();
+            credentialsForm.setUsername(credentialsDto.getUsername());
+            credentialsForm.setRole(getRoleType(credentialsDto));
+
+            model.addAttribute("credentialsForm", credentialsForm);
+            model.addAttribute("passwordForm", new CredentialsPasswordForm());
+            model.addAttribute("action", "edit");
+            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            model.addAttribute("error", "error.user.useralreadyexists");
+            return "user-profile-form";
         }
 
         redirectAttributes.addFlashAttribute("msg", "msg.user.edited");
