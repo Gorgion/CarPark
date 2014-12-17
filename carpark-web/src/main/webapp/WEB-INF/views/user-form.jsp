@@ -10,6 +10,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <c:url var="actionUrl" value="/auth/user/add" />
 <fmt:message var="title" key="user.form.title.add"/>
@@ -152,6 +153,7 @@
         </form:form>
 
         <c:if test="${action == 'edit'}">
+            <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')">
             <hr class="divider" />
             <c:url var="credentialsEditUrl" value="/auth/user/${id}/credentials/edit" />
             <form:form action="${credentialsEditUrl}" validate="true" method="POST" modelAttribute="credentialsForm" class="form-horizontal">
@@ -214,6 +216,7 @@
                     </div>
                 </div>
             </form:form>
+            </sec:authorize>
         </c:if>
 
     </jsp:attribute>
