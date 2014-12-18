@@ -36,7 +36,7 @@
             <c:set var="addressError"><form:errors path="address" /></c:set> 
             <c:if test="${not empty addressError}"><c:set var="addressStyle" value="has-error has-feedback" /></c:if>             
             <div class="form-group ${addressStyle}">
-                <form:label path="address" cssClass="col-sm-2 control-label"><fmt:message key="office.address" />:</form:label>
+                <form:label path="address" cssClass="col-sm-2 control-label"><fmt:message key="office.address" />: <span style="color:red;">*</span></form:label>
                 <div class="col-sm-5">
                     <form:input path="address" cssClass="form-control"/>
                     <c:if test="${not empty addressError}">

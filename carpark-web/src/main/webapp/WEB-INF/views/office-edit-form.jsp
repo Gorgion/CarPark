@@ -40,7 +40,7 @@
                 <c:set var="addressStyle" value="has-error has-feedback" />
             </c:if> 
             <div class="form-group ${addressStyle}"> 
-                <form:label path="address" cssClass="control-label col-sm-2"><fmt:message key="office.address" /></form:label>
+                <form:label path="address" cssClass="control-label col-sm-2"><fmt:message key="office.address" />: <span style="color:red;">*</span></form:label>
                     <div class="col-sm-6">
                     <form:input path="address" cssClass="form-control"/>
                     <c:if test="${not empty addressError}">
@@ -50,7 +50,7 @@
             </div>
 
             <div class="form-group ${not empty managerIdError ? 'has-error' : ''}"> 
-                <form:label path="managerId" cssClass="control-label col-sm-2"><fmt:message key="office.manager" /></form:label>
+                <form:label path="managerId" cssClass="control-label col-sm-2"><fmt:message key="office.manager" />: <span style="color:red;">*</span></form:label>
                     <div class="col-sm-6">
                     <form:select path="managerId" class="form-control" id="managerId" >
                         <form:option value="">&nbsp;</form:option>

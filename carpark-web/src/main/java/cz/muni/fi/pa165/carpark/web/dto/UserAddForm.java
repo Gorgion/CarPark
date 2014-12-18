@@ -6,6 +6,7 @@
 package cz.muni.fi.pa165.carpark.web.dto;
 
 import cz.muni.fi.pa165.carpark.dto.UserRoleDto;
+import cz.muni.fi.pa165.carpark.validation.PasswordsNotEqual;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -14,6 +15,7 @@ import org.hibernate.validator.constraints.NotBlank;
  *
  * @author Tomas Svoboda
  */
+@PasswordsNotEqual(passwordFieldName = "password", passwordVerificationFieldName = "confirmPassword")
 public class UserAddForm
 {
     @NotBlank
@@ -32,6 +34,9 @@ public class UserAddForm
     
     @NotBlank
     private String password;
+    
+    @NotBlank
+    private String confirmPassword; 
     
     @NotNull
     private UserRoleDto.RoleType role;
@@ -67,6 +72,16 @@ public class UserAddForm
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    public String getConfirmPassword()
+    {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword)
+    {
+        this.confirmPassword = confirmPassword;
     }
 
     public Long getIdOffice()

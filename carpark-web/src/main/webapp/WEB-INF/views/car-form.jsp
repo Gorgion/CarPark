@@ -31,7 +31,7 @@
                 <c:set var="licencePlateErrors"><form:errors path="licencePlate"/></c:set>
 
                     <div class="form-group">
-                    <form:label class="control-label col-sm-2" path="brand"><fmt:message key="car.brand"/>:</form:label>
+                    <form:label class="control-label col-sm-2" path="brand"><fmt:message key="car.brand"/>: <span style="color:red;">*</span></form:label>
                         <div class="col-sm-5">
                         <form:select path="brand" class="form-control" id="brand" >
                             <c:forEach items="${brands}" var="brand">    
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <form:label class="control-label col-sm-2" path="type"><fmt:message key="car.type"/>:</form:label>
+                    <form:label class="control-label col-sm-2" path="type"><fmt:message key="car.type"/>: <span style="color:red;">*</span></form:label>
                         <div class="col-sm-5">
                         <form:select path="type" class="form-control" id="type" >
                             <c:forEach items="${types}" var="type">    
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <form:label class="control-label col-sm-2" path="engine"><fmt:message key="car.engine"/>:</form:label>
+                    <form:label class="control-label col-sm-2" path="engine"><fmt:message key="car.engine"/>: <span style="color:red;">*</span></form:label>
                         <div class="col-sm-5">
                         <form:select path="engine" class="form-control" id="engine" >
                             <c:forEach items="${engines}" var="engine">    
@@ -61,19 +61,19 @@
                     </div>
                 </div>
                 <div class="${not empty vinErrors ? 'has-error' : ''} form-group">
-                    <form:label class="control-label col-sm-2" path="VIN"><fmt:message key="car.VIN"/>:</form:label>
+                    <form:label class="control-label col-sm-2" path="VIN"><fmt:message key="car.VIN"/>: <span style="color:red;">*</span></form:label>
                         <div class="col-sm-5">
                         <form:input path="VIN" class="form-control" id="VIN" />
                     </div>
                 </div>
                 <div class="${not empty licencePlateErrors ? 'has-error' : ''} form-group">
-                    <form:label class="control-label col-sm-2" path="licencePlate"><fmt:message key="car.licencePlate"/>:</form:label>
+                    <form:label class="control-label col-sm-2" path="licencePlate"><fmt:message key="car.licencePlate"/>: <span style="color:red;">*</span></form:label>
                         <div class="col-sm-5">
                         <form:input path="licencePlate" class="form-control" id="licencePlate" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <form:label class="control-label col-sm-2" path="idOffice"><fmt:message key="office"/>:</form:label>
+                    <form:label class="control-label col-sm-2" path="idOffice"><fmt:message key="office"/>: <span style="color:red;">*</span></form:label>
                         <div class="col-sm-5">
                         <form:select path="idOffice" class="form-control" >
                             <c:forEach items="${offices}" var="off">    
