@@ -40,15 +40,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="/pa165" class="navbar-brand"><span class="glyphicon glyphicon-leaf"></span> Car Park</a>
+                    <a href="/pa165/client" class="navbar-brand"><span class="glyphicon glyphicon-leaf"></span> Car Park</a>
                 </div>
 
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a id="office" href="/pa165/office">Offices</a></li>
-                        <li><a id="car" href="/pa165/car">Cars</a></li>
-                        <li><a id="user" href="/pa165/user">Users</a></li>
-                        <li><a id="about-us" href="/pa165/about-us">About us</a></li>
+                        <li><a id="office" href="/pa165/client/office">Offices</a></li>                        
+                        <li><a id="user" href="/pa165/client/user">Users</a></li>
                     </ul>
                 </div>
                 <div class="page-header visible-lg visible-md">
@@ -56,7 +54,7 @@
             </div>
         </div>
 
-        <div class="container">
+        <div id="mainContent" class="container">
             <c:if test="${not empty message}">
                 <div class="message"><c:out value="${message}"/></div>
             </c:if>
@@ -64,10 +62,10 @@
         </div>
 
         <footer>
-            <p>&copy; Car Park 2014</p>
-            <%--<p><a href="/pa165"><fmt:message key="navigation.backToTop"/></a></p> --%>           
+            <p>&copy; Car Park 2014</p>        
         </footer>
 
+        <div class="modal"></div>
 
         <!-- Bootstrap core JavaScript
             ================================================== -->
@@ -126,5 +124,13 @@
             });
         </script>
         <jsp:invoke fragment="ajaxScript"/>
+        <script>
+            $body = $("body");
+
+$(document).on({
+    ajaxStart: function() { $body.addClass("loading");    },
+     ajaxStop: function() { $body.removeClass("loading"); }    
+});
+        </script>
     </body>
 </html>

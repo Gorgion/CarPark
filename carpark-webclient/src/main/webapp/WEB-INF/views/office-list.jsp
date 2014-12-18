@@ -54,7 +54,6 @@
     <jsp:attribute name="ajaxScript">
         <script type="text/javascript">
             $(document).ready(function(){
-                var spinner = getSpinner();
                 $.ajax({
                     type: "GET",
                     dataType:"json",
@@ -96,28 +95,23 @@
                         });
                         
                         table.append("</tbody></table>");
-                        spinner.remove();
                     },
-                    error: function(xhr,textStatus,errorThrown){
-                        spinner.remove();                       
+                    error: function(xhr,textStatus,errorThrown){                     
                         alert("fail\n"+errorThrown);
                     }
                 });
             });
             
             function deleteOffice(id)
-            {
-                var spinner = getSpinner();
+            {                
                 $.ajax({
                     type: "DELETE",
                     dataType:"json",
                     url: "http://localhost:8080/pa165/rest/offices/"+id,
                     success: function(){
-                        $(".alert-success").show().append("Office with id "+id+" was deleted.");
-                        spinner.remove();
+                        $(".alert-success").show().append("Office with id "+id+" was deleted.");                        
                     },  
-                    error: function(xhr,textStatus,errorThrown){
-                        spinner.remove();
+                    error: function(xhr,textStatus,errorThrown){                        
                         $(".alert-danger").show().append("Office with id "+id+" couldn't be deleted because of:\n."+errorThrown);
                     }
                     
