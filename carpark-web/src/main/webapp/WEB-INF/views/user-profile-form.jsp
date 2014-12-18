@@ -14,7 +14,6 @@
 
 
 <fmt:message var="title" key="user.form.title.edit"/>
-<c:url var="actionUrl" value="/auth/user/${id}/profile/edit" /> 
 
 <custom:layout title="${title}">
     <jsp:attribute name="content">
@@ -34,7 +33,7 @@
                 <fmt:message key="${error}"/>
             </div>
         </c:if>
-
+        <c:url var="actionUrl" value="/auth/user/${id}/profile/edit" /> 
         <form:form action="${actionUrl}" validate="true" method="POST" modelAttribute="userForm" class="form-horizontal">
             <c:set var="firstNameError"><form:errors path="firstName" /></c:set>
             <c:set var="lastNameError"><form:errors path="lastName" /></c:set>
@@ -97,7 +96,7 @@
 
 
         <hr class="divider" />
-        <c:url var="passwordEditUrl" value="/auth/user/${id}/credentials/password/edit" />
+        <c:url var="passwordEditUrl" value="/auth/user/${id}/profile/password/edit" />
         <form:form action="${passwordEditUrl}" validate="true" method="POST" modelAttribute="passwordForm" class="form-horizontal">
             <c:set var="passwordError"><form:errors path="password" /></c:set>
 
@@ -106,7 +105,7 @@
                     <div class="col-sm-5">
                     <form:password path="password" cssClass="form-control" required="true"/>                    
                     <c:if test="${not empty passwordError}">
-                        <p class="text-danger"><fmt:message key="user.password" />&nbsp;<form:errors path="password" /></p>
+                        <p class="text-danger"><fmt:message key="password" />&nbsp;<form:errors path="password" /></p>
                     </c:if>
                 </div> 
             </div>

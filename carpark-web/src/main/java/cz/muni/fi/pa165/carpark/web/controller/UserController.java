@@ -72,7 +72,7 @@ public class UserController
         return "user-list";
     }
 
-    @RequestMapping(value = "/{id}/account", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/profile", method = RequestMethod.GET)
     public String getAccount(@PathVariable Long id, Model model)
     {
 
@@ -102,7 +102,7 @@ public class UserController
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(@Valid @ModelAttribute UserAddForm userForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes)
+    public String addUser(@Valid @ModelAttribute(value = "userForm") UserAddForm userForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes)
     {
         if (bindingResult.hasErrors())
         {
@@ -165,20 +165,27 @@ public class UserController
     {
         RequestMethod.POST, RequestMethod.PUT
     })
-    public String editUser(@PathVariable Long id, @Valid @ModelAttribute UserEditForm userForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model)
+    public String editUser(@PathVariable Long id, @Valid @ModelAttribute(value = "userForm") UserEditForm userForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes)
     {
         if (bindingResult.hasErrors())
         {
+            System.out.println("\n#1");
             model.addAttribute("action", "edit");
-
+System.out.println("\n#2");
             UserCredentialsDto credentialsDto = credentialsService.get(id);
+            System.out.println("\n#3");
             CredentialsForm credentialsForm = new CredentialsForm();
+            System.out.println("\n#4");
             credentialsForm.setUsername(credentialsDto.getUsername());
+            System.out.println("\n#5");
             credentialsForm.setRole(getRoleType(credentialsDto));
-
+System.out.println("\n#6");
             model.addAttribute("credentialsForm", credentialsForm);
+            System.out.println("\n#7");
             model.addAttribute("passwordForm", new CredentialsPasswordForm());
+            System.out.println("\n#8");
             model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            System.out.println("\n#9");
             return "user-form";
         }
 
@@ -222,12 +229,10 @@ public class UserController
     {
         RequestMethod.POST, RequestMethod.PUT
     })
-    public String editUserProfile(@PathVariable Long id, @Valid @ModelAttribute UserEditForm userForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model)
+    public String editUserProfile(@PathVariable Long id, @Valid @ModelAttribute(value = "userForm") UserEditForm userForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes)
     {
         if (bindingResult.hasErrors())
         {
-            model.addAttribute("action", "edit");
-
             UserCredentialsDto credentialsDto = credentialsService.get(id);
             CredentialsForm credentialsForm = new CredentialsForm();
             credentialsForm.setUsername(credentialsDto.getUsername());
@@ -280,7 +285,7 @@ public class UserController
     {
         RequestMethod.POST, RequestMethod.PUT
     })
-    public String editUserCredentials(@PathVariable Long id, @Valid @ModelAttribute CredentialsForm credentialsForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model)
+    public String editUserCredentials(@PathVariable Long id, @Valid @ModelAttribute(value = "credentialsForm") CredentialsForm credentialsForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model)
     {
         if (bindingResult.hasErrors())
         {
@@ -329,7 +334,7 @@ public class UserController
     {
         RequestMethod.POST, RequestMethod.PUT
     })
-    public String editUserPassword(@PathVariable Long id, @Valid @ModelAttribute CredentialsPasswordForm passwordForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model)
+    public String editUserPassword(@PathVariable Long id, @Valid @ModelAttribute(value = "passwordForm") CredentialsPasswordForm passwordForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model)
     {
         if (bindingResult.hasErrors())
         {
@@ -385,7 +390,7 @@ public class UserController
     {
         RequestMethod.POST, RequestMethod.PUT
     })
-    public String editProfileUserPassword(@PathVariable Long id, @Valid @ModelAttribute CredentialsPasswordForm passwordForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model)
+    public String editProfileUserPassword(@PathVariable Long id, @Valid @ModelAttribute(value = "passwordForm") CredentialsPasswordForm passwordForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model)
     {
         if (bindingResult.hasErrors())
         {
