@@ -32,13 +32,17 @@ heslo ```admin```
 
 Tento předvytvořený administrátorský účet **neumožňuje** přidávat výpujčky, proto je nutné vytvořit nového uživatele.
 
-Uživatelé ani auta nelze vytvářet, dokud není vytvořena aspoň jedna pobočka.
+Uživatelé ani auta nelze vytvářet, dokud není vytvořena alespoň jedna pobočka.
 
 
 #### REST klient ####
 Rest klient se spouští pomocí příkazu ``` mvn tomcat7:run ``` (v adresáři carpark-webclient.)
 
 url: http://localhost:8085/pa165/client
+
+
+
+Rest klient narozdíl od web modulu **nevyžaduje** autentizaci.
 
 
 Pro entitu Office jsou dostupné tyto operace:
@@ -57,3 +61,5 @@ přidat
 odebrat
 editovat
 ```
+
+Aplikace je lokalizována do angličtiny a češtiny.
