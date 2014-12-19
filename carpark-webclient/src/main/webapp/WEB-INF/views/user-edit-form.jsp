@@ -10,7 +10,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<custom:layout title="Add user">
+<custom:layout title="Edit user">
     <jsp:attribute name="content">
         <div class="alert alert-danger alert-dismissable" style="visibility:hidden;">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -18,18 +18,7 @@
             </button>
         </div>
         <form class="form-horizontal">
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Username: </label>
-                <div class="col-sm-5">
-                    <input id="usernameInput" type="text" name="username" class="form-control"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Password: </label>
-                <div class="col-sm-5">
-                    <input id="passwordInput" type="text" name="password" class="form-control"/>
-                </div>
-            </div>
+            <hr class="divider" />
             <div class="form-group">
                 <label class="col-sm-2 control-label">First name: </label>
                 <div class="col-sm-5">
@@ -54,6 +43,7 @@
                     <input id="birthNumberInput" type="birthNumber" name="birthNumber" class="form-control"/>
                 </div> 
             </div>
+            <hr class="divider" />
             <div class="form-group"> 
                 <label class="control-label col-sm-2">Office: </label>
                 <div class="col-sm-5">
@@ -77,7 +67,7 @@
                     type: "GET",
                     dataType:"json",
                     url: "http://localhost:8080/pa165/rest/offices",
-                    success: function(data){//alert(JSON.stringify(data));
+                    success: function(data){
                         var sel = $("#officeIdInput");
                         $.each(data,function(i,data) {   
                             var opt = document.createElement('option');
@@ -95,20 +85,12 @@
                     type: "GET",
                     dataType:"json",
                     url: "http://localhost:8080/pa165/rest/users/"+ID,
-                    success: function(data){//alert(JSON.stringify(data));
+                    success: function(data){
                         $("#firstNameInput").val(data.firstName);
                         $("#lastNameInput").val(data.lastName);
                         $("#birthNumberInput").val(data.birthNumber);
                         $("#addressInput").val(data.address);
                         $("#officeIdInput").val(data.office.id);
-                        /*
-                        var sel = $("#officeIdInput");
-                        $.each(data.office,function(i,office) {   
-                            var opt = document.createElement('option');
-                            opt.innerHTML = office;
-                            opt.value = office;
-                            sel.append(opt);
-                        });*/
                     },
                     error: function(errorThrown) {
                         alert(JSON.stringify(errorThrown));

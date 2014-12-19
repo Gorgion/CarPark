@@ -27,9 +27,10 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Password: </label>
                 <div class="col-sm-5">
-                    <input id="passwordInput" type="text" name="password" class="form-control"/>
+                    <input id="passwordInput" type="password" name="password" class="form-control"/>
                 </div>
             </div>
+            <hr class="divider" />
             <div class="form-group">
                 <label class="col-sm-2 control-label">First name: </label>
                 <div class="col-sm-5">
@@ -39,7 +40,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Last name: </label>
                 <div class="col-sm-5">
-                    <input id="lastNameInput" ype="text" name="lastName" class="form-control"/>
+                    <input id="lastNameInput" type="text" name="lastName" class="form-control"/>
                 </div>
             </div>
             <div class="form-group">
@@ -54,11 +55,17 @@
                     <input id="birthNumberInput" type="birthNumber" name="birthNumber" class="form-control"/>
                 </div> 
             </div>
+            <hr class="divider" />
             <div class="form-group"> 
                 <label class="control-label col-sm-2">Office: </label>
                 <div class="col-sm-5">
                     <select class="form-control" id="officeIdInput" ></select>
                 </div>    
+            </div>
+            <div class="form-group" hidden="true"> 
+                <div class="col-sm-5">
+                    <input id="userRoleInput" type="text" name="userRole" class="form-control" value="USER"/>
+                </div>     
             </div>
             <div class="col-sm-offset-2 col-sm-10">                
                 <button onclick="addUser()" type="button" class="btn btn-success">Add user</button>
@@ -76,8 +83,6 @@
                     dataType:"json",
                     url: "http://localhost:8080/pa165/rest/offices/",
                     success: function(data){
-                        //$("#address").val(data.address);
-                        
                         var sel = $("#officeIdInput");
                         $.each(data,function(i,data)
                         {   
@@ -96,14 +101,16 @@
             function addUser(){
                 var username = $("#usernameInput").val();
                 var password = $("#passwordInput").val();
+                var confirmPassword = $("#passwordInput").val();
                 var firstName = $("#firstNameInput").val();
                 var lastName = $("#lastNameInput").val();
                 var address = $("#addressInput").val();
                 var birthNumber = $("#birthNumberInput").val();
+                var role = $("#userRoleInput").val();
                 var idOffice = $("#officeIdInput").val();
                 $.ajax({
                     type: "POST",
-                    data: JSON.stringify({"idOffice": idOffice,"username": username,"password": password,"firstName": firstName,"lastName": lastName,"address": address,"birthNumber": birthNumber}),
+                    data: JSON.stringify({"role": role, "confirmPassword": confirmPassword, "idOffice": idOffice,"username": username,"password": password,"firstName": firstName,"lastName": lastName,"address": address,"birthNumber": birthNumber}),
                     contentType: "application/json",
                     url: "http://localhost:8080/pa165/rest/users",
                     success: function(){
