@@ -81,11 +81,10 @@
                             
                             textInTd = "";
                             $.each(office.employees,function(j,employee){
-                                textInTd += employee.lastName+"\n";
+                                textInTd += employee.lastName + "<br/>";
                             });
+                            actRow.append($('<td/>').append(textInTd));
                             
-                            $('<td/>').text(textInTd).appendTo(actRow);
-                    
                             actRow.append($('<td/>').append(
                                 "<a href="+"http://localhost:8085/pa165/client/office/"+office.id+"/edit"+" class='btn btn-info'><span class='glyphicon glyphicon-edit' /></a>"+
                                 "<form action='http://localhost:8085/pa165/client/office/delete' method='GET' class='form-inline' style='display: inline-block;'>"+

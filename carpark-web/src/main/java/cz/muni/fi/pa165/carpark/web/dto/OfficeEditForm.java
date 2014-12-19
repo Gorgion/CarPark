@@ -18,6 +18,7 @@ public class OfficeEditForm
     @NotBlank
     private String address;
     
+    @NotBlank
     private Long managerId;
 
     public String getAddress()

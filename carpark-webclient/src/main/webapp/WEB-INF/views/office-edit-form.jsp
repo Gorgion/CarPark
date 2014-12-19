@@ -45,7 +45,6 @@
             urlId = url.substring(0,url.lastIndexOf("/edit"));
             var ID = urlId.substring(urlId.lastIndexOf("/")+1);
             
-            //var ID = document.URL.split("/")[6];
             $(document).ready(function(){
                 $.ajax({
                     type: "GET",
@@ -59,6 +58,9 @@
                         {   
                             var opt = document.createElement('option');
                             opt.innerHTML = employee.firstName + " " + employee.lastName;
+                            
+                            if(data.manager.Id == employee.Id)
+                                opt.selected = "selected";
                             opt.value = employee.Id;
                             sel.append(opt);
                         });
@@ -73,10 +75,10 @@
             function editOffice(){
                 
                 var address = $("#address").val();
+                var managerId = $("#managerId").val();
                 $.ajax({
                     type: "PUT",
-                    data: JSON.stringify({"address": address}),
-                    //dataType: 'json',
+                    data: JSON.stringify({"address": address,"managerId": managerId}),
                     contentType: "application/json",
                     url: "http://localhost:8080/pa165/rest/offices/"+ID,
                     success: function(){
@@ -92,11 +94,13 @@
                             $(".alert-danger").show().append("Can't be blank!");
                         }
                         if (xhr.status == 500)
+                        {
                             window.location.href='/pa165/client/500';
+                        }
                     },
                     fail: function(xhr,textStatus,errorThrown){
                         $(".alert-danger").show().append("Office couldn't be created because of:\n."+errorThrown);
-                    }                    
+                    }
                 });
             };
             

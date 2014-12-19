@@ -8,14 +8,13 @@
 
 <%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <custom:layout title=":-( 500">
     <jsp:attribute name="content">
         <div class="alert alert-danger">        
             500
         </div>
-        <button type="button" class="btn btn-warning" onclick="history.back()"><fmt:message key="btn.back" /></button>
+        <button type="button" class="btn btn-warning" onclick="history.back()">Back</button>
     </jsp:attribute>
 </custom:layout>
  
