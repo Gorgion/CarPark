@@ -26,7 +26,7 @@ Aplikace je spustitelná pomocí příkazu ``` mvn tomcat7:run ``` (v adresáři
 url: http://localhost:8080/pa165/
 
 #### Přihlášení ####
-Pro první přihlášení do aplikace použíjte administratorský účet.
+Pro první přihlášení do aplikace použijte administratorský účet.
 
 přihlaš.jméno ```admin```
 
