@@ -53,7 +53,7 @@
     </jsp:attribute>
     <jsp:attribute name="ajaxScript">
         <script type="text/javascript">
-            $(document).ready(function(){
+    function listOffices(){
                 $.ajax({
                     type: "GET",
                     dataType:"json",
@@ -97,6 +97,14 @@
                         $(".alert-danger").show().append("Fail\n"+errorThrown);
                     }
                 });
+            }        
+    $(document).ready(function(){
+                
+                
+                $(function()
+                {
+                    listOffices();
+                });
             });
             
             function deleteOffice(id)
@@ -105,6 +113,10 @@
                     type: "DELETE",
                     url: "http://localhost:8080/pa165/rest/offices/"+id,
                     success: function(){
+                        $(function ()
+                        {   $('table').remove();
+                            listOffices();
+                        });
                         $(".alert-success").show().append("Office with id "+id+" was deleted.");                        
                     },  
                     error: function(xhr,textStatus,errorThrown){                        
