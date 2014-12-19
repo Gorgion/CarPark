@@ -12,10 +12,10 @@
 
 <custom:layout title="Add user">
     <jsp:attribute name="content">
-        <div class="alert alert-danger alert-dismissable" style="visibility:hidden;">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                &times;
-            </button>
+        <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    &times;
+                </button>
         </div>
         <form class="form-horizontal">
             <div class="form-group">
@@ -75,7 +75,6 @@
     </jsp:attribute>
     <jsp:attribute name="ajaxScript">
         <script type="text/javascript">
-            
             $(document).ready(function(){
                 $(".alert-danger").hide();
                 $.ajax({
@@ -93,7 +92,7 @@
                         });
                     },
                     error: function(errorThrown){
-                        alert("fail\n"+errorThrown);
+                        $(".alert-danger").show().text("Data could not be loaded."+errorThrown);
                     }
                 });
             });
@@ -116,17 +115,18 @@
                     success: function(){
                         window.location.href='/pa165/client/user';
                     },
-                    error: function(xhr){
-                        alert(JSON.stringify(xhr));
-                      if (xhr.status === 400)
-                          $(".alert-danger").show().append("1");
-                      if (xhr.status === 409)
-                          $(".alert-danger").show().append("2");
-                      if (xhr.status === 404)
+                    error: function(xhr){   
+                      if (xhr.status === 400) {
+                          $(".alert-danger").show().text("Fields can not be blank." &times);
+                      }
+                      else if (xhr.status === 404) {
                           window.location.href='/pa165/client/404';
+                      }
+                      else
+                          $(".alert-danger").show().text("User already exists.");
                     },
                     fail: function(errorThrown){
-                        $(".alert-danger").show().append("User couldn't be created."+errorThrown);
+                        $(".alert-danger").show().text("User couldn't be created."+errorThrown);
                     }                    
                 });
             };   

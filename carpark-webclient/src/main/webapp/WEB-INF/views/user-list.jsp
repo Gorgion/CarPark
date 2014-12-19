@@ -46,15 +46,15 @@
                         ).appendTo($('#tableContent'));
                         $.each(data, function(i, user){
                             var actRow = $('<tr/>').appendTo(table)
-                            .append($('<td/>').text(user.Id))
+                            .append($('<td/>').text(user.id))
                             .append($('<td/>').text(user.firstName))
                             .append($('<td/>').text(user.lastName))
                             .append($('<td/>').text(user.address));
 
                             actRow.append($('<td/>').append(
-                                "<a href="+"http://localhost:8085/pa165/client/user/"+user.Id+"/edit"+" class='btn btn-info'><span class='glyphicon glyphicon-edit' /></a>"+
+                                "<a href="+"http://localhost:8085/pa165/client/user/"+user.id+"/edit"+" class='btn btn-info'><span class='glyphicon glyphicon-edit' /></a>"+
                                 "<form action='http://localhost:8085/pa165/client/user/delete' method='GET' class='form-inline' style='display: inline-block;'>"+
-                                "    <button type='submit' onclick='deleteUser("+user.Id+")' name='delete' class='btn btn-danger'><span class='glyphicon glyphicon-remove' /></button>"+
+                                "    <button type='submit' onclick='deleteUser("+user.id+")' name='delete' class='btn btn-danger'><span class='glyphicon glyphicon-remove' /></button>"+
                                 "</form>"     
                             ));
                         });

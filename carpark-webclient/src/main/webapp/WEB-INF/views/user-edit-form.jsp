@@ -59,7 +59,7 @@
     <jsp:attribute name="ajaxScript">
         <script type="text/javascript">
             urlId = document.URL.substring(0,url.lastIndexOf("/edit"));
-            var ID = urlId.substring(urlId.lastIndexOf("/")+1);
+            var id = urlId.substring(urlId.lastIndexOf("/")+1);
             
             $(document).ready(function(){
                 $(".alert-danger").hide();
@@ -84,7 +84,7 @@
                 $.ajax({
                     type: "GET",
                     dataType:"json",
-                    url: "http://localhost:8080/pa165/rest/users/"+ID,
+                    url: "http://localhost:8080/pa165/rest/users/"+id,
                     success: function(data){
                         $("#firstNameInput").val(data.firstName);
                         $("#lastNameInput").val(data.lastName);
@@ -111,7 +111,7 @@
                     type: "PUT",
                     data: JSON.stringify({"idOffice": idOffice,"username": username,"password": password,"firstName": firstName,"lastName": lastName,"address": address,"birthNumber": birthNumber}),
                     contentType: "application/json",
-                    url: "http://localhost:8080/pa165/rest/users/"+ID,
+                    url: "http://localhost:8080/pa165/rest/users/"+id,
                     success: function(){
                         window.location.href='/pa165/client/user';
                     },
