@@ -37,7 +37,7 @@ public class OfficeClientController {
         return "office-form";
     }
 
-    @RequestMapping(value = "/delete", method = {RequestMethod.GET})//, RequestMethod.DELETE})
+    @RequestMapping(value = "/delete", method = {RequestMethod.GET})
     public String officeDeletion() {
         return "redirect:/office";
     }
