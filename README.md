@@ -29,7 +29,7 @@ url: http://localhost:8080/pa165/
 #### REST klient ####
 Rest klient se spouští pomocí příkazu ``` mvn tomcat7:run ``` (v adresáři carpark-webclient.)
 
-url: http://localhost:8080/pa165/client
+url: http://localhost:8085/pa165/client
 
 
 Pro entitu Office jsou dostupné tyto operace:
