@@ -32,6 +32,8 @@ přihlaš.jméno ```admin```
 
 heslo ```admin```
 
+Tento předvytvořený administrátorský účet **neumožňuje** přidávat výpujčky, pro tyto potřeby je vytvořit nový uživatelský účet.
+
 
 #### REST klient ####
 Rest klient se spouští pomocí příkazu ``` mvn tomcat7:run ``` (v adresáři carpark-webclient.)
