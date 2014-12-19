@@ -54,16 +54,14 @@
                         {
                             $("#"+field.field.toString()).parent().parent().addClass("has-error");
                         });
-                        }
-                        if (xhr.status == 409)
+                        } else if (xhr.status == 409)
                         {
                             $(".alert-danger").show().append("Office already exists!");
                             $.each(xhr.responseJSON.fieldErrors,function(i,field)
                         {
                             $("#"+field.field.toString()).parent().parent().addClass("has-error");
                         });
-                        }
-                        if (xhr.status == 404)
+                        }else if (xhr.status == 404)
                             window.location.href='/pa165/client/404';
                         else
                             window.location.replace("/pa165/client/500");                                                
