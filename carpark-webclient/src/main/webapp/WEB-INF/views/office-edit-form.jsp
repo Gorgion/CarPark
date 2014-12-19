@@ -65,8 +65,8 @@
                             sel.append(opt);
                         });
                     },
-                    error: function(xhr,textStatus,errorThrown){                       
-                        alert("fail\n"+errorThrown);
+                    error: function(xhr,textStatus,errorThrown){                     
+                        $(".alert-danger").show().append("Fail\n"+errorThrown);
                     }
                 });
             });

@@ -96,7 +96,7 @@
                         table.append("</tbody></table>");
                     },
                     error: function(xhr,textStatus,errorThrown){                     
-                        alert("fail\n"+errorThrown);
+                        $(".alert-danger").show().append("Fail\n"+errorThrown);
                     }
                 });
             });
