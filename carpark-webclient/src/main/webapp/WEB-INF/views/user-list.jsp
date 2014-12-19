@@ -52,32 +52,28 @@
                             .append($('<td/>').text(user.address));
 
                             actRow.append($('<td/>').append(
-                                "<a href="+"http://localhost:8085/pa165/client/user/"+user.id+"/edit"+" class='btn btn-info'><span class='glyphicon glyphicon-edit' /></a>"+
-                                "<form action='http://localhost:8085/pa165/client/user/delete' method='GET' class='form-inline' style='display: inline-block;'>"+
-                                "    <button type='submit' onclick='deleteUser("+user.id+")' name='delete' class='btn btn-danger'><span class='glyphicon glyphicon-remove' /></button>"+
-                                "</form>"     
+                                "<a href=http://localhost:8085/pa165/client/user/"+user.id+"/edit class='btn btn-info'><span class='glyphicon glyphicon-edit' /></a>"+
+                                "<button type='button' onclick='deleteUser("+user.id+")' name='delete' class='btn btn-danger'><span class='glyphicon glyphicon-remove' /></button>"  
                             ));
                         });
                         
                         table.append("</tbody></table>");
                     },
-                    error: function(xhr,textStatus,errorThrown){       
+                    error: function(errorThrown){       
                         alert("fail\n"+errorThrown);
                     }
                 });
             });
             
-            function deleteUser(id)
-            {
+            function deleteUser(id) {
                 $.ajax({
                     type: "DELETE",
-                    dataType:"json",
                     url: "http://localhost:8080/pa165/rest/users/"+id,
                     success: function(){
-                        $(".alert-success").show().append("User with id "+id+" was deleted.");
+                        $(".alert-success").show().text("User with id "+id+" was deleted.");
                     },  
                     error: function(errorThrown){
-                        $(".alert-danger").show().append("User with id "+id+" couldn't be deleted. "+errorThrown);
+                        $(".alert-danger").show().text("User with id "+id+" couldn't be deleted. "+errorThrown);
                     }
                     
                 });

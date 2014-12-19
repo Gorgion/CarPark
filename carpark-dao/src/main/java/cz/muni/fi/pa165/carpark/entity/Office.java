@@ -50,10 +50,10 @@ public class Office implements Serializable {
     }
 
     /**
-     * @param iD the id to set
+     * @param id the id to set
      */
-    public void setId(Long iD) {
-	this.id = iD;
+    public void setId(Long id) {
+	this.id = id;
     }
 
     /**

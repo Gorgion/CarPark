@@ -41,9 +41,9 @@ public class RestOfficeDto
         return id;
     }
 
-    public void setId(Long iD)
+    public void setId(Long id)
     {
-        this.id = iD;
+        this.id = id;
     }
 
     public String getAddress()
