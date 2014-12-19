@@ -30,9 +30,9 @@ přihlaš.jméno ```admin```
 
 heslo ```admin```
 
-Tento předvytvořený administrátorský účet **neumožňuje** přidávat výpujčky, pro tyto potřeby je vytvořit nového uživatele.
+Tento předvytvořený administrátorský účet **neumožňuje** přidávat výpujčky, proto je nutné vytvořit nového uživatele.
 
-Uživatelé ani auta nelze přidávat, dokud není vytvořena aspoň jedna pobočka.
+Uživatelé ani auta nelze vytvářet, dokud není vytvořena aspoň jedna pobočka.
 
 
 #### REST klient ####
