@@ -47,6 +47,9 @@ public class RestUserController
     private UserAccountServiceFacade userAccountServiceFacade;
 
     @Autowired
+    private UserCredentialsService credentialsService;
+    
+    @Autowired
     private OfficeService officeService;
 
     @Autowired
@@ -139,17 +142,16 @@ public class RestUserController
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable long id)
     {
-        UserDto user;
         try
         {
-            user = userService.get(id);
-            if (user == null)
-            {
-
+            UserCredentialsDto credentials = credentialsService.get(id);
+            
+            if (credentials == null)
+            {         
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-
-            userService.delete(user);
+            
+            userAccountServiceFacade.removeUserAccount(credentials);            
         } catch (IllegalArgumentException | DataAccessException ex)
         {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
