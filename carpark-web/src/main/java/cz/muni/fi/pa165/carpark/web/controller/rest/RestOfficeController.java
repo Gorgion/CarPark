@@ -178,11 +178,6 @@ public class RestOfficeController
     {
         OfficeDto office = officeService.getOffice(id);
 
-        if (officeEditForm.getManagerId() == null)
-        {
-            return new ResponseEntity<>(officeEditForm, HttpStatus.BAD_REQUEST);
-        }
-
         office.setAddress(officeEditForm.getAddress());
 
         office.setManager(userService.get(officeEditForm.getManagerId()));

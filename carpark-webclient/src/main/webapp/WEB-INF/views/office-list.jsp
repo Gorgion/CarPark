@@ -15,7 +15,7 @@
             <a href="http://localhost:8085/pa165/client/office/add" class="btn btn-success">Add</a>
             <hr class="divider" />
             
-                <div class="alert alert-danger alert-dismissable" style="display:none;">
+                <div class="alert alert-danger alert-dismissable" style="display:none;">                
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                         &times;
                     </button>
@@ -87,9 +87,7 @@
                             
                             actRow.append($('<td/>').append(
                                 "<a href="+"http://localhost:8085/pa165/client/office/"+office.id+"/edit"+" class='btn btn-info'><span class='glyphicon glyphicon-edit' /></a>"+
-                                "<form action='http://localhost:8085/pa165/client/office/delete' method='GET' class='form-inline' style='display: inline-block;'>"+
-                                "    <button type='submit' onclick='deleteOffice("+office.id+")' name='delete' class='btn btn-danger'><span class='glyphicon glyphicon-remove' /></button>"+
-                                "</form>"     
+                                "    <button type='button' onclick='deleteOffice("+office.id+")' name='delete' class='btn btn-danger'><span class='glyphicon glyphicon-remove' /></button>" 
                             ));
                         });
                         
@@ -105,7 +103,6 @@
             {                
                 $.ajax({
                     type: "DELETE",
-                    dataType:"json",
                     url: "http://localhost:8080/pa165/rest/offices/"+id,
                     success: function(){
                         $(".alert-success").show().append("Office with id "+id+" was deleted.");                        

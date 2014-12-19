@@ -51,8 +51,8 @@
                         <li><a id="user" href="/pa165/auth/user"><fmt:message key="users" /></a></li>
                             <sec:authorize access="!hasRole('ROLE_BUILT_IN_ADMIN')">
                                 <sec:authorize access="isAuthenticated()" var="isAuth" />
-                                <sec:authentication property="principal.id" var="principalId" />
-                                <c:if test="${isAuth}">
+                                <c:if test="${isAuth}">        
+                                    <sec:authentication property="principal.id" var="principalId" />                                
                                 <li><a id="myRentals" href="/pa165/auth/user/${principalId}/rental"><fmt:message key="myRentals" /></a></li>
                                 </c:if>
                             </sec:authorize>
@@ -68,7 +68,7 @@
                                 <sec:authorize access="!hasRole('ROLE_BUILT_IN_ADMIN')">
                                     <sec:authentication property="principal.id" var="principalId" />
                                 <li><a href="<c:url value="/auth/user/${principalId}/profile"/>"><sec:authentication property="principal.username"/> <span class="caret"></span></a></li>
-                                </sec:authorize>
+                                    </sec:authorize>
                             <li><a href="javascript:logout()"><fmt:message key="signout" /></a></li>
                         </ul>
                     </c:if>

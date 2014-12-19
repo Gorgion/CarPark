@@ -16,7 +16,7 @@ import java.util.Objects;
 public class RestUserDto {
 
     @JsonView(value = {JsonViews.Offices.class, JsonViews.Users.class})
-    private Long Id;
+    private Long id;
     @JsonView(value = {JsonViews.Offices.class, JsonViews.Users.class})
     private String firstName;
     @JsonView(value = {JsonViews.Offices.class, JsonViews.Users.class})
@@ -32,9 +32,9 @@ public class RestUserDto {
     {
     }
 
-    public RestUserDto(Long Id, String firstName, String lastName, String birthNumber, String address)
+    public RestUserDto(Long id, String firstName, String lastName, String birthNumber, String address)
     {
-        this.Id = Id;
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthNumber = birthNumber;
@@ -42,11 +42,11 @@ public class RestUserDto {
     }
     
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long Id) {
-        this.Id = Id;
+        this.id = Id;
     }
 
     public String getFirstName() {
@@ -92,7 +92,7 @@ public class RestUserDto {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 37 * hash + Objects.hashCode(this.Id);
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -105,7 +105,7 @@ public class RestUserDto {
             return false;
         }
         final RestUserDto other = (RestUserDto) obj;
-        if (!Objects.equals(this.Id, other.Id))
+        if (!Objects.equals(this.id, other.id))
         {
             return false;
         }

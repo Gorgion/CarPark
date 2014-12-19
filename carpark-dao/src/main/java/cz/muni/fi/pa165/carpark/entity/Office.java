@@ -8,6 +8,7 @@ package cz.muni.fi.pa165.carpark.entity;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,10 +36,10 @@ public class Office implements Serializable {
     @OneToOne
     private User manager;
     
-    @OneToMany(mappedBy = "office",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "office", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<User> employees;
     
-    @OneToMany(mappedBy = "office",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "office", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Car> cars;
         
     /**

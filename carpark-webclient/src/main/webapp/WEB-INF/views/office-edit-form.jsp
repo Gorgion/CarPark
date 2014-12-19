@@ -59,12 +59,12 @@
                             var opt = document.createElement('option');
                             opt.innerHTML = employee.firstName + " " + employee.lastName;
                             
-                            if(data.manager != null)
+                            if(data.manager !== null)
                             {
-                                if(data.manager.Id == employee.Id)
+                                if(data.manager.id === employee.id)
                                     opt.selected = "selected";
                             }
-                            opt.value = employee.Id;
+                            opt.value = employee.id;
                             sel.append(opt);
                         });
                     },
@@ -79,6 +79,7 @@
                 
                 var address = $("#address").val();
                 var managerId = $("#managerId").val();
+                
                 $.ajax({
                     type: "PUT",
                     data: JSON.stringify({"address": address,"managerId": managerId}),
@@ -88,7 +89,7 @@
                         window.location.href='/pa165/client/office';
                     },
                     error: function(xhr){
-                        if (xhr.status == 400)
+                        if (xhr.status === 400)
                         {
                             $.each(xhr.responseJSON.fieldErrors,function(i,field)
                             {
@@ -96,7 +97,7 @@
                             });
                             $(".alert-danger").show().append("Can't be blank!");
                         }
-                        if (xhr.status == 500)
+                        if (xhr.status === 500)
                         {
                             window.location.href='/pa165/client/500';
                         }
