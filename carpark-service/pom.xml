@@ -76,47 +76,7 @@
             <artifactId>mockito-core</artifactId>
             <version>${mockito.all.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        
-        <!-- ORM, JPA, HIBERNATE, DB-->
-<!--        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate-entitymanager.version}</version>
         </dependency>        
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${spring.orm}</version>
-        </dependency>-->
-<!--        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbyclient</artifactId>
-            <version>${derbyclient.version}</version>
-        </dependency>        
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>${derby.version}</version>
-        </dependency>       -->
-        
-        <!-- LOGGING -->
-        <!--        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.api.version}</version>
-        </dependency>-->
-<!--        <dependency>                                    
-            <groupId>org.slf4j</groupId>                
-            <artifactId>jcl-over-slf4j</artifactId>     
-            <version>${slf4j.api.version}</version>  
-        </dependency>
-        <dependency>  
-            <groupId>ch.qos.logback</groupId>  
-            <artifactId>logback-classic</artifactId>  
-            <version>${logback.version}</version>  
-        </dependency>  -->
 
         <!-- SPRING -->
         <dependency>
