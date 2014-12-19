@@ -199,7 +199,7 @@ public class UserServiceImplTest
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR, 2);
 
-        List<UserDto> users = userService.getAllWithRent();//daoImpl.getAllWithRent();
+        List<UserDto> users = userService.getAllWithRent();
         List<UserDto> expectedUsers = Arrays.asList(user1, user2);
 
         Assert.assertNotSame(expectedUsers, users);
