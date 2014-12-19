@@ -69,7 +69,7 @@
                         });
                     },
                     error: function(xhr,textStatus,errorThrown){                     
-                        $(".alert-danger").show().append("Fail\n"+errorThrown);
+                        window.location.replace("/pa165/client/500");
                     }
                 });
             });
@@ -103,7 +103,7 @@
                         }
                     },
                     fail: function(xhr,textStatus,errorThrown){
-                        $(".alert-danger").show().append("Office couldn't be created because of:\n."+errorThrown);
+                        window.location.replace("/pa165/client/500");
                     }
                 });
             };
