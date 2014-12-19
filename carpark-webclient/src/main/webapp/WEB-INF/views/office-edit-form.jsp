@@ -59,8 +59,11 @@
                             var opt = document.createElement('option');
                             opt.innerHTML = employee.firstName + " " + employee.lastName;
                             
-                            if(data.manager.Id == employee.Id)
-                                opt.selected = "selected";
+                            if(data.manager != null)
+                            {
+                                if(data.manager.Id == employee.Id)
+                                    opt.selected = "selected";
+                            }
                             opt.value = employee.Id;
                             sel.append(opt);
                         });
