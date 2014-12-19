@@ -24,7 +24,7 @@
     </jsp:attribute>
     <jsp:attribute name="ajaxScript">
         <script type="text/javascript">    
-            $(document).ready(function(){
+            function listUsers(){
                 $.ajax({
                     type: "GET",
                     dataType:"json",
@@ -63,6 +63,12 @@
                         alert("fail\n"+errorThrown);
                     }
                 });
+            }
+            $(document).ready(function(){
+                $(function()
+                {
+                   listUsers(); 
+                });
             });
             
             function deleteUser(id) {
@@ -70,6 +76,10 @@
                     type: "DELETE",
                     url: "http://localhost:8080/pa165/rest/users/"+id,
                     success: function(){
+                        $(function ()
+                        {   $('table').remove();
+                            listUsers();
+                        });
                         $(".alert-success").show().text("User with id "+id+" was deleted.");
                     },  
                     error: function(errorThrown){
