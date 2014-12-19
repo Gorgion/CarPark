@@ -131,6 +131,13 @@ public class RestUserController
         {
             return new ResponseEntity<>(userForm, HttpStatus.BAD_REQUEST);
         }
+        
+        OfficeDto prevOffice = user.getOfficeDto();
+        if(prevOffice != null)
+        {
+            prevOffice.setManager(null);
+            officeService.editOffice(prevOffice);
+        }
 
         user.setOfficeDto(office);
 
