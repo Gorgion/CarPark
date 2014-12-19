@@ -24,8 +24,8 @@ public class UserDto {
         return id;
     }
 
-    public void setId(Long Id) {
-        this.id = Id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -99,7 +99,7 @@ public class UserDto {
 
     @Override
     public String toString() {
-        return "UserDto{" + "Id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthNumber=" + birthNumber + ", address=" + address + '}';
+        return "UserDto{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthNumber=" + birthNumber + ", address=" + address + '}';
     }
 
 

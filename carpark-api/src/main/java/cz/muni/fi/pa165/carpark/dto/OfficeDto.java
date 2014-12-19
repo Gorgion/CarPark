@@ -30,17 +30,17 @@ public class OfficeDto {
     private List<CarDto> cars;
 
     /**
-     * @return the iD
+     * @return the id
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * @param iD the iD to set
+     * @param id the id to set
      */
-    public void setId(Long iD) {
-        this.id = iD;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /**
@@ -120,6 +120,6 @@ public class OfficeDto {
 
     @Override
     public String toString() {
-        return "OfficeDto{" + "iD=" + id + ", address=" + address + ", manager=" + manager + ", employees=" + employees + ", cars=" + cars + '}';
+        return "OfficeDto{" + "id=" + id + ", address=" + address + ", manager=" + manager + ", employees=" + employees + ", cars=" + cars + '}';
     }
 }
