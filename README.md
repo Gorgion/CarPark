@@ -23,8 +23,15 @@ Build aplikace se provede pomocí příkazu
 ``` mvn clean install ```
 
 Aplikace je spustitelná pomocí příkazu ``` mvn tomcat7:run ``` (v adresáři carpark-web)
-
 url: http://localhost:8080/pa165/
+
+#### Přihlášení ####
+V aplikaci je předpřipravený administratorský účet.
+
+přihlaš.jméno ```admin```
+
+heslo ```admin```
+
 
 #### REST klient ####
 Rest klient se spouští pomocí příkazu ``` mvn tomcat7:run ``` (v adresáři carpark-webclient.)
