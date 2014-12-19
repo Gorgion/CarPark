@@ -52,7 +52,7 @@
                             .append($('<td/>').text(user.address));
 
                             actRow.append($('<td/>').append(
-                                "<a href=http://localhost:8085/pa165/client/user/"+user.id+"/edit class='btn btn-info'><span class='glyphicon glyphicon-edit' /></a>"+
+                                "<a href=http://localhost:8085/pa165/client/user/"+user.id+"/edit class='btn btn-info' style='margin-right: 4px'><span class='glyphicon glyphicon-edit' /></a>"+
                                 "<button type='button' onclick='deleteUser("+user.id+")' name='delete' class='btn btn-danger'><span class='glyphicon glyphicon-remove' /></button>"  
                             ));
                         });
@@ -60,7 +60,7 @@
                         table.append("</tbody></table>");
                     },
                     error: function(errorThrown){       
-                        alert("fail\n"+errorThrown);
+                        window.location.replace("/pa165/client/500");
                     }
                 });
             }
@@ -83,7 +83,7 @@
                         $(".alert-success").show().text("User with id "+id+" was deleted.");
                     },  
                     error: function(errorThrown){
-                        $(".alert-danger").show().text("User with id "+id+" couldn't be deleted. "+errorThrown);
+                        window.location.replace("/pa165/client/500");
                     }
                     
                 });
