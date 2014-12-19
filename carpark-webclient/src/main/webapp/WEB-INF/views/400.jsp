@@ -9,12 +9,14 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<custom:layout title="400">
+<custom:error title="400">
     <jsp:attribute name="content">
-        <div class="alert alert-danger">        
-            400 - The request could not be understood by the server due to malformed syntax.
-        </div>
+        <div class="error">        
+            <h2>400 Bad request</h2><br/>
+            <p>The request could not be understood by the server due to malformed syntax.</p>
+        
         <button type="button" class="btn btn-warning" onclick="history.back()">Back</button>
+        </div>
     </jsp:attribute>
-</custom:layout>
+</custom:error>  
  

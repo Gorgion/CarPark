@@ -13,7 +13,7 @@
 
 <custom:layout title="Add office">    
     <jsp:attribute name="content">
-        <div class="alert alert-danger alert-dismissable" style="visibility:hidden;">
+        <div class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                 &times;
             </button>

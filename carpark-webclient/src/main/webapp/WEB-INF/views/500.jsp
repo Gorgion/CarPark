@@ -9,12 +9,13 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="custom" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<custom:layout title=":-( 500">
+<custom:error title="500">
     <jsp:attribute name="content">
-        <div class="alert alert-danger">        
-            500 - A generic error message, given when an unexpected condition was encountered and no more specific message is suitable.
-        </div>
+        <div class="error">   
+            <h2>500 Internal server error</h2><br/>
+            <p>A generic error message, given when an unexpected condition was encountered and no more specific message is suitable.</p>
         <button type="button" class="btn btn-warning" onclick="history.back()">Back</button>
+        </div>
     </jsp:attribute>
-</custom:layout>
+</custom:error>
  
