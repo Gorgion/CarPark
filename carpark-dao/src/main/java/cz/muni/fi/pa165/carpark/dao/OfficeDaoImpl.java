@@ -26,7 +26,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class OfficeDaoImpl implements OfficeDao {
 
-    @PersistenceContext//(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     private EntityManager em;
 
     @Override
@@ -105,7 +105,7 @@ public class OfficeDaoImpl implements OfficeDao {
             throw new IllegalArgumentException("Car is null.");
         }
 
-        car = em.find(Car.class, car.getId());//merge(car);
+        car = em.find(Car.class, car.getId());
 
         List<Car> actualCars = getOffice(office.getId()).getCars();
         if(actualCars == null)

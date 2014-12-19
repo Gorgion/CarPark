@@ -43,10 +43,10 @@ public class Rental implements Serializable
     @Column(nullable = false)
     private State rentalState;
     
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})//, CascadeType.REMOVE,CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})
     private Car car;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})//, CascadeType.REMOVE,CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})
     private User user;
 
     public User getUser()

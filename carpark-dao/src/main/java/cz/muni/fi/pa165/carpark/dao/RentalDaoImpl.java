@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class RentalDaoImpl implements RentalDao
 {
-    @PersistenceContext//(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override

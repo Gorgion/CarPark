@@ -35,7 +35,7 @@ public class CarDaoImpl implements CarDao
         }
         
         em.persist(car);
-        //em.flush();
+        em.flush();
         return car.getId();
     }
 
