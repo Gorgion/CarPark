@@ -40,7 +40,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="/pa165/client" class="navbar-brand"><span class="glyphicon glyphicon-leaf"></span> Car Park</a>
+                    <a href="/pa165" class="navbar-brand"><span class="glyphicon glyphicon-leaf"></span> Car Park</a>
                 </div>
             </div>
         </div>
