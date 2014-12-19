@@ -22,7 +22,7 @@ Build aplikace se provede pomocí příkazu "mvn clean install".
 
 Aplikace je spustitelná pomocí příkazu "mvn tomcat7:run" (v adresáři carpark-web). url: http://localhost:8080/pa165/
 
-### REST klient ###
+#### REST klient ####
 Rest klient se spouští pomocí příkazu "mvn tomcat7:run" (v adresáři carpark-webclient. url: http://localhost:8080/pa165/client
 Pro entitu Office jsou dostupné tyto operace:
 
