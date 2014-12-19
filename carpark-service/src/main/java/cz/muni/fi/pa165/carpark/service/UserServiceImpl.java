@@ -6,6 +6,7 @@
 package cz.muni.fi.pa165.carpark.service;
 
 import cz.muni.fi.pa165.carpark.dao.UserDao;
+import cz.muni.fi.pa165.carpark.dto.OfficeDto;
 import cz.muni.fi.pa165.carpark.dto.UserDto;
 import cz.muni.fi.pa165.carpark.entity.User;
 import cz.muni.fi.pa165.carpark.exception.UserAlreadyExists;
@@ -25,6 +26,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+    
+    @Autowired
+    private OfficeService officeService;
 
     @Transactional
     @Override
@@ -71,6 +75,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(UserDto userDto) {
         User userEntity = Converter.getEntity(userDto);
+        
+        OfficeDto office = officeService.getOffice(userDto.getOfficeDto().getId());
+        if(office.getManager() != null && office.getManager().getId() == userDto.getId())
+        {
+            office.setManager(null);
+            officeService.editOffice(office);
+        }
+        
         userDao.delete(userEntity);
     }
 
