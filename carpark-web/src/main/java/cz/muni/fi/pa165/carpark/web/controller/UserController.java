@@ -169,23 +169,14 @@ public class UserController
     {
         if (bindingResult.hasErrors())
         {
-            System.out.println("\n#1");
             model.addAttribute("action", "edit");
-System.out.println("\n#2");
             UserCredentialsDto credentialsDto = credentialsService.get(id);
-            System.out.println("\n#3");
             CredentialsForm credentialsForm = new CredentialsForm();
-            System.out.println("\n#4");
             credentialsForm.setUsername(credentialsDto.getUsername());
-            System.out.println("\n#5");
             credentialsForm.setRole(getRoleType(credentialsDto));
-System.out.println("\n#6");
             model.addAttribute("credentialsForm", credentialsForm);
-            System.out.println("\n#7");
             model.addAttribute("passwordForm", new CredentialsPasswordForm());
-            System.out.println("\n#8");
             model.addAttribute("offices", officeService.getAllOffices()); 
-            System.out.println("\n#9");
             return "user-form";
         }
 
