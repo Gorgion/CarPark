@@ -189,7 +189,7 @@ public class UserController
         user.setAddress(userForm.getAddress());
         user.setBirthNumber(userForm.getBirthNumber());
         user.setFirstName(userForm.getFirstName());
-        user.setLastName(userForm.getLastName());
+        user.setLastName(userForm.getLastName());        
 
         OfficeDto officeDto = officeService.getOffice(userForm.getIdOffice());
         if (officeDto == null)
@@ -209,6 +209,8 @@ public class UserController
             return "user-form";
         }
 
+        user.setOfficeDto(officeDto);
+        
         userService.edit(user);
 
         redirectAttributes.addFlashAttribute("msg", "msg.user.edited");
