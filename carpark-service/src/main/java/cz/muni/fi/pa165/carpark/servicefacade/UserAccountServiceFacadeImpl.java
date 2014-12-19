@@ -46,9 +46,8 @@ public class UserAccountServiceFacadeImpl implements UserAccountServiceFacade
     public void removeUserAccount(UserCredentialsDto credentials)
     {
         UserDto userDto = credentials.getUser();
-        
         credentialsService.delete(credentials);
-        
-        userService.delete(userDto);                
+                       
+        userService.delete(userDto); 
     }
 }
