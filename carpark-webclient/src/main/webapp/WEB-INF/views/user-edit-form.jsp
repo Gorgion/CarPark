@@ -73,7 +73,6 @@
             
             $(document).ready(function(){
                 $(".alert-danger").hide();
-                var spinner = getSpinner();
                 $.ajax({
                     type: "GET",
                     dataType:"json",
@@ -86,11 +85,9 @@
                             opt.value = data.id;
                             sel.append(opt);
                         });
-                        spinner.remove();
                     },
                     error: function(errorThrown) {
                         alert(JSON.stringify(errorThrown));
-                        spinner.remove();                       
                     }
                 });
                 
@@ -112,18 +109,14 @@
                             opt.value = office;
                             sel.append(opt);
                         });*/
-                        spinner.remove();
                     },
                     error: function(errorThrown) {
                         alert(JSON.stringify(errorThrown));
-                        spinner.remove();                       
                     }
                 });
             });
             
             function editUser(){
-                var spinner = getSpinner();
-                
                 var username = $("#usernameInput").val();
                 var password = $("#passwordInput").val();
                 var firstName = $("#firstNameInput").val();
@@ -151,11 +144,7 @@
                     },
                     fail: function(errorThrown){
                         $(".alert-danger").show().append("User couldn't be created."+errorThrown);
-                    },   
-                    complete: function(){
-                        spinner.remove();
-                    }
-                    
+                    }                    
                 });
             };   
         </script>

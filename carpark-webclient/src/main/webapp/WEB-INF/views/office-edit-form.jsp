@@ -40,14 +40,13 @@
     </jsp:attribute>  
     <jsp:attribute name="ajaxScript">
         <script type="text/javascript">
+            $(".alert-danger").hide();
             url = document.URL;
             urlId = url.substring(0,url.lastIndexOf("/edit"));
             var ID = urlId.substring(urlId.lastIndexOf("/")+1);
             
             //var ID = document.URL.split("/")[6];
             $(document).ready(function(){
-                $(".alert-danger").hide();
-                var spinner = getSpinner();
                 $.ajax({
                     type: "GET",
                     dataType:"json",
@@ -63,10 +62,8 @@
                             opt.value = employee.Id;
                             sel.append(opt);
                         });
-                        spinner.remove()
                     },
-                    error: function(xhr,textStatus,errorThrown){
-                        spinner.remove();                       
+                    error: function(xhr,textStatus,errorThrown){                       
                         alert("fail\n"+errorThrown);
                     }
                 });
@@ -74,7 +71,6 @@
             
             
             function editOffice(){
-                var spinner = getSpinner();
                 
                 var address = $("#address").val();
                 $.ajax({
@@ -100,11 +96,7 @@
                     },
                     fail: function(xhr,textStatus,errorThrown){
                         $(".alert-danger").show().append("Office couldn't be created because of:\n."+errorThrown);
-                    },   
-                    complete: function(){
-                        spinner.remove();
-                    }
-                    
+                    }                    
                 });
             };
             

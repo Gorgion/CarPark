@@ -25,7 +25,6 @@
     <jsp:attribute name="ajaxScript">
         <script type="text/javascript">    
             $(document).ready(function(){
-                var spinner = getSpinner();
                 $.ajax({
                     type: "GET",
                     dataType:"json",
@@ -61,10 +60,8 @@
                         });
                         
                         table.append("</tbody></table>");
-                        spinner.remove();
                     },
-                    error: function(xhr,textStatus,errorThrown){
-                        spinner.remove();                       
+                    error: function(xhr,textStatus,errorThrown){       
                         alert("fail\n"+errorThrown);
                     }
                 });
@@ -72,17 +69,14 @@
             
             function deleteUser(id)
             {
-                var spinner = getSpinner();
                 $.ajax({
                     type: "DELETE",
                     dataType:"json",
                     url: "http://localhost:8080/pa165/rest/users/"+id,
                     success: function(){
                         $(".alert-success").show().append("User with id "+id+" was deleted.");
-                        spinner.remove();
                     },  
                     error: function(errorThrown){
-                        spinner.remove();
                         $(".alert-danger").show().append("User with id "+id+" couldn't be deleted. "+errorThrown);
                     }
                     

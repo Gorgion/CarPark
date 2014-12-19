@@ -36,7 +36,6 @@
     <jsp:attribute name="ajaxScript">
         <script type="text/javascript">
             function addOffice(){
-                var spinner = getSpinner();
                 
                 var address = $("#addressInput").val();
                 $.ajax({
@@ -58,11 +57,7 @@
                     },
                     fail: function(xhr,textStatus,errorThrown){
                         $(".alert-danger").show().append("Office couldn't be created because of:\n."+errorThrown);
-                    },   
-                    complete: function(){
-                        spinner.remove();
-                    }
-                    
+                    }                    
                 });
             };
             
