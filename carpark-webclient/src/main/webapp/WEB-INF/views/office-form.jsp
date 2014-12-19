@@ -20,9 +20,9 @@
         </div>
         <form class="form-horizontal">
             <div class="form-group"> 
-                <label class="control-label col-sm-2">Address:</label>
+                <label class="control-label col-sm-2">Address: <span style="color:red;">*</span></label>
                 <div class="col-sm-6">
-                    <input id="address" class="form-control"/>
+                    <input id="address" class="form-control" required="true"/>
                 </div>
             </div>
             <div class="col-sm-offset-2 col-sm-10">                

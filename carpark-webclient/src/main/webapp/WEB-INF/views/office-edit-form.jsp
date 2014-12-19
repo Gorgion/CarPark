@@ -20,16 +20,16 @@
         
         <form class="form-horizontal">
             <div class="form-group"> 
-                <label class="control-label col-sm-2">Address:</label>
+                <label class="control-label col-sm-2">Address: <span style="color:red;">*</span></label>
                 <div class="col-sm-6">
-                    <input id="address" class="form-control"/>
+                    <input id="address" class="form-control" required="true"/>
                 </div>
             </div>
             <br />
             <div class="form-group"> 
-                <label class="control-label col-sm-2">Manager:</label>
+                <label class="control-label col-sm-2">Manager: <span style="color:red;">*</span></label>
                 <div class="col-sm-6">
-                    <select class="form-control" id="managerId" ></select>
+                    <select class="form-control" id="managerId" required="true"></select>
                 </div>    
             </div>
             <div class="col-sm-offset-2 col-sm-10">      
