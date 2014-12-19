@@ -15,7 +15,7 @@
         <div class="error">  
             <h2>400 <fmt:message key="error.400.head" /></h2>
             <p><fmt:message key="error.xxx.body" /><fmt:message key="error.400.body" /></p>
-        <button type="button" class="btn btn-warning" onclick="history.back()"><fmt:message key="btn.back" /></button>
+        <button type="button" class="btn btn-warning" onclick="window.location.replace('/pa165')"><fmt:message key="return-home" /></button>
         </div>
     </jsp:attribute>
 </custom:error> 
