@@ -209,9 +209,12 @@ public class UserController
             return "user-form";
         }
 
-        officeDto.setManager(null);
-        
-        officeService.editOffice(officeDto);
+        OfficeDto prevOffice = user.getOfficeDto();
+        if(prevOffice != null)
+        {
+            prevOffice.setManager(null);
+            officeService.editOffice(prevOffice);
+        }
         
         user.setOfficeDto(officeDto);
         
