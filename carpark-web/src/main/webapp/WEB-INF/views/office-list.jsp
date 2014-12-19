@@ -56,11 +56,6 @@
                             <td>${office.id}</td>
                             <td>${office.address}</td>
                             <td>${office.manager.firstName} ${office.manager.lastName}
-                                <!--
-                                <a href="#" class="btn btn-link" data-toggle="modal" data-target="#managerDetails"
-                                        data-manager-firstName="${office.manager.firstName}" 
-                                        data-manager-lastName="${office.manager.lastName}" 
-                                ><fmt:message key="manager.details"/></a>-->
                             </td>
                             <td>
                                 <c:forEach items="${office.employees}" var="of" varStatus="status">

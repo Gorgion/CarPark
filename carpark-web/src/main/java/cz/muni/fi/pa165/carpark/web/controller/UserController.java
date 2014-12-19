@@ -106,7 +106,7 @@ public class UserController
     {
         if (bindingResult.hasErrors())
         {
-            model.addAttribute("offices", officeService.getAllOffices());  // TODO TRY-CATCH WHEN NO OFFICES - OK by CAR
+            model.addAttribute("offices", officeService.getAllOffices());  
             return "user-form";
         } else
         {
@@ -184,7 +184,7 @@ System.out.println("\n#6");
             System.out.println("\n#7");
             model.addAttribute("passwordForm", new CredentialsPasswordForm());
             System.out.println("\n#8");
-            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            model.addAttribute("offices", officeService.getAllOffices()); 
             System.out.println("\n#9");
             return "user-form";
         }
@@ -204,7 +204,7 @@ System.out.println("\n#6");
         if (officeDto == null)
         {
             model.addAttribute("action", "edit");
-            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            model.addAttribute("offices", officeService.getAllOffices()); 
             model.addAttribute("error", "error.user.nooffices");
 
             UserCredentialsDto credentialsDto = credentialsService.get(id);
@@ -240,7 +240,7 @@ System.out.println("\n#6");
 
             model.addAttribute("credentialsForm", credentialsForm);
             model.addAttribute("passwordForm", new CredentialsPasswordForm());
-            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            model.addAttribute("offices", officeService.getAllOffices()); 
             return "user-profile-form";
         }
 
@@ -259,7 +259,7 @@ System.out.println("\n#6");
         if (officeDto == null)
         {
             model.addAttribute("action", "edit");
-            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            model.addAttribute("offices", officeService.getAllOffices()); 
             model.addAttribute("error", "error.user.nooffices");
 
             UserCredentialsDto credentialsDto = credentialsService.get(id);
@@ -295,7 +295,7 @@ System.out.println("\n#6");
 
             model.addAttribute("passwordForm", new CredentialsPasswordForm());
             model.addAttribute("action", "edit");
-            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            model.addAttribute("offices", officeService.getAllOffices()); 
             return "user-form";
         }
 
@@ -320,7 +320,7 @@ System.out.println("\n#6");
 
             model.addAttribute("passwordForm", new CredentialsPasswordForm());
             model.addAttribute("action", "edit");
-            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            model.addAttribute("offices", officeService.getAllOffices()); 
             model.addAttribute("error", "error.user.useralreadyexists");
             return "user-form";
         }
@@ -350,7 +350,7 @@ System.out.println("\n#6");
             model.addAttribute("credentialsForm", credentialsForm);
 
             model.addAttribute("action", "edit");
-            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            model.addAttribute("offices", officeService.getAllOffices()); 
             return "user-form";
         }
 
@@ -376,7 +376,7 @@ System.out.println("\n#6");
             model.addAttribute("credentialsForm", credentialsForm);
             model.addAttribute("passwordForm", new CredentialsPasswordForm());
             model.addAttribute("action", "edit");
-            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            model.addAttribute("offices", officeService.getAllOffices()); 
             model.addAttribute("error", "error.user.useralreadyexists");
             return "user-form";
         }
@@ -406,7 +406,7 @@ System.out.println("\n#6");
             model.addAttribute("credentialsForm", credentialsForm);
 
             model.addAttribute("action", "edit");
-            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            model.addAttribute("offices", officeService.getAllOffices()); 
             return "user-profile-form";
         }
 
@@ -432,7 +432,7 @@ System.out.println("\n#6");
             model.addAttribute("credentialsForm", credentialsForm);
             model.addAttribute("passwordForm", new CredentialsPasswordForm());
             model.addAttribute("action", "edit");
-            model.addAttribute("offices", officeService.getAllOffices()); // TODO TRY-CATCH WHEN NO OFFICES
+            model.addAttribute("offices", officeService.getAllOffices()); 
             model.addAttribute("error", "error.user.useralreadyexists");
             return "user-profile-form";
         }
@@ -477,7 +477,7 @@ System.out.println("\n#6");
         user.setBirthNumber(userForm.getBirthNumber());
         user.setFirstName(userForm.getFirstName());
         user.setLastName(userForm.getLastName());
-        user.setOfficeDto(officeService.getOffice(userForm.getIdOffice()));  // TODO TRY-CATCH WHEN NO OFFICES
+        user.setOfficeDto(officeService.getOffice(userForm.getIdOffice()));  
 
         return user;
     }
@@ -490,7 +490,7 @@ System.out.println("\n#6");
         userForm.setLastName(user.getLastName());
         userForm.setAddress(user.getAddress());
         userForm.setBirthNumber(user.getBirthNumber());
-        userForm.setIdOffice(user.getOfficeDto().getId());  // TODO TRY-CATCH WHEN NO OFFICES
+        userForm.setIdOffice(user.getOfficeDto().getId()); 
 
         return userForm;
 
@@ -504,7 +504,7 @@ System.out.println("\n#6");
         userForm.setLastName(user.getLastName());
         userForm.setAddress(user.getAddress());
         userForm.setBirthNumber(user.getBirthNumber());
-        userForm.setIdOffice(user.getOfficeDto().getId());  // TODO TRY-CATCH WHEN NO OFFICES
+        userForm.setIdOffice(user.getOfficeDto().getId());  
 
         return userForm;
 

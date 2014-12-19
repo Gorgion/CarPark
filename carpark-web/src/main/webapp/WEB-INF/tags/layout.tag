@@ -90,8 +90,7 @@
         </div>
 
         <footer>
-            <p>&copy; Car Park 2014</p>
-            <%--<p><a href="/pa165"><fmt:message key="navigation.backToTop"/></a></p> --%>           
+            <p>&copy; Car Park 2014</p>     
         </footer>
 
 

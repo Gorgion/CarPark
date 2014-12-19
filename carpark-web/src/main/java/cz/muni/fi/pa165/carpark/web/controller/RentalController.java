@@ -115,7 +115,7 @@ public class RentalController
         {
             UserDto user = userService.get(userId);
 
-            RentalDto rental = new RentalDto(rentalForm.getFrom(), rentalForm.getTo(), RentalDto.State.NEW, /*rentalForm.getCar()*/ car, user);
+            RentalDto rental = new RentalDto(rentalForm.getFrom(), rentalForm.getTo(), RentalDto.State.NEW, car, user);
 
             rentalService.create(rental);
         } catch (CarAlreadyReserved e)
