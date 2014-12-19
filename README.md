@@ -14,9 +14,6 @@ The project should emulate a real situation in a company. The company employees 
 ![classDiagram.jpg](https://bytebucket.org/JayDee8/pa165-car-park/raw/3eb587469281c6509b55f7ef61297e2bcb8d8571/res/classDiagram.jpg)
 
 
-## Team ##
-Rychlá rota
-
 ## Spuštění ##
 
 Build aplikace se provede pomocí příkazu
@@ -34,6 +31,7 @@ přihlaš.jméno ```admin```
 heslo ```admin```
 
 Tento předvytvořený administrátorský účet **neumožňuje** přidávat výpujčky, pro tyto potřeby je vytvořit nový uživatelský účet.
+Uživatelé ani auta nelze přidávat, dokud není vytvořena pobočka.
 
 
 #### REST klient ####
