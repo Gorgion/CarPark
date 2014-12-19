@@ -111,11 +111,14 @@
             if (url.indexOf("car") > -1)
                 $("li #car").addClass("active");
 
-            if (url.indexOf("user") > -1)
+            if (url.indexOf("user") > -1 && !(url.indexOf("rental") > -1))
                 $("li #user").addClass("active");
-
+            
             if (url.indexOf("about-us") > -1)
                 $("li #about-us").addClass("active");
+            
+            if (url.indexOf("rental") > -1)
+                $("li #myRentals").addClass("active");
         </script>
         <script type="text/javascript" charset="utf-8">
             function logout() {
