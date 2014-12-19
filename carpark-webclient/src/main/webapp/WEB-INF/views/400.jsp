@@ -12,7 +12,7 @@
 <custom:layout title="400">
     <jsp:attribute name="content">
         <div class="alert alert-danger">        
-            400
+            400 - The request could not be understood by the server due to malformed syntax.
         </div>
         <button type="button" class="btn btn-warning" onclick="history.back()">Back</button>
     </jsp:attribute>

@@ -12,7 +12,7 @@
 <custom:layout title="404">
     <jsp:attribute name="content">
         <div class="alert alert-danger">        
-            404
+            404 - The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible.
         </div>
         <button type="button" class="btn btn-warning" onclick="history.back()">Back</button>
     </jsp:attribute>

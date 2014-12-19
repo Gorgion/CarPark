@@ -12,7 +12,7 @@
 <custom:layout title=":-( 500">
     <jsp:attribute name="content">
         <div class="alert alert-danger">        
-            500
+            500 - A generic error message, given when an unexpected condition was encountered and no more specific message is suitable.
         </div>
         <button type="button" class="btn btn-warning" onclick="history.back()">Back</button>
     </jsp:attribute>
