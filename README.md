@@ -23,6 +23,7 @@ Build aplikace se provede pomocí příkazu
 ``` mvn clean install ```
 
 Aplikace je spustitelná pomocí příkazu ``` mvn tomcat7:run ``` (v adresáři carpark-web)
+
 url: http://localhost:8080/pa165/
 
 #### Přihlášení ####
@@ -47,6 +48,7 @@ Pro entitu Office jsou dostupné tyto operace:
 #!
 přidat 
 odebrat
+editovat
 ```
 Pro entitu User jsou dostupné tyto operace:
 
@@ -54,4 +56,5 @@ Pro entitu User jsou dostupné tyto operace:
 #!
 přidat 
 odebrat
+editovat
 ```
