@@ -15,7 +15,7 @@
             <h2>400 Bad request</h2><br/>
             <p>The request could not be understood by the server due to malformed syntax.</p>
         
-        <button type="button" class="btn btn-warning" onclick="history.back()">Back</button>
+        <button type="button" class="btn btn-warning" onclick="window.location.replace('/pa165/client')">Return to homepage</button>
         </div>
     </jsp:attribute>
 </custom:error>  

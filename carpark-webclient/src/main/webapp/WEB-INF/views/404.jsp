@@ -15,7 +15,7 @@
             <h2>404 Page not found</h2><br/>
             <p>The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible.</p>
         
-        <button type="button" class="btn btn-warning" onclick="history.back()">Back</button>
+        <button type="button" class="btn btn-warning" onclick="window.location.replace('/pa165/client')">Return to homepage</button>
         </div>
     </jsp:attribute>
 </custom:error>    
