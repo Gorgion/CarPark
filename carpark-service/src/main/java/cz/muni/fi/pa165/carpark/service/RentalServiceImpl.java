@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,6 +31,7 @@ public class RentalServiceImpl implements RentalService
     @Autowired
     private CarService carService;
     
+    @PreAuthorize("!hasRole('ROLE_BUILT_IN_ADMIN')")
     @Transactional
     @Override
     public void create(RentalDto rental)
@@ -48,6 +50,7 @@ public class RentalServiceImpl implements RentalService
         rental.setId(entity.getId());
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER')")
     @Transactional
     @Override
     public void edit(RentalDto rental)
@@ -55,6 +58,7 @@ public class RentalServiceImpl implements RentalService
         rentalDao.edit(Converter.getEntity(rental));
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER')")
     @Transactional
     @Override
     public void delete(RentalDto rental)
@@ -62,6 +66,7 @@ public class RentalServiceImpl implements RentalService
         rentalDao.delete(Converter.getEntity(rental));
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public RentalDto get(Long id)
@@ -71,6 +76,7 @@ public class RentalServiceImpl implements RentalService
         return rental;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public List<RentalDto> getAll()
@@ -85,6 +91,7 @@ public class RentalServiceImpl implements RentalService
         return rentals;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public List<RentalDto> getAllByUser(UserDto user)

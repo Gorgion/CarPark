@@ -74,7 +74,7 @@
                     </c:if>
                     <c:if test="${!isAuth}">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="/login"><fmt:message key="signin" /></a></li>
+                            <li><a href="<c:url value="/login"/>"><fmt:message key="signin" /></a></li>
                         </ul>
                     </c:if>
                 </div>

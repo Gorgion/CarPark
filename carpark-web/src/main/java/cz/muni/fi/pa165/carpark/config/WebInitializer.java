@@ -5,6 +5,7 @@
  */
 package cz.muni.fi.pa165.carpark.config;
 
+import cz.muni.fi.pa165.carpark.web.rest.filter.RestAuthFilter;
 import cz.muni.fi.pa165.carpark.web.rest.filter.SimpleCORSFilter;
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
@@ -45,5 +46,9 @@ public class WebInitializer implements WebApplicationInitializer
         
         FilterRegistration.Dynamic CORFilter = container.addFilter("simpleCorFilter", SimpleCORSFilter.class);
         CORFilter.addMappingForUrlPatterns(null, true, "/*");
+        
+        
+        FilterRegistration.Dynamic RestAuthFilter = container.addFilter("restAuthFilter", RestAuthFilter.class);
+        RestAuthFilter.addMappingForUrlPatterns(null, true, "/rest/*");
     }
 }
