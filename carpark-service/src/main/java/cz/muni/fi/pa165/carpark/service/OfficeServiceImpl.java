@@ -31,7 +31,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Autowired
     private OfficeDao officeDao;
     
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
     @Transactional
     @Override
     public void addOffice(OfficeDto office) {
@@ -56,7 +56,7 @@ public class OfficeServiceImpl implements OfficeService {
             officeDao.editOffice(officeEntity);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
     @Transactional
     @Override
     public void deleteOffice(OfficeDto office) {
@@ -88,7 +88,7 @@ public class OfficeServiceImpl implements OfficeService {
             return Collections.unmodifiableList(officeCarsDto);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
     @Transactional
     @Override
     public void addCarToOffice(OfficeDto office, CarDto car) {
@@ -97,7 +97,7 @@ public class OfficeServiceImpl implements OfficeService {
             officeDao.addCarToOffice(officeEntity, carEntity); 
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
     @Transactional
     @Override
     public void deleteCarFromOffice(OfficeDto office, CarDto car) {
@@ -118,7 +118,7 @@ public class OfficeServiceImpl implements OfficeService {
             return Collections.unmodifiableList(officeEmployeesDto);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
     @Transactional
     @Override
     public void addEmployeeToOffice(OfficeDto office, UserDto user) {
@@ -127,7 +127,7 @@ public class OfficeServiceImpl implements OfficeService {
             officeDao.addEmployeeToOffice(officeEntity, userEntity); 
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
     @Transactional
     @Override
     public void deleteEmployeeFromOffice(OfficeDto office, UserDto user) {
