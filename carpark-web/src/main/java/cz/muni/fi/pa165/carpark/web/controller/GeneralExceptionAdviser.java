@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -37,6 +38,12 @@ public class GeneralExceptionAdviser
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Global exception occured")
     @ExceptionHandler(Exception.class)
     public void generalExceptionHandler(Exception e)
+    {
+    }
+    
+    @ResponseStatus(value = HttpStatus.FORBIDDEN, reason = "Access Denied exception occured")
+    @ExceptionHandler(AccessDeniedException.class)
+    public void accessDeniedExceptionHandler(AccessDeniedException e)
     {
     }
 

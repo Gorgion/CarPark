@@ -35,4 +35,10 @@ public class GeneralExceptionHandlerController
     {        
         return "404";
     }
+    
+    @RequestMapping("/403")
+    public String handle403error()
+    {        
+        return "403";
+    }
 }

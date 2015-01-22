@@ -70,7 +70,7 @@ public class UserController
         return "user-list";
     }
 
-    @PreAuthorize("isAuthenticated() and (#id == principal.id)")
+    @PreAuthorize("isAuthenticated() and !hasRole('ROLE_BUILT_IN_ADMIN') and (#id == principal.id)")
     @RequestMapping(value = "/{id}/profile", method = RequestMethod.GET)
     public String getAccount(@PathVariable Long id, Model model)
     {
@@ -228,7 +228,7 @@ public class UserController
 
     }
 
-    @PreAuthorize("isAuthenticated() and (#id == principal.id)")
+    @PreAuthorize("isAuthenticated() and !hasRole('ROLE_BUILT_IN_ADMIN') and (#id == principal.id)")
     @RequestMapping(value = "/{id}/profile/edit", method =
     {
         RequestMethod.POST, RequestMethod.PUT
@@ -391,7 +391,7 @@ public class UserController
 
     }
     
-    @PreAuthorize("isAuthenticated() and (#id == principal.id)")
+    @PreAuthorize("isAuthenticated() and !hasRole('ROLE_BUILT_IN_ADMIN') and (#id == principal.id)")
     @RequestMapping(value = "/{id}/profile/password/edit", method =
     {
         RequestMethod.POST, RequestMethod.PUT
