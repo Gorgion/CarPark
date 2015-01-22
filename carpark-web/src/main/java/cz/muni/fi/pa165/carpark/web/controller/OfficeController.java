@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,6 +50,7 @@ public class OfficeController {
         return new OfficeForm();
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model) {
         List<OfficeDto> offices = new ArrayList<>(officeService.getAllOffices());
@@ -57,12 +59,14 @@ public class OfficeController {
         return "office-list";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN')")
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String handleRequest(Model model) {
         model.addAttribute("officeForm", new OfficeForm());
         return "office-form";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN')")
     @RequestMapping(value = "/add", method = {RequestMethod.POST, RequestMethod.PUT})
     public String processSubmit(@Valid @ModelAttribute("officeForm") OfficeForm officeForm, final BindingResult result, Model model, RedirectAttributes attributes) {
         if (result.hasErrors()) {
@@ -89,6 +93,7 @@ public class OfficeController {
         return "redirect:/auth/office";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN')")
     @RequestMapping(value = "/{id}/delete", method = {RequestMethod.POST, RequestMethod.DELETE})
     public String officeDeletion(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         OfficeDto office = officeService.getOffice(id);
@@ -104,6 +109,7 @@ public class OfficeController {
         return "redirect:/auth/office";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN')")
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
     public String editOffice(@PathVariable Long id, Model model) {
         OfficeDto office = officeService.getOffice(id);
@@ -124,6 +130,7 @@ public class OfficeController {
         return "office-edit-form";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER')")
     @RequestMapping(value = "/{id}/edit", method = {RequestMethod.POST, RequestMethod.PUT})
     public String officeEdition(@PathVariable Long id, @Valid @ModelAttribute OfficeEditForm officeEditForm, final BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         OfficeDto office = officeService.getOffice(id);

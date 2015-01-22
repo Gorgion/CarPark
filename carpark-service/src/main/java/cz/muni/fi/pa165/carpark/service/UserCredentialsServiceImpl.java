@@ -24,7 +24,7 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
     @Inject
     private UserCredentialsDao credentialsDao;
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
     @Transactional
     @Override
     public void create(UserCredentialsDto credentials)
@@ -34,7 +34,7 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
         credentials.setUserId(entity.getUserId());
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
     @Transactional
     @Override
     public void delete(UserCredentialsDto credentials)

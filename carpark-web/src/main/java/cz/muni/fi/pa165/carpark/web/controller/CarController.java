@@ -19,6 +19,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,6 +42,7 @@ public class CarController {
     @Autowired
     private OfficeService officeService;
     
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model)
     {           
@@ -49,6 +51,7 @@ public class CarController {
         return "car-list";
     }
     
+    @PreAuthorize("hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER')")
     @RequestMapping(value = "/{id}/edit", method = {RequestMethod.GET})
     public String changeCar(@PathVariable Long id, Model model,RedirectAttributes redirectAttributes) {
         CarDto car;
@@ -80,6 +83,7 @@ public class CarController {
         return "car-edit-form";
     }
     
+    @PreAuthorize("hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER')")
     @RequestMapping(value = "/{id}/edit", method = {RequestMethod.POST,RequestMethod.PUT})
     public String editCar(@PathVariable Long id,@Valid@ModelAttribute("carForm") CarForm carForm, BindingResult result,Model model,RedirectAttributes redirectAttributes) 
     {
@@ -120,6 +124,7 @@ public class CarController {
         return "redirect:/auth/car";
     }
     
+    @PreAuthorize("hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER')")
     @RequestMapping(value = "/add", method = {RequestMethod.GET})
     public String createNewCar(@ModelAttribute("carForm") CarForm carForm, Model model,RedirectAttributes redirectAttributes) {
         model.addAttribute("carForm",new CarForm());
@@ -137,6 +142,7 @@ public class CarController {
         return "car-form";
     }
     
+    @PreAuthorize("hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER')")
     @RequestMapping(value = "/add", method = {RequestMethod.POST})
     public String addNewCar(@Valid @ModelAttribute("carForm") CarForm carForm, BindingResult result,Model model,RedirectAttributes redirectAttributes) {
         if (result.hasErrors())
@@ -183,6 +189,7 @@ public class CarController {
         return "redirect:/auth/car";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER')")
     @RequestMapping(value = "/{id}/delete", method = {RequestMethod.POST, RequestMethod.DELETE})
     public String deleteCar(@PathVariable Long id,RedirectAttributes redirectAttributes) 
     {

@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,6 +31,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Autowired
     private OfficeDao officeDao;
     
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
     @Transactional
     @Override
     public void addOffice(OfficeDto office) {
@@ -38,6 +40,7 @@ public class OfficeServiceImpl implements OfficeService {
             office.setId(officeEntity.getId());
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public OfficeDto getOffice(Long id) {
@@ -45,6 +48,7 @@ public class OfficeServiceImpl implements OfficeService {
             return office;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public void editOffice(OfficeDto office) {
@@ -52,6 +56,7 @@ public class OfficeServiceImpl implements OfficeService {
             officeDao.editOffice(officeEntity);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
     @Transactional
     @Override
     public void deleteOffice(OfficeDto office) {
@@ -59,6 +64,7 @@ public class OfficeServiceImpl implements OfficeService {
             officeDao.deleteOffice(officeEntity);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public List<OfficeDto> getAllOffices() {
@@ -70,6 +76,7 @@ public class OfficeServiceImpl implements OfficeService {
             return Collections.unmodifiableList(officesDto);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public List<CarDto> getOfficeCars(OfficeDto office) {
@@ -81,6 +88,7 @@ public class OfficeServiceImpl implements OfficeService {
             return Collections.unmodifiableList(officeCarsDto);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
     @Transactional
     @Override
     public void addCarToOffice(OfficeDto office, CarDto car) {
@@ -89,6 +97,7 @@ public class OfficeServiceImpl implements OfficeService {
             officeDao.addCarToOffice(officeEntity, carEntity); 
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
     @Transactional
     @Override
     public void deleteCarFromOffice(OfficeDto office, CarDto car) {
@@ -97,6 +106,7 @@ public class OfficeServiceImpl implements OfficeService {
             officeDao.deleteCarFromOffice(officeEntity, carEntity); 
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public List<UserDto> getEmployees(OfficeDto office) {
@@ -108,6 +118,7 @@ public class OfficeServiceImpl implements OfficeService {
             return Collections.unmodifiableList(officeEmployeesDto);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
     @Transactional
     @Override
     public void addEmployeeToOffice(OfficeDto office, UserDto user) {
@@ -116,6 +127,7 @@ public class OfficeServiceImpl implements OfficeService {
             officeDao.addEmployeeToOffice(officeEntity, userEntity); 
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
     @Transactional
     @Override
     public void deleteEmployeeFromOffice(OfficeDto office, UserDto user) {

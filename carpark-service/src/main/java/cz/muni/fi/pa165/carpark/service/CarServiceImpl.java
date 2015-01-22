@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 /**
@@ -31,6 +32,7 @@ public class CarServiceImpl implements CarService
     @Autowired
     private CarDao carDao;
     
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
     @Transactional
     @Override
     public Long addCar(CarDto car)
@@ -46,6 +48,7 @@ public class CarServiceImpl implements CarService
         return carDao.addCar(carEntity);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public CarDto getCar(Long id)
@@ -54,6 +57,7 @@ public class CarServiceImpl implements CarService
         return Converter.getTransferObject(carEntity);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public void editCar(CarDto car)
@@ -63,6 +67,7 @@ public class CarServiceImpl implements CarService
         carDao.editCar(carEntity);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
     @Transactional
     @Override
     public void deleteCar(CarDto car)
@@ -73,6 +78,7 @@ public class CarServiceImpl implements CarService
         carDao.deleteCar(carEntity);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public Collection<CarDto> getAllCars()
@@ -87,6 +93,7 @@ public class CarServiceImpl implements CarService
         return Collections.unmodifiableCollection(carsDto);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public Collection<CarDto> getRentedCars()
@@ -101,6 +108,7 @@ public class CarServiceImpl implements CarService
         return Collections.unmodifiableCollection(carsDto);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public Collection<CarDto> getFreeCars(Date from, Date to)

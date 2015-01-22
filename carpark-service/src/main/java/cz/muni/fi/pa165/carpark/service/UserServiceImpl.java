@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private OfficeService officeService;
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
     @Transactional
     @Override
     public Long add(UserDto userDto) {
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
     @Transactional
     @Override
     public void delete(UserDto userDto) {
