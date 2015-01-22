@@ -13,13 +13,11 @@ import cz.muni.fi.pa165.carpark.web.dto.CredentialsForm;
 import cz.muni.fi.pa165.carpark.web.dto.CredentialsPasswordForm;
 import cz.muni.fi.pa165.carpark.web.dto.UserAddForm;
 import cz.muni.fi.pa165.carpark.web.dto.UserEditForm;
-import java.security.Principal;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,6 +59,7 @@ public class UserController
         return UserRoleDto.RoleType.values();
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model)
     {
@@ -72,6 +71,7 @@ public class UserController
         return "user-list";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/{id}/profile", method = RequestMethod.GET)
     public String getAccount(@PathVariable Long id, Model model)
     {
@@ -85,6 +85,7 @@ public class UserController
         return "user-profile-form";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addUserRequest(Model model, RedirectAttributes redirectAttributes)
     {
@@ -101,6 +102,7 @@ public class UserController
         return "user-form";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addUser(@Valid @ModelAttribute(value = "userForm") UserAddForm userForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes)
     {
@@ -132,6 +134,7 @@ public class UserController
         }
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
     public String editUserRequest(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes)
     {
@@ -161,6 +164,7 @@ public class UserController
         return "user-form";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
     @RequestMapping(value = "/{id}/edit", method =
     {
         RequestMethod.POST, RequestMethod.PUT
@@ -225,6 +229,7 @@ public class UserController
 
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/{id}/profile/edit", method =
     {
         RequestMethod.POST, RequestMethod.PUT
@@ -280,7 +285,7 @@ public class UserController
 
     }
 
-    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
     @RequestMapping(value = "/{id}/credentials/edit", method =
     {
         RequestMethod.POST, RequestMethod.PUT
@@ -330,6 +335,7 @@ public class UserController
 
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
     @RequestMapping(value = "/{id}/credentials/password/edit", method =
     {
         RequestMethod.POST, RequestMethod.PUT
@@ -386,6 +392,7 @@ public class UserController
 
     }
     
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/{id}/profile/password/edit", method =
     {
         RequestMethod.POST, RequestMethod.PUT
@@ -442,6 +449,7 @@ public class UserController
 
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
     @RequestMapping(value = "/{id}/delete", method =
     {
         RequestMethod.POST, RequestMethod.DELETE

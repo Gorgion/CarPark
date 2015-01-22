@@ -16,6 +16,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -56,6 +57,7 @@ public class RentalController
         return userId;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.GET)
     public String list(@PathVariable(value = "userId") Long userId, Model model)
     {
@@ -67,7 +69,8 @@ public class RentalController
 
         return "rental-list";
     }
-
+    
+    @PreAuthorize("!hasRole('ROLE_BUILT_IN_ADMIN')")
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String createRentalStepZero(Model model)
     {
@@ -77,6 +80,7 @@ public class RentalController
         return "rental-form";
     }
 
+    @PreAuthorize("!hasRole('ROLE_BUILT_IN_ADMIN')")
     @RequestMapping(value = "/add", method =
     {
         RequestMethod.POST, RequestMethod.PUT
@@ -97,6 +101,7 @@ public class RentalController
         return "rental-form";
     }
 
+    @PreAuthorize("!hasRole('ROLE_BUILT_IN_ADMIN')")
     @RequestMapping(value = "/add/1", method =
     {
         RequestMethod.POST, RequestMethod.PUT
@@ -135,6 +140,7 @@ public class RentalController
         return "redirect:/auth/user/" + userId + "/rental";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER')")
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
     public String editRental(@PathVariable Long id, Model model)
     {
@@ -149,6 +155,7 @@ public class RentalController
         return "rental-state-form";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER')")
     @RequestMapping(value = "/{id}/edit", method =
     {
         RequestMethod.POST, RequestMethod.PUT
@@ -185,6 +192,7 @@ public class RentalController
         return "redirect:/auth/user/" + userId + "/rental";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_BUILT_IN_ADMIN', 'ROLE_ADMIN', 'ROLE_MANAGER')")
     @RequestMapping(value = "/{id}/delete", method =
     {
         RequestMethod.POST, RequestMethod.DELETE

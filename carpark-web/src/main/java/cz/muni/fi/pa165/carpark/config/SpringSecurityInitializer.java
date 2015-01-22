@@ -5,6 +5,7 @@
  */
 package cz.muni.fi.pa165.carpark.config;
 
+import cz.muni.fi.pa165.carpark.web.rest.filter.RestAuthFilter;
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import org.springframework.core.annotation.Order;
@@ -24,6 +25,13 @@ public class SpringSecurityInitializer extends AbstractSecurityWebApplicationIni
         FilterRegistration.Dynamic characterEncodingFilter = servletContext.addFilter("encodingFilter", new CharacterEncodingFilter());
         characterEncodingFilter.setInitParameter("encoding", "UTF-8");
         characterEncodingFilter.setInitParameter("forceEncoding", "true");
-        characterEncodingFilter.addMappingForUrlPatterns(null, false, "/*");
+        characterEncodingFilter.addMappingForUrlPatterns(null, false, "/*");        
+    }
+    
+    @Override
+    protected void afterSpringSecurityFilterChain(ServletContext servletContext)
+    {
+        FilterRegistration.Dynamic RestAuthFilter = servletContext.addFilter("restAuthFilter", RestAuthFilter.class);
+        RestAuthFilter.addMappingForUrlPatterns(null, true, "/rest/*");
     }
 }

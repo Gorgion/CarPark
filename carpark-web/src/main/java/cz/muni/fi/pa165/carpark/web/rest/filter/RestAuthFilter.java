@@ -14,9 +14,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,10 +28,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class RestAuthFilter implements Filter
-{
-    @Autowired
-    @Qualifier("authMgr")
-    private AuthenticationManager authenticationManager;
+{      
+    private static final GrantedAuthority ANONYMOUS_ROLE = new SimpleGrantedAuthority("ROLE_ANONYMOUS");
     
     private void tryAuthenticateRestClient()
     {
@@ -44,8 +39,7 @@ public class RestAuthFilter implements Filter
         User account = new User("rest", "rest", authorities);
         
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(account, "rest", authorities);
-        authenticationManager.authenticate(authToken);
-
+ 
         SecurityContextHolder.getContext().setAuthentication(authToken);
     }
     
@@ -56,12 +50,11 @@ public class RestAuthFilter implements Filter
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException
-    {
-        if(!SecurityContextHolder.getContext().getAuthentication().isAuthenticated())
+    {         
+        if(SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains(ANONYMOUS_ROLE))
         {
             tryAuthenticateRestClient();
         }
-    
         chain.doFilter(request, response);
     }
 

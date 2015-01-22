@@ -26,6 +26,7 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +49,7 @@ public class RestOfficeController
     @Autowired
     private UserService userService;
 
+    @PreAuthorize("isAuthenticated()")
     @JsonView(JsonViews.Offices.class)
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
     public ResponseEntity<List<RestOfficeDto>> list() throws JsonProcessingException
@@ -95,6 +97,7 @@ public class RestOfficeController
         return new ResponseEntity<>(offices, HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @JsonView(JsonViews.Offices.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
     public ResponseEntity<RestOfficeDto> getEntity(@PathVariable Long id) throws JsonProcessingException
@@ -136,6 +139,7 @@ public class RestOfficeController
         return new ResponseEntity<>(restOffice, HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public ResponseEntity<OfficeForm> createOffice(@Valid @RequestBody OfficeForm officeForm)
     {
@@ -158,6 +162,7 @@ public class RestOfficeController
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> officeDeletion(@PathVariable Long id)
     {
@@ -173,6 +178,7 @@ public class RestOfficeController
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public ResponseEntity<OfficeEditForm> officeEdition(@PathVariable Long id, @Valid @RequestBody OfficeEditForm officeEditForm)
     {

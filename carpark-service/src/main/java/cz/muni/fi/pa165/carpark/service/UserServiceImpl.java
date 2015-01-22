@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,6 +31,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private OfficeService officeService;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
     @Transactional
     @Override
     public Long add(UserDto userDto) {
@@ -41,6 +43,7 @@ public class UserServiceImpl implements UserService {
         return userDao.add(userEntity);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public UserDto get(Long id) {
@@ -55,6 +58,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public void edit(UserDto userDto) {
@@ -71,6 +75,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
     @Transactional
     @Override
     public void delete(UserDto userDto) {
@@ -86,6 +91,7 @@ public class UserServiceImpl implements UserService {
         userDao.delete(userEntity);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public List<UserDto> getAll() {
@@ -96,6 +102,7 @@ public class UserServiceImpl implements UserService {
         return userDtoList;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public List<UserDto> getAllWithRent() {
@@ -106,6 +113,7 @@ public class UserServiceImpl implements UserService {
         return userDtoList;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public List<UserDto> getAllWithoutRent() {

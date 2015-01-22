@@ -23,6 +23,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,8 +60,9 @@ public class RestUserController
     private OfficeService officeService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
+    private PasswordEncoder passwordEncoder;    
+    
+    @PreAuthorize("isAuthenticated()")
     @JsonView(JsonViews.Users.class)
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
     public ResponseEntity<List<RestUserDto>> list()
@@ -73,6 +81,7 @@ public class RestUserController
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @JsonView(JsonViews.Users.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
     public ResponseEntity<RestUserDto> getEntity(@PathVariable Long id)
@@ -86,6 +95,7 @@ public class RestUserController
         return new ResponseEntity<>(restUser, HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public ResponseEntity<UserAddForm> addedUser(@Valid @RequestBody UserAddForm userForm)
     {
@@ -112,6 +122,7 @@ public class RestUserController
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public ResponseEntity<UserEditForm> editedUser(@PathVariable Long id, @Valid @RequestBody UserEditForm userForm)
     {
@@ -146,6 +157,7 @@ public class RestUserController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable long id)
     {
@@ -166,7 +178,7 @@ public class RestUserController
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
+    
     private UserDto getUserDto(UserAddForm userForm)
     {
         UserDto user = new UserDto();

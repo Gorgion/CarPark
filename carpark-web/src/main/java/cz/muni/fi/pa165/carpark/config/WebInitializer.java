@@ -5,7 +5,6 @@
  */
 package cz.muni.fi.pa165.carpark.config;
 
-import cz.muni.fi.pa165.carpark.web.rest.filter.RestAuthFilter;
 import cz.muni.fi.pa165.carpark.web.rest.filter.SimpleCORSFilter;
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
@@ -15,7 +14,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
@@ -38,17 +36,9 @@ public class WebInitializer implements WebApplicationInitializer
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
 
-        FilterRegistration.Dynamic encoding = container.addFilter("encoding", CharacterEncodingFilter.class);
-        encoding.setInitParameter("encoding", "utf-8");
-        encoding.addMappingForUrlPatterns(null, false, "/*");
-
         container.addListener(new ContextLoaderListener(ctx));
         
         FilterRegistration.Dynamic CORFilter = container.addFilter("simpleCorFilter", SimpleCORSFilter.class);
-        CORFilter.addMappingForUrlPatterns(null, true, "/*");
-        
-        
-        FilterRegistration.Dynamic RestAuthFilter = container.addFilter("restAuthFilter", RestAuthFilter.class);
-        RestAuthFilter.addMappingForUrlPatterns(null, true, "/rest/*");
+        CORFilter.addMappingForUrlPatterns(null, true, "/*");        
     }
 }

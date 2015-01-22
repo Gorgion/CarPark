@@ -11,6 +11,7 @@ import cz.muni.fi.pa165.carpark.util.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  *
@@ -23,6 +24,7 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
     @Inject
     private UserCredentialsDao credentialsDao;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
     @Transactional
     @Override
     public void create(UserCredentialsDto credentials)
@@ -32,6 +34,7 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
         credentials.setUserId(entity.getUserId());
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN'")
     @Transactional
     @Override
     public void delete(UserCredentialsDto credentials)
@@ -39,6 +42,7 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
         credentialsDao.delete(Converter.getEntity(credentials));
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public void update(UserCredentialsDto credentials)
@@ -59,6 +63,7 @@ public class UserCredentialsServiceImpl implements UserCredentialsService
         return credentials;
     }
     
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     @Override
     public UserCredentialsDto get(Long id)
