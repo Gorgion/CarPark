@@ -99,9 +99,6 @@ public class CarController {
         
         CarDto car = carService.getCar(id);
         
-        car.setBrand(carForm.getBrand());
-        car.setType(carForm.getType());
-        car.setEngine(carForm.getEngine());
         car.setLicencePlate(carForm.getLicencePlate());
         car.setVIN(carForm.getVIN());
         
