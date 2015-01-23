@@ -88,7 +88,7 @@ public class OfficeServiceImpl implements OfficeService {
             return Collections.unmodifiableList(officeCarsDto);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN', 'ROLE_MANAGER')")
     @Transactional
     @Override
     public void addCarToOffice(OfficeDto office, CarDto car) {
@@ -97,7 +97,7 @@ public class OfficeServiceImpl implements OfficeService {
             officeDao.addCarToOffice(officeEntity, carEntity); 
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN', 'ROLE_MANAGER')")
     @Transactional
     @Override
     public void deleteCarFromOffice(OfficeDto office, CarDto car) {
