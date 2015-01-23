@@ -4,6 +4,7 @@
     Author     : Tomas Svoboda
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@tag description="general confirm delete dialog" pageEncoding="UTF-8"%>
 
@@ -20,10 +21,17 @@
             </div>
             <div class="modal-body">
                 <p>
+                    <fmt:message key="${key}" var="i18nKey"/>
                     <fmt:message key="confirm.delete.body">
-                        <fmt:param value="${key}" />
+                        <fmt:param value="${i18nKey}" />
                     </fmt:message>
                 </p>
+                <c:if test="${key == 'office.deleteDialog'}">
+                    <p>
+                        <fmt:message key="confirm.delete.body.office.all"/>                            
+
+                    </p>
+                </c:if>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirm-btn"><fmt:message key="btn.delete" /></button>

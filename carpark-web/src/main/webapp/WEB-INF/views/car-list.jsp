@@ -77,7 +77,7 @@
                     </tbody>
                 </table>  
             </div>
-            <custom:delete-dialog key="car"></custom:delete-dialog>
+            <custom:delete-dialog key="car.deleteDialog"></custom:delete-dialog>
     </jsp:attribute>
 </custom:layout>
 

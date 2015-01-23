@@ -81,7 +81,7 @@
                 </tbody>
             </table>
         </div>
-        <custom:delete-dialog key="office"></custom:delete-dialog>
+        <custom:delete-dialog key="office.deleteDialog"></custom:delete-dialog>
 
         <custom:modal-dialog dialogId="managerDetails" dialogTitleKey="managerDetails.title">
             <div class="form-horizontal">
