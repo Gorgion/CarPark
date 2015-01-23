@@ -153,8 +153,8 @@ public class RestOfficeController
 
         String address = officeForm.getAddress();
         UserDto manager = null;
-        List<UserDto> employees = Collections.EMPTY_LIST;
-        List<CarDto> cars = Collections.EMPTY_LIST;
+        List<UserDto> employees = Collections.emptyList();
+        List<CarDto> cars = Collections.emptyList();
 
         OfficeDto office = new OfficeDto(address, manager, employees, cars);
         officeService.addOffice(office);
