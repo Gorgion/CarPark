@@ -8,8 +8,11 @@ package cz.muni.fi.pa165.carpark.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,7 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author Tomas Svoboda
  */
 @Configuration
-@EnableWebMvcSecurity
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
     @Autowired
@@ -46,8 +49,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID") 
             .and()
-		.exceptionHandling().accessDeniedPage("/403")
-            .and()
                 .csrf().disable();
     }        
     
@@ -57,8 +58,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         return new BCryptPasswordEncoder();
     }
     
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
+    @Bean(name="myAuthManager")
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception 
+    {
+        return super.authenticationManagerBean();
+    }
+    
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception
     {
         auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder()).and()
                 .inMemoryAuthentication().withUser("admin").password("admin").roles("BUILT_IN_ADMIN").and()
