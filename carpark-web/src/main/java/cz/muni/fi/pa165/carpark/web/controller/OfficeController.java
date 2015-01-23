@@ -43,9 +43,6 @@ public class OfficeController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private CarService carService;
-
     public OfficeForm getNewForm() {
         return new OfficeForm();
     }

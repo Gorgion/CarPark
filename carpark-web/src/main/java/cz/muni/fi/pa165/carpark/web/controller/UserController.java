@@ -468,7 +468,7 @@ public class UserController
             userAccountServiceFacade.removeUserAccount(userCredentials);
         } catch (IllegalArgumentException | DataAccessException ex)
         {
-            redirectAttributes.addFlashAttribute("error", "error.user.deleted" + ex);
+            redirectAttributes.addFlashAttribute("error", "error.user.deleted");
             return "redirect:/auth/user";
         }
 

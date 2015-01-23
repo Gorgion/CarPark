@@ -32,7 +32,7 @@ public class CarServiceImpl implements CarService
     @Autowired
     private CarDao carDao;
     
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN', 'ROLE_MANAGER')")
     @Transactional
     @Override
     public Long addCar(CarDto car)
@@ -67,7 +67,7 @@ public class CarServiceImpl implements CarService
         carDao.editCar(carEntity);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_BUILT_IN_ADMIN', 'ROLE_MANAGER')")
     @Transactional
     @Override
     public void deleteCar(CarDto car)
