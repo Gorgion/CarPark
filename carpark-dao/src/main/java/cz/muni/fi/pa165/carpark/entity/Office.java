@@ -36,10 +36,10 @@ public class Office implements Serializable {
     @OneToOne
     private User manager;
     
-    @OneToMany(mappedBy = "office", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "office", cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER)
     private List<User> employees;
     
-    @OneToMany(mappedBy = "office", cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.MERGE},fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "office", cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH},fetch = FetchType.EAGER)
     private List<Car> cars;
         
     /**
